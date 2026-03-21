@@ -53,7 +53,15 @@
             letter-spacing: -1px; 
             margin: 0; 
             color: #000;
-            min-height: 1.2em;
+        }
+
+        .ignore-msg {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .section-label { color: #888; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin: 45px 0 15px 0; font-weight: 700; }
@@ -150,6 +158,7 @@
         <img src="https://i.ibb.co/PkprDSx/ankor-foto-de-perfil.jpg" alt="ANKOR">
     </div>
     <h1 class="main-title" id="t-unstoppable"></h1>
+    <div class="ignore-msg" id="t-ignore-msg"></div>
 
     <div class="section-label" id="t-community-label"></div>
     <div class="discord-card">
@@ -249,7 +258,9 @@
 
         const translations = {
             en: { 
-                unstoppable: "BE UNSTOPPABLE.", community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
+                unstoppable: "BE UNSTOPPABLE.", 
+                ignoreMsg: "IF YOU DID NOT REQUEST THIS CODE, YOU CAN IGNORE THIS EMAIL.",
+                community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
                 content: "ANKOR CONTENT", store: "STORE", viewBtn: "VIEW PRODUCT", 
                 collabDesc: "The best collaboration of unstoppable mindset never seen before.<br><strong>ANKOR</strong> = Reset your mindset.<br><strong>NEIR</strong> = Gear for action.",
                 neirBtn: "GO TO NEIR STORE &rarr;", 
@@ -267,7 +278,9 @@
                 langEn: "ENGLISH", langEs: "SPANISH"
             },
             es: { 
-                unstoppable: "SÉ IMPARABLE.", community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
+                unstoppable: "SÉ IMPARABLE.", 
+                ignoreMsg: "SI NO SOLICITASTE ESTE CÓDIGO, PUEDES IGNORAR ESTE CORREO.",
+                community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
                 content: "CONTENIDO ANKOR", store: "TIENDA", viewBtn: "VER PRODUCTO", 
                 collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.<br><strong>ANKOR</strong> = Reinicia tu mentalidad.<br><strong>NEIR</strong> = Equipamiento para la acción.",
                 neirBtn: "IR A LA TIENDA DE NEIR &rarr;", 
@@ -297,6 +310,7 @@
             const t = translations[currentLang];
             
             document.getElementById('t-unstoppable').innerText = t.unstoppable;
+            document.getElementById('t-ignore-msg').innerText = t.ignoreMsg;
             document.getElementById('t-community-label').innerText = t.community;
             document.getElementById('t-discord-btn').innerHTML = `<i class='fa-brands fa-discord'></i> ${t.discord}`;
             document.getElementById('t-content-label').innerText = t.content;
