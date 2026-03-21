@@ -34,6 +34,24 @@
             overflow-x: hidden;
         }
 
+        /* --- ANIMACIONES DE ENTRADA --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { 
+            opacity: 0; 
+            animation: fadeInUp 0.8s ease forwards; 
+        }
+
+        .del-1 { animation-delay: 0.2s; }
+        .del-2 { animation-delay: 0.4s; }
+        .del-3 { animation-delay: 0.6s; }
+        .del-4 { animation-delay: 0.8s; }
+        .del-5 { animation-delay: 1s; }
+        .del-6 { animation-delay: 1.2s; }
+
         /* --- HEADER --- */
         .logo-circle {
             width: 140px; height: 140px;
@@ -42,7 +60,7 @@
             margin-bottom: 20px;
             overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            background: #000; /* Fondo negro de seguridad */
+            background: #000;
         }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -98,7 +116,20 @@
 
         /* --- NEWSLETTER & NEIR --- */
         .neir-box { text-align: center; margin-top: 80px; padding-bottom: 100px; width: 100%; max-width: 400px; }
-        .neir-title { font-size: 2.6rem; font-weight: 900; margin: 0; letter-spacing: 5px; color: #000; }
+        
+        /* Título en 3 líneas */
+        .neir-title { 
+            font-size: 2.6rem; 
+            font-weight: 900; 
+            margin: 0; 
+            letter-spacing: 5px; 
+            color: #000; 
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .neir-title span.small-x { font-size: 1.8rem; margin: 5px 0; }
+
         .brand-desc { margin: 20px 0; line-height: 1.6; font-size: 0.95rem; }
         .neir-pulse-btn { display: inline-block; background: #000; color: #fff; padding: 22px 50px; border-radius: 5px; text-decoration: none; font-weight: 900; letter-spacing: 2px; animation: pulse 1.8s infinite; margin-top: 10px; }
         .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; position: relative; overflow: hidden; }
@@ -146,30 +177,43 @@
 </head>
 <body>
 
-    <div class="logo-circle">
+    <div class="logo-circle reveal">
         <img src="https://i.ibb.co/PkprDSx/image.jpg" alt="ANKOR">
     </div>
-    <h1 class="main-title" id="t-unstoppable"></h1>
-
-    <div class="section-label" id="t-community-label"></div>
-    <div class="discord-card">
-        <a href="https://discord.gg/your-discord-link" class="discord-inner" id="t-discord-btn"></a>
+    
+    <div class="reveal del-1">
+        <h1 class="main-title" id="t-unstoppable"></h1>
     </div>
 
-    <div class="section-label" id="t-content-label"></div>
-    <div class="links-container" id="social-links-container"></div>
-
-    <div class="section-label" id="t-store-label"></div>
-    <div class="carousel-container">
-        <div class="carousel" id="product-list"></div>
+    <div class="reveal del-2">
+        <div class="section-label" id="t-community-label"></div>
+        <div class="discord-card">
+            <a href="https://discord.gg/your-discord-link" class="discord-inner" id="t-discord-btn"></a>
+        </div>
     </div>
 
-    <div class="neir-box">
-        <h2 class="neir-title">ANKOR x NEIR</h2>
+    <div class="reveal del-3">
+        <div class="section-label" id="t-content-label"></div>
+        <div class="links-container" id="social-links-container"></div>
+    </div>
+
+    <div class="reveal del-4">
+        <div class="section-label" id="t-store-label"></div>
+        <div class="carousel-container">
+            <div class="carousel" id="product-list"></div>
+        </div>
+    </div>
+
+    <div class="neir-box reveal del-5">
+        <h2 class="neir-title">
+            <span>ANKOR</span>
+            <span class="small-x">x</span>
+            <span>NEIR</span>
+        </h2>
         <div class="brand-desc" id="t-brand-collab-desc"></div>
         <a href="https://neirstore.com" class="neir-pulse-btn" id="t-neir-btn"></a>
         
-        <div class="newsletter-container">
+        <div class="newsletter-container reveal del-6">
             <div id="emailStep">
                 <div class="newsletter-title" id="t-news-title"></div>
                 <div class="newsletter-text" id="t-news-desc"></div>
@@ -221,14 +265,13 @@
         </div>
     </div>
 
-    <footer>
+    <footer class="reveal del-6">
         <div class="footer-text" id="t-footer-copy"></div>
     </footer>
 
     <script>
         const bannedDomains = ['10minutemail.com', 'tempmail.com', 'guerrillamail.com', 'sharklasers.com', 'dispostable.com'];
         
-        // --- CONEXIÓN REAL CON GOOGLE APPS SCRIPT ---
         const proxyURL = "https://script.google.com/macros/s/AKfycbyPBShThfmCZZ-vpvOAQ75aMGYur6GwUu6Tp8rvbZCGHkmWHFwD3Cyc6jL3gq_gd1c/exec";
         let serverOTP = ""; 
 
