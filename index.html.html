@@ -42,7 +42,7 @@
             margin-bottom: 20px;
             overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            background: #000; /* Fondo negro de seguridad */
+            background: #000;
         }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -53,15 +53,6 @@
             letter-spacing: -1px; 
             margin: 0; 
             color: #000;
-        }
-
-        .ignore-msg {
-            font-size: 0.65rem;
-            color: #666;
-            margin-top: 5px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
         }
         
         .section-label { color: #888; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin: 45px 0 15px 0; font-weight: 700; }
@@ -130,7 +121,7 @@
         .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
         .change-email-link b { text-decoration: underline; color: #000; }
 
-        /* --- MODALS FIX --- */
+        /* --- MODALS --- */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; color: #000; }
         .modal-content { max-width: 450px; margin: 40px auto; padding: 40px 25px; text-align: center; position: relative; background: #fff; border-radius: 15px; border: 1px solid #000; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .close-x { position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: #000; background: none; border: none; z-index: 100; font-weight: 900; }
@@ -158,7 +149,6 @@
         <img src="https://i.ibb.co/PkprDSx/ankor-foto-de-perfil.jpg" alt="ANKOR">
     </div>
     <h1 class="main-title" id="t-unstoppable"></h1>
-    <div class="ignore-msg" id="t-ignore-msg"></div>
 
     <div class="section-label" id="t-community-label"></div>
     <div class="discord-card">
@@ -235,10 +225,7 @@
     </footer>
 
     <script>
-        const bannedDomains = ['10minutemail.com', 'tempmail.com', 'guerrillamail.com', 'sharklasers.com', 'dispostable.com'];
-        
-        // --- CONEXIÓN REAL CON GOOGLE APPS SCRIPT ---
-        const proxyURL = "https://script.google.com/macros/s/AKfycbyPBShThfmCZZ-vpvOAQ75aMGYur6GwUu6Tp8rvbZCGHkmWHFwD3Cyc6jL3gq_gd1c/exec";
+        const proxyURL = "TU_URL_DE_APPS_SCRIPT";
         let serverOTP = ""; 
 
         const products = Array.from({ length: 10 }, (_, i) => ({
@@ -246,26 +233,22 @@
             price: `$${(40 + i * 10).toFixed(2)} USD`,
             imgs: [
                 `https://picsum.photos/seed/ankor${i}1/500/500`,
-                `https://picsum.photos/seed/ankor${i}2/500/500`,
-                `https://picsum.photos/seed/ankor${i}3/500/500`,
-                `https://picsum.photos/seed/ankor${i}4/500/500`,
-                `https://picsum.photos/seed/ankor${i}5/500/500`
+                `https://picsum.photos/seed/ankor${i}2/500/500`
             ],
-            stripe: `LINK_STRIPE_${i+1}`,
-            en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle. Part of the exclusive ANKOR drop." },
-            es: { name: `ANKOR ARTÍCULO ${i+1}`, desc: "Ingeniería de precisión para quienes no aceptan menos. Parte del drop exclusivo de ANKOR." }
+            stripe: `#`,
+            en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle." },
+            es: { name: `ANKOR ARTÍCULO ${i+1}`, desc: "Ingeniería de precisión para quienes no aceptan menos." }
         }));
 
         const translations = {
             en: { 
                 unstoppable: "BE UNSTOPPABLE.", 
-                ignoreMsg: "IF YOU DID NOT REQUEST THIS CODE, YOU CAN IGNORE THIS EMAIL.",
                 community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
                 content: "ANKOR CONTENT", store: "STORE", viewBtn: "VIEW PRODUCT", 
                 collabDesc: "The best collaboration of unstoppable mindset never seen before.<br><strong>ANKOR</strong> = Reset your mindset.<br><strong>NEIR</strong> = Gear for action.",
                 neirBtn: "GO TO NEIR STORE &rarr;", 
                 buyBtn: "ACQUIRE NOW", footer: "ANKOR© ALL RIGHTS RESERVED", newsTitle: "Join ANKOR Elite.", 
-                newsDesc: "Be the first to know about news, rewards, valuable content and exclusive brand access.", 
+                newsDesc: "Be the first to know about news, rewards, and exclusive brand access.", 
                 newsBtn: "SUBSCRIBE", alreadySub: "ALREADY IN THE ELITE", successTitle: "WELCOME TO THE ELITE", 
                 successMsg: "Impact confirmed.", confirmedBtn: "CONFIRMED",
                 emptyEmail: "Please enter your email.",
@@ -273,19 +256,16 @@
                 notYourEmail: "not you?", changeEmail: "change email",
                 verifyTitle: "Subscription Verification",
                 verifyDesc: "Enter the code sent to your email to verify your ANKOR subscription.",
-                verifyBtn: "VERIFY NOW",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "ENGLISH", langEs: "SPANISH"
+                verifyBtn: "VERIFY NOW"
             },
             es: { 
                 unstoppable: "SÉ IMPARABLE.", 
-                ignoreMsg: "SI NO SOLICITASTE ESTE CÓDIGO, PUEDES IGNORAR ESTE CORREO.",
                 community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
                 content: "CONTENIDO ANKOR", store: "TIENDA", viewBtn: "VER PRODUCTO", 
                 collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.<br><strong>ANKOR</strong> = Reinicia tu mentalidad.<br><strong>NEIR</strong> = Equipamiento para la acción.",
                 neirBtn: "IR A LA TIENDA DE NEIR &rarr;", 
                 buyBtn: "ADQUIRIR AHORA", footer: "ANKOR© TODOS LOS DERECHOS RESERVADOS", newsTitle: "Únete a la Élite de ANKOR.", 
-                newsDesc: "Sé el primero en enterarte de novedades, recompensas, contenido de valor y acceso a productos exclusivos de la marca.", 
+                newsDesc: "Sé el primero en enterarte de novedades, recompensas y acceso a productos exclusivos.", 
                 newsBtn: "SUSCRIBIRME", alreadySub: "YA ERES DE LA ÉLITE", successTitle: "BIENVENIDO A LA ÉLITE", 
                 successMsg: "Impacto confirmado.", confirmedBtn: "CONFIRMADO",
                 emptyEmail: "Por favor, ingrese su correo electrónico.",
@@ -293,9 +273,7 @@
                 notYourEmail: "¿no eres tú?", changeEmail: "cambiar correo",
                 verifyTitle: "Verificación de Suscripción",
                 verifyDesc: "Ingresa el código enviado a tu correo electrónico para verificar tu suscripción ANKOR.",
-                verifyBtn: "VERIFICAR AHORA",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "INGLÉS", langEs: "ESPAÑOL"
+                verifyBtn: "VERIFICAR AHORA"
             }
         };
 
@@ -310,7 +288,6 @@
             const t = translations[currentLang];
             
             document.getElementById('t-unstoppable').innerText = t.unstoppable;
-            document.getElementById('t-ignore-msg').innerText = t.ignoreMsg;
             document.getElementById('t-community-label').innerText = t.community;
             document.getElementById('t-discord-btn').innerHTML = `<i class='fa-brands fa-discord'></i> ${t.discord}`;
             document.getElementById('t-content-label').innerText = t.content;
@@ -334,11 +311,12 @@
                 document.getElementById('newsSubmit').innerText = t.newsBtn; 
             }
 
+            // Listado de redes sociales dinámico
             const socialContainer = document.getElementById('social-links-container');
             const socials = [
-                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.tiktok.com/@ankor.inc'}, {n:`@ankor.es (${t.langEs})`, url:'https://www.tiktok.com/@ankor.es'}] },
-                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.instagram.com/ankor.inc'}, {n:`@ankor.esp (${t.langEs})`, url:'https://www.instagram.com/ankor.esp'}] },
-                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'https://www.youtube.com/@ankor.english'}, {n:`@ankor.español`, url:'https://www.youtube.com/@ankor.espa%C3%B1ol'}] }
+                { icon: 'tiktok', label: "TIKTOK", links: [{n:`@ankor.inc (EN)`, url:'#'}, {n:`@ankor.es (ES)`, url:'#'}] },
+                { icon: 'instagram', label: "INSTAGRAM", links: [{n:`@ankor.inc (EN)`, url:'#'}, {n:`@ankor.esp (ES)`, url:'#'}] },
+                { icon: 'youtube', label: "YOUTUBE", links: [{n:`@ankor.english`, url:'#'}, {n:`@ankor.español`, url:'#'}] }
             ];
 
             socialContainer.innerHTML = socials.map(s => `
@@ -368,7 +346,6 @@
                     </div>
                 </div>`;
             }).join('');
-            initDragScroll();
         }
 
         async function initVerification(e) {
@@ -379,11 +356,10 @@
             const currentLang = getLang();
             const t = translations[currentLang];
 
-            if (email === "") { alert(t.emptyEmail); return; }
+            if (email === "") { return; }
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             if (!emailRegex.test(email)) { 
                 document.getElementById('emailError').style.display = 'block';
-                emailInput.style.borderColor = 'var(--accent-red)';
                 return;
             }
 
@@ -395,19 +371,15 @@
                     method: "POST",
                     body: JSON.stringify({ email: email, lang: currentLang })
                 });
-
                 const result = await response.json();
-
                 if (result.status === "success") {
                     serverOTP = result.otp; 
                     document.getElementById('t-change-email-wrap').innerHTML = `${t.notYourEmail} (${email})? <b><u>${t.changeEmail}</u></b>`;
                     document.getElementById('emailStep').style.display = 'none';
                     document.getElementById('verificationStep').style.display = 'block';
-                } else {
-                    alert("Error: " + result.message);
                 }
             } catch (error) {
-                alert(currentLang === 'es' ? "Error de conexión." : "Connection error.");
+                console.error("Error connecting to script.");
             } finally {
                 btn.disabled = false;
                 btn.innerText = t.newsBtn;
@@ -440,7 +412,7 @@
             document.getElementById('mDesc').innerText = p[lang].desc;
             document.getElementById('mStripe').href = p.stripe;
             const container = document.getElementById('mImgContainer');
-            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" alt="View ${i}">`).join('');
+            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" alt="View">`).join('');
             document.getElementById('shopModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -453,45 +425,16 @@
             imgs[currentSlide].classList.add('active');
         }
 
-        function hideError() {
-            document.getElementById('emailError').style.display = 'none';
-            document.getElementById('newsInput').style.borderColor = '#000';
-        }
+        function hideError() { document.getElementById('emailError').style.display = 'none'; }
 
         function backToEmail() {
             document.getElementById('verificationStep').style.display = 'none';
             document.getElementById('emailStep').style.display = 'block';
-            document.getElementById('newsInput').value = "";
-            document.querySelectorAll('.otp-input').forEach(i => i.value = "");
         }
 
-        function moveOTP(input) {
-            if (input.value.length >= 1 && input.nextElementSibling) {
-                input.nextElementSibling.focus();
-            }
-        }
+        function moveOTP(input) { if (input.value.length >= 1 && input.nextElementSibling) input.nextElementSibling.focus(); }
 
-        function backOTP(e, input) {
-            if (e.key === "Backspace" && input.value === "" && input.previousElementSibling) {
-                input.previousElementSibling.focus();
-            }
-        }
-
-        function initDragScroll() {
-            const slider = document.querySelector('.carousel');
-            let isDown = false, startX, scrollLeft;
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-                slider.style.scrollSnapType = 'none';
-            });
-            slider.addEventListener('mouseleave', () => { isDown = false; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.scrollSnapType = 'x mandatory'; });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk;
-            });
-        }
+        function backOTP(e, input) { if (e.key === "Backspace" && input.value === "" && input.previousElementSibling) input.previousElementSibling.focus(); }
 
         function lockNewsletter() { 
             const input = document.getElementById('newsInput'); 
