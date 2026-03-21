@@ -34,6 +34,17 @@
             overflow-x: hidden;
         }
 
+        /* --- ANIMACIÓN FADE IN --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- HEADER --- */
         .logo-circle {
             width: 140px; height: 140px;
@@ -146,30 +157,30 @@
 </head>
 <body>
 
-    <div class="logo-circle">
+    <div class="logo-circle reveal">
         <img src="https://i.ibb.co/PkprDSx/image.jpg" alt="ANKOR">
     </div>
-    <h1 class="main-title" id="t-unstoppable"></h1>
+    <h1 class="main-title reveal" id="t-unstoppable"></h1>
 
-    <div class="section-label" id="t-community-label"></div>
-    <div class="discord-card">
+    <div class="section-label reveal" id="t-community-label"></div>
+    <div class="discord-card reveal">
         <a href="https://discord.gg/your-discord-link" class="discord-inner" id="t-discord-btn"></a>
     </div>
 
-    <div class="section-label" id="t-content-label"></div>
-    <div class="links-container" id="social-links-container"></div>
+    <div class="section-label reveal" id="t-content-label"></div>
+    <div class="links-container reveal" id="social-links-container"></div>
 
-    <div class="section-label" id="t-store-label"></div>
-    <div class="carousel-container">
+    <div class="section-label reveal" id="t-store-label"></div>
+    <div class="carousel-container reveal">
         <div class="carousel" id="product-list"></div>
     </div>
 
-    <div class="neir-box">
-        <h2 class="neir-title">ANKOR x NEIR</h2>
+    <div class="neir-box reveal">
+        <h2 class="neir-title">ANKOR<br>x<br>NEIR</h2>
         <div class="brand-desc" id="t-brand-collab-desc"></div>
         <a href="https://neirstore.com" class="neir-pulse-btn" id="t-neir-btn"></a>
         
-        <div class="newsletter-container">
+        <div class="newsletter-container reveal">
             <div id="emailStep">
                 <div class="newsletter-title" id="t-news-title"></div>
                 <div class="newsletter-text" id="t-news-desc"></div>
@@ -221,7 +232,7 @@
         </div>
     </div>
 
-    <footer>
+    <footer class="reveal">
         <div class="footer-text" id="t-footer-copy"></div>
     </footer>
 
@@ -355,6 +366,20 @@
                 </div>`;
             }).join('');
             initDragScroll();
+            initReveal();
+        }
+
+        /* --- LÓGICA DE REVELACIÓN (FADE IN) --- */
+        function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
         }
 
         async function initVerification(e) {
