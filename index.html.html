@@ -126,11 +126,9 @@
         .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
         .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
 
-        /* ESTILO PARA "SUSCRIBIRME CON OTRA CUENTA" */
         #resetLinkContainer { display: none; margin-top: 15px; }
         .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* ESTILO PARA MENSAJE DE SUSCRIPCIÓN EN GRIS BAJO EL RECUADRO */
         #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
 
         /* --- VERIFICATION STEP --- */
@@ -340,12 +338,14 @@
             document.getElementById('t-verify-btn').innerText = t.verifyBtn;
             document.getElementById('t-reset-link').innerText = t.resetLink;
             
+            // LÓGICA DE PERSISTENCIA MEJORADA
             const savedEmail = localStorage.getItem('ankor_email');
-            if(localStorage.getItem('ankor_subscribed') && savedEmail) { 
+            const isSubscribed = localStorage.getItem('ankor_subscribed');
+
+            if(isSubscribed === 'true' && savedEmail) { 
                 lockNewsletter(savedEmail); 
             } else { 
-                document.getElementById('newsSubmit').innerText = t.newsBtn; 
-                document.getElementById('newsInput').placeholder = "email@example.com";
+                resetNewsletterUI();
             }
 
             const socialContainer = document.getElementById('social-links-container');
@@ -431,7 +431,7 @@
                     emailInput.style.borderColor = '#000';
                     localStorage.setItem('ankor_subscribed', 'true');
                     localStorage.setItem('ankor_email', email);
-                    lockNewsletter(email);
+                    setTimeout(() => lockNewsletter(email), 1500);
                     return;
                 }
 
@@ -444,10 +444,10 @@
                     alert("Error: " + result.message);
                 }
             } catch (error) {
-                alert("Error de conexión con el servidor.");
+                alert("Error de conexión.");
             } finally {
-                btn.disabled = false;
-                if (!localStorage.getItem('ankor_subscribed')) {
+                if (localStorage.getItem('ankor_subscribed') !== 'true') {
+                    btn.disabled = false;
                     btn.innerText = t.newsBtn;
                 }
             }
@@ -471,14 +471,17 @@
             }
         }
 
+        // FUNCIÓN MEJORADA: Permite escribir pero no borra el éxito del storage
         function forceUnlock() {
+            resetNewsletterUI(true);
+        }
+
+        function resetNewsletterUI(isManualUnlock = false) {
             const input = document.getElementById('newsInput'); 
             const btn = document.getElementById('newsSubmit'); 
             const statusMsg = document.getElementById('subscriptionStatusMsg');
             const t = translations[getLang()];
             
-            localStorage.removeItem('ankor_subscribed');
-            localStorage.removeItem('ankor_email');
             input.disabled = false;
             btn.disabled = false;
             input.value = "";
@@ -487,7 +490,7 @@
             document.getElementById('resetLinkContainer').style.display = 'none';
             document.getElementById('emailError').style.display = 'none';
             statusMsg.style.display = 'none';
-            input.focus();
+            if(isManualUnlock) input.focus();
         }
 
         function lockNewsletter(email) { 
@@ -497,12 +500,12 @@
             const t = translations[getLang()]; 
             
             input.value = ""; 
-            input.placeholder = t.alreadySub; 
+            input.placeholder = t.alreadySub; // "YA ERES PARTE DE LA ELITE"
             input.disabled = true; 
             btn.disabled = true; 
-            btn.innerText = t.confirmedBtn; 
+            btn.innerText = t.confirmedBtn; // "CONFIRMADO"
             
-            statusMsg.innerText = t.statusMsg + email;
+            statusMsg.innerText = t.statusMsg + email; // "Te has suscrito..."
             statusMsg.style.display = 'block';
             document.getElementById('resetLinkContainer').style.display = 'block';
         }
