@@ -130,6 +130,9 @@
         #resetLinkContainer { display: none; margin-top: 15px; }
         .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
+        /* ESTILO PARA MENSAJE DE SUSCRIPCIÓN EN GRIS BAJO EL RECUADRO */
+        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
+
         /* --- VERIFICATION STEP --- */
         #verificationStep { display: none; }
         .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
@@ -196,6 +199,7 @@
                     <div id="emailError"></div>
                     <button type="submit" id="newsSubmit" class="newsletter-submit"></button>
                 </form>
+                <div id="subscriptionStatusMsg"></div>
                 <div id="resetLinkContainer">
                     <span class="reset-link" id="t-reset-link" onclick="forceUnlock()"></span>
                 </div>
@@ -244,9 +248,9 @@
     </footer>
 
     <script>
-        // URL de tu Google Apps Script actualizada
         const proxyURL = "https://script.google.com/macros/s/AKfycbzAUbQPKGtKj2tMcobV21qntF3p-uLHTjgDLbOjt4XzDAb_xa1Mlv9bjKTu1c1Q97s/exec";
         let serverOTP = ""; 
+        let tempEmail = "";
 
         const products = Array.from({ length: 10 }, (_, i) => ({
             id: i + 1,
@@ -281,6 +285,7 @@
                 verifyDesc: "Enter the code sent to your email.",
                 verifyBtn: "VERIFY NOW",
                 resetLink: "subscribe with another account",
+                statusMsg: "You have subscribed to the Elite with ",
                 tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
                 langEn: "ENGLISH", langEs: "SPANISH"
             },
@@ -301,6 +306,7 @@
                 verifyDesc: "Ingresa el código enviado a tu correo electrónico.",
                 verifyBtn: "VERIFICAR AHORA",
                 resetLink: "suscribirme con otra cuenta",
+                statusMsg: "Te has suscrito a la Elite con ",
                 tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
                 langEn: "INGLÉS", langEs: "ESPAÑOL"
             }
@@ -334,14 +340,14 @@
             document.getElementById('t-verify-btn').innerText = t.verifyBtn;
             document.getElementById('t-reset-link').innerText = t.resetLink;
             
-            if(localStorage.getItem('ankor_subscribed')) { 
-                lockNewsletter(); 
+            const savedEmail = localStorage.getItem('ankor_email');
+            if(localStorage.getItem('ankor_subscribed') && savedEmail) { 
+                lockNewsletter(savedEmail); 
             } else { 
                 document.getElementById('newsSubmit').innerText = t.newsBtn; 
                 document.getElementById('newsInput').placeholder = "email@example.com";
             }
 
-            // Social links
             const socialContainer = document.getElementById('social-links-container');
             const socials = [
                 { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'#'}, {n:`@ankor.es (${t.langEs})`, url:'#'}] },
@@ -360,7 +366,6 @@
                 </div>
             `).join('');
             
-            // Products
             const list = document.getElementById('product-list');
             list.innerHTML = products.map(p => {
                 const data = p[currentLang];
@@ -410,6 +415,7 @@
 
             btn.disabled = true;
             btn.innerText = "...";
+            tempEmail = email;
 
             try {
                 const response = await fetch(proxyURL, {
@@ -418,14 +424,14 @@
                 });
                 const result = await response.json();
                 
-                // --- MANEJO DE CORREO YA REGISTRADO ---
                 if (result.status === "already_registered") {
                     errorDiv.innerText = t.alreadyRegistered;
                     errorDiv.className = "error-grey";
                     errorDiv.style.display = 'block';
                     emailInput.style.borderColor = '#000';
-                    localStorage.setItem('ankor_subscribed', 'true'); // Lo marcamos como suscrito localmente
-                    lockNewsletter();
+                    localStorage.setItem('ankor_subscribed', 'true');
+                    localStorage.setItem('ankor_email', email);
+                    lockNewsletter(email);
                     return;
                 }
 
@@ -453,10 +459,11 @@
             inputs.forEach(i => code += i.value);
             if (code === serverOTP) {
                 localStorage.setItem('ankor_subscribed', 'true'); 
+                localStorage.setItem('ankor_email', tempEmail);
                 document.getElementById('successModal').style.display = 'block'; 
                 document.getElementById('verificationStep').style.display = 'none';
                 document.getElementById('emailStep').style.display = 'block';
-                lockNewsletter(); 
+                lockNewsletter(tempEmail); 
             } else {
                 alert(getLang() === 'es' ? "Código Incorrecto" : "Incorrect Code");
                 inputs.forEach(i => i.value = "");
@@ -467,9 +474,11 @@
         function forceUnlock() {
             const input = document.getElementById('newsInput'); 
             const btn = document.getElementById('newsSubmit'); 
+            const statusMsg = document.getElementById('subscriptionStatusMsg');
             const t = translations[getLang()];
             
             localStorage.removeItem('ankor_subscribed');
+            localStorage.removeItem('ankor_email');
             input.disabled = false;
             btn.disabled = false;
             input.value = "";
@@ -477,18 +486,24 @@
             btn.innerText = t.newsBtn;
             document.getElementById('resetLinkContainer').style.display = 'none';
             document.getElementById('emailError').style.display = 'none';
+            statusMsg.style.display = 'none';
             input.focus();
         }
 
-        function lockNewsletter() { 
+        function lockNewsletter(email) { 
             const input = document.getElementById('newsInput'); 
             const btn = document.getElementById('newsSubmit'); 
+            const statusMsg = document.getElementById('subscriptionStatusMsg');
             const t = translations[getLang()]; 
+            
             input.value = ""; 
             input.placeholder = t.alreadySub; 
             input.disabled = true; 
             btn.disabled = true; 
             btn.innerText = t.confirmedBtn; 
+            
+            statusMsg.innerText = t.statusMsg + email;
+            statusMsg.style.display = 'block';
             document.getElementById('resetLinkContainer').style.display = 'block';
         }
 
