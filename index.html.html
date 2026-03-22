@@ -18,6 +18,7 @@
             --discord-glow: linear-gradient(45deg, #5865F2, #2C2F33, #5865F2);
             --tech-border: linear-gradient(90deg, #000000, #666666, #000000);
             --glossy-black: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
+            --discord-color: #5865F2; /* Color oficial Discord */
         }
 
         * { box-sizing: border-box; }
@@ -75,21 +76,29 @@
             background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite;
             box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); 
         }
-        .discord-inner { background: #fff; padding: 18px; border-radius: 11px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #000; font-weight: 800; font-size: 0.85rem; }
-        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #000; }
+        /* CAMBIO: Fondo del botón color Discord y texto blanco */
+        .discord-inner { background: var(--discord-color); padding: 18px; border-radius: 11px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 800; font-size: 0.85rem; }
+        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #fff; }
 
         @keyframes moveGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- SOCIAL LINKS --- */
         .links-container { width: 100%; max-width: 400px; }
         .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background-size: 200% 200%; animation: moveGlow 3s linear infinite; margin-bottom: 10px; }
-        .acc-item { border-radius: 11px; overflow: hidden; background: var(--card-bg); border: 1px solid #eee; }
-        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #000; border: none; width: 100%; background: none; font-family: inherit; transition: background 0.2s; }
-        .acc-header:hover { background: #fcfcfc; }
-        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; text-align: center; color: #000; }
+        
+        /* CAMBIO: Fondo negro para el contenedor principal */
+        .acc-item { border-radius: 11px; overflow: hidden; background: #000; border: 1px solid #333; }
+        
+        /* CAMBIO: Cabecera negra y texto/iconos blancos */
+        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #fff; border: none; width: 100%; background: #000; font-family: inherit; transition: background 0.2s; }
+        .acc-header:hover { background: #111; }
+        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; text-align: center; color: #fff; }
         .acc-header span { flex-grow: 1; font-weight: 600; text-align: center; margin-right: 30px; }
+        
         .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: #fafafa; }
-        .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; }
+        
+        /* Conservación de sub-links blancos */
+        .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; background: #fff; }
         .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; }
         .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; }
         .acc-item.open .acc-content { max-height: 300px; }
