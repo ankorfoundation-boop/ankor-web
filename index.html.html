@@ -53,7 +53,7 @@
             margin-bottom: 20px;
             overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            background: #000; /* Fondo negro de seguridad */
+            background: #000;
         }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -117,27 +117,28 @@
         .newsletter-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; font-weight: 500; }
         .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
         .newsletter-input { background: #fff; border: 1px solid #000; padding: 15px; color: #000; border-radius: 5px; font-family: inherit; font-size: 0.9rem; outline: none; }
+        .newsletter-input:disabled { background: #eee; cursor: not-allowed; border-color: #ccc; }
         
         #emailError { color: var(--accent-red); font-size: 0.75rem; font-weight: 700; display: none; margin-top: -5px; margin-bottom: 5px; text-align: left; padding-left: 5px; }
 
         .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .newsletter-submit:disabled { opacity: 0.7; cursor: default; }
+        .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
 
-        /* ESTILO NUEVO PARA "SUSCRIBIRME CON OTRA CUENTA" */
+        /* ESTILO PARA "SUSCRIBIRME CON OTRA CUENTA" */
         #resetLinkContainer { display: none; margin-top: 15px; }
         .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* --- VERIFICATION GRID --- */
+        /* --- VERIFICATION STEP --- */
         #verificationStep { display: none; }
         .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
         .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; background: #fff; outline: none; }
-        .otp-input:focus { border-color: var(--accent-red); }
+        
         .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
         
         .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
         .change-email-link b { text-decoration: underline; color: #000; }
 
-        /* --- MODALS FIX --- */
+        /* --- MODALS --- */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; color: #000; }
         .modal-content { max-width: 450px; margin: 40px auto; padding: 40px 25px; text-align: center; position: relative; background: #fff; border-radius: 15px; border: 1px solid #000; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .close-x { position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: #000; background: none; border: none; z-index: 100; font-weight: 900; }
@@ -208,7 +209,6 @@
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                 </div>
                 <button class="verify-btn" id="t-verify-btn" onclick="finalVerify()"></button>
-                
                 <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()"></div>
             </div>
         </div>
@@ -218,13 +218,11 @@
         <div class="modal-content">
             <button class="close-x" onclick="closeStore()">&times;</button>
             <h2 id="mTitle" style="margin-top:20px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase;"></h2>
-            
             <div class="modal-image-container">
                 <button class="modal-arrow prev-arrow" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                 <div id="mImgContainer"></div>
                 <button class="modal-arrow next-arrow" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
-
             <p id="mDesc" style="font-weight: 500; color: #444; margin-bottom: 25px;"></p>
             <a href="#" id="mStripe" class="btn-acquire"></a>
         </div>
@@ -244,7 +242,6 @@
     </footer>
 
     <script>
-        const bannedDomains = ['10minutemail.com', 'tempmail.com', 'guerrillamail.com', 'sharklasers.com', 'dispostable.com'];
         const proxyURL = "https://script.google.com/macros/s/AKfycbyPBShThfmCZZ-vpvOAQ75aMGYur6GwUu6Tp8rvbZCGHkmWHFwD3Cyc6jL3gq_gd1c/exec";
         let serverOTP = ""; 
 
@@ -259,25 +256,25 @@
                 `https://picsum.photos/seed/ankor${i}5/500/500`
             ],
             stripe: `LINK_STRIPE_${i+1}`,
-            en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle. Part of the exclusive ANKOR drop." },
-            es: { name: `ANKOR ARTÍCULO ${i+1}`, desc: "Ingeniería de precisión para quienes no aceptan menos. Parte del drop exclusivo de ANKOR." }
+            en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle." },
+            es: { name: `ANKOR ARTÍCULO ${i+1}`, desc: "Ingeniería de precisión para quienes no aceptan menos." }
         }));
 
         const translations = {
             en: { 
                 unstoppable: "BE UNSTOPPABLE.", community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
                 content: "ANKOR CONTENT", store: "STORE", viewBtn: "VIEW PRODUCT", 
-                collabDesc: "The best collaboration of unstoppable mindset never seen before.<br><strong>ANKOR</strong> = Reset your mindset.<br><strong>NEIR</strong> = Gear for action.",
+                collabDesc: "The best collaboration of unstoppable mindset never seen before.",
                 neirBtn: "GO TO NEIR STORE &rarr;", 
                 buyBtn: "ACQUIRE NOW", footer: "ANKOR© ALL RIGHTS RESERVED", newsTitle: "Join ANKOR Elite.", 
-                newsDesc: "Be the first to know about news, rewards, valuable content and exclusive brand access.", 
+                newsDesc: "Be the first to know about news, rewards and exclusive brand access.", 
                 newsBtn: "SUBSCRIBE", alreadySub: "YOU ARE ALREADY PART OF THE ELITE", successTitle: "WELCOME TO THE ELITE", 
                 successMsg: "Impact confirmed.", confirmedBtn: "CONFIRMED",
                 emptyEmail: "Please enter your email.",
                 invalidEmail: "Enter a valid email address.",
                 notYourEmail: "not you?", changeEmail: "change email",
                 verifyTitle: "Subscription Verification",
-                verifyDesc: "Enter the code sent to your email to verify your ANKOR subscription.",
+                verifyDesc: "Enter the code sent to your email.",
                 verifyBtn: "VERIFY NOW",
                 resetLink: "subscribe with another account",
                 tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
@@ -286,17 +283,17 @@
             es: { 
                 unstoppable: "SÉ IMPARABLE.", community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
                 content: "CONTENIDO ANKOR", store: "TIENDA", viewBtn: "VER PRODUCTO", 
-                collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.<br><strong>ANKOR</strong> = Reinicia tu mentalidad.<br><strong>NEIR</strong> = Equipamiento para la acción.",
+                collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.",
                 neirBtn: "IR A LA TIENDA DE NEIR &rarr;", 
                 buyBtn: "ADQUIRIR AHORA", footer: "ANKOR© TODOS LOS DERECHOS RESERVADOS", newsTitle: "Únete a la Élite de ANKOR.", 
-                newsDesc: "Sé el primero en enterarte de novedades, recompensas, contenido de valor y acceso a productos exclusivos de la marca.", 
+                newsDesc: "Sé el primero en enterarte de novedades, recompensas y acceso exclusivo.", 
                 newsBtn: "SUSCRIBIRME", alreadySub: "YA ERES PARTE DE LA ÉLITE", successTitle: "BIENVENIDO A LA ÉLITE", 
                 successMsg: "Impacto confirmado.", confirmedBtn: "CONFIRMADO",
                 emptyEmail: "Por favor, ingrese su correo electrónico.",
                 invalidEmail: "Ingrese una dirección de correo electrónico válida.",
                 notYourEmail: "¿no eres tú?", changeEmail: "cambiar correo",
                 verifyTitle: "Verificación de Suscripción",
-                verifyDesc: "Ingresa el código enviado a tu correo electrónico para verificar tu suscripción ANKOR.",
+                verifyDesc: "Ingresa el código enviado a tu correo electrónico.",
                 verifyBtn: "VERIFICAR AHORA",
                 resetLink: "suscribirme con otra cuenta",
                 tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
@@ -333,20 +330,19 @@
             document.getElementById('t-verify-btn').innerText = t.verifyBtn;
             document.getElementById('t-reset-link').innerText = t.resetLink;
             
-            const input = document.getElementById('newsInput');
-            input.placeholder = t.alreadySub; 
-
             if(localStorage.getItem('ankor_subscribed')) { 
                 lockNewsletter(); 
             } else { 
                 document.getElementById('newsSubmit').innerText = t.newsBtn; 
+                document.getElementById('newsInput').placeholder = "email@example.com";
             }
 
+            // Social links
             const socialContainer = document.getElementById('social-links-container');
             const socials = [
-                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.tiktok.com/@ankor.inc'}, {n:`@ankor.es (${t.langEs})`, url:'https://www.tiktok.com/@ankor.es'}] },
-                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.instagram.com/ankor.inc'}, {n:`@ankor.esp (${t.langEs})`, url:'https://www.instagram.com/ankor.esp'}] },
-                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'https://www.youtube.com/@ankor.english'}, {n:`@ankor.español`, url:'https://www.youtube.com/@ankor.espa%C3%B1ol'}] }
+                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'#'}, {n:`@ankor.es (${t.langEs})`, url:'#'}] },
+                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc (${t.langEn})`, url:'#'}, {n:`@ankor.esp (${t.langEs})`, url:'#'}] },
+                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'#'}, {n:`@ankor.español`, url:'#'}] }
             ];
 
             socialContainer.innerHTML = socials.map(s => `
@@ -360,6 +356,7 @@
                 </div>
             `).join('');
             
+            // Products
             const list = document.getElementById('product-list');
             list.innerHTML = products.map(p => {
                 const data = p[currentLang];
@@ -380,25 +377,12 @@
             initReveal();
         }
 
-        function initReveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1 });
-            reveals.forEach(el => observer.observe(el));
-        }
-
         async function initVerification(e) {
             e.preventDefault();
             const emailInput = document.getElementById('newsInput');
             const email = emailInput.value.trim().toLowerCase();
             const btn = document.getElementById('newsSubmit');
-            const currentLang = getLang();
-            const t = translations[currentLang];
+            const t = translations[getLang()];
 
             if (email === "") { alert(t.emptyEmail); return; }
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -414,7 +398,7 @@
             try {
                 const response = await fetch(proxyURL, {
                     method: "POST",
-                    body: JSON.stringify({ email: email, lang: currentLang })
+                    body: JSON.stringify({ email: email, lang: getLang() })
                 });
                 const result = await response.json();
                 if (result.status === "success") {
@@ -426,7 +410,7 @@
                     alert("Error: " + result.message);
                 }
             } catch (error) {
-                alert(currentLang === 'es' ? "Error de conexión." : "Connection error.");
+                alert("Error de conexión.");
             } finally {
                 btn.disabled = false;
                 btn.innerText = t.newsBtn;
@@ -450,7 +434,7 @@
             }
         }
 
-        // --- FUNCIONES DE DESBLOQUEO TEMPORAL ---
+        // --- LÓGICA DE DESBLOQUEO ---
         function forceUnlock() {
             const input = document.getElementById('newsInput'); 
             const btn = document.getElementById('newsSubmit'); 
@@ -462,6 +446,7 @@
             input.placeholder = "email@example.com";
             btn.innerText = t.newsBtn;
             document.getElementById('resetLinkContainer').style.display = 'none';
+            input.focus();
         }
 
         function lockNewsletter() { 
@@ -476,29 +461,6 @@
             document.getElementById('resetLinkContainer').style.display = 'block';
         }
 
-        // El resto de tus funciones se mantienen iguales
-        function openStoreById(id) {
-            const p = products.find(x => x.id === id);
-            if(!p) return;
-            const lang = getLang();
-            currentSlide = 0;
-            document.getElementById('mTitle').innerText = p[lang].name;
-            document.getElementById('mDesc').innerText = p[lang].desc;
-            document.getElementById('mStripe').href = p.stripe;
-            const container = document.getElementById('mImgContainer');
-            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" alt="View ${i}">`).join('');
-            document.getElementById('shopModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function moveSlide(step) {
-            const imgs = document.querySelectorAll('#mImgContainer img');
-            if(imgs.length === 0) return;
-            imgs[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + step + imgs.length) % imgs.length;
-            imgs[currentSlide].classList.add('active');
-        }
-
         function hideError() {
             document.getElementById('emailError').style.display = 'none';
             document.getElementById('newsInput').style.borderColor = '#000';
@@ -507,8 +469,6 @@
         function backToEmail() {
             document.getElementById('verificationStep').style.display = 'none';
             document.getElementById('emailStep').style.display = 'block';
-            document.getElementById('newsInput').value = "";
-            document.querySelectorAll('.otp-input').forEach(i => i.value = "");
         }
 
         function moveOTP(input) {
@@ -521,6 +481,16 @@
             if (e.key === "Backspace" && input.value === "" && input.previousElementSibling) {
                 input.previousElementSibling.focus();
             }
+        }
+
+        function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
         }
 
         function initDragScroll() {
@@ -537,6 +507,28 @@
                 const x = e.pageX - slider.offsetLeft;
                 const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk;
             });
+        }
+
+        function openStoreById(id) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+            currentSlide = 0;
+            const lang = getLang();
+            document.getElementById('mTitle').innerText = p[lang].name;
+            document.getElementById('mDesc').innerText = p[lang].desc;
+            document.getElementById('mStripe').href = p.stripe;
+            const container = document.getElementById('mImgContainer');
+            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('');
+            document.getElementById('shopModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function moveSlide(step) {
+            const imgs = document.querySelectorAll('#mImgContainer img');
+            if(imgs.length === 0) return;
+            imgs[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + step + imgs.length) % imgs.length;
+            imgs[currentSlide].classList.add('active');
         }
 
         function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
