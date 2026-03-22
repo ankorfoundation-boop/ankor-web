@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <title>ANKOR | Be Unstoppable</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -13,16 +13,14 @@
             --bg-color: #ffffff;
             --card-bg: #ffffff;
             --text-primary: #000000;
-            --text-secondary: #555555;
+            --text-secondary: #444444;
             --accent-red: #c30010;
-            --discord-glow: linear-gradient(135deg, #5865F2 0%, #000000 50%, #5865F2 100%);
-            --tech-border: linear-gradient(90deg, #000000, #999999, #000000);
-            --glossy-black: linear-gradient(135deg, #000000 0%, #222222 100%);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --discord-glow: linear-gradient(45deg, #5865F2, #2C2F33, #5865F2);
+            --tech-border: linear-gradient(90deg, #000000, #666666, #000000);
+            --glossy-black: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+        * { box-sizing: border-box; }
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
@@ -31,17 +29,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 15px;
             text-align: center;
             overflow-x: hidden;
-            line-height: 1.5;
         }
 
-        /* --- ANIMACIÓN REVEAL --- */
+        /* --- ANIMACIÓN FADE IN --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 0.8s ease;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .reveal.active {
             opacity: 1;
@@ -50,212 +47,120 @@
 
         /* --- HEADER --- */
         .logo-circle {
-            width: 120px; height: 120px;
+            width: 140px; height: 140px;
             border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.1);
-            margin-bottom: 25px;
+            border: 2px solid #000000;
+            margin-bottom: 20px;
             overflow: hidden;
             display: flex; justify-content: center; align-items: center;
             background: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .logo-circle img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
-        .logo-circle:hover img { transform: scale(1.1); }
+        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
         h1.main-title { 
             font-weight: 900; 
-            font-size: 2.2rem; 
+            font-size: 1.8rem; 
             text-transform: uppercase; 
-            letter-spacing: -1.5px; 
+            letter-spacing: -1px; 
             margin: 0; 
             color: #000;
-            line-height: 1;
+            min-height: 1.2em;
         }
         
-        .section-label { 
-            color: #aaa; 
-            font-size: 0.75rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            margin: 60px 0 20px 0; 
-            font-weight: 700; 
-        }
+        .section-label { color: #888; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin: 45px 0 15px 0; font-weight: 700; }
 
         /* --- DISCORD --- */
         .discord-card { 
-            width: 100%; max-width: 400px; position: relative; padding: 1.5px; border-radius: 14px; 
-            background: var(--discord-glow); background-size: 200% 200%; animation: moveGlow 5s ease infinite;
-            box-shadow: 0 15px 35px rgba(88, 101, 242, 0.2); 
-            transition: var(--transition);
+            width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; 
+            background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); 
         }
-        .discord-card:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(88, 101, 242, 0.3); }
-        
-        .discord-inner { 
-            background: #fff; padding: 20px; border-radius: 13px; display: flex; align-items: center; 
-            justify-content: center; text-decoration: none; color: #000; font-weight: 800; font-size: 0.9rem; 
-        }
-        .discord-inner i { font-size: 1.6rem; margin-right: 15px; color: #5865F2; }
+        .discord-inner { background: #fff; padding: 18px; border-radius: 11px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #000; font-weight: 800; font-size: 0.85rem; }
+        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #000; }
 
         @keyframes moveGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- SOCIAL LINKS --- */
         .links-container { width: 100%; max-width: 400px; }
-        .border-tech-wrap { 
-            width: 100%; position: relative; padding: 1px; border-radius: 14px; 
-            margin-bottom: 12px; transition: var(--transition);
-        }
-        .border-tech-wrap:hover { transform: translateX(5px); }
-        
-        .acc-item { border-radius: 13px; overflow: hidden; background: var(--card-bg); border: 1px solid #f0f0f0; }
-        .acc-header { 
-            padding: 20px; display: flex; align-items: center; cursor: pointer; text-align: left; 
-            color: #fff; border: none; width: 100%; background: none; font-family: inherit; 
-        }
-        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.3rem; text-align: center; }
-        .acc-header span { flex-grow: 1; font-weight: 700; text-align: center; margin-right: 30px; letter-spacing: 1px; }
-        .acc-header .fa-chevron-down { font-size: 0.8rem; transition: transform 0.4s; opacity: 0.7; }
-        
-        .acc-item.open .fa-chevron-down { transform: rotate(180deg); }
-        
-        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); background: #ffffff; }
-        .acc-item.open .acc-content { max-height: 500px; transition: max-height 0.5s cubic-bezier(1, 0, 1, 0); }
-
-        .sub-link { 
-            padding: 16px 20px; display: flex; align-items: center; text-decoration: none; 
-            color: var(--text-secondary); border-top: 1px solid #f5f5f5; font-size: 0.85rem; font-weight: 600; 
-            transition: background 0.2s;
-        }
-        .sub-link:hover { background: #fafafa; color: #000; }
-        .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1.1rem; color: #000; }
+        .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background-size: 200% 200%; animation: moveGlow 3s linear infinite; margin-bottom: 10px; }
+        .acc-item { border-radius: 11px; overflow: hidden; background: var(--card-bg); border: 1px solid #eee; }
+        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #000; border: none; width: 100%; background: none; font-family: inherit; transition: background 0.2s; }
+        .acc-header:hover { background: #fcfcfc; }
+        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; text-align: center; color: #000; }
+        .acc-header span { flex-grow: 1; font-weight: 600; text-align: center; margin-right: 30px; }
+        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: #fafafa; }
+        .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; }
+        .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; }
         .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; }
+        .acc-item.open .acc-content { max-height: 300px; }
 
         /* --- STORE CAROUSEL --- */
-        .carousel-container { width: 100%; max-width: 600px; padding: 10px 0; }
-        .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 0; scrollbar-width: none; cursor: grab; }
+        .carousel-container { width: 100%; max-width: 500px; overflow: visible; }
+        .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 0; scrollbar-width: none; cursor: grab; user-select: none; }
         .carousel::-webkit-scrollbar { display: none; }
-        
-        .product-card-tech { 
-            flex: 0 0 85%; scroll-snap-align: center; padding: 1px; border-radius: 20px; 
-            background: #f0f0f0; transition: var(--transition);
-        }
-        .product-card { 
-            position: relative; background: #fff; border-radius: 19px; height: 420px; 
-            display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-        .product-card img.bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform 0.6s; }
-        .product-card:hover img.bg-img { transform: scale(1.05); }
-        
-        .product-card .overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 40%, transparent 100%); 
-            z-index: 2; 
-        }
-        
-        .product-info { position: relative; z-index: 3; padding: 25px; }
-        .product-card h3 { color: #000; margin: 0 0 8px 0; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
-        .product-card p { color: #666; margin-bottom: 20px; font-weight: 700; font-size: 1rem; }
-        
-        .btn-view { 
-            background: #000; color: #fff; border: none; padding: 15px; width: 100%; 
-            border-radius: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; 
-            letter-spacing: 1px; font-size: 0.8rem; transition: var(--transition);
-        }
-        .btn-view:hover { transform: scale(1.02); background: #222; }
+        .product-card-tech { flex: 0 0 78%; scroll-snap-align: center; padding: 1.5px; border-radius: 15px; background: var(--tech-border); background-size: 200% 200%; animation: moveGlow 3s linear infinite; }
+        .product-card { position: relative; background: #fff; border-radius: 14px; padding: 20px; text-align: center; height: 350px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+        .product-card img.bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .product-card .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(255,255,255,1) 5%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%); z-index: 2; }
+        .product-info { position: relative; z-index: 3; }
+        .product-card h3 { color: #000; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; }
+        .product-card p { color: #333; margin-bottom: 15px; font-weight: 700; font-size: 0.9rem; }
+        .btn-view { background: #000; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- NEWSLETTER & NEIR --- */
-        .neir-box { text-align: center; margin-top: 100px; padding-bottom: 80px; width: 100%; max-width: 450px; }
-        .neir-title { font-size: 3rem; font-weight: 900; margin: 0; letter-spacing: 8px; color: #000; line-height: 1.1; }
-        .brand-desc { margin: 30px 0; line-height: 1.7; font-size: 1rem; color: #444; font-weight: 500; }
+        .neir-box { text-align: center; margin-top: 80px; padding-bottom: 100px; width: 100%; max-width: 400px; }
+        .neir-title { font-size: 2.6rem; font-weight: 900; margin: 0; letter-spacing: 5px; color: #000; }
+        .brand-desc { margin: 20px 0; line-height: 1.6; font-size: 0.95rem; }
+        .neir-pulse-btn { display: inline-block; background: #000; color: #fff; padding: 22px 50px; border-radius: 5px; text-decoration: none; font-weight: 900; letter-spacing: 2px; animation: pulse 1.8s infinite; margin-top: 10px; }
+        .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; position: relative; overflow: hidden; }
+        .newsletter-title { font-size: 1.1rem; color: #000; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
+        .newsletter-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; font-weight: 500; }
+        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
+        .newsletter-input { background: #fff; border: 1px solid #000; padding: 15px; color: #000; border-radius: 5px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
+        .newsletter-input:disabled { background: #eee; cursor: not-allowed; border-color: #ccc; }
         
-        .neir-pulse-btn { 
-            display: inline-block; background: #000; color: #fff; padding: 24px 60px; 
-            border-radius: 8px; text-decoration: none; font-weight: 900; letter-spacing: 2px; 
-            font-size: 0.9rem; animation: pulse 2s infinite; margin-top: 20px; transition: var(--transition);
-        }
-
-        .newsletter-container { 
-            margin-top: 80px; padding: 40px 30px; background: #ffffff; 
-            border: 1px solid #eee; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-        }
-        .newsletter-title { font-size: 1.3rem; color: #000; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; letter-spacing: -0.5px; }
-        .newsletter-text { font-size: 0.9rem; color: #666; margin-bottom: 25px; line-height: 1.6; }
-        
-        .newsletter-form { display: flex; flex-direction: column; gap: 12px; }
-        .newsletter-input { 
-            background: #f9f9f9; border: 1px solid #ddd; padding: 18px; color: #000; 
-            border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; 
-            transition: var(--transition); 
-        }
-        .newsletter-input:focus { border-color: #000; background: #fff; }
-        .newsletter-input:disabled { background: #f0f0f0; cursor: not-allowed; }
-        
-        #emailError { font-size: 0.8rem; font-weight: 600; display: none; margin: -5px 0 5px 0; text-align: left; }
+        #emailError { font-size: 0.75rem; font-weight: 700; display: none; margin-top: -5px; margin-bottom: 5px; text-align: left; padding-left: 5px; }
         .error-red { color: var(--accent-red); }
         .error-grey { color: #888; }
 
-        .newsletter-submit { 
-            background: #000; color: #fff; border: none; padding: 18px; border-radius: 10px; 
-            font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; 
-            transition: var(--transition);
-        }
-        .newsletter-submit:hover:not(:disabled) { background: #333; }
+        .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
+
+        #resetLinkContainer { display: none; margin-top: 15px; }
+        .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
+
+        /* --- VERIFICATION STEP --- */
+        #verificationStep { display: none; }
+        .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; background: #fff; outline: none; }
+        
+        .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
+        
+        .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
+        .change-email-link b { text-decoration: underline; color: #000; }
 
         /* --- MODALS --- */
-        .modal { 
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0; 
-            width: 100%; height: 100%; background: rgba(255,255,255,0.9); 
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
-        .modal-content { 
-            max-width: 480px; margin: 5vh auto; padding: 50px 30px; text-align: center; 
-            position: relative; background: #fff; border-radius: 24px; 
-            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-            max-height: 90vh; overflow-y: auto;
-        }
-        .close-x { position: absolute; right: 25px; top: 25px; cursor: pointer; font-size: 1.8rem; color: #000; background: none; border: none; font-weight: 400; opacity: 0.5; transition: 0.2s; }
-        .close-x:hover { opacity: 1; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; color: #000; }
+        .modal-content { max-width: 450px; margin: 40px auto; padding: 40px 25px; text-align: center; position: relative; background: #fff; border-radius: 15px; border: 1px solid #000; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .close-x { position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: #000; background: none; border: none; z-index: 100; font-weight: 900; }
         
-        .modal-image-container { position: relative; width: 100%; aspect-ratio: 1/1; margin: 25px 0; border-radius: 16px; overflow: hidden; background: #f8f8f8; }
-        #mImgContainer img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-image-container { position: relative; width: 100%; aspect-ratio: 1/1; margin: 20px 0; border-radius: 12px; overflow: hidden; background: #f4f4f4; display: flex; align-items: center; justify-content: center; }
+        #mImgContainer { width: 100%; height: 100%; position: relative; }
+        #mImgContainer img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease; }
         #mImgContainer img.active { opacity: 1; z-index: 2; }
         
-        .modal-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); background: #fff; color: #000; 
-            border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; z-index: 10; 
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-        .modal-arrow:hover { transform: translateY(-50%) scale(1.1); }
-        .prev-arrow { left: 15px; }
-        .next-arrow { right: 15px; }
+        .modal-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .prev-arrow { left: 10px; }
+        .next-arrow { right: 10px; }
 
-        .btn-acquire { 
-            display: block; background: #000; color: #fff; text-align: center; padding: 22px; 
-            text-decoration: none; border-radius: 12px; font-weight: 900; font-size: 1rem; 
-            text-transform: uppercase; letter-spacing: 2px; animation: slowBreath 3s ease-in-out infinite; 
-        }
+        .btn-acquire { display: block; background: #000; color: #fff; text-align: center; padding: 22px; text-decoration: none; border-radius: 5px; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; animation: slowBreath 3s ease-in-out infinite; }
         
-        /* --- OTP --- */
-        .otp-container { display: flex; justify-content: center; gap: 12px; margin: 30px 0; }
-        .otp-input { 
-            width: 50px; height: 65px; border: 2px solid #eee; text-align: center; 
-            font-size: 1.8rem; font-weight: 900; border-radius: 12px; background: #f9f9f9; 
-            transition: var(--transition);
-        }
-        .otp-input:focus { border-color: #000; background: #fff; transform: translateY(-3px); }
-
-        @keyframes slowBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15); } 70% { box-shadow: 0 0 0 20px rgba(0, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
-        
-        footer { margin-top: 60px; padding: 50px 20px; width: 100%; max-width: 400px; border-top: 1px solid #eee; }
-        .footer-text { font-size: 0.7rem; color: #bbb; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
-
-        /* SCROLLBAR CUSTOM */
-        body::-webkit-scrollbar { width: 8px; }
-        body::-webkit-scrollbar-track { background: #fff; }
-        body::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
-        body::-webkit-scrollbar-thumb:hover { background: #ddd; }
+        @keyframes slowBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.06); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); } 100% { transform: scale(1); } }
+        footer { margin-top: 40px; padding: 40px 15px; width: 100%; max-width: 400px; border-top: 1px solid #eee; }
+        .footer-text { font-size: 0.65rem; color: #999; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -292,23 +197,23 @@
                     <div id="emailError"></div>
                     <button type="submit" id="newsSubmit" class="newsletter-submit"></button>
                 </form>
-                <div id="subscriptionStatusMsg" style="margin-top: 15px; font-size: 0.8rem; color: #888;"></div>
-                <div id="resetLinkContainer" style="margin-top: 15px;">
-                    <span class="reset-link" id="t-reset-link" onclick="forceUnlock()" style="font-size: 0.7rem; text-transform: uppercase; font-weight: 700; cursor: pointer; text-decoration: underline;"></span>
+                <div id="subscriptionStatusMsg"></div>
+                <div id="resetLinkContainer">
+                    <span class="reset-link" id="t-reset-link" onclick="forceUnlock()"></span>
                 </div>
             </div>
 
             <div id="verificationStep">
                 <div class="newsletter-title" id="t-verify-title"></div>
-                <div class="newsletter-text" id="t-verify-desc" style="font-size: 0.85rem;"></div>
+                <div class="newsletter-text" id="t-verify-desc" style="font-size: 0.8rem;"></div>
                 <div class="otp-container">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                 </div>
-                <button class="verify-btn btn-view" id="t-verify-btn" onclick="finalVerify()"></button>
-                <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()" style="margin-top: 20px; font-size: 0.8rem; color: #666; cursor: pointer;"></div>
+                <button class="verify-btn" id="t-verify-btn" onclick="finalVerify()"></button>
+                <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()"></div>
             </div>
         </div>
     </div>
@@ -316,25 +221,23 @@
     <div id="shopModal" class="modal">
         <div class="modal-content">
             <button class="close-x" onclick="closeStore()">&times;</button>
-            <h2 id="mTitle" style="margin-top:10px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; font-size: 1.5rem;"></h2>
+            <h2 id="mTitle" style="margin-top:20px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase;"></h2>
             <div class="modal-image-container">
                 <button class="modal-arrow prev-arrow" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                 <div id="mImgContainer"></div>
                 <button class="modal-arrow next-arrow" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
-            <p id="mDesc" style="font-weight: 500; color: #666; margin-bottom: 30px; line-height: 1.6;"></p>
+            <p id="mDesc" style="font-weight: 500; color: #444; margin-bottom: 25px;"></p>
             <a href="#" id="mStripe" class="btn-acquire"></a>
         </div>
     </div>
 
     <div id="successModal" class="modal">
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content">
             <button class="close-x" onclick="closeModal('successModal')">&times;</button>
-            <div style="background: #f0fff4; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
-                <i class="fa-solid fa-check" style="font-size: 2.5rem; color: #22c55e;"></i>
-            </div>
-            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase; margin-bottom: 15px;"></h2>
-            <p id="t-success-msg" style="color: #666; font-size: 0.95rem; line-height: 1.6;"></p>
+            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #000; margin-bottom: 20px;"></i>
+            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase; margin-bottom: 10px;"></h2>
+            <p id="t-success-msg" style="color: #555; font-size: 0.9rem; line-height: 1.5;"></p>
         </div>
     </div>
 
@@ -351,11 +254,11 @@
             id: i + 1,
             price: `$${(40 + i * 10).toFixed(2)} USD`,
             imgs: [
-                `https://picsum.photos/seed/ankor${i}1/600/600`,
-                `https://picsum.photos/seed/ankor${i}2/600/600`,
-                `https://picsum.photos/seed/ankor${i}3/600/600`,
-                `https://picsum.photos/seed/ankor${i}4/600/600`,
-                `https://picsum.photos/seed/ankor${i}5/600/600`
+                `https://picsum.photos/seed/ankor${i}1/500/500`,
+                `https://picsum.photos/seed/ankor${i}2/500/500`,
+                `https://picsum.photos/seed/ankor${i}3/500/500`,
+                `https://picsum.photos/seed/ankor${i}4/500/500`,
+                `https://picsum.photos/seed/ankor${i}5/500/500`
             ],
             stripe: `LINK_STRIPE_${i+1}`,
             en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle." },
@@ -435,6 +338,7 @@
             document.getElementById('t-verify-btn').innerText = t.verifyBtn;
             document.getElementById('t-reset-link').innerText = t.resetLink;
             
+            // LÓGICA DE PERSISTENCIA MEJORADA
             const savedEmail = localStorage.getItem('ankor_email');
             const isSubscribed = localStorage.getItem('ankor_subscribed');
 
@@ -452,9 +356,9 @@
             ];
 
             socialContainer.innerHTML = socials.map(s => `
-                <div class="border-tech-wrap">
+                <div class="border-tech-wrap" style="background: var(--glossy-black);">
                     <div class="acc-item">
-                        <button class="acc-header" style="background: var(--glossy-black);" onclick="toggleAcc(this)"><i class="fa-brands fa-${s.icon}"></i><span>${s.label}</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="acc-header" onclick="toggleAcc(this)"><i class="fa-brands fa-${s.icon}"></i><span>${s.label}</span><i class="fa-solid fa-chevron-down"></i></button>
                         <div class="acc-content">
                             ${s.links.map(l => `<a href="${l.url}" target="_blank" class="sub-link"><i class="fa-brands fa-${s.icon}"></i><span>${l.n}</span></a>`).join('')}
                         </div>
@@ -567,6 +471,7 @@
             }
         }
 
+        // FUNCIÓN MEJORADA: Permite escribir pero no borra el éxito del storage
         function forceUnlock() {
             resetNewsletterUI(true);
         }
@@ -595,19 +500,19 @@
             const t = translations[getLang()]; 
             
             input.value = ""; 
-            input.placeholder = t.alreadySub; 
+            input.placeholder = t.alreadySub; // "YA ERES PARTE DE LA ELITE"
             input.disabled = true; 
             btn.disabled = true; 
-            btn.innerText = t.confirmedBtn; 
+            btn.innerText = t.confirmedBtn; // "CONFIRMADO"
             
-            statusMsg.innerText = t.statusMsg + email; 
+            statusMsg.innerText = t.statusMsg + email; // "Te has suscrito..."
             statusMsg.style.display = 'block';
             document.getElementById('resetLinkContainer').style.display = 'block';
         }
 
         function hideError() {
             document.getElementById('emailError').style.display = 'none';
-            document.getElementById('newsInput').style.borderColor = '#ddd';
+            document.getElementById('newsInput').style.borderColor = '#000';
         }
 
         function backToEmail() {
@@ -644,14 +549,9 @@
             slider.addEventListener('mousedown', (e) => {
                 isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
                 slider.style.scrollSnapType = 'none';
-                slider.style.cursor = 'grabbing';
             });
             slider.addEventListener('mouseleave', () => { isDown = false; });
-            slider.addEventListener('mouseup', () => { 
-                isDown = false; 
-                slider.style.scrollSnapType = 'x mandatory'; 
-                slider.style.cursor = 'grab';
-            });
+            slider.addEventListener('mouseup', () => { isDown = false; slider.style.scrollSnapType = 'x mandatory'; });
             slider.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 const x = e.pageX - slider.offsetLeft;
