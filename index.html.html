@@ -18,7 +18,7 @@
             --discord-glow: linear-gradient(45deg, #5865F2, #2C2F33, #5865F2);
             --tech-border: linear-gradient(90deg, #000000, #666666, #000000);
             --glossy-black: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
-            --discord-color: #5865F2; /* Color oficial Discord */
+            --discord-color: #5865F2; 
         }
 
         * { box-sizing: border-box; }
@@ -33,146 +33,89 @@
             padding: 40px 15px;
             text-align: center;
             overflow-x: hidden;
+            top: 0 !important;
         }
 
-        /* --- ANIMACIÓN FADE IN --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        button, span, h1, h2, h3, p, a {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
-        /* --- HEADER --- */
-        .logo-circle {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 2px solid #000000;
-            margin-bottom: 20px;
-            overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-            background: #000;
-        }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .logo-circle { width: 140px; height: 140px; border-radius: 50%; border: 2px solid #000; margin-bottom: 20px; overflow: hidden; display: flex; justify-content: center; align-items: center; background: #000; }
         .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        h1.main-title { 
-            font-weight: 900; 
-            font-size: 1.8rem; 
-            text-transform: uppercase; 
-            letter-spacing: -1px; 
-            margin: 0; 
-            color: #000;
-            min-height: 1.2em;
-        }
-        
+        h1.main-title { font-weight: 900; font-size: 1.8rem; text-transform: uppercase; letter-spacing: -1px; margin: 0; color: #000; min-height: 1.2em; }
         .section-label { color: #888; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin: 45px 0 15px 0; font-weight: 700; }
 
-        /* --- DISCORD --- */
-        .discord-card { 
-            width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; 
-            background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); 
-        }
-        /* CAMBIO: Fondo del botón color Discord y texto blanco */
+        .discord-card { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite; box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); }
         .discord-inner { background: var(--discord-color); padding: 18px; border-radius: 11px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 800; font-size: 0.85rem; }
-        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #fff; }
+        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #fff; flex-shrink: 0; }
 
         @keyframes moveGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* --- SOCIAL LINKS --- */
         .links-container { width: 100%; max-width: 400px; }
-        .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background-size: 200% 200%; animation: moveGlow 3s linear infinite; margin-bottom: 10px; }
-        
-        /* CAMBIO: Fondo negro para el contenedor principal */
+        .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; margin-bottom: 10px; }
         .acc-item { border-radius: 11px; overflow: hidden; background: #000; border: 1px solid #333; }
-        
-        /* CAMBIO: Cabecera negra y texto/iconos blancos */
-        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #fff; border: none; width: 100%; background: #000; font-family: inherit; transition: background 0.2s; }
-        .acc-header:hover { background: #111; }
-        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; text-align: center; color: #fff; }
-        .acc-header span { flex-grow: 1; font-weight: 600; text-align: center; margin-right: 30px; }
-        
-        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: #fafafa; }
-        
-        /* Conservación de sub-links blancos */
+        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #fff; border: none; width: 100%; background: #000; font-family: inherit; }
+        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; color: #fff; flex-shrink: 0; }
+        .acc-header span { flex-grow: 1; font-weight: 600; text-align: center; margin-right: 30px; text-transform: uppercase; }
+        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: #fafafa; }
         .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; background: #fff; }
-        .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; }
-        .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; }
+        .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; flex-shrink: 0; }
+        .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; font-weight: 700; }
         .acc-item.open .acc-content { max-height: 300px; }
 
-        /* --- STORE CAROUSEL --- */
-        .carousel-container { width: 100%; max-width: 500px; overflow: visible; }
-        .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 0; scrollbar-width: none; cursor: grab; user-select: none; }
+        .carousel-container { width: 100%; max-width: 500px; }
+        .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 0; scrollbar-width: none; cursor: grab; }
         .carousel::-webkit-scrollbar { display: none; }
         .product-card-tech { flex: 0 0 78%; scroll-snap-align: center; padding: 1.5px; border-radius: 15px; background: var(--tech-border); background-size: 200% 200%; animation: moveGlow 3s linear infinite; }
         .product-card { position: relative; background: #fff; border-radius: 14px; padding: 20px; text-align: center; height: 350px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
         .product-card img.bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
         .product-card .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(255,255,255,1) 5%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%); z-index: 2; }
         .product-info { position: relative; z-index: 3; }
-        .product-card h3 { color: #000; margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; }
-        .product-card p { color: #333; margin-bottom: 15px; font-weight: 700; font-size: 0.9rem; }
-        .btn-view { background: #000; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-view { background: #000; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 
-        /* --- NEWSLETTER & NEIR --- */
         .neir-box { text-align: center; margin-top: 80px; padding-bottom: 100px; width: 100%; max-width: 400px; }
         .neir-title { font-size: 2.6rem; font-weight: 900; margin: 0; letter-spacing: 5px; color: #000; }
-        .brand-desc { margin: 20px 0; line-height: 1.6; font-size: 0.95rem; }
         .neir-pulse-btn { display: inline-block; background: #000; color: #fff; padding: 22px 50px; border-radius: 5px; text-decoration: none; font-weight: 900; letter-spacing: 2px; animation: pulse 1.8s infinite; margin-top: 10px; }
-        .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; position: relative; overflow: hidden; }
-        .newsletter-title { font-size: 1.1rem; color: #000; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
-        .newsletter-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; font-weight: 500; }
-        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
-        .newsletter-input { background: #fff; border: 1px solid #000; padding: 15px; color: #000; border-radius: 5px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
-        .newsletter-input:disabled { background: #eee; cursor: not-allowed; border-color: #ccc; }
         
-        #emailError { font-size: 0.75rem; font-weight: 700; display: none; margin-top: -5px; margin-bottom: 5px; text-align: left; padding-left: 5px; }
+        .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; }
+        .newsletter-title { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; }
+        .newsletter-input { width: 100%; background: #fff; border: 1px solid #000; padding: 15px; border-radius: 5px; font-family: inherit; margin-bottom: 10px; }
+        #emailError { font-size: 0.75rem; font-weight: 700; display: none; margin-bottom: 10px; text-align: left; }
         .error-red { color: var(--accent-red); }
         .error-grey { color: #888; }
+        .newsletter-submit { width: 100%; background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 
-        .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
-
-        #resetLinkContainer { display: none; margin-top: 15px; }
-        .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
-
-        /* --- VERIFICATION STEP --- */
         #verificationStep { display: none; }
         .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
-        .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; background: #fff; outline: none; }
-        
-        .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
-        
-        .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
-        .change-email-link b { text-decoration: underline; color: #000; }
+        .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; }
+        .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-        /* --- MODALS --- */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; color: #000; }
-        .modal-content { max-width: 450px; margin: 40px auto; padding: 40px 25px; text-align: center; position: relative; background: #fff; border-radius: 15px; border: 1px solid #000; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        .close-x { position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: #000; background: none; border: none; z-index: 100; font-weight: 900; }
-        
-        .modal-image-container { position: relative; width: 100%; aspect-ratio: 1/1; margin: 20px 0; border-radius: 12px; overflow: hidden; background: #f4f4f4; display: flex; align-items: center; justify-content: center; }
-        #mImgContainer { width: 100%; height: 100%; position: relative; }
-        #mImgContainer img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease; }
-        #mImgContainer img.active { opacity: 1; z-index: 2; }
-        
-        .modal-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
-        .prev-arrow { left: 10px; }
-        .next-arrow { right: 10px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
+        .modal-content { max-width: 450px; margin: 40px auto; padding: 40px 25px; text-align: center; position: relative; background: #fff; border-radius: 15px; border: 1px solid #000; }
+        .close-x { position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; font-weight: 900; background: none; border: none; }
+        .modal-image-container { position: relative; width: 100%; aspect-ratio: 1/1; margin: 20px 0; background: #f4f4f4; border-radius: 12px; overflow: hidden; }
+        #mImgContainer img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s; }
+        #mImgContainer img.active { opacity: 1; }
+        .modal-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; }
+        .prev-arrow { left: 10px; } .next-arrow { right: 10px; }
+        .btn-acquire { display: block; background: #000; color: #fff; padding: 22px; text-decoration: none; border-radius: 5px; font-weight: 900; text-transform: uppercase; }
 
-        .btn-acquire { display: block; background: #000; color: #fff; text-align: center; padding: 22px; text-decoration: none; border-radius: 5px; font-weight: 900; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; animation: slowBreath 3s ease-in-out infinite; }
-        
-        @keyframes slowBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.06); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); } 100% { transform: scale(1); } }
-        footer { margin-top: 40px; padding: 40px 15px; width: 100%; max-width: 400px; border-top: 1px solid #eee; }
-        .footer-text { font-size: 0.65rem; color: #999; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+        @keyframes pulse { 0% { transform: scale(1); } 70% { transform: scale(1.06); } 100% { transform: scale(1); } }
+        footer { margin-top: 40px; padding: 40px 15px; border-top: 1px solid #eee; width: 100%; max-width: 400px; }
+        .footer-text { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+
+        #google_translate_element { display: none; }
     </style>
 </head>
 <body>
+
+    <div id="google_translate_element"></div>
 
     <div class="logo-circle reveal">
         <img src="https://i.ibb.co/PkprDSx/image.jpg" alt="ANKOR">
@@ -181,7 +124,7 @@
 
     <div class="section-label reveal" id="t-community-label"></div>
     <div class="discord-card reveal">
-        <a href="https://discord.gg/your-discord-link" class="discord-inner" id="t-discord-btn"></a>
+        <a href="https://discord.gg/your-link" class="discord-inner" id="t-discord-btn"></a>
     </div>
 
     <div class="section-label reveal" id="t-content-label"></div>
@@ -194,27 +137,27 @@
 
     <div class="neir-box reveal">
         <h2 class="neir-title">ANKOR<br>x<br>NEIR</h2>
-        <div class="brand-desc" id="t-brand-collab-desc"></div>
+        <div class="brand-desc" id="t-brand-collab-desc" style="margin: 20px 0; line-height: 1.6; font-size: 0.95rem;"></div>
         <a href="https://neirstore.com" class="neir-pulse-btn" id="t-neir-btn"></a>
         
         <div class="newsletter-container reveal">
             <div id="emailStep">
                 <div class="newsletter-title" id="t-news-title"></div>
-                <div class="newsletter-text" id="t-news-desc"></div>
+                <div class="newsletter-text" id="t-news-desc" style="font-size: 0.85rem; color: #444; margin-bottom: 20px;"></div>
                 <form class="newsletter-form" id="newsForm" onsubmit="initVerification(event)" novalidate>
-                    <input type="email" id="newsInput" class="newsletter-input" placeholder="" oninput="hideError()">
+                    <input type="email" id="newsInput" class="newsletter-input" placeholder="email@example.com" oninput="hideError()">
                     <div id="emailError"></div>
                     <button type="submit" id="newsSubmit" class="newsletter-submit"></button>
                 </form>
-                <div id="subscriptionStatusMsg"></div>
-                <div id="resetLinkContainer">
-                    <span class="reset-link" id="t-reset-link" onclick="forceUnlock()"></span>
+                <div id="subscriptionStatusMsg" style="display:none; margin-top: 12px; font-size: 0.75rem; color: #888;"></div>
+                <div id="resetLinkContainer" style="display:none; margin-top: 15px;">
+                    <span class="reset-link" id="t-reset-link" onclick="forceUnlock()" style="font-size: 0.7rem; text-decoration: underline; cursor: pointer; font-weight: 700; text-transform: uppercase;"></span>
                 </div>
             </div>
 
             <div id="verificationStep">
                 <div class="newsletter-title" id="t-verify-title"></div>
-                <div class="newsletter-text" id="t-verify-desc" style="font-size: 0.8rem;"></div>
+                <div class="newsletter-text" id="t-verify-desc" style="font-size: 0.8rem; margin-bottom: 10px;"></div>
                 <div class="otp-container">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
@@ -222,7 +165,7 @@
                     <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
                 </div>
                 <button class="verify-btn" id="t-verify-btn" onclick="finalVerify()"></button>
-                <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()"></div>
+                <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()" style="margin-top: 20px; font-size: 0.75rem; cursor: pointer;"></div>
             </div>
         </div>
     </div>
@@ -230,7 +173,7 @@
     <div id="shopModal" class="modal">
         <div class="modal-content">
             <button class="close-x" onclick="closeStore()">&times;</button>
-            <h2 id="mTitle" style="margin-top:20px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase;"></h2>
+            <h2 id="mTitle" style="margin-top:20px; font-weight: 900; text-transform: uppercase;"></h2>
             <div class="modal-image-container">
                 <button class="modal-arrow prev-arrow" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                 <div id="mImgContainer"></div>
@@ -244,9 +187,9 @@
     <div id="successModal" class="modal">
         <div class="modal-content">
             <button class="close-x" onclick="closeModal('successModal')">&times;</button>
-            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #000; margin-bottom: 20px;"></i>
-            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase; margin-bottom: 10px;"></h2>
-            <p id="t-success-msg" style="color: #555; font-size: 0.9rem; line-height: 1.5;"></p>
+            <i class="fa-solid fa-circle-check" style="font-size: 3rem; margin-bottom: 20px;"></i>
+            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase;"></h2>
+            <p id="t-success-msg" style="color: #555; font-size: 0.9rem;"></p>
         </div>
     </div>
 
@@ -254,24 +197,28 @@
         <div class="footer-text" id="t-footer-copy"></div>
     </footer>
 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: true}, 'google_translate_element');
+            const userLang = (navigator.language || navigator.userLanguage).slice(0, 2);
+            if (userLang !== 'en') {
+                setTimeout(() => {
+                    const select = document.querySelector('select.goog-te-combo');
+                    if (select) { select.value = userLang; select.dispatchEvent(new Event('change')); }
+                }, 1000);
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
         const proxyURL = "https://script.google.com/macros/s/AKfycbzAUbQPKGtKj2tMcobV21qntF3p-uLHTjgDLbOjt4XzDAb_xa1Mlv9bjKTu1c1Q97s/exec";
-        let serverOTP = ""; 
-        let tempEmail = "";
+        let serverOTP = ""; let tempEmail = "";
 
         const products = Array.from({ length: 10 }, (_, i) => ({
-            id: i + 1,
-            price: `$${(40 + i * 10).toFixed(2)} USD`,
-            imgs: [
-                `https://picsum.photos/seed/ankor${i}1/500/500`,
-                `https://picsum.photos/seed/ankor${i}2/500/500`,
-                `https://picsum.photos/seed/ankor${i}3/500/500`,
-                `https://picsum.photos/seed/ankor${i}4/500/500`,
-                `https://picsum.photos/seed/ankor${i}5/500/500`
-            ],
-            stripe: `LINK_STRIPE_${i+1}`,
-            en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle." },
-            es: { name: `ANKOR ARTÍCULO ${i+1}`, desc: "Ingeniería de precisión para quienes no aceptan menos." }
+            id: i + 1, price: `$${(40 + i * 10).toFixed(2)} USD`,
+            imgs: Array.from({length:5}, (_, j) => `https://picsum.photos/seed/ankor${i}${j}/500/500`),
+            stripe: `LINK_${i+1}`, en: { name: `ANKOR ELITE ITEM ${i+1}`, desc: "Precision-engineered for those who refuse to settle." }
         }));
 
         const translations = {
@@ -279,62 +226,26 @@
                 unstoppable: "BE UNSTOPPABLE.", community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
                 content: "ANKOR CONTENT", store: "STORE", viewBtn: "VIEW PRODUCT", 
                 collabDesc: "The best collaboration of unstoppable mindset never seen before.",
-                neirBtn: "GO TO NEIR STORE &rarr;", 
-                buyBtn: "ACQUIRE NOW", footer: "ANKOR© ALL RIGHTS RESERVED", newsTitle: "Join ANKOR Elite.", 
-                newsDesc: "Be the first to know about news, rewards, valuable content and access to exclusive products from the brand.", 
-                newsBtn: "SUBSCRIBE", alreadySub: "YOU ARE ALREADY PART OF THE ELITE", successTitle: "WELCOME TO THE ELITE", 
-                successMsg: "Impact confirmed.", confirmedBtn: "CONFIRMED",
-                emptyEmail: "Please, enter your email.",
-                invalidEmail: "Enter a valid email address.",
-                alreadyRegistered: "This email is already registered.",
-                notYourEmail: "not you?", changeEmail: "change email",
-                verifyTitle: "Subscription Verification",
-                verifyDesc: "Enter the code sent to your email.",
-                verifyBtn: "VERIFY NOW",
-                resetLink: "subscribe with another account",
-                statusMsg: "You have subscribed to the Elite with ",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "ENGLISH", langEs: "SPANISH"
-            },
-            es: { 
-                unstoppable: "SÉ IMPARABLE.", community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
-                content: "CONTENIDO ANKOR", store: "TIENDA", viewBtn: "VER PRODUCTO", 
-                collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.",
-                neirBtn: "IR A LA TIENDA DE NEIR &rarr;", 
-                buyBtn: "ADQUIRIR AHORA", footer: "ANKOR© TODOS LOS DERECHOS RESERVADOS", newsTitle: "Únete a la Élite de ANKOR.", 
-                newsDesc: "Sé el primero en enterarte de novedades, beneficios, contenido de valor y acceso a los productos exclusivos de la marca.", 
-                newsBtn: "SUSCRIBIRME", alreadySub: "YA ERES PARTE DE LA ÉLITE", successTitle: "BIENVENIDO A LA ÉLITE", 
-                successMsg: "Impacto confirmado.", confirmedBtn: "CONFIRMADO",
-                emptyEmail: "Ingrese su correo electrónico.",
-                invalidEmail: "Ingrese una dirección de correo electrónico válida.",
-                alreadyRegistered: "Este correo electrónico ya se encuentra registrado.",
-                notYourEmail: "¿no eres tú?", changeEmail: "cambiar correo",
-                verifyTitle: "Verificación de Suscripción",
-                verifyDesc: "Ingresa el código enviado a tu correo electrónico.",
-                verifyBtn: "VERIFICAR AHORA",
-                resetLink: "suscribirme con otra cuenta",
-                statusMsg: "Te has suscrito a la Elite con ",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "INGLÉS", langEs: "ESPAÑOL"
+                neirBtn: "GO TO NEIR STORE &rarr;", buyBtn: "ACQUIRE NOW", footer: "ANKOR© ALL RIGHTS RESERVED",
+                newsTitle: "Join ANKOR Elite.", newsDesc: "Be the first to know about news and exclusive access.", 
+                newsBtn: "SUBSCRIBE", alreadySub: "YOU ARE ALREADY PART OF THE ELITE", 
+                successTitle: "WELCOME TO THE ELITE", successMsg: "Impact confirmed.", confirmedBtn: "CONFIRMED",
+                emptyEmail: "Please enter your email.", invalidEmail: "Enter a valid email address.",
+                alreadyRegistered: "This email is already registered.", notYourEmail: "not you?", 
+                changeEmail: "change email", verifyTitle: "Verification", verifyDesc: "Enter the code sent to your email.",
+                verifyBtn: "VERIFY NOW", resetLink: "subscribe with another account",
+                statusMsg: "You have subscribed with ", tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE"
             }
         };
 
-        let currentSlide = 0;
-
-        function getLang() { 
-            return (navigator.language || navigator.userLanguage).toLowerCase().startsWith('es') ? 'es' : 'en'; 
-        }
-
         function applyLanguage() {
-            const currentLang = getLang();
-            const t = translations[currentLang];
-            
+            const t = translations.en;
             document.getElementById('t-unstoppable').innerText = t.unstoppable;
             document.getElementById('t-community-label').innerText = t.community;
             document.getElementById('t-discord-btn').innerHTML = `<i class='fa-brands fa-discord'></i> ${t.discord}`;
             document.getElementById('t-content-label').innerText = t.content;
             document.getElementById('t-store-label').innerText = t.store;
-            document.getElementById('t-brand-collab-desc').innerHTML = t.collabDesc;
+            document.getElementById('t-brand-collab-desc').innerText = t.collabDesc;
             document.getElementById('t-neir-btn').innerHTML = t.neirBtn;
             document.getElementById('mStripe').innerText = t.buyBtn;
             document.getElementById('t-footer-copy').innerText = t.footer;
@@ -346,25 +257,17 @@
             document.getElementById('t-verify-desc').innerText = t.verifyDesc;
             document.getElementById('t-verify-btn').innerText = t.verifyBtn;
             document.getElementById('t-reset-link').innerText = t.resetLink;
-            
-            // LÓGICA DE PERSISTENCIA MEJORADA
+            document.getElementById('newsSubmit').innerText = t.newsBtn;
+
             const savedEmail = localStorage.getItem('ankor_email');
-            const isSubscribed = localStorage.getItem('ankor_subscribed');
+            if(localStorage.getItem('ankor_subscribed') === 'true' && savedEmail) lockNewsletter(savedEmail);
 
-            if(isSubscribed === 'true' && savedEmail) { 
-                lockNewsletter(savedEmail); 
-            } else { 
-                resetNewsletterUI();
-            }
-
-            const socialContainer = document.getElementById('social-links-container');
             const socials = [
-                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'#'}, {n:`@ankor.es (${t.langEs})`, url:'#'}] },
-                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc (${t.langEn})`, url:'#'}, {n:`@ankor.esp (${t.langEs})`, url:'#'}] },
-                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'#'}, {n:`@ankor.español`, url:'#'}] }
+                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc`, url:'#'}] },
+                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc`, url:'#'}] },
+                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'#'}] }
             ];
-
-            socialContainer.innerHTML = socials.map(s => `
+            document.getElementById('social-links-container').innerHTML = socials.map(s => `
                 <div class="border-tech-wrap" style="background: var(--glossy-black);">
                     <div class="acc-item">
                         <button class="acc-header" onclick="toggleAcc(this)"><i class="fa-brands fa-${s.icon}"></i><span>${s.label}</span><i class="fa-solid fa-chevron-down"></i></button>
@@ -372,26 +275,19 @@
                             ${s.links.map(l => `<a href="${l.url}" target="_blank" class="sub-link"><i class="fa-brands fa-${s.icon}"></i><span>${l.n}</span></a>`).join('')}
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`).join('');
             
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => {
-                const data = p[currentLang];
-                return `
+            document.getElementById('product-list').innerHTML = products.map(p => `
                 <div class="product-card-tech">
                     <div class="product-card">
-                        <img src="${p.imgs[0]}" class="bg-img" alt="${data.name}" loading="lazy">
+                        <img src="${p.imgs[0]}" class="bg-img" loading="lazy">
                         <div class="overlay"></div>
                         <div class="product-info">
-                            <h3>${data.name}</h3>
-                            <p>${p.price}</p>
+                            <h3>${p.en.name}</h3><p>${p.price}</p>
                             <button class="btn-view" onclick="openStoreById(${p.id})">${t.viewBtn}</button>
                         </div>
                     </div>
-                </div>`;
-            }).join('');
-            initDragScroll();
+                </div>`).join('');
             initReveal();
         }
 
@@ -401,198 +297,89 @@
             const email = emailInput.value.trim().toLowerCase();
             const btn = document.getElementById('newsSubmit');
             const errorDiv = document.getElementById('emailError');
-            const t = translations[getLang()];
+            const t = translations.en;
 
             hideError();
+            if (!email) { showError(t.emptyEmail, "error-red"); return; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError(t.invalidEmail, "error-red"); return; }
 
-            if (email === "") { 
-                errorDiv.innerText = t.emptyEmail;
-                errorDiv.className = "error-red";
-                errorDiv.style.display = 'block';
-                emailInput.style.borderColor = 'var(--accent-red)';
-                return; 
-            }
-
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailRegex.test(email)) { 
-                errorDiv.innerText = t.invalidEmail;
-                errorDiv.className = "error-red";
-                errorDiv.style.display = 'block';
-                emailInput.style.borderColor = 'var(--accent-red)';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerText = "...";
-            tempEmail = email;
-
+            btn.disabled = true; btn.innerText = "..."; tempEmail = email;
             try {
-                const response = await fetch(proxyURL, {
-                    method: "POST",
-                    body: JSON.stringify({ email: email, lang: getLang() })
-                });
-                const result = await response.json();
-                
+                const res = await fetch(proxyURL, { method: "POST", body: JSON.stringify({ email, lang: "en" }) });
+                const result = await res.json();
                 if (result.status === "already_registered") {
-                    errorDiv.innerText = t.alreadyRegistered;
-                    errorDiv.className = "error-grey";
-                    errorDiv.style.display = 'block';
-                    emailInput.style.borderColor = '#000';
+                    showError(t.alreadyRegistered, "error-grey");
                     localStorage.setItem('ankor_subscribed', 'true');
                     localStorage.setItem('ankor_email', email);
                     setTimeout(() => lockNewsletter(email), 1500);
-                    return;
-                }
-
-                if (result.status === "success") {
-                    serverOTP = result.otp; 
+                } else if (result.status === "success") {
+                    serverOTP = result.otp;
                     document.getElementById('t-change-email-wrap').innerHTML = `${t.notYourEmail} (${email})? <b><u>${t.changeEmail}</u></b>`;
                     document.getElementById('emailStep').style.display = 'none';
                     document.getElementById('verificationStep').style.display = 'block';
-                } else {
-                    alert("Error: " + result.message);
                 }
-            } catch (error) {
-                alert("Error de conexión.");
-            } finally {
-                if (localStorage.getItem('ankor_subscribed') !== 'true') {
-                    btn.disabled = false;
-                    btn.innerText = t.newsBtn;
-                }
-            }
+            } catch (e) { alert("Error"); }
+            finally { if(localStorage.getItem('ankor_subscribed') !== 'true') { btn.disabled = false; btn.innerText = t.newsBtn; } }
+        }
+
+        function showError(msg, cls) {
+            const err = document.getElementById('emailError');
+            err.innerText = msg; err.className = cls; err.style.display = 'block';
+            if(cls === "error-red") document.getElementById('newsInput').style.borderColor = 'var(--accent-red)';
         }
 
         function finalVerify() {
-            const inputs = document.querySelectorAll('.otp-input');
-            let code = "";
-            inputs.forEach(i => code += i.value);
+            let code = ""; document.querySelectorAll('.otp-input').forEach(i => code += i.value);
             if (code === serverOTP) {
-                localStorage.setItem('ankor_subscribed', 'true'); 
-                localStorage.setItem('ankor_email', tempEmail);
-                document.getElementById('successModal').style.display = 'block'; 
+                localStorage.setItem('ankor_subscribed', 'true'); localStorage.setItem('ankor_email', tempEmail);
+                document.getElementById('successModal').style.display = 'block';
                 document.getElementById('verificationStep').style.display = 'none';
                 document.getElementById('emailStep').style.display = 'block';
-                lockNewsletter(tempEmail); 
-            } else {
-                alert(getLang() === 'es' ? "Código Incorrecto" : "Incorrect Code");
-                inputs.forEach(i => i.value = "");
-                inputs[0].focus();
-            }
+                lockNewsletter(tempEmail);
+            } else { alert("Incorrect Code"); }
         }
 
-        // FUNCIÓN MEJORADA: Permite escribir pero no borra el éxito del storage
-        function forceUnlock() {
-            resetNewsletterUI(true);
-        }
-
-        function resetNewsletterUI(isManualUnlock = false) {
-            const input = document.getElementById('newsInput'); 
-            const btn = document.getElementById('newsSubmit'); 
-            const statusMsg = document.getElementById('subscriptionStatusMsg');
-            const t = translations[getLang()];
-            
-            input.disabled = false;
-            btn.disabled = false;
-            input.value = "";
-            input.placeholder = "email@example.com";
-            btn.innerText = t.newsBtn;
-            document.getElementById('resetLinkContainer').style.display = 'none';
-            document.getElementById('emailError').style.display = 'none';
-            statusMsg.style.display = 'none';
-            if(isManualUnlock) input.focus();
-        }
-
-        function lockNewsletter(email) { 
-            const input = document.getElementById('newsInput'); 
-            const btn = document.getElementById('newsSubmit'); 
-            const statusMsg = document.getElementById('subscriptionStatusMsg');
-            const t = translations[getLang()]; 
-            
-            input.value = ""; 
-            input.placeholder = t.alreadySub; // "YA ERES PARTE DE LA ELITE"
-            input.disabled = true; 
-            btn.disabled = true; 
-            btn.innerText = t.confirmedBtn; // "CONFIRMADO"
-            
-            statusMsg.innerText = t.statusMsg + email; // "Te has suscrito..."
-            statusMsg.style.display = 'block';
+        function lockNewsletter(email) {
+            const t = translations.en;
+            const input = document.getElementById('newsInput');
+            const btn = document.getElementById('newsSubmit');
+            input.value = ""; input.placeholder = t.alreadySub; input.disabled = true;
+            btn.disabled = true; btn.innerText = t.confirmedBtn;
+            document.getElementById('subscriptionStatusMsg').innerText = t.statusMsg + email;
+            document.getElementById('subscriptionStatusMsg').style.display = 'block';
             document.getElementById('resetLinkContainer').style.display = 'block';
         }
 
-        function hideError() {
-            document.getElementById('emailError').style.display = 'none';
-            document.getElementById('newsInput').style.borderColor = '#000';
+        function forceUnlock() {
+            localStorage.clear(); location.reload();
         }
 
-        function backToEmail() {
-            document.getElementById('verificationStep').style.display = 'none';
-            document.getElementById('emailStep').style.display = 'block';
-        }
-
-        function moveOTP(input) {
-            if (input.value.length >= 1 && input.nextElementSibling) {
-                input.nextElementSibling.focus();
-            }
-        }
-
-        function backOTP(e, input) {
-            if (e.key === "Backspace" && input.value === "" && input.previousElementSibling) {
-                input.previousElementSibling.focus();
-            }
-        }
-
-        function initReveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
-            }, { threshold: 0.1 });
-            reveals.forEach(el => observer.observe(el));
-        }
-
-        function initDragScroll() {
-            const slider = document.querySelector('.carousel');
-            if(!slider) return;
-            let isDown = false, startX, scrollLeft;
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-                slider.style.scrollSnapType = 'none';
-            });
-            slider.addEventListener('mouseleave', () => { isDown = false; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.scrollSnapType = 'x mandatory'; });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk;
-            });
-        }
-
+        function hideError() { document.getElementById('emailError').style.display = 'none'; document.getElementById('newsInput').style.borderColor = '#000'; }
+        function backToEmail() { document.getElementById('verificationStep').style.display = 'none'; document.getElementById('emailStep').style.display = 'block'; }
+        function moveOTP(i) { if (i.value.length >= 1 && i.nextElementSibling) i.nextElementSibling.focus(); }
+        function backOTP(e, i) { if (e.key === "Backspace" && !i.value && i.previousElementSibling) i.previousElementSibling.focus(); }
+        function toggleAcc(h) { h.closest('.acc-item').classList.toggle('open'); }
         function openStoreById(id) {
             const p = products.find(x => x.id === id);
-            if(!p) return;
-            currentSlide = 0;
-            const lang = getLang();
-            document.getElementById('mTitle').innerText = p[lang].name;
-            document.getElementById('mDesc').innerText = p[lang].desc;
+            document.getElementById('mTitle').innerText = p.en.name;
+            document.getElementById('mDesc').innerText = p.en.desc;
             document.getElementById('mStripe').href = p.stripe;
-            const container = document.getElementById('mImgContainer');
-            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('');
+            document.getElementById('mImgContainer').innerHTML = p.imgs.map((s, i) => `<img src="${s}" class="${i === 0 ? 'active' : ''}">`).join('');
             document.getElementById('shopModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-
-        function moveSlide(step) {
+        function moveSlide(s) {
             const imgs = document.querySelectorAll('#mImgContainer img');
-            if(imgs.length === 0) return;
-            imgs[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + step + imgs.length) % imgs.length;
-            imgs[currentSlide].classList.add('active');
+            let curr = [...imgs].findIndex(img => img.classList.contains('active'));
+            imgs[curr].classList.remove('active');
+            imgs[(curr + s + imgs.length) % imgs.length].classList.add('active');
         }
-
         function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
-        function toggleAcc(header) { header.closest('.acc-item').classList.toggle('open'); }
         function closeStore() { closeModal('shopModal'); }
+        function initReveal() {
+            const obs = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }), { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        }
 
         window.onload = applyLanguage;
     </script>
