@@ -244,7 +244,8 @@
     </footer>
 
     <script>
-        const proxyURL = "https://script.google.com/macros/s/AKfycbyPBShThfmCZZ-vpvOAQ75aMGYur6GwUu6Tp8rvbZCGHkmWHFwD3Cyc6jL3gq_gd1c/exec";
+        // URL de tu Google Apps Script actualizada
+        const proxyURL = "https://script.google.com/macros/s/AKfycbzAUbQPKGtKj2tMcobV21qntF3p-uLHTjgDLbOjt4XzDAb_xa1Mlv9bjKTu1c1Q97s/exec";
         let serverOTP = ""; 
 
         const products = Array.from({ length: 10 }, (_, i) => ({
@@ -388,10 +389,8 @@
             const errorDiv = document.getElementById('emailError');
             const t = translations[getLang()];
 
-            // Reset error
             hideError();
 
-            // Validación vacío
             if (email === "") { 
                 errorDiv.innerText = t.emptyEmail;
                 errorDiv.className = "error-red";
@@ -400,7 +399,6 @@
                 return; 
             }
 
-            // Validación formato
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             if (!emailRegex.test(email)) { 
                 errorDiv.innerText = t.invalidEmail;
@@ -420,12 +418,13 @@
                 });
                 const result = await response.json();
                 
-                // Si ya está registrado
+                // --- MANEJO DE CORREO YA REGISTRADO ---
                 if (result.status === "already_registered") {
                     errorDiv.innerText = t.alreadyRegistered;
                     errorDiv.className = "error-grey";
                     errorDiv.style.display = 'block';
-                    emailInput.style.borderColor = '#000'; // Borde normal
+                    emailInput.style.borderColor = '#000';
+                    localStorage.setItem('ankor_subscribed', 'true'); // Lo marcamos como suscrito localmente
                     lockNewsletter();
                     return;
                 }
@@ -439,10 +438,12 @@
                     alert("Error: " + result.message);
                 }
             } catch (error) {
-                alert("Error de conexión.");
+                alert("Error de conexión con el servidor.");
             } finally {
                 btn.disabled = false;
-                btn.innerText = (localStorage.getItem('ankor_subscribed')) ? t.confirmedBtn : t.newsBtn;
+                if (!localStorage.getItem('ankor_subscribed')) {
+                    btn.innerText = t.newsBtn;
+                }
             }
         }
 
@@ -525,6 +526,7 @@
 
         function initDragScroll() {
             const slider = document.querySelector('.carousel');
+            if(!slider) return;
             let isDown = false, startX, scrollLeft;
             slider.addEventListener('mousedown', (e) => {
                 isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
