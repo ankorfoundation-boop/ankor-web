@@ -368,20 +368,42 @@
         let serverOTP = ""; 
         let tempEmail = "";
 
-        const products = Array.from({ length: 10 }, (_, i) => ({
-            id: i + 1,
-            price: `$${(40 + i * 10).toFixed(2)} USD`,
-            imgs: [
-                `https://picsum.photos/seed/ankor${i}1/500/500`,
-                `https://picsum.photos/seed/ankor${i}2/500/500`,
-                `https://picsum.photos/seed/ankor${i}3/500/500`,
-                `https://picsum.photos/seed/ankor${i}4/500/500`,
-                `https://picsum.photos/seed/ankor${i}5/500/500`
-            ],
-            stripe: `LINK_STRIPE_${i+1}`,
-            en: { name: `ELITE ITEM ${i+1}`, desc: "Engineered for maximum performance and exclusivity." },
-            es: { name: `ARTÍCULO ELITE ${i+1}`, desc: "Diseñado para el máximo rendimiento y exclusividad absoluta." }
-        }));
+        /* --- CONFIGURACIÓN DE PRODUCTOS --- */
+        /* Para cada producto, el primer link de 'imgs' es la FOTO PRINCIPAL de la store.
+           Los 5 links dentro del array 'imgs' son las fotos de la MODAL INDIVIDUAL.
+           La descripción de cada modal se cambia en 'desc' dentro de 'en' (Inglés) o 'es' (Español). */
+
+        const products = [
+            {
+                id: 1,
+                price: "$40.00 USD",
+                imgs: [
+                    "URL_FOTO_PRINCIPAL_PRODUCTO_1", // También es la Foto 1 de la Modal
+                    "URL_FOTO_2_MODAL_PROD_1",
+                    "URL_FOTO_3_MODAL_PROD_1",
+                    "URL_FOTO_4_MODAL_PROD_1",
+                    "URL_FOTO_5_MODAL_PROD_1"
+                ],
+                stripe: "LINK_STRIPE_1",
+                en: { name: "PRODUCT 1", desc: "ENGLISH DESCRIPTION FOR PRODUCT 1" },
+                es: { name: "PRODUCTO 1", desc: "DESCRIPCIÓN EN ESPAÑOL PARA PRODUCTO 1" }
+            },
+            {
+                id: 2,
+                price: "$50.00 USD",
+                imgs: [
+                    "URL_FOTO_PRINCIPAL_PRODUCTO_2",
+                    "URL_FOTO_2_MODAL_PROD_2",
+                    "URL_FOTO_3_MODAL_PROD_2",
+                    "URL_FOTO_4_MODAL_PROD_2",
+                    "URL_FOTO_5_MODAL_PROD_2"
+                ],
+                stripe: "LINK_STRIPE_2",
+                en: { name: "PRODUCT 2", desc: "ENGLISH DESCRIPTION FOR PRODUCT 2" },
+                es: { name: "PRODUCTO 2", desc: "DESCRIPCIÓN EN ESPAÑOL PARA PRODUCTO 2" }
+            }
+            /* Puedes seguir agregando productos con la misma estructura hasta completar los 10 */
+        ];
 
         const translations = {
             en: { 
