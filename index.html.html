@@ -280,13 +280,13 @@
 <body>
 
     <div class="logo-circle reveal">
-        <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1485500387480965262/IMG_20260321_125511_580.webp?ex=69c2178b&is=69c0c60b&hm=cf0fc93f79d013419fbe1ea648364ad248ff28ba0a6f466b3045bb01513e23b2&" alt="ANKOR">
+        <img src="https://i.ibb.co/PkprDSx/image.jpg" alt="ANKOR">
     </div>
     <h1 class="main-title reveal" id="t-unstoppable"></h1>
 
     <div class="section-label reveal" id="t-community-label"></div>
     <div class="discord-card reveal">
-        <a href="https://discord.gg/S3B2XUVQx" class="discord-inner" id="t-discord-btn"></a>
+        <a href="https://discord.gg/your-discord-link" class="discord-inner" id="t-discord-btn"></a>
     </div>
 
     <div class="section-label reveal" id="t-content-label"></div>
@@ -346,16 +346,7 @@
             <div id="mDots"></div>
             
             <p id="mDesc" style="font-weight: 500; color: #666; margin: 15px 0 30px 0; line-height: 1.6; font-size: 0.9rem;"></p>
-            <a href="#" id="mStripe" class="btn-acquire"></a>
-        </div>
-    </div>
-
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <button class="close-x" onclick="closeModal('successModal')">&times;</button>
-            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #000; margin-bottom: 20px;"></i>
-            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase; margin-bottom: 10px;"></h2>
-            <p id="t-success-msg" style="color: #555; font-size: 0.9rem; line-height: 1.5;"></p>
+            <a href="#" id="mStripe" target="_blank" class="btn-acquire"></a>
         </div>
     </div>
 
@@ -595,7 +586,11 @@
             document.getElementById('mTitle').innerText = p[lang].name;
             document.getElementById('mPrice').innerText = p.price;
             document.getElementById('mDesc').innerText = p[lang].desc;
-            document.getElementById('mStripe').href = p.stripe;
+            
+            // Actualizamos link y nos aseguramos que abra en pestaña nueva
+            const stripeBtn = document.getElementById('mStripe');
+            stripeBtn.href = p.stripe;
+            stripeBtn.target = "_blank";
             
             const container = document.getElementById('mImgContainer');
             const dotsContainer = document.getElementById('mDots');
