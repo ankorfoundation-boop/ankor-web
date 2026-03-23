@@ -201,118 +201,78 @@
         }
         @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
 
-        /* --- MEJORA ESPECÍFICA ANKOR x NEIR --- */
-        .neir-box { 
-            text-align: center; 
-            margin-top: 80px; 
-            padding: 60px 20px 100px 20px; 
-            width: 100%; 
-            max-width: 440px; 
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-            border-radius: 40px;
-            border: 1px solid #222;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
+        /* --- NEWSLETTER & NEIR --- */
+        .neir-box { text-align: center; margin-top: 80px; padding-bottom: 100px; width: 100%; max-width: 400px; }
+        
+        /* MEJORA EN SECCIÓN ANKOR x NEIR */
         .neir-title { 
-            font-size: 3rem; 
+            font-size: 2.8rem; 
             font-weight: 900; 
             margin: 0; 
             letter-spacing: 8px; 
-            color: #fff; 
+            color: #000;
             line-height: 1.1;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
         }
         .brand-desc { 
             margin: 25px 0; 
-            line-height: 1.7; 
+            line-height: 1.6; 
             font-size: 0.95rem; 
-            color: #999;
-            font-weight: 400;
+            font-weight: 500;
+            color: #333;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .neir-pulse-btn { 
             display: inline-block; 
-            background: #fff; 
-            color: #000; 
-            padding: 22px 50px; 
-            border-radius: 4px; 
+            background: #000; 
+            color: #fff; 
+            padding: 22px 55px; 
+            border-radius: 50px; 
             text-decoration: none; 
             font-weight: 900; 
-            letter-spacing: 3px; 
-            animation: pulseCustom 2s infinite; 
-            margin-top: 10px;
+            letter-spacing: 2px; 
+            animation: pulse 1.8s infinite; 
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
         }
         .neir-pulse-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
-        .newsletter-container { 
-            margin-top: 70px; 
-            padding: 40px 25px; 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px);
-            border-radius: 20px; 
-            position: relative; 
-            overflow: hidden; 
-        }
-        .newsletter-title { font-size: 1.2rem; color: #fff; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        .newsletter-text { font-size: 0.85rem; color: #777; margin-bottom: 25px; line-height: 1.6; font-weight: 500; }
-        .newsletter-form { display: flex; flex-direction: column; gap: 12px; }
-        .newsletter-input { 
-            background: rgba(0,0,0,0.3); 
-            border: 1px solid #333; 
-            padding: 18px; 
-            color: #fff; 
-            border-radius: 8px; 
-            font-family: inherit; 
-            font-size: 0.9rem; 
-            outline: none; 
-            transition: all 0.3s; 
-        }
-        .newsletter-input:focus { border-color: #fff; background: rgba(255,255,255,0.05); }
-        .newsletter-input:disabled { background: #222; cursor: not-allowed; border-color: #333; }
+        .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; position: relative; overflow: hidden; }
+        .newsletter-title { font-size: 1.1rem; color: #000; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
+        .newsletter-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; font-weight: 500; }
+        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
+        .newsletter-input { background: #fff; border: 1px solid #000; padding: 15px; color: #000; border-radius: 5px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
+        .newsletter-input:disabled { background: #eee; cursor: not-allowed; border-color: #ccc; }
         
         #emailError { font-size: 0.75rem; font-weight: 700; display: none; margin-top: -5px; margin-bottom: 5px; text-align: left; padding-left: 5px; }
         .error-red { color: var(--accent-red); }
         .error-grey { color: #888; }
 
-        .newsletter-submit { 
-            background: #fff; 
-            color: #000; 
-            border: none; 
-            padding: 18px; 
-            border-radius: 8px; 
-            font-weight: 900; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            transition: all 0.3s;
-        }
-        .newsletter-submit:disabled { background: #333; color: #666; opacity: 0.8; cursor: default; }
+        .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
 
         #resetLinkContainer { display: none; margin-top: 15px; }
-        .reset-link { font-size: 0.7rem; color: #555; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #666; font-weight: 500; }
+        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
 
-        /* --- VERIFICATION STEP MOD --- */
-        #verificationStep .otp-input { 
-            background: #111; 
-            border: 2px solid #333; 
-            color: #fff; 
-        }
-        #verificationStep .verify-btn { 
-            background: #fff; 
-            color: #000; 
-            border-radius: 8px; 
-            padding: 18px;
-        }
-        .change-email-link { color: #666; }
-        .change-email-link b { color: #fff; }
-
-        @keyframes pulseCustom { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { transform: scale(1); } }
+        /* --- VERIFICATION STEP --- */
+        #verificationStep { display: none; }
+        .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; background: #fff; outline: none; }
         
+        .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
+        
+        .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
+        .change-email-link b { text-decoration: underline; color: #000; }
+
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.06); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); } 100% { transform: scale(1); } }
         footer { margin-top: 40px; padding: 40px 15px; width: 100%; max-width: 400px; border-top: 1px solid #eee; }
         .footer-text { font-size: 0.65rem; color: #999; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
     </style>
@@ -338,7 +298,7 @@
     </div>
 
     <div class="neir-box reveal">
-        <h2 class="neir-title">ANKOR<br><span style="font-size: 1.5rem; opacity: 0.4; vertical-align: middle;">x</span><br>NEIR</h2>
+        <h2 class="neir-title">ANKOR<br><span style="font-size: 1.2rem; opacity: 0.4; vertical-align: middle;">X</span><br>NEIR</h2>
         <div class="brand-desc" id="t-brand-collab-desc"></div>
         <a href="https://neirstore.com" class="neir-pulse-btn" id="t-neir-btn"></a>
         
