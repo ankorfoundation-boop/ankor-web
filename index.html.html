@@ -18,6 +18,7 @@
             --discord-glow: linear-gradient(45deg, #5865F2, #2C2F33, #5865F2);
             --tech-border: linear-gradient(90deg, #000000, #666666, #000000);
             --glossy-black: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
+            --wc-gold: linear-gradient(45deg, #ffd700, #aa8400, #ffd700);
         }
 
         * { box-sizing: border-box; }
@@ -80,7 +81,7 @@
 
         @keyframes moveGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* --- SOCIAL LINKS --- */
+        /* --- SOCIAL LINKS & WC SECTION --- */
         .links-container { width: 100%; max-width: 400px; }
         .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background-size: 200% 200%; animation: moveGlow 3s linear infinite; margin-bottom: 10px; }
         .acc-item { border-radius: 11px; overflow: hidden; background: #000; border: 1px solid #333; }
@@ -92,7 +93,14 @@
         .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; }
         .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; }
         .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; }
-        .acc-item.open .acc-content { max-height: 300px; }
+        .acc-item.open .acc-content { max-height: 500px; } /* Ajustado para contenido WC */
+
+        /* --- WC SPECIFIC --- */
+        .wc-content-inner { padding: 20px; background: #111; color: #fff; text-align: left; }
+        .wc-logo-box { text-align: center; margin-bottom: 20px; }
+        .wc-logo-box img { width: 100px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+        .wc-file-link { background: #222 !important; border-top: 1px solid #333 !important; color: #fff !important; }
+        .wc-file-link:hover { background: #333 !important; }
 
         /* --- MEJORA STORE CAROUSEL --- */
         .carousel-container { width: 100%; max-width: 500px; overflow: visible; }
@@ -284,6 +292,39 @@
     </div>
     <h1 class="main-title reveal" id="t-unstoppable"></h1>
 
+    <div class="section-label reveal">ANKOR WORLD CUP 2027</div>
+    <div class="links-container reveal" style="margin-bottom: 30px;">
+        <div class="border-tech-wrap" style="background: var(--wc-gold);">
+            <div class="acc-item">
+                <button class="acc-header" onclick="toggleAcc(this)">
+                    <i class="fa-solid fa-trophy" style="color: #ffd700;"></i>
+                    <span style="color: #ffd700; font-weight: 900;">ANKOR WC 2027</span>
+                    <i class="fa-solid fa-chevron-down" style="color: #ffd700;"></i>
+                </button>
+                <div class="acc-content">
+                    <div class="wc-content-inner">
+                        <div class="wc-logo-box">
+                            <img src="TU_LOGO_WC_AQUI.png" alt="WC Logo" onerror="this.style.display='none'">
+                            <p style="margin-top: 10px; font-weight: 800; color: #ffd700; font-size: 0.9rem;">BE READY FOR THE GLORY</p>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #ccc; line-height: 1.5; margin-bottom: 15px;">
+                            Toda la información oficial, reglamentos y archivos sobre el desarrollo de la Copa del Mundo ANKOR 2027.
+                        </p>
+                        <a href="#" target="_blank" class="sub-link wc-file-link">
+                            <i class="fa-solid fa-file-pdf"></i><span>Reglamento Oficial</span>
+                        </a>
+                        <a href="#" target="_blank" class="sub-link wc-file-link">
+                            <i class="fa-solid fa-diagram-project"></i><span>Fases del Torneo</span>
+                        </a>
+                        <a href="#" target="_blank" class="sub-link wc-file-link">
+                            <i class="fa-solid fa-download"></i><span>Descargar Assets WC</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="section-label reveal" id="t-community-label"></div>
     <div class="discord-card reveal">
         <a href="https://discord.gg/S3B2XUVQx" class="discord-inner" id="t-discord-btn"></a>
@@ -368,7 +409,7 @@
         let serverOTP = ""; 
         let tempEmail = "";
 
-        /* --- CONFIGURACIÓN DE PRODUCTOS (EXPANDIDO A 10) --- */
+        /* --- CONFIGURACIÓN DE PRODUCTOS --- */
         const products = [
             { id: 1, price: "$40.00 USD", imgs: ["LINK_1", "LINK_1B", "LINK_1C", "LINK_1D", "LINK_1E"], stripe: "#", en: { name: "PRODUCT 1", desc: "DESC EN" }, es: { name: "PRODUCTO 1", desc: "DESC ES" } },
             { id: 2, price: "$45.00 USD", imgs: ["LINK_2", "LINK_2B", "LINK_2C", "LINK_2D", "LINK_2E"], stripe: "#", en: { name: "PRODUCT 2", desc: "DESC EN" }, es: { name: "PRODUCTO 2", desc: "DESC ES" } },
@@ -587,7 +628,6 @@
             document.getElementById('mPrice').innerText = p.price;
             document.getElementById('mDesc').innerText = p[lang].desc;
             
-            // Actualizamos link y nos aseguramos que abra en pestaña nueva
             const stripeBtn = document.getElementById('mStripe');
             stripeBtn.href = p.stripe;
             stripeBtn.target = "_blank";
