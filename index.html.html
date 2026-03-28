@@ -1,662 +1,672 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    <title>ANKOR | Be Unstoppable</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ANKOR | Official Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #ffffff;
-            --card-bg: #ffffff;
-            --text-primary: #000000;
-            --text-secondary: #444444;
-            --accent-red: #c30010;
-            --discord-glow: linear-gradient(45deg, #5865F2, #2C2F33, #5865F2);
-            --tech-border: linear-gradient(90deg, #000000, #666666, #000000);
-            --glossy-black: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
-            --wc-gold: linear-gradient(45deg, #ffd700, #aa8400, #ffd700);
+            --bg: #ffffff;
+            --text: #000000;
+            --text-muted: #666666;
+            --black: #000000;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --border: #e0e0e0;
+            --transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+            --transition-smooth: 0.3s ease;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 15px;
-            text-align: center;
+            background-color: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- ANIMACIÓN FADE IN --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        /* --- ANNOUNCEMENT BAR --- */
+        .announcement-bar {
+            background: var(--black);
+            color: var(--white);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .reveal.active {
+        .announcement-track {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        .ticket {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .ticket.active {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* --- HEADER --- */
-        .logo-circle {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 2px solid #000000;
-            margin-bottom: 20px;
-            overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-            background: #000;
+        .ann-arrow {
+            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
+            font-size: 1rem; position: absolute; z-index: 10;
         }
-        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .ann-prev { left: 10px; }
+        .ann-next { right: 10px; }
 
-        h1.main-title { 
-            font-weight: 900; 
-            font-size: 1.8rem; 
-            text-transform: uppercase; 
-            letter-spacing: -1px; 
-            margin: 0; 
-            color: #000;
-            min-height: 1.2em;
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 30px; height: 70px;
+        }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); }
+        
+        .desktop-nav { display: none; gap: 30px; }
+        .nav-link {
+            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
+            position: relative; cursor: pointer;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--black); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
+            background: var(--white); z-index: 2000; padding: 80px 30px 30px;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex; flex-direction: column; gap: 25px;
+        }
+        .mobile-menu.open { left: 0; }
+        .mobile-menu .nav-link { font-size: 1.5rem; letter-spacing: -0.5px; }
+        .close-menu { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
+        .overlay.active { display: block; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; }
+            .hamburger { display: none; }
+        }
+
+        /* --- VIEWS CONTROLLER --- */
+        .view { display: none; animation: fadeIn 0.5s ease forwards; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- HERO SLIDER --- */
+        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
+        .hero-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transform: translateX(100%); transition: transform var(--transition-strong);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero-slide.active { transform: translateX(0); z-index: 2; }
+        .hero-slide.prev { transform: translateX(-100%); z-index: 1; }
+        
+        /* Overlay for text readability */
+        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
+        
+        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
+        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+
+        /* The Special Button */
+        .btn-mas-info {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--black); color: var(--white); padding: 18px 40px;
+            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth);
+            border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+        }
+        .btn-mas-info span.text { position: relative; }
+        .btn-mas-info span.arrow {
+            display: inline-block; opacity: 0; width: 0; overflow: hidden;
+            transform: translateX(-10px); transition: all 0.3s ease;
+        }
+        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
+        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
+        .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+
+        /* Slider Controls */
+        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
+        .slider-arrow {
+            pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
+        }
+        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+        /* --- SECTIONS LAYOUT --- */
+        .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 50px; }
+
+        /* --- SOCIAL CONTENT (NEW DESIGN) --- */
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .social-card {
+            background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
+            transition: transform var(--transition-smooth), background 0.3s; position: relative; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .social-icon { font-size: 3rem; margin-bottom: 20px; color: var(--black); transition: transform 0.3s; }
+        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 20px; }
+        .social-accounts { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; position: absolute; bottom: 30px; left: 0; width: 100%; padding: 0 30px; }
+        .social-card:hover { transform: translateY(-10px); background: var(--black); color: var(--white); }
+        .social-card:hover .social-icon { transform: scale(0.8) translateY(-20px); color: var(--white); }
+        .social-card:hover .social-name { transform: translateY(-20px); transition: 0.3s; }
+        .social-card:hover .social-accounts { opacity: 1; transform: translateY(0); }
+        .account-btn {
+            background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
+            border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s;
+            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+        }
+        .account-btn:hover { background: var(--white); color: var(--black); }
+
+        /* --- STORE GRID --- */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
+        .product-item { cursor: pointer; group; position: relative; }
+        
+        .product-img-wrapper {
+            position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray);
+            border-radius: 12px; overflow: hidden; margin-bottom: 15px;
         }
         
-        .section-label { color: #888; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin: 45px 0 15px 0; font-weight: 700; }
-
-        /* --- DISCORD --- */
-        .discord-card { 
-            width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; 
-            background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); 
+        .prod-mini-carousel {
+            display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory;
+            scrollbar-width: none; pointer-events: none; /* Let arrows handle interaction on hover */
         }
-        .discord-inner { background: var(--discord-glow); background-size: 300% 300%; animation: moveGlow 4s linear infinite; padding: 18px; border-radius: 11px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: 800; font-size: 0.85rem; }
-        .discord-inner i { font-size: 1.4rem; margin-right: 12px; color: #fff; }
-
-        @keyframes moveGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        /* --- SOCIAL LINKS & WC SECTION --- */
-        .links-container { width: 100%; max-width: 400px; }
-        .border-tech-wrap { width: 100%; max-width: 400px; position: relative; padding: 2px; border-radius: 12px; background-size: 200% 200%; animation: moveGlow 3s linear infinite; margin-bottom: 10px; }
-        .acc-item { border-radius: 11px; overflow: hidden; background: #000; border: 1px solid #333; }
-        .acc-header { padding: 18px; display: flex; align-items: center; cursor: pointer; text-align: left; color: #fff; border: none; width: 100%; background: none; font-family: inherit; transition: background 0.2s; }
-        .acc-header:hover { background: #111; }
-        .acc-header i:first-child { width: 30px; margin-right: 10px; font-size: 1.2rem; text-align: center; color: #fff; }
-        .acc-header span { flex-grow: 1; font-weight: 600; text-align: center; margin-right: 30px; }
-        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: #fafafa; }
-        .sub-link { padding: 15px 20px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); border-top: 1px solid #eee; font-size: 0.85rem; }
-        .sub-link i { width: 30px; margin-right: 10px; text-align: center; font-size: 1rem; color: #000; }
-        .sub-link span { flex-grow: 1; text-align: center; margin-right: 30px; }
-        .acc-item.open .acc-content { max-height: 500px; } /* Ajustado para contenido WC */
-
-        /* --- WC SPECIFIC --- */
-        .wc-content-inner { padding: 20px; background: #111; color: #fff; text-align: left; }
-        .wc-logo-box { text-align: center; margin-bottom: 20px; }
-        .wc-logo-box img { width: 100px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
-        .wc-file-link { background: #222 !important; border-top: 1px solid #333 !important; color: #fff !important; }
-        .wc-file-link:hover { background: #333 !important; }
-
-        /* --- MEJORA STORE CAROUSEL --- */
-        .carousel-container { width: 100%; max-width: 500px; overflow: visible; }
-        .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 0; scrollbar-width: none; cursor: grab; }
-        .carousel::-webkit-scrollbar { display: none; }
+        .prod-mini-carousel::-webkit-scrollbar { display: none; }
+        .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
         
-        .product-card-tech { 
-            flex: 0 0 80%; 
-            scroll-snap-align: center; 
-            padding: 1px; 
-            border-radius: 20px; 
-            background: var(--tech-border);
-            transition: transform 0.4s ease;
+        /* Inner arrows on hover */
+        .p-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px;
+            border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px);
+            border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10;
+            opacity: 0; transition: opacity 0.3s, transform 0.2s; pointer-events: auto;
+            display: flex; align-items: center; justify-content: center;
         }
-        .product-card-tech:hover { transform: translateY(-5px); }
+        .p-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
+        .p-prev { left: 10px; } .p-next { right: 10px; }
+        .product-item:hover .p-arrow { opacity: 1; }
 
-        .product-card { 
-            position: relative; 
-            background: #000; 
-            border-radius: 19px; 
-            padding: 25px; 
-            height: 400px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            overflow: hidden; 
-        }
-        .product-card img.bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform 0.6s ease; }
-        .product-card:hover img.bg-img { transform: scale(1.1); }
-        
-        .product-card .overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0) 60%); 
-            z-index: 2; 
-        }
-        
-        .product-info { position: relative; z-index: 3; text-align: left; }
-        .product-card h3 { color: #fff; margin: 0; font-size: 1.2rem; font-weight: 900; letter-spacing: -0.5px; }
-        .product-card p { color: #ccc; margin: 5px 0 20px 0; font-weight: 500; font-size: 0.9rem; }
-        .btn-view { 
-            background: #fff; color: #000; border: none; padding: 14px; width: 100%; 
-            border-radius: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; 
-            letter-spacing: 1px; font-size: 0.75rem; transition: all 0.3s ease;
-        }
-        .btn-view:hover { background: #eee; letter-spacing: 2px; }
+        .product-meta { text-align: left; }
+        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; color: var(--black); }
+        .product-price { font-weight: 500; font-size: 0.95rem; color: var(--black); }
 
-        /* --- MEJORA MODAL STORE --- */
-        .modal { 
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            overflow-y: auto; 
-        }
-        .modal-content { 
-            max-width: 500px; margin: 20px auto; padding: 30px; 
-            text-align: center; position: relative; background: #fff; 
-            border-radius: 25px; color: #000; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-        .close-x { 
-            position: absolute; right: 20px; top: 20px; cursor: pointer; 
-            font-size: 1.2rem; color: #fff; background: #000; 
-            border: none; width: 35px; height: 35px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; z-index: 100;
-        }
+        /* --- PRODUCT DETAIL VIEW --- */
+        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
         
-        .modal-image-container { 
-            position: relative; width: 100%; aspect-ratio: 1/1; 
-            margin: 20px 0; border-radius: 15px; overflow: hidden; 
-            background: #f9f9f9; 
+        /* Peak Carousel */
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
+        .main-carousel {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+            padding-right: 15%; /* Creates the peak effect */ cursor: grab;
         }
-        #mImgContainer { width: 100%; height: 100%; }
-        #mImgContainer img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
-        #mImgContainer img.active { opacity: 1; }
-        
-        .modal-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            background: rgba(255,255,255,0.9); color: #000; border: none; 
-            width: 45px; height: 45px; border-radius: 50%; cursor: pointer; 
-            z-index: 10; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.2s;
-        }
-        .modal-arrow:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
-        .prev-arrow { left: 15px; }
-        .next-arrow { right: 15px; }
-
-        #mDots { display: flex; justify-content: center; gap: 8px; margin-top: -40px; position: relative; z-index: 15; padding-bottom: 30px; }
-        .dot { width: 6px; height: 6px; background: rgba(0,0,0,0.2); border-radius: 50%; transition: all 0.3s; }
-        .dot.active { width: 20px; background: #000; border-radius: 10px; }
-
-        .m-price { font-size: 1.4rem; font-weight: 900; margin: 10px 0; color: #000; }
-        
-        .btn-acquire { 
-            display: block; background: #000; color: #fff; text-align: center; 
-            padding: 20px; text-decoration: none; border-radius: 12px; 
-            font-weight: 900; font-size: 0.9rem; text-transform: uppercase; 
-            letter-spacing: 2px; position: relative; overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .btn-acquire:hover { transform: scale(1.02); }
-        
-        /* Efecto Brillo Metálico */
-        .btn-acquire::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg); animation: shine 3s infinite;
-        }
-        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
-
-        /* --- NEWSLETTER & NEIR --- */
-        .neir-box { text-align: center; margin-top: 80px; padding-bottom: 100px; width: 100%; max-width: 400px; }
-        
-        /* MEJORA EN SECCIÓN ANKOR x NEIR */
-        .neir-title { 
-            font-size: 2.8rem; 
-            font-weight: 900; 
-            margin: 0; 
-            letter-spacing: 8px; 
-            color: #000;
-            line-height: 1.1;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
-        }
-        .brand-desc { 
-            margin: 25px 0; 
-            line-height: 1.6; 
-            font-size: 0.95rem; 
-            font-weight: 500;
-            color: #333;
-            max-width: 320px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .neir-pulse-btn { 
-            display: inline-block; 
-            background: #000; 
-            color: #fff; 
-            padding: 22px 55px; 
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: 900; 
-            letter-spacing: 2px; 
-            animation: pulse 1.8s infinite; 
-            margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-        }
-        .neir-pulse-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        .main-carousel::-webkit-scrollbar { display: none; }
+        .main-carousel img {
+            flex: 0 0 85%; /* Shows 85% of image, leaving 15% for the next one */
+            aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start;
+            margin-right: 15px; border-radius: 12px;
         }
 
-        .newsletter-container { margin-top: 60px; padding: 30px 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 15px; position: relative; overflow: hidden; }
-        .newsletter-title { font-size: 1.1rem; color: #000; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
-        .newsletter-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; font-weight: 500; }
-        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
-        .newsletter-input { background: #fff; border: 1px solid #000; padding: 15px; color: #000; border-radius: 5px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
-        .newsletter-input:disabled { background: #eee; cursor: not-allowed; border-color: #ccc; }
-        
-        #emailError { font-size: 0.75rem; font-weight: 700; display: none; margin-top: -5px; margin-bottom: 5px; text-align: left; padding-left: 5px; }
-        .error-red { color: var(--accent-red); }
-        .error-grey { color: #888; }
+        /* Thumbnails */
+        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
+        .thumb-carousel img {
+            width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer;
+            opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent;
+        }
+        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
 
-        .newsletter-submit { background: #000; color: #fff; border: none; padding: 15px; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .newsletter-submit:disabled { background: #444; opacity: 0.8; cursor: default; }
+        .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
+        .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
+        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
+        .add-to-cart-btn:hover { transform: scale(1.02); }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
+        .back-btn:hover { text-decoration: underline; }
 
-        #resetLinkContainer { display: none; margin-top: 15px; }
-        .reset-link { font-size: 0.7rem; color: #000; cursor: pointer; text-decoration: underline; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        /* --- ANKOR WC 2027 SECTION --- */
+        .wc-banner {
+            width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
         
-        #subscriptionStatusMsg { display: none; margin-top: 12px; font-size: 0.75rem; color: #888; font-weight: 500; }
+        .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
+        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
+        .wc-content strong { color: var(--black); }
+        
+        .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
+        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
+        .download-link i { font-size: 1.5rem; }
+        .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
-        /* --- VERIFICATION STEP --- */
-        #verificationStep { display: none; }
-        .otp-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
-        .otp-input { width: 45px; height: 55px; border: 2px solid #000; text-align: center; font-size: 1.5rem; font-weight: 900; border-radius: 8px; background: #fff; outline: none; }
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .form-group { margin-bottom: 25px; position: relative; }
+        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
+        .form-control:focus { border-bottom-color: var(--black); }
+        .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
+        .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
+        textarea.form-control { resize: vertical; min-height: 100px; }
         
-        .verify-btn { background: #000; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
-        
-        .change-email-link { display: block; margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; text-decoration: none; }
-        .change-email-link b { text-decoration: underline; color: #000; }
+        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.06); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); } 100% { transform: scale(1); } }
-        footer { margin-top: 40px; padding: 40px 15px; width: 100%; max-width: 400px; border-top: 1px solid #eee; }
-        .footer-text { font-size: 0.65rem; color: #999; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+        /* Toast Notification */
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .toast.show { bottom: 40px; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
     </style>
 </head>
 <body>
 
-    <div class="logo-circle reveal">
-        <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1486749364171968632/Airbrush-IMAGE-ENHANCER-1774539048408-1774539048408.png?ex=69c6a2be&is=69c5513e&hm=03b6d9003c3dfac25279166737d263c9195e6d481575c88da17b1999c74761a2&" alt="ANKOR">
+    <div class="announcement-bar">
+        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="announcement-track" id="ticketTrack">
+            <div class="ticket active">BE UNSTOPPABLE.</div>
+            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
+            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
+            <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
+        </div>
+        <button class="ann-arrow ann-next" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
-    <h1 class="main-title reveal" id="t-unstoppable"></h1>
 
-    <div class="section-label reveal">ANKOR WORLD CUP 2027</div>
-    <div class="links-container reveal" style="margin-bottom: 30px;">
-        <div class="border-tech-wrap" style="background: var(--wc-gold);">
-            <div class="acc-item">
-                <button class="acc-header" onclick="toggleAcc(this)">
-                    <i class="fa-solid fa-trophy" style="color: #ffd700;"></i>
-                    <span style="color: #ffd700; font-weight: 900;">ANKOR WC 2027</span>
-                    <i class="fa-solid fa-chevron-down" style="color: #ffd700;"></i>
-                </button>
-                <div class="acc-content">
-                    <div class="wc-content-inner">
-                        <div class="wc-logo-box">
-                            <img src="TU_LOGO_WC_AQUI.png" alt="WC Logo" onerror="this.style.display='none'">
-                            <p style="margin-top: 10px; font-weight: 800; color: #ffd700; font-size: 0.9rem;">BE READY FOR THE GLORY</p>
-                        </div>
-                        <p style="font-size: 0.8rem; color: #ccc; line-height: 1.5; margin-bottom: 15px;">
-                            Toda la información oficial, reglamentos y archivos sobre el desarrollo de la Copa del Mundo ANKOR 2027.
-                        </p>
-                        <a href="#" target="_blank" class="sub-link wc-file-link">
-                            <i class="fa-solid fa-file-pdf"></i><span>Reglamento Oficial</span>
-                        </a>
-                        <a href="#" target="_blank" class="sub-link wc-file-link">
-                            <i class="fa-solid fa-diagram-project"></i><span>Fases del Torneo</span>
-                        </a>
-                        <a href="#" target="_blank" class="sub-link wc-file-link">
-                            <i class="fa-solid fa-download"></i><span>Descargar Assets WC</span>
+    <header>
+        <div class="logo" onclick="navigate('home')">ANKOR</div>
+        <nav class="desktop-nav">
+            <a class="nav-link active" onclick="navigate('home')">Home</a>
+            <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
+            <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
+        </nav>
+        <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" onclick="toggleMenu()">&times;</button>
+        <a class="nav-link active" onclick="navigate('home')">Home</a>
+        <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
+        <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
+    </div>
+
+    <main>
+        
+        <section id="view-home" class="view active">
+            
+            <div class="hero-section" id="heroSlider">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
+                    <div class="hero-content">
+                        <h1 class="hero-title">ANKOR WC 2027</h1>
+                        <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
+                        <a onclick="navigate('wc2027')" class="btn-mas-info">
+                            <span class="text">MÁS INFORMACIÓN</span>
+                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
+                    <div class="hero-content">
+                        <h1 class="hero-title">ANKOR STORE</h1>
+                        <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
+                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">
+                            <span class="text">VER COLECCIÓN</span>
+                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
 
-    <div class="section-label reveal" id="t-community-label"></div>
-    <div class="discord-card reveal">
-        <a href="https://discord.gg/S3B2XUVQx" class="discord-inner" id="t-discord-btn"></a>
-    </div>
-
-    <div class="section-label reveal" id="t-content-label"></div>
-    <div class="links-container reveal" id="social-links-container"></div>
-
-    <div class="section-label reveal" id="t-store-label"></div>
-    <div class="carousel-container reveal">
-        <div class="carousel" id="product-list"></div>
-    </div>
-
-    <div class="neir-box reveal">
-        <h2 class="neir-title">ANKOR<br><span style="font-size: 1.2rem; opacity: 0.4; vertical-align: middle;">X</span><br>NEIR</h2>
-        <div class="brand-desc" id="t-brand-collab-desc"></div>
-        <a href="https://neirstore.com" class="neir-pulse-btn" id="t-neir-btn"></a>
-        
-        <div class="newsletter-container reveal">
-            <div id="emailStep">
-                <div class="newsletter-title" id="t-news-title"></div>
-                <div class="newsletter-text" id="t-news-desc"></div>
-                <form class="newsletter-form" id="newsForm" onsubmit="initVerification(event)" novalidate>
-                    <input type="email" id="newsInput" class="newsletter-input" placeholder="" oninput="hideError()">
-                    <div id="emailError"></div>
-                    <button type="submit" id="newsSubmit" class="newsletter-submit"></button>
-                </form>
-                <div id="subscriptionStatusMsg"></div>
-                <div id="resetLinkContainer">
-                    <span class="reset-link" id="t-reset-link" onclick="forceUnlock()"></span>
+                <div class="slider-controls">
+                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
-            <div id="verificationStep">
-                <div class="newsletter-title" id="t-verify-title"></div>
-                <div class="newsletter-text" id="t-verify-desc" style="font-size: 0.8rem;"></div>
-                <div class="otp-container">
-                    <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
-                    <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
-                    <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
-                    <input type="text" class="otp-input" maxlength="1" oninput="moveOTP(this)" onkeydown="backOTP(event, this)">
+            <div class="section-container">
+                <h2 class="section-title">CONTENIDO ANKOR</h2>
+                <div class="social-grid">
+                    
+                    <div class="social-card">
+                        <i class="fa-brands fa-tiktok social-icon"></i>
+                        <h3 class="social-name">TikTok</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.inc (INGLÉS)</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.es (ESPAÑOL)</a>
+                        </div>
+                    </div>
+
+                    <div class="social-card">
+                        <i class="fa-brands fa-instagram social-icon"></i>
+                        <h3 class="social-name">Instagram</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.inc (INGLÉS)</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.esp (ESPAÑOL)</a>
+                        </div>
+                    </div>
+
+                    <div class="social-card">
+                        <i class="fa-brands fa-youtube social-icon"></i>
+                        <h3 class="social-name">YouTube</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.english</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.español</a>
+                        </div>
+                    </div>
+
                 </div>
-                <button class="verify-btn" id="t-verify-btn" onclick="finalVerify()"></button>
-                <div class="change-email-link" id="t-change-email-wrap" onclick="backToEmail()"></div>
             </div>
-        </div>
-    </div>
 
-    <div id="shopModal" class="modal">
-        <div class="modal-content">
-            <button class="close-x" onclick="closeStore()">&times;</button>
-            <h2 id="mTitle" style="margin-top:20px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; font-size: 1.5rem;"></h2>
-            <div id="mPrice" class="m-price"></div>
-            
-            <div class="modal-image-container">
-                <button class="modal-arrow prev-arrow" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                <div id="mImgContainer"></div>
-                <button class="modal-arrow next-arrow" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="section-container" id="store-anchor">
+                <h2 class="section-title">ANKOR STORE</h2>
+                <div class="store-grid" id="productGrid">
+                    </div>
             </div>
-            <div id="mDots"></div>
+
+        </section>
+
+        <section id="view-product" class="view section-container" style="padding-top: 40px;">
+            <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
             
-            <p id="mDesc" style="font-weight: 500; color: #666; margin: 15px 0 30px 0; line-height: 1.6; font-size: 0.9rem;"></p>
-            <a href="#" id="mStripe" target="_blank" class="btn-acquire"></a>
-        </div>
+            <div class="product-detail-layout">
+                <div class="prod-images-panel">
+                    <div class="main-carousel-container">
+                        <div class="main-carousel" id="detailMainCarousel">
+                            </div>
+                    </div>
+                    <div class="thumb-carousel" id="detailThumbCarousel">
+                        </div>
+                </div>
+
+                <div class="prod-info-panel">
+                    <h1 id="detailTitle">PRODUCT NAME</h1>
+                    <div class="price" id="detailPrice">$00.00 USD</div>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">
+                        Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.
+                    </p>
+                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-wc2027" class="view">
+            <div class="wc-banner">
+                <h1>ANKOR World Cup</h1>
+            </div>
+            
+            <div class="section-container">
+                <div class="wc-content">
+                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
+                    
+                    <h2>1.1 Cómo Funciona</h2>
+                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
+                    
+                    <h2>1.2 Requisitos y Clasificación</h2>
+                    <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
+
+                    <div class="download-box">
+                        <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
+                        <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
+                        <a href="#" class="download-link"><i class="fa-solid fa-diagram-project"></i> Estructura y Fases del Torneo.pdf</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-contact" class="view">
+            <div class="section-container">
+                <h2 class="section-title">CONTACTO ANKOR</h2>
+                
+                <div class="contact-wrapper">
+                    <form id="contactForm" onsubmit="handleContact(event)">
+                        <div class="form-group">
+                            <input type="text" id="c_nombre" class="form-control" placeholder=" " required>
+                            <label class="form-label">Nombre</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="c_apellido" class="form-control" placeholder=" " required>
+                            <label class="form-label">Apellido</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="c_tel" class="form-control" placeholder=" " required>
+                            <label class="form-label">Número de teléfono</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="c_email" class="form-control" placeholder=" " required>
+                            <label class="form-label">Correo electrónico</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="c_motivo" class="form-control" placeholder=" " required></textarea>
+                            <label class="form-label">Motivo del mensaje</label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i>
+        <span>Mensaje enviado correctamente.</span>
     </div>
 
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <button class="close-x" onclick="closeModal('successModal')">&times;</button>
-            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #000; margin-bottom: 20px;"></i>
-            <h2 id="t-success-title" style="font-weight: 900; text-transform: uppercase; margin-bottom: 10px;"></h2>
-            <p id="t-success-msg" style="color: #555; font-size: 0.9rem; line-height: 1.5;"></p>
-        </div>
-    </div>
-
-    <footer class="reveal">
-        <div class="footer-text" id="t-footer-copy"></div>
+    <footer>
+        ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.
     </footer>
 
     <script>
-        const proxyURL = "https://script.google.com/macros/s/AKfycbzAUbQPKGtKj2tMcobV21qntF3p-uLHTjgDLbOjt4XzDAb_xa1Mlv9bjKTu1c1Q97s/exec";
-        let serverOTP = ""; 
-        let tempEmail = "";
+        /* --- NAVIGATION / SPA LOGIC --- */
+        function navigate(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            // Show target view
+            document.getElementById('view-' + viewId).classList.add('active');
+            
+            // Update active state in nav
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            // Very basic matching to set active state
+            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
 
-        /* --- CONFIGURACIÓN DE PRODUCTOS --- */
-        const products = [
-            { id: 1, price: "$40.00 USD", imgs: ["LINK_1", "LINK_1B", "LINK_1C", "LINK_1D", "LINK_1E"], stripe: "#", en: { name: "PRODUCT 1", desc: "DESC EN" }, es: { name: "PRODUCTO 1", desc: "DESC ES" } },
-            { id: 2, price: "$45.00 USD", imgs: ["LINK_2", "LINK_2B", "LINK_2C", "LINK_2D", "LINK_2E"], stripe: "#", en: { name: "PRODUCT 2", desc: "DESC EN" }, es: { name: "PRODUCTO 2", desc: "DESC ES" } },
-            { id: 3, price: "$50.00 USD", imgs: ["LINK_3", "LINK_3B", "LINK_3C", "LINK_3D", "LINK_3E"], stripe: "#", en: { name: "PRODUCT 3", desc: "DESC EN" }, es: { name: "PRODUCTO 3", desc: "DESC ES" } },
-            { id: 4, price: "$55.00 USD", imgs: ["LINK_4", "LINK_4B", "LINK_4C", "LINK_4D", "LINK_4E"], stripe: "#", en: { name: "PRODUCT 4", desc: "DESC EN" }, es: { name: "PRODUCTO 4", desc: "DESC ES" } },
-            { id: 5, price: "$60.00 USD", imgs: ["LINK_5", "LINK_5B", "LINK_5C", "LINK_5D", "LINK_5E"], stripe: "#", en: { name: "PRODUCT 5", desc: "DESC EN" }, es: { name: "PRODUCTO 5", desc: "DESC ES" } },
-            { id: 6, price: "$65.00 USD", imgs: ["LINK_6", "LINK_6B", "LINK_6C", "LINK_6D", "LINK_6E"], stripe: "#", en: { name: "PRODUCT 6", desc: "DESC EN" }, es: { name: "PRODUCTO 6", desc: "DESC ES" } },
-            { id: 7, price: "$70.00 USD", imgs: ["LINK_7", "LINK_7B", "LINK_7C", "LINK_7D", "LINK_7E"], stripe: "#", en: { name: "PRODUCT 7", desc: "DESC EN" }, es: { name: "PRODUCTO 7", desc: "DESC ES" } },
-            { id: 8, price: "$75.00 USD", imgs: ["LINK_8", "LINK_8B", "LINK_8C", "LINK_8D", "LINK_8E"], stripe: "#", en: { name: "PRODUCT 8", desc: "DESC EN" }, es: { name: "PRODUCTO 8", desc: "DESC ES" } },
-            { id: 9, price: "$80.00 USD", imgs: ["LINK_9", "LINK_9B", "LINK_9C", "LINK_9D", "LINK_9E"], stripe: "#", en: { name: "PRODUCT 9", desc: "DESC EN" }, es: { name: "PRODUCTO 9", desc: "DESC ES" } },
-            { id: 10, price: "$100.00 USD", imgs: ["LINK_10", "LINK_10B", "LINK_10C", "LINK_10D", "LINK_10E"], stripe: "#", en: { name: "PRODUCT 10", desc: "DESC EN" }, es: { name: "PRODUCTO 10", desc: "DESC ES" } }
-        ];
-
-        const translations = {
-            en: { 
-                unstoppable: "BE UNSTOPPABLE.", community: "COMMUNITY", discord: "JOIN THE DISCORD COMMUNITY", 
-                content: "ANKOR CONTENT", store: "STORE", viewBtn: "VIEW DETAILS", 
-                collabDesc: "The best collaboration of unstoppable mindset never seen before.",
-                neirBtn: "GO TO NEIR STORE &rarr;", 
-                buyBtn: "ACQUIRE NOW", footer: "ANKOR© ALL RIGHTS RESERVED", newsTitle: "Join ANKOR Elite.", 
-                newsDesc: "Be the first to know about news, rewards, valuable content and access to exclusive products from the brand.", 
-                newsBtn: "SUBSCRIBE", alreadySub: "YOU ARE ALREADY PART OF THE ELITE", successTitle: "WELCOME TO THE ELITE", 
-                successMsg: "Impact confirmed.", confirmedBtn: "CONFIRMED",
-                emptyEmail: "Please, enter your email.",
-                invalidEmail: "Enter a valid email address.",
-                alreadyRegistered: "This email is already registered.",
-                notYourEmail: "not you?", changeEmail: "change email",
-                verifyTitle: "Subscription Verification",
-                verifyDesc: "Enter the code sent to your email.",
-                verifyBtn: "VERIFY NOW",
-                resetLink: "subscribe with another account",
-                statusMsg: "You have subscribed to the Elite with ",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "ENGLISH", langEs: "SPANISH"
-            },
-            es: { 
-                unstoppable: "SÉ IMPARABLE.", community: "COMUNIDAD", discord: "ÚNETE A LA COMUNIDAD DISCORD", 
-                content: "CONTENIDO ANKOR", store: "TIENDA", viewBtn: "VER DETALLES", 
-                collabDesc: "La mejor colaboración de mentalidad imparable nunca antes vista.",
-                neirBtn: "IR A LA TIENDA DE NEIR &rarr;", 
-                buyBtn: "ADQUIRIR AHORA", footer: "ANKOR© TODOS LOS DERECHOS RESERVADOS", newsTitle: "Únete a la Élite de ANKOR.", 
-                newsDesc: "Sé el primero en enterarte de novedades, beneficios, contenido de valor y acceso a los productos exclusivos de la marca.", 
-                newsBtn: "SUSCRIBIRME", alreadySub: "YA ERES PARTE DE LA ÉLITE", successTitle: "BIENVENIDO A LA ÉLITE", 
-                successMsg: "Impacto confirmado.", confirmedBtn: "CONFIRMADO",
-                emptyEmail: "Ingrese su correo electrónico.",
-                invalidEmail: "Ingrese una dirección de correo electrónico válida.",
-                alreadyRegistered: "Este correo electrónico ya se encuentra registrado.",
-                notYourEmail: "¿no eres tú?", changeEmail: "cambiar correo",
-                verifyTitle: "Verificación de Suscripción",
-                verifyDesc: "Ingresa el código enviado a tu correo electrónico.",
-                verifyBtn: "VERIFICAR AHORA",
-                resetLink: "suscribirme con otra cuenta",
-                statusMsg: "Te has suscrito a la Elite con ",
-                tiktok: "TIKTOK", instagram: "INSTAGRAM", youtube: "YOUTUBE",
-                langEn: "INGLÉS", langEs: "ESPAÑOL"
+            // Close mobile menu if open
+            if(document.getElementById('mobileMenu').classList.contains('open')) {
+                toggleMenu();
             }
-        };
-
-        let currentSlide = 0;
-
-        function getLang() { 
-            return (navigator.language || navigator.userLanguage).toLowerCase().startsWith('es') ? 'es' : 'en'; 
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
-        function applyLanguage() {
-            const currentLang = getLang();
-            const t = translations[currentLang];
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+
+        /* --- ANNOUNCEMENT TICKET LOGIC --- */
+        let tIndex = 0;
+        const tickets = document.querySelectorAll('.ticket');
+        function moveTicket(step) {
+            tickets[tIndex].classList.remove('active');
+            tIndex = (tIndex + step + tickets.length) % tickets.length;
+            tickets[tIndex].classList.add('active');
+        }
+        setInterval(() => moveTicket(1), 4000);
+
+        /* --- HERO SLIDER LOGIC --- */
+        let hIndex = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        let heroTimer;
+        
+        function moveHero(step) {
+            slides[hIndex].classList.remove('active');
+            // If moving next, put current to left (-100%). If prev, put current to right (100%).
+            // For a pure loop, we just rely on CSS transform overrides.
+            slides[hIndex].style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
             
-            document.getElementById('t-unstoppable').innerText = t.unstoppable;
-            document.getElementById('t-community-label').innerText = t.community;
-            document.getElementById('t-discord-btn').innerHTML = `<i class='fa-brands fa-discord'></i> ${t.discord}`;
-            document.getElementById('t-content-label').innerText = t.content;
-            document.getElementById('t-store-label').innerText = t.store;
-            document.getElementById('t-brand-collab-desc').innerHTML = t.collabDesc;
-            document.getElementById('t-neir-btn').innerHTML = t.neirBtn;
-            document.getElementById('mStripe').innerText = t.buyBtn;
-            document.getElementById('t-footer-copy').innerText = t.footer;
-            document.getElementById('t-news-title').innerText = t.newsTitle;
-            document.getElementById('t-news-desc').innerText = t.newsDesc;
-            document.getElementById('t-success-title').innerText = t.successTitle;
-            document.getElementById('t-success-msg').innerText = t.successMsg;
-            document.getElementById('t-verify-title').innerText = t.verifyTitle;
-            document.getElementById('t-verify-desc').innerText = t.verifyDesc;
-            document.getElementById('t-verify-btn').innerText = t.verifyBtn;
-            document.getElementById('t-reset-link').innerText = t.resetLink;
+            setTimeout(() => {
+                // Reset position smoothly after it's hidden to prepare for next cycle
+                slides.forEach(s => {
+                    if(!s.classList.contains('active')) s.style.transform = 'translateX(100%)';
+                });
+            }, 800);
+
+            hIndex = (hIndex + step + slides.length) % slides.length;
+            slides[hIndex].style.transform = 'translateX(0)';
+            slides[hIndex].classList.add('active');
             
-            const savedEmail = localStorage.getItem('ankor_email');
-            const isSubscribed = localStorage.getItem('ankor_subscribed');
+            resetHeroTimer();
+        }
 
-            if(isSubscribed === 'true' && savedEmail) { lockNewsletter(savedEmail); } else { resetNewsletterUI(); }
+        function autoHero() { moveHero(1); }
+        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
+        resetHeroTimer();
 
-            const socialContainer = document.getElementById('social-links-container');
-            const socials = [
-                { icon: 'tiktok', label: t.tiktok, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.tiktok.com/@ankor.inc?_r=1&_t=ZN-94vohQ9NyBa'}, {n:`@ankor.es (${t.langEs})`, url:'https://www.tiktok.com/@ankor.es?_r=1&_t=ZN-94voltQ4WLD'}] },
-                { icon: 'instagram', label: t.instagram, links: [{n:`@ankor.inc (${t.langEn})`, url:'https://www.instagram.com/ankor.inc?igsh=dGJ0dm10M3YwZnlm'}, {n:`@ankor.esp (${t.langEs})`, url:'https://www.instagram.com/ankor.esp?igsh=d2Y4dG1jbGxoMXFp'}] },
-                { icon: 'youtube', label: t.youtube, links: [{n:`@ankor.english`, url:'https://www.youtube.com/@ankor.english'}, {n:`@ankor.español`, url:'https://www.youtube.com/@ankor.espa%C3%B1ol'}] }
-            ];
 
-            socialContainer.innerHTML = socials.map(s => `
-                <div class="border-tech-wrap" style="background: var(--glossy-black);">
-                    <div class="acc-item">
-                        <button class="acc-header" onclick="toggleAcc(this)"><i class="fa-brands fa-${s.icon}"></i><span>${s.label}</span><i class="fa-solid fa-chevron-down"></i></button>
-                        <div class="acc-content">
-                            ${s.links.map(l => `<a href="${l.url}" target="_blank" class="sub-link"><i class="fa-brands fa-${s.icon}"></i><span>${l.n}</span></a>`).join('')}
+        /* --- STORE GENERATOR & LOGIC --- */
+        // Generate 14 placeholder products dynamically to keep HTML clean
+        const products = Array.from({length: 14}, (_, i) => {
+            // Give each product an array of 10 image placeholders
+            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/800`);
+            return {
+                id: i + 1,
+                name: `ANKOR PRO GEAR v${i+1}`,
+                price: `$${(40 + (i * 5)).toFixed(2)} USD`,
+                imgs: imgs
+            }
+        });
+
+        const grid = document.getElementById('productGrid');
+        
+        function renderProducts() {
+            grid.innerHTML = products.map(p => `
+                <div class="product-item" onclick="openProductDetail(${p.id})">
+                    <div class="product-img-wrapper" id="pw-${p.id}">
+                        <div class="prod-mini-carousel" id="mc-${p.id}">
+                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
                         </div>
+                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">${p.price}</div>
                     </div>
                 </div>
             `).join('');
-            
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => {
-                const data = p[currentLang];
-                return `
-                <div class="product-card-tech">
-                    <div class="product-card">
-                        <img src="${p.imgs[0]}" class="bg-img" alt="${data.name}" loading="lazy">
-                        <div class="overlay"></div>
-                        <div class="product-info">
-                            <h3>${data.name}</h3>
-                            <p>${p.price}</p>
-                            <button class="btn-view" onclick="openStoreById(${p.id})">${t.viewBtn}</button>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-            initDragScroll();
-            initReveal();
         }
 
-        async function initVerification(e) {
+        function scrollMini(e, id, step) {
+            e.stopPropagation(); // Prevent opening product detail
+            const carousel = document.getElementById(`mc-${id}`);
+            const scrollAmt = carousel.clientWidth;
+            carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' });
+        }
+
+        /* --- PRODUCT DETAIL VIEWER --- */
+        let currentProdObj = null;
+
+        function openProductDetail(id) {
+            currentProdObj = products.find(p => p.id === id);
+            document.getElementById('detailTitle').innerText = currentProdObj.name;
+            document.getElementById('detailPrice').innerText = currentProdObj.price;
+            
+            const mainC = document.getElementById('detailMainCarousel');
+            const thumbC = document.getElementById('detailThumbCarousel');
+            
+            // Render main images
+            mainC.innerHTML = currentProdObj.imgs.map((src, idx) => 
+                `<img src="${src}" id="main-img-${idx}">`
+            ).join('');
+            
+            // Render thumbnails
+            thumbC.innerHTML = currentProdObj.imgs.map((src, idx) => 
+                `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`
+            ).join('');
+
+            // Add scroll listener to sync thumbs based on main carousel scroll position
+            mainC.onscroll = () => {
+                const imgWidth = mainC.clientWidth * 0.85; // 85% is the width of items
+                const scrollPos = mainC.scrollLeft;
+                const activeIndex = Math.round(scrollPos / imgWidth);
+                
+                const thumbs = thumbC.querySelectorAll('img');
+                thumbs.forEach((t, i) => {
+                    t.classList.toggle('active', i === activeIndex);
+                });
+            };
+
+            navigate('product');
+        }
+
+        function syncCarousel(index) {
+            const mainC = document.getElementById('detailMainCarousel');
+            const imgTarget = document.getElementById(`main-img-${index}`);
+            if(imgTarget) {
+                mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
+            }
+        }
+
+
+        /* --- CONTACT FORM --- */
+        function handleContact(e) {
             e.preventDefault();
-            const emailInput = document.getElementById('newsInput');
-            const email = emailInput.value.trim().toLowerCase();
-            const btn = document.getElementById('newsSubmit');
-            const errorDiv = document.getElementById('emailError');
-            const t = translations[getLang()];
-            hideError();
-            if (email === "") { errorDiv.innerText = t.emptyEmail; errorDiv.className = "error-red"; errorDiv.style.display = 'block'; emailInput.style.borderColor = 'var(--accent-red)'; return; }
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailRegex.test(email)) { errorDiv.innerText = t.invalidEmail; errorDiv.className = "error-red"; errorDiv.style.display = 'block'; emailInput.style.borderColor = 'var(--accent-red)'; return; }
-            btn.disabled = true; btn.innerText = "..."; tempEmail = email;
-            try {
-                const response = await fetch(proxyURL, { method: "POST", body: JSON.stringify({ email: email, lang: getLang() }) });
-                const result = await response.json();
-                if (result.status === "already_registered") {
-                    errorDiv.innerText = t.alreadyRegistered; errorDiv.className = "error-grey"; errorDiv.style.display = 'block'; emailInput.style.borderColor = '#000';
-                    localStorage.setItem('ankor_subscribed', 'true'); localStorage.setItem('ankor_email', email);
-                    setTimeout(() => lockNewsletter(email), 1500); return;
-                }
-                if (result.status === "success") {
-                    serverOTP = result.otp; 
-                    document.getElementById('t-change-email-wrap').innerHTML = `${t.notYourEmail} (${email})? <b><u>${t.changeEmail}</u></b>`;
-                    document.getElementById('emailStep').style.display = 'none'; document.getElementById('verificationStep').style.display = 'block';
-                } else { alert("Error: " + result.message); }
-            } catch (error) { alert("Error de conexión."); } finally { if (localStorage.getItem('ankor_subscribed') !== 'true') { btn.disabled = false; btn.innerText = t.newsBtn; } }
+            // Simulate sending...
+            const btn = e.target.querySelector('.submit-btn');
+            btn.innerText = "ENVIANDO...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                e.target.reset();
+                btn.innerText = "ENVIAR MENSAJE";
+                btn.disabled = false;
+                showToast();
+            }, 1000);
         }
 
-        function finalVerify() {
-            const inputs = document.querySelectorAll('.otp-input');
-            let code = ""; inputs.forEach(i => code += i.value);
-            if (code === serverOTP) {
-                localStorage.setItem('ankor_subscribed', 'true'); localStorage.setItem('ankor_email', tempEmail);
-                document.getElementById('successModal').style.display = 'block'; 
-                document.getElementById('verificationStep').style.display = 'none'; document.getElementById('emailStep').style.display = 'block';
-                lockNewsletter(tempEmail); 
-            } else { alert(getLang() === 'es' ? "Código Incorrecto" : "Incorrect Code"); inputs.forEach(i => i.value = ""); inputs[0].focus(); }
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        function forceUnlock() { resetNewsletterUI(true); }
-
-        function resetNewsletterUI(isManualUnlock = false) {
-            const input = document.getElementById('newsInput'); const btn = document.getElementById('newsSubmit'); 
-            const statusMsg = document.getElementById('subscriptionStatusMsg'); const t = translations[getLang()];
-            input.disabled = false; btn.disabled = false; input.value = ""; input.placeholder = "email@example.com";
-            btn.innerText = t.newsBtn; document.getElementById('resetLinkContainer').style.display = 'none';
-            document.getElementById('emailError').style.display = 'none'; statusMsg.style.display = 'none';
-            if(isManualUnlock) input.focus();
-        }
-
-        function lockNewsletter(email) { 
-            const input = document.getElementById('newsInput'); const btn = document.getElementById('newsSubmit'); 
-            const statusMsg = document.getElementById('subscriptionStatusMsg'); const t = translations[getLang()]; 
-            input.value = ""; input.placeholder = t.alreadySub; input.disabled = true; btn.disabled = true; btn.innerText = t.confirmedBtn;
-            statusMsg.innerText = t.statusMsg + email; statusMsg.style.display = 'block'; document.getElementById('resetLinkContainer').style.display = 'block';
-        }
-
-        function hideError() { document.getElementById('emailError').style.display = 'none'; document.getElementById('newsInput').style.borderColor = '#000'; }
-        function backToEmail() { document.getElementById('verificationStep').style.display = 'none'; document.getElementById('emailStep').style.display = 'block'; }
-        function moveOTP(input) { if (input.value.length >= 1 && input.nextElementSibling) { input.nextElementSibling.focus(); } }
-        function backOTP(e, input) { if (e.key === "Backspace" && input.value === "" && input.previousElementSibling) { input.previousElementSibling.focus(); } }
-
-        function initReveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-            }, { threshold: 0.1 });
-            reveals.forEach(el => observer.observe(el));
-        }
-
-        function initDragScroll() {
-            const slider = document.querySelector('.carousel');
-            if(!slider) return;
-            let isDown = false, startX, scrollLeft;
-            slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; slider.style.scrollSnapType = 'none'; });
-            slider.addEventListener('mouseleave', () => { isDown = false; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.scrollSnapType = 'x mandatory'; });
-            slider.addEventListener('mousemove', (e) => { if (!isDown) return; const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
-        }
-
-        function openStoreById(id) {
-            const p = products.find(x => x.id === id);
-            if(!p) return;
-            currentSlide = 0;
-            const lang = getLang();
-            document.getElementById('mTitle').innerText = p[lang].name;
-            document.getElementById('mPrice').innerText = p.price;
-            document.getElementById('mDesc').innerText = p[lang].desc;
-            
-            const stripeBtn = document.getElementById('mStripe');
-            stripeBtn.href = p.stripe;
-            stripeBtn.target = "_blank";
-            
-            const container = document.getElementById('mImgContainer');
-            const dotsContainer = document.getElementById('mDots');
-            
-            container.innerHTML = p.imgs.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('');
-            dotsContainer.innerHTML = p.imgs.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
-            
-            document.getElementById('shopModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function moveSlide(step) {
-            const imgs = document.querySelectorAll('#mImgContainer img');
-            const dots = document.querySelectorAll('.dot');
-            if(imgs.length === 0) return;
-            imgs[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + step + imgs.length) % imgs.length;
-            imgs[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
-        function toggleAcc(header) { header.closest('.acc-item').classList.toggle('open'); }
-        function closeStore() { closeModal('shopModal'); }
-        window.onload = applyLanguage;
+        // Initialize App
+        window.onload = () => {
+            renderProducts();
+        };
     </script>
 </body>
 </html>
