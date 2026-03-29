@@ -73,7 +73,6 @@
         }
         .ann-prev { left: 10px; }
         
-        /* Controles derechos del Announcement */
         .ann-controls-right {
             position: absolute;
             right: 10px;
@@ -111,7 +110,6 @@
 
         .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
         
-        /* Mobile Menu */
         .mobile-menu {
             position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
             background: var(--white); z-index: 2000; padding: 80px 30px 30px;
@@ -143,15 +141,12 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
         }
         .hero-slide.active { transform: translateX(0); z-index: 2; }
-        
-        /* Overlay for text readability */
         .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
         
         .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
         .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
 
-        /* The Special Button */
         .btn-mas-info {
             display: inline-flex; align-items: center; justify-content: center;
             background: var(--black); color: var(--white); padding: 18px 40px;
@@ -178,13 +173,18 @@
         }
         .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
 
+        /* --- CORRECCIÓN 1: Flechas móviles más pequeñas y esquinadas --- */
+        @media (max-width: 768px) {
+            .slider-controls { padding: 0 5px; }
+            .slider-arrow { width: 38px; height: 38px; font-size: 1rem; }
+        }
+
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
-        
         .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
 
-        /* --- SOCIAL CONTENT (NEW DESIGN) --- */
+        /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card {
             background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
@@ -193,13 +193,25 @@
         }
         .social-icon { font-size: 3rem; margin-bottom: 20px; color: var(--black); transition: transform 0.3s; }
         .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 20px; }
-        .social-accounts { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; position: absolute; bottom: 30px; left: 0; width: 100%; padding: 0 30px; align-items: center; pointer-events: none; }
         
-        /* Combinado hover y active para mobile */
+        /* --- CORRECCIÓN 2: Bug clics redes sociales (visibility hidden) --- */
+        .social-accounts { 
+            display: flex; flex-direction: column; gap: 10px; opacity: 0; 
+            visibility: hidden; /* Bloquea clics accidentales */
+            transform: translateY(20px); transition: all 0.4s ease; 
+            position: absolute; bottom: 30px; left: 0; width: 100%; 
+            padding: 0 30px; align-items: center; pointer-events: none; 
+        }
+        
         .social-card:hover, .social-card.active { transform: translateY(-10px); background: var(--black); color: var(--white); }
         .social-card:hover .social-icon, .social-card.active .social-icon { transform: scale(0.8) translateY(-20px); color: var(--white); }
         .social-card:hover .social-name, .social-card.active .social-name { transform: translateY(-20px); transition: 0.3s; }
-        .social-card:hover .social-accounts, .social-card.active .social-accounts { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        
+        .social-card:hover .social-accounts, .social-card.active .social-accounts { 
+            opacity: 1; 
+            visibility: visible; /* Activa clics solo cuando es visible */
+            transform: translateY(0); pointer-events: auto; 
+        }
         
         .account-btn {
             background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
@@ -210,59 +222,28 @@
 
         /* --- STORE GRID --- */
         .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
-        .product-item { cursor: pointer; group; position: relative; }
-        
-        .product-img-wrapper {
-            position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray);
-            border-radius: 12px; overflow: hidden; margin-bottom: 15px;
-        }
-        
-        .prod-mini-carousel {
-            display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory;
-            scrollbar-width: none; pointer-events: none;
-        }
+        .product-item { cursor: pointer; position: relative; }
+        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
+        .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; pointer-events: none; }
         .prod-mini-carousel::-webkit-scrollbar { display: none; }
         .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
-        
-        .p-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px;
-            border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px);
-            border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10;
-            opacity: 1; transition: transform 0.2s; pointer-events: auto;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .p-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px); border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10; opacity: 1; transition: transform 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
         .p-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
         .p-prev { left: 10px; } .p-next { right: 10px; }
-
         .product-meta { text-align: left; }
         .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; color: var(--black); }
         .product-price { font-weight: 500; font-size: 0.95rem; color: var(--black); }
 
-        /* --- PRODUCT DETAIL VIEW --- */
+        /* --- PRODUCT DETAIL --- */
         .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
         @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
-        
-        /* Peak Carousel */
         .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
-        .main-carousel {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-            padding-right: 15%; cursor: grab;
-        }
+        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 15%; cursor: grab; }
         .main-carousel::-webkit-scrollbar { display: none; }
-        .main-carousel img {
-            flex: 0 0 85%;
-            aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start;
-            margin-right: 15px; border-radius: 12px;
-        }
-
-        /* Thumbnails */
+        .main-carousel img { flex: 0 0 85%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start; margin-right: 15px; border-radius: 12px; }
         .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
-        .thumb-carousel img {
-            width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer;
-            opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent;
-        }
+        .thumb-carousel img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent; }
         .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
-
         .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
         .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
         .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
@@ -270,24 +251,19 @@
         .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
         .back-btn:hover { text-decoration: underline; }
 
-        /* --- ANKOR WC 2027 SECTION --- */
-        .wc-banner {
-            width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover;
-            position: relative; display: flex; align-items: center; justify-content: center;
-        }
+        /* --- WC 2027 --- */
+        .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
         .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
         .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
-        
         .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
         .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
         .wc-content strong { color: var(--black); }
-        
         .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
         .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
         .download-link i { font-size: 1.5rem; }
         .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
-        /* --- CONTACT SECTION --- */
+        /* --- CONTACT --- */
         .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         .form-group { margin-bottom: 25px; position: relative; }
         .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
@@ -295,11 +271,9 @@
         .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
         .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
         textarea.form-control { resize: vertical; min-height: 100px; }
-        
         .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        /* Toast Notification */
         .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .toast.show { bottom: 40px; }
 
@@ -323,7 +297,7 @@
     </div>
 
     <header>
-        <div class="logo" onclick="navigate('home')">ANKOR</div>
+        <div class="logo" onclick="goHomeTop()">ANKOR</div>
         <nav class="desktop-nav">
             <a class="nav-link active" onclick="navigate('home')">Home</a>
             <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
@@ -341,9 +315,7 @@
     </div>
 
     <main>
-        
         <section id="view-home" class="view active">
-            
             <div class="hero-section" id="heroSlider">
                 <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
@@ -365,7 +337,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="slider-controls">
                     <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                     <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -375,9 +346,7 @@
             <div class="section-container">
                 <h2 class="section-title">CONTENIDO ANKOR</h2>
                 <p class="section-subtitle">Contenido de valor. Mentalidad y Superación.</p>
-                
                 <div class="social-grid">
-                    
                     <div class="social-card" onclick="this.classList.toggle('active')">
                         <i class="fa-brands fa-tiktok social-icon"></i>
                         <h3 class="social-name">TikTok</h3>
@@ -386,7 +355,6 @@
                             <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.es (ESPAÑOL)</a>
                         </div>
                     </div>
-
                     <div class="social-card" onclick="this.classList.toggle('active')">
                         <i class="fa-brands fa-instagram social-icon"></i>
                         <h3 class="social-name">Instagram</h3>
@@ -395,7 +363,6 @@
                             <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.esp (ESPAÑOL)</a>
                         </div>
                     </div>
-
                     <div class="social-card" onclick="this.classList.toggle('active')">
                         <i class="fa-brands fa-youtube social-icon"></i>
                         <h3 class="social-name">YouTube</h3>
@@ -404,59 +371,43 @@
                             <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.español</a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <div class="section-container" id="store-anchor">
                 <h2 class="section-title">ANKOR STORE</h2>
                 <p class="section-subtitle">Tienda Oficial de ANKOR Mentality.</p>
-                <div class="store-grid" id="productGrid">
-                    </div>
+                <div class="store-grid" id="productGrid"></div>
             </div>
-
         </section>
 
         <section id="view-product" class="view section-container" style="padding-top: 40px;">
             <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
-            
             <div class="product-detail-layout">
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
-                        <div class="main-carousel" id="detailMainCarousel">
-                            </div>
+                        <div class="main-carousel" id="detailMainCarousel"></div>
                     </div>
-                    <div class="thumb-carousel" id="detailThumbCarousel">
-                        </div>
+                    <div class="thumb-carousel" id="detailThumbCarousel"></div>
                 </div>
-
                 <div class="prod-info-panel">
                     <h1 id="detailTitle">PRODUCT NAME</h1>
                     <div class="price" id="detailPrice">$00.00 USD</div>
-                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">
-                        Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.
-                    </p>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.</p>
                     <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
                 </div>
             </div>
         </section>
 
-
         <section id="view-wc2027" class="view">
-            <div class="wc-banner">
-                <h1>ANKOR World Cup</h1>
-            </div>
-            
+            <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
             <div class="section-container">
                 <div class="wc-content">
                     <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
-                    
                     <h2>1.1 Cómo Funciona</h2>
                     <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
-                    
                     <h2>1.2 Requisitos y Clasificación</h2>
                     <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
-
                     <div class="download-box">
                         <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
                         <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
@@ -466,54 +417,36 @@
             </div>
         </section>
 
-
         <section id="view-contact" class="view">
             <div class="section-container">
                 <h2 class="section-title">CONTACTO ANKOR</h2>
-                
                 <div class="contact-wrapper">
                     <form id="contactForm" onsubmit="handleContact(event)">
-                        <div class="form-group">
-                            <input type="text" id="c_nombre" class="form-control" placeholder=" " required>
-                            <label class="form-label">Nombre</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="c_apellido" class="form-control" placeholder=" " required>
-                            <label class="form-label">Apellido</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="c_tel" class="form-control" placeholder=" " required>
-                            <label class="form-label">Número de teléfono</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="c_email" class="form-control" placeholder=" " required>
-                            <label class="form-label">Correo electrónico</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="c_motivo" class="form-control" placeholder=" " required></textarea>
-                            <label class="form-label">Motivo del mensaje</label>
-                        </div>
-                        
+                        <div class="form-group"><input type="text" id="c_nombre" class="form-control" placeholder=" " required><label class="form-label">Nombre</label></div>
+                        <div class="form-group"><input type="text" id="c_apellido" class="form-control" placeholder=" " required><label class="form-label">Apellido</label></div>
+                        <div class="form-group"><input type="tel" id="c_tel" class="form-control" placeholder=" " required><label class="form-label">Número de teléfono</label></div>
+                        <div class="form-group"><input type="email" id="c_email" class="form-control" placeholder=" " required><label class="form-label">Correo electrónico</label></div>
+                        <div class="form-group"><textarea id="c_motivo" class="form-control" placeholder=" " required></textarea><label class="form-label">Motivo del mensaje</label></div>
                         <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
                     </form>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i>
-        <span>Mensaje enviado correctamente.</span>
-    </div>
-
-    <footer>
-        ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.
-    </footer>
+    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span>Mensaje enviado correctamente.</span></div>
+    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
         /* --- NAVIGATION / SPA LOGIC --- */
         let storeScrollPos = 0;
+
+        // Función nueva para el logo
+        function goHomeTop() {
+            storeScrollPos = 0;
+            navigate('home');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         function navigate(viewId) {
             if (viewId === 'product') {
@@ -542,7 +475,7 @@
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
 
-        /* --- ANNOUNCEMENT TICKET LOGIC --- */
+        /* --- ANNOUNCEMENT --- */
         let tIndex = 0;
         const tickets = document.querySelectorAll('.ticket');
         let annPaused = false;
@@ -557,16 +490,11 @@
         function togglePauseAnn() {
             annPaused = !annPaused;
             const btn = document.getElementById('pauseAnnBtn');
-            if(annPaused) {
-                clearInterval(annInterval);
-                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
-            } else {
-                annInterval = setInterval(() => moveTicket(1), 4000);
-                btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-            }
+            if(annPaused) { clearInterval(annInterval); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
+            else { annInterval = setInterval(() => moveTicket(1), 4000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
         }
 
-        /* --- HERO SLIDER LOGIC --- */
+        /* --- HERO SLIDER --- */
         let hIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
         let heroTimer;
@@ -575,43 +503,27 @@
             const currentSlide = slides[hIndex];
             currentSlide.classList.remove('active');
             currentSlide.style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
-
             hIndex = (hIndex + step + slides.length) % slides.length;
             const nextSlide = slides[hIndex];
-            
-            // Desactiva la transición un momento para posicionar el siguiente slide al lado correcto
             nextSlide.style.transition = 'none';
             nextSlide.style.transform = step > 0 ? 'translateX(100%)' : 'translateX(-100%)';
-            
-            // Forzar reflow para aplicar la posición al instante
             void nextSlide.offsetWidth;
-            
-            // Reactiva la transición y mueve al centro
             nextSlide.style.transition = 'transform var(--transition-strong)';
             nextSlide.style.transform = 'translateX(0)';
             nextSlide.classList.add('active');
-            
             resetHeroTimer();
         }
-
         function autoHero() { moveHero(1); }
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
         resetHeroTimer();
 
-
-        /* --- STORE GENERATOR & LOGIC --- */
+        /* --- STORE --- */
         const products = Array.from({length: 14}, (_, i) => {
             const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/800`);
-            return {
-                id: i + 1,
-                name: `ANKOR PRO GEAR v${i+1}`,
-                price: `$${(40 + (i * 5)).toFixed(2)} USD`,
-                imgs: imgs
-            }
+            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, imgs: imgs }
         });
 
         const grid = document.getElementById('productGrid');
-        
         function renderProducts() {
             grid.innerHTML = products.map(p => `
                 <div class="product-item" onclick="openProductDetail(${p.id})">
@@ -622,80 +534,50 @@
                         <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
-                    <div class="product-meta">
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-price">${p.price}</div>
-                    </div>
-                </div>
-            `).join('');
+                    <div class="product-meta"><div class="product-title">${p.name}</div><div class="product-price">${p.price}</div></div>
+                </div>`).join('');
         }
 
         function scrollMini(e, id, step) {
             e.stopPropagation(); 
             const carousel = document.getElementById(`mc-${id}`);
             const scrollAmt = carousel.clientWidth;
-            
             const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
             const currentScroll = Math.round(carousel.scrollLeft);
-            
-            if (step > 0 && currentScroll >= maxScroll - 5) {
-                carousel.scrollTo({ left: 0, behavior: 'auto' }); 
-            } else if (step < 0 && currentScroll <= 5) {
-                carousel.scrollTo({ left: maxScroll, behavior: 'auto' });
-            } else {
-                carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' });
-            }
+            if (step > 0 && currentScroll >= maxScroll - 5) { carousel.scrollTo({ left: 0, behavior: 'auto' }); }
+            else if (step < 0 && currentScroll <= 5) { carousel.scrollTo({ left: maxScroll, behavior: 'auto' }); }
+            else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
         }
 
-        /* --- PRODUCT DETAIL VIEWER --- */
-        let currentProdObj = null;
-
+        /* --- DETAIL VIEWER --- */
         function openProductDetail(id) {
-            currentProdObj = products.find(p => p.id === id);
-            document.getElementById('detailTitle').innerText = currentProdObj.name;
-            document.getElementById('detailPrice').innerText = currentProdObj.price;
-            
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailPrice').innerText = p.price;
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
-            
-            mainC.innerHTML = currentProdObj.imgs.map((src, idx) => 
-                `<img src="${src}" id="main-img-${idx}">`
-            ).join('');
-            
-            thumbC.innerHTML = currentProdObj.imgs.map((src, idx) => 
-                `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`
-            ).join('');
-
+            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
+            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
             mainC.onscroll = () => {
                 const imgWidth = mainC.clientWidth * 0.85;
-                const scrollPos = mainC.scrollLeft;
-                const activeIndex = Math.round(scrollPos / imgWidth);
-                
-                const thumbs = thumbC.querySelectorAll('img');
-                thumbs.forEach((t, i) => {
-                    t.classList.toggle('active', i === activeIndex);
-                });
+                const activeIndex = Math.round(mainC.scrollLeft / imgWidth);
+                thumbC.querySelectorAll('img').forEach((t, i) => t.classList.toggle('active', i === activeIndex));
             };
-
             navigate('product');
         }
 
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
             const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) {
-                mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
-            }
+            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
         }
 
-
-        /* --- CONTACT FORM --- */
+        /* --- CONTACT --- */
         function handleContact(e) {
             e.preventDefault();
             const btn = e.target.querySelector('.submit-btn');
             btn.innerText = "ENVIANDO...";
             btn.disabled = true;
-
             setTimeout(() => {
                 e.target.reset();
                 btn.innerText = "ENVIAR MENSAJE";
@@ -703,16 +585,13 @@
                 showToast();
             }, 1000);
         }
-
         function showToast() {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        window.onload = () => {
-            renderProducts();
-        };
+        window.onload = renderProducts;
     </script>
 </body>
 </html>
