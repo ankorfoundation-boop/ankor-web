@@ -45,172 +45,127 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        .announcement-track {
-            display: flex; width: 100%; max-width: 600px; overflow: hidden; position: relative; height: 100%; align-items: center; justify-content: center;
-        }
-        .ticket { position: absolute; width: 100%; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .ticket { position: absolute; opacity: 0; transform: translateY(10px); transition: 0.4s ease; }
         .ticket.active { opacity: 1; transform: translateY(0); }
-        .ann-arrow { background: none; border: none; color: white; cursor: pointer; padding: 0 15px; font-size: 1rem; position: absolute; z-index: 10; }
-        .ann-prev { left: 10px; }
-        .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER --- */
         header {
             position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; height: 70px;
+            padding: 0 30px; height: 70px;
         }
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); position: absolute; left: 50%; transform: translateX(-50%); }
+        .header-left { display: flex; align-items: center; gap: 20px; flex: 1; }
+        .header-center { flex: 0; }
+        .header-right { display: flex; align-items: center; justify-content: flex-end; gap: 20px; flex: 1; }
+        
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; }
         
         .desktop-nav { display: none; gap: 20px; }
-        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; cursor: pointer; }
 
-        /* Cambio de posiciones Header */
-        .header-left { display: flex; align-items: center; gap: 15px; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        
-        .hamburger { cursor: pointer; border: none; background: none; font-size: 1.3rem; color: var(--black); }
-        .cart-icon-wrapper { position: relative; cursor: pointer; font-size: 1.3rem; }
-        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--black); color: var(--white); font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-
-        /* Animación Brinco Carrito */
-        @keyframes cartJump {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        .cart-icon-wrapper { position: relative; cursor: pointer; font-size: 1.4rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cart-count { position: absolute; top: -8px; right: -10px; background: var(--black); color: var(--white); font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .cart-jump { animation: cartJump 0.5s ease; }
+        @keyframes cartJump { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4) translateY(-5px); } }
 
-        /* --- PRODUCT DETAIL FIXES --- */
-        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
-        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; gap: 60px; } }
+        .hamburger { cursor: pointer; border: none; background: none; font-size: 1.4rem; }
 
-        /* Carrusel Principal con PEAK */
+        @media (min-width: 768px) { .desktop-nav { display: flex; } }
+
+        /* --- PRODUCT GRID --- */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
+        .product-item { cursor: pointer; }
+        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
+        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .product-title { font-weight: 800; text-transform: uppercase; font-size: 0.9rem; }
+
+        /* --- PRODUCT VIEW (SINGLE) --- */
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
+        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; } }
+
+        /* Carousel Peek */
         .main-carousel-container { position: relative; width: 100%; overflow: hidden; }
-        .main-carousel { 
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-            scrollbar-width: none; padding: 0 10%; /* El padding crea el asomo (peak) */
-            gap: 15px;
-        }
+        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 10px; padding: 0 10%; }
         .main-carousel::-webkit-scrollbar { display: none; }
-        .main-carousel .img-card { 
-            flex: 0 0 100%; scroll-snap-align: center; 
-            aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; 
-            background: var(--light-gray);
-        }
-        .main-carousel img { width: 100%; height: 100%; object-fit: cover; }
+        .main-carousel img { flex: 0 0 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 20px; scroll-snap-align: center; }
 
-        /* Carrusel Pequeño */
-        .thumb-carousel { display: flex; gap: 12px; margin-top: 15px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; justify-content: center; }
-        .thumb-carousel::-webkit-scrollbar { display: none; }
-        .thumb-carousel img { 
-            width: 60px; height: 60px; object-fit: cover; border-radius: 12px; 
-            cursor: pointer; border: 2px solid transparent; transition: all 0.3s;
-        }
-        .thumb-carousel img.active { border-color: var(--black); transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .thumb-carousel { display: flex; gap: 8px; margin-top: 15px; justify-content: center; }
+        .thumb-carousel img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; opacity: 0.5; }
+        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
 
-        /* Info del Producto */
-        .prod-info-panel h1 { font-size: 1.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
-        .prod-info-panel .price { font-size: 1.2rem; font-weight: 500; margin-bottom: 25px; }
+        .prod-info-panel { text-align: left; }
+        .prod-info-panel h1 { font-weight: 900; text-transform: uppercase; font-size: 1.6rem; margin-bottom: 5px; }
+        .prod-info-panel .price { font-size: 1.2rem; margin-bottom: 25px; }
 
-        /* Tallas */
-        .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
-        .size-btn { 
-            width: 50px; height: 40px; border: 1px solid var(--black); 
-            background: var(--white); color: var(--black); border-radius: 8px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-weight: 700; cursor: pointer; transition: 0.3s;
-        }
-        .size-btn.selected { background: var(--black); color: var(--white); }
+        /* Selector Tallas */
+        .label-style { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .sizes-container { display: flex; gap: 10px; margin-bottom: 25px; }
+        .size-btn { border: 1.5px solid var(--black); background: var(--white); color: var(--black); padding: 10px 20px; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.2s; }
+        .size-btn.active { background: var(--black); color: var(--white); }
 
         /* Cantidad */
-        .qty-label { font-weight: 800; font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; }
-        .qty-wrapper { 
-            display: flex; align-items: center; border: 1px solid var(--border); 
-            border-radius: 30px; width: fit-content; padding: 5px 15px; margin-bottom: 30px;
-        }
-        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 10px; font-weight: 700; }
-        .qty-input { 
-            width: 50px; border: none; text-align: center; font-family: inherit; 
-            font-weight: 700; font-size: 1rem; outline: none; 
-        }
+        .qty-wrapper { border: 1.5px solid var(--border); display: inline-flex; align-items: center; border-radius: 8px; margin-bottom: 25px; overflow: hidden; }
+        .qty-btn { background: none; border: none; width: 45px; height: 45px; font-size: 1.2rem; cursor: pointer; }
+        .qty-btn:hover { background: var(--light-gray); }
+        .qty-input { width: 50px; border: none; text-align: center; font-family: inherit; font-weight: 700; font-size: 1rem; outline: none; }
+        
+        /* Features Accordion */
+        .features-box { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 25px; }
+        .features-header { padding: 15px 0; cursor: pointer; display: flex; justify-content: space-between; font-weight: 900; text-transform: uppercase; font-size: 0.85rem; }
+        .features-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .features-box.open .features-content { max-height: 200px; padding-bottom: 15px; }
 
-        /* Características Desplegable */
-        .details-dropdown { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 30px; }
-        .details-header { 
-            padding: 15px 0; display: flex; justify-content: space-between; 
-            align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; 
-        }
-        .details-content { padding-bottom: 15px; color: #888; font-size: 0.9rem; line-height: 1.5; display: none; }
-        .details-dropdown.open .details-content { display: block; }
-
-        /* Botones de Compra */
-        .btn-stack { display: flex; flex-direction: column; gap: 12px; }
-        .btn-atc { 
-            background: var(--white); color: var(--black); border: 2px solid var(--black); 
-            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer; 
-        }
-        .btn-buy { 
-            background: var(--black); color: var(--white); border: none; 
-            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer;
-            position: relative; overflow: hidden;
-        }
-
-        /* Animación Sutil Botón Comprar */
-        @keyframes pulseSlight {
-            0% { transform: scale(1); }
+        /* Botones de Acción */
+        .btn-action { width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; margin-bottom: 12px; font-size: 0.95rem; letter-spacing: 1px; }
+        .add-cart-btn { background: var(--white); color: var(--black); border: 2px solid var(--black); }
+        .buy-now-btn { background: var(--black); color: var(--white); position: relative; overflow: hidden; animation: subtlePulse 3s infinite; }
+        
+        @keyframes subtlePulse { 
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        .btn-buy { animation: pulseSlight 3s infinite ease-in-out; }
-
-        /* Animación Transportación Rápida */
-        .flying-img {
-            position: fixed; z-index: 9999; pointer-events: none;
-            width: 50px; height: 50px; object-fit: cover; border-radius: 50%;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Resto de Estilos (Home, Hero, etc.) */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-slide.active { transform: translateX(0); }
-        .hero-slide::before { content: ''; position: absolute; inset:0; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 10; color: white; }
-        .store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        @media (min-width: 768px) { .store-grid { grid-template-columns: repeat(4, 1fr); } }
-        .product-item { cursor: pointer; }
-        .product-img-wrapper { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: #f0f0f0; margin-bottom: 10px; }
-        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .view { display: none; }
-        .view.active { display: block; }
-        footer { padding: 40px; text-align: center; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 50px; color: #999; }
+        /* Animación de Transportación */
+        .flying-item { position: fixed; z-index: 9999; width: 50px; height: 50px; border-radius: 10px; object-fit: cover; pointer-events: none; transition: all 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045); }
+
+        /* --- HERO --- */
+        .hero-section { height: 70vh; background: #000; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; }
+        .hero-section img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-content { position: relative; z-index: 2; }
+
+        /* --- CONTACT --- */
+        .contact-wrapper { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-control { width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; }
     </style>
 </head>
 <body>
 
     <div class="announcement-bar">
-        <div class="announcement-track" id="ticketTrack">
-            <div class="ticket active">ANKOR: BE UNSTOPPABLE.</div>
-            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE</div>
-        </div>
+        <div class="ticket active">BE UNSTOPPABLE.</div>
+        <div class="ticket">ANKOR WC 2027 COMING SOON</div>
     </div>
 
     <header>
         <div class="header-left">
-            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars-staggered"></i></button>
+            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
             <nav class="desktop-nav">
                 <a class="nav-link" onclick="navigate('home')">Home</a>
-                <a class="nav-link" onclick="navigate('wc2027')">WC 2027</a>
+                <a class="nav-link" onclick="navigate('wc2027')">World Cup</a>
             </nav>
         </div>
-
-        <div class="logo" onclick="goHomeTop()">ANKOR</div>
-
+        <div class="header-center">
+            <div class="logo" onclick="navigate('home')">ANKOR</div>
+        </div>
         <div class="header-right">
-            <div class="cart-icon-wrapper" id="headerCart" onclick="openCart()">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="cart-count" id="cartCount">0</span>
+            <div class="cart-icon-wrapper" id="cartHeader" onclick="alert('Carrito pronto...')">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-count" id="cartCount">0</div>
             </div>
         </div>
     </header>
@@ -218,21 +173,20 @@
     <main>
         <section id="view-home" class="view active">
             <div class="hero-section">
-                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=1600');">
-                    <div class="hero-content">
-                        <h1 style="font-size: 3rem; font-weight: 900;">ANKOR STORE</h1>
-                        <p style="margin-bottom: 20px;">EQUIPAMIENTO DE ÉLITE</p>
-                    </div>
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000" alt="Hero">
+                <div class="hero-content">
+                    <h1 style="font-size: 4rem; font-weight: 900;">ANKOR STORE</h1>
+                    <p>EQUIPAMIENTO DE ÉLITE</p>
                 </div>
             </div>
-
-            <div style="padding: 40px 20px;">
-                <h2 style="text-align: center; margin-bottom: 30px; font-weight: 900;">COLECCIÓN DESTACADA</h2>
+            
+            <div class="section-container" style="padding: 60px 20px;">
+                <h2 style="text-align: center; margin-bottom: 40px; font-weight: 900;">COLECCIÓN OFICIAL</h2>
                 <div class="store-grid" id="productGrid"></div>
             </div>
         </section>
 
-        <section id="view-product" class="view" style="padding: 20px;">
+        <section id="view-product" class="view" style="padding: 40px 20px;">
             <div class="product-detail-layout">
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
@@ -242,152 +196,172 @@
                 </div>
 
                 <div class="prod-info-panel">
-                    <h1 id="detailTitle">PRODUCTO</h1>
+                    <h1 id="detailTitle">PRODUCT NAME</h1>
                     <div class="price" id="detailPrice">$0.00 USD</div>
 
-                    <div class="size-selector">
-                        <div class="size-btn" onclick="selectSize(this, 'S')">S</div>
-                        <div class="size-btn" onclick="selectSize(this, 'M')">M</div>
-                        <div class="size-btn" onclick="selectSize(this, 'L')">L</div>
-                        <div class="size-btn" onclick="selectSize(this, 'XL')">XL</div>
+                    <label class="label-style">Talla</label>
+                    <div class="sizes-container">
+                        <button class="size-btn" onclick="selectSize(this)">S</button>
+                        <button class="size-btn active" onclick="selectSize(this)">M</button>
+                        <button class="size-btn" onclick="selectSize(this)">L</button>
+                        <button class="size-btn" onclick="selectSize(this)">XL</button>
                     </div>
 
-                    <div class="qty-label">Cantidad</div>
+                    <label class="label-style">Cantidad</label>
                     <div class="qty-wrapper">
-                        <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                        <input type="number" id="qtyInput" class="qty-input" value="1" min="1" onkeypress="return isNumberKey(event)" inputmode="numeric">
-                        <button class="qty-btn" onclick="changeQty(1)">+</button>
+                        <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                        <input type="number" id="qtyInput" class="qty-input" value="1" onkeypress="return isNumberKey(event)">
+                        <button class="qty-btn" onclick="updateQty(1)">+</button>
                     </div>
 
-                    <div class="details-dropdown" onclick="this.classList.toggle('open')">
-                        <div class="details-header">Características <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="details-content">
-                            Tejido técnico transpirable de alta densidad. Costuras reforzadas para entrenamiento de alto impacto. Diseño minimalista con logo en serigrafía premium.
+                    <div class="features-box" id="featuresAccordion">
+                        <div class="features-header" onclick="toggleAccordion()">
+                            Características <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="features-content">
+                            Tejido de alto rendimiento con tecnología de transpiración avanzada. Costuras reforzadas para máxima durabilidad en entrenamientos de alta intensidad. Ajuste atlético "Premium Fit".
                         </div>
                     </div>
 
-                    <div class="btn-stack">
-                        <button class="btn-atc" onclick="addToCartAnimation(event)">Añadir al Carrito</button>
-                        <button class="btn-buy" onclick="stripeCheckout()">Comprar Ahora</button>
-                    </div>
+                    <button class="btn-action add-cart-btn" onclick="addToCartAnimation(event)">Añadir al Carrito</button>
+                    <button class="btn-action buy-now-btn" onclick="checkoutStripe()">Comprar Ahora</button>
                 </div>
             </div>
         </section>
+
+        <section id="view-wc2027" class="view" style="padding: 100px; text-align: center;"><h1>ANKOR WORLD CUP 2027</h1></section>
+        <section id="view-contact" class="view" style="padding: 100px; text-align: center;"><h1>CONTACTO</h1></section>
     </main>
 
-    <footer>ANKOR© 2026. BE UNSTOPPABLE.</footer>
-
     <script>
+        // DATA & INITIAL RENDER
         const products = Array.from({length: 8}, (_, i) => ({
             id: i + 1,
-            name: `ANKOR ELITE SERIES v${i+1}`,
-            price: 55.00 + (i * 10),
-            imgs: [`https://picsum.photos/seed/ank${i}1/800/800`, `https://picsum.photos/seed/ank${i}2/800/800`, `https://picsum.photos/seed/ank${i}3/800/800`]
+            name: `ANKOR GEAR - PRO SERIES v${i+1}`,
+            price: `$${(49.99 + (i * 10)).toFixed(2)} USD`,
+            img: `https://picsum.photos/seed/ankor${i}/800/800`,
+            gallery: [`https://picsum.photos/seed/ankor${i}a/800/800`, `https://picsum.photos/seed/ankor${i}b/800/800`, `https://picsum.photos/seed/ankor${i}c/800/800`]
         }));
 
-        let currentProduct = null;
-        let cartCount = 0;
+        let cartItems = 0;
 
-        // Render Home
-        function renderHome() {
+        function renderStore() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = products.map(p => `
                 <div class="product-item" onclick="openProduct(${p.id})">
-                    <div class="product-img-wrapper"><img src="${p.imgs[0]}"></div>
-                    <div style="font-weight: 800; font-size: 0.8rem;">${p.name}</div>
-                    <div style="font-size: 0.8rem;">$${p.price.toFixed(2)} USD</div>
+                    <div class="product-img-wrapper"><img src="${p.img}"></div>
+                    <div class="product-title">${p.name}</div>
+                    <div style="font-weight: 400;">${p.price}</div>
                 </div>
             `).join('');
         }
 
-        function navigate(view) {
+        // NAVIGATION
+        function navigate(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + view).classList.add('active');
+            document.getElementById('view-' + viewId).classList.add('active');
             window.scrollTo(0,0);
         }
 
+        // PRODUCT DETAIL LOGIC
         function openProduct(id) {
-            currentProduct = products.find(p => p.id === id);
-            document.getElementById('detailTitle').innerText = currentProduct.name;
-            document.getElementById('detailPrice').innerText = `$${currentProduct.price.toFixed(2)} USD`;
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailPrice').innerText = p.price;
             
-            const mainC = document.getElementById('detailMainCarousel');
-            const thumbC = document.getElementById('detailThumbCarousel');
+            const carousel = document.getElementById('detailMainCarousel');
+            const thumbs = document.getElementById('detailThumbCarousel');
             
-            mainC.innerHTML = currentProduct.imgs.map(img => `<div class="img-card"><img src="${img}"></div>`).join('');
-            thumbC.innerHTML = currentProduct.imgs.map((img, i) => `<img src="${img}" onclick="scrollMain(${i})" class="${i===0?'active':''}">`).join('');
+            const allImgs = [p.img, ...p.gallery];
+            carousel.innerHTML = allImgs.map((src, i) => `<img src="${src}" id="p-img-${i}">`).join('');
+            thumbs.innerHTML = allImgs.map((src, i) => `<img src="${src}" class="${i===0?'active':''}" onclick="scrollToImg(${i})">`).join('');
             
-            // Sync carrusel pequeñó al hacer scroll
-            mainC.onscroll = () => {
-                const index = Math.round(mainC.scrollLeft / mainC.offsetWidth);
+            carousel.onscroll = () => {
+                const index = Math.round(carousel.scrollLeft / (carousel.offsetWidth * 0.8));
                 document.querySelectorAll('.thumb-carousel img').forEach((img, i) => {
                     img.classList.toggle('active', i === index);
                 });
             };
-
+            
             navigate('product');
         }
 
-        function scrollMain(index) {
-            const mainC = document.getElementById('detailMainCarousel');
-            mainC.scrollTo({ left: mainC.offsetWidth * index, behavior: 'smooth' });
+        function scrollToImg(index) {
+            const target = document.getElementById(`p-img-${index}`);
+            document.getElementById('detailMainCarousel').scrollTo({ left: target.offsetLeft - 40, behavior: 'smooth' });
         }
 
-        function selectSize(btn, size) {
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
-        function changeQty(amt) {
+        function updateQty(val) {
             const input = document.getElementById('qtyInput');
-            let val = parseInt(input.value) + amt;
-            if (val < 1) val = 1;
-            input.value = val;
+            let current = parseInt(input.value);
+            if (current + val >= 1) input.value = current + val;
         }
 
         function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            const charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
             return true;
         }
 
+        function toggleAccordion() {
+            document.getElementById('featuresAccordion').classList.toggle('open');
+        }
+
+        // CART & ANIMATION
         function addToCartAnimation(e) {
-            const cart = document.getElementById('headerCart');
-            const imgToFly = currentProduct.imgs[0];
+            const btn = e.target;
+            const cartHeader = document.getElementById('cartHeader');
+            const img = document.querySelector('#detailMainCarousel img');
             
+            // Clonar imagen para efecto vuelo
             const flyer = document.createElement('img');
-            flyer.src = imgToFly;
-            flyer.classList.add('flying-img');
-            flyer.style.top = e.clientY + 'px';
-            flyer.style.left = e.clientX + 'px';
+            flyer.src = img.src;
+            flyer.classList.add('flying-item');
+            
+            const rect = img.getBoundingClientRect();
+            const cartRect = cartHeader.getBoundingClientRect();
+            
+            flyer.style.left = rect.left + 'px';
+            flyer.style.top = rect.top + 'px';
             document.body.appendChild(flyer);
-
-            const cartPos = cart.getBoundingClientRect();
-
+            
             setTimeout(() => {
-                flyer.style.top = cartPos.top + 'px';
-                flyer.style.left = cartPos.left + 'px';
+                flyer.style.left = cartRect.left + 'px';
+                flyer.style.top = cartRect.top + 'px';
                 flyer.style.transform = 'scale(0.1)';
                 flyer.style.opacity = '0';
-            }, 10);
-
+            }, 50);
+            
             setTimeout(() => {
                 flyer.remove();
-                cartCount += parseInt(document.getElementById('qtyInput').value);
-                document.getElementById('cartCount').innerText = cartCount;
-                cart.classList.add('cart-jump');
-                setTimeout(() => cart.classList.remove('cart-jump'), 500);
-            }, 800);
+                cartItems += parseInt(document.getElementById('qtyInput').value);
+                document.getElementById('cartCount').innerText = cartItems;
+                cartHeader.classList.add('cart-jump');
+                setTimeout(() => cartHeader.classList.remove('cart-jump'), 500);
+            }, 850);
         }
 
-        function stripeCheckout() {
-            alert("Redirigiendo a Pasarela de Pago Stripe de ANKOR...");
-            // Aquí iría la lógica de Stripe: stripe.redirectToCheckout({ lineItems: [...] });
+        function checkoutStripe() {
+            // Aquí iría el link de Checkout de Stripe
+            window.location.href = "https://checkout.stripe.com/pay/ankor_elite_session";
         }
 
-        function goHomeTop() { navigate('home'); }
-
-        window.onload = renderHome;
+        // INIT
+        window.onload = () => {
+            renderStore();
+            // Announcement interval
+            setInterval(() => {
+                const active = document.querySelector('.ticket.active');
+                active.classList.remove('active');
+                let next = active.nextElementSibling || document.querySelector('.ticket');
+                next.classList.add('active');
+            }, 3000);
+        };
     </script>
 </body>
 </html>
