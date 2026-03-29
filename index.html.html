@@ -46,194 +46,249 @@
             text-transform: uppercase;
         }
         .announcement-track {
-            display: flex; width: 100%; max-width: 600px; overflow: hidden; position: relative; height: 100%; align-items: center; justify-content: center;
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
         }
-        .ticket { position: absolute; width: 100%; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
-        .ticket.active { opacity: 1; transform: translateY(0); }
-        .ann-arrow { background: none; border: none; color: white; cursor: pointer; padding: 0 15px; font-size: 1rem; position: absolute; z-index: 10; }
+        .ticket {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .ticket.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .ann-arrow {
+            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
+            font-size: 1rem; position: absolute; z-index: 10;
+        }
         .ann-prev { left: 10px; }
-        .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
+        
+        .ann-controls-right {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 10;
+        }
+        .ann-controls-right .ann-arrow {
+            position: relative;
+            right: auto;
+            padding: 0 5px;
+        }
 
         /* --- HEADER & NAVIGATION --- */
         header {
             position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; height: 70px;
+            padding: 15px 30px; height: 70px;
         }
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); position: absolute; left: 50%; transform: translateX(-50%); }
         
-        .desktop-nav { display: none; gap: 20px; }
-        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+        .desktop-nav { display: none; gap: 30px; }
+        .nav-link {
+            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
+            position: relative; cursor: pointer;
+        }
 
-        /* Cambio de posiciones Header */
-        .header-left { display: flex; align-items: center; gap: 15px; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
+        .hamburger { order: -1; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
         
-        .hamburger { cursor: pointer; border: none; background: none; font-size: 1.3rem; color: var(--black); }
-        .cart-icon-wrapper { position: relative; cursor: pointer; font-size: 1.3rem; }
-        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--black); color: var(--white); font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-
-        /* Animación Brinco Carrito */
+        .header-cart { order: 2; font-size: 1.4rem; cursor: pointer; position: relative; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cart-count { position: absolute; top: -5px; right: -8px; background: var(--black); color: var(--white); font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        
+        /* Animación de brinco */
         @keyframes cartJump {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        .cart-jump { animation: cartJump 0.5s ease; }
+        .cart-jump { animation: cartJump 0.4s ease; }
+
+        .mobile-menu {
+            position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
+            background: var(--white); z-index: 2000; padding: 80px 30px 30px;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex; flex-direction: column; gap: 25px;
+        }
+        .mobile-menu.open { left: 0; }
+        .close-menu { position: absolute; top: 20px; left: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
+        .overlay.active { display: block; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; order: 1; }
+            .hamburger { display: none; }
+            .logo { position: static; transform: none; }
+        }
+
+        /* --- VIEWS CONTROLLER --- */
+        .view { display: none; animation: fadeIn 0.5s ease forwards; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- PRODUCT DETAIL FIXES --- */
-        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
-        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; gap: 60px; } }
-
-        /* Carrusel Principal con PEAK */
-        .main-carousel-container { position: relative; width: 100%; overflow: hidden; }
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: transparent; }
         .main-carousel { 
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-            scrollbar-width: none; padding: 0 10%; /* El padding crea el asomo (peak) */
-            gap: 15px;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; 
+            padding: 0 10% 0 0; /* Peak effect */
         }
         .main-carousel::-webkit-scrollbar { display: none; }
-        .main-carousel .img-card { 
-            flex: 0 0 100%; scroll-snap-align: center; 
-            aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; 
-            background: var(--light-gray);
+        .main-carousel img { 
+            flex: 0 0 90%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: center; 
+            margin-right: 10px; border-radius: 20px; 
         }
-        .main-carousel img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Carrusel Pequeño */
-        .thumb-carousel { display: flex; gap: 12px; margin-top: 15px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; justify-content: center; }
+        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding: 5px; scrollbar-width: none; }
         .thumb-carousel::-webkit-scrollbar { display: none; }
         .thumb-carousel img { 
-            width: 60px; height: 60px; object-fit: cover; border-radius: 12px; 
-            cursor: pointer; border: 2px solid transparent; transition: all 0.3s;
+            width: 70px; height: 70px; object-fit: cover; border-radius: 12px; 
+            cursor: pointer; opacity: 0.4; transition: all 0.3s; border: 2px solid transparent; 
         }
-        .thumb-carousel img.active { border-color: var(--black); transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .thumb-carousel img.active { opacity: 1; border-color: var(--black); transform: scale(1.05); }
 
-        /* Info del Producto */
-        .prod-info-panel h1 { font-size: 1.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
+        .prod-info-panel h1 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin: 20px 0 5px; }
         .prod-info-panel .price { font-size: 1.2rem; font-weight: 500; margin-bottom: 25px; }
 
-        /* Tallas */
-        .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
+        /* SIZES */
+        .selector-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .size-grid { display: flex; gap: 10px; margin-bottom: 30px; }
         .size-btn { 
-            width: 50px; height: 40px; border: 1px solid var(--black); 
-            background: var(--white); color: var(--black); border-radius: 8px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-weight: 700; cursor: pointer; transition: 0.3s;
+            width: 50px; height: 40px; border: 1px solid var(--black); background: var(--white); 
+            color: var(--black); border-radius: 8px; font-weight: 700; cursor: pointer; 
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center;
         }
-        .size-btn.selected { background: var(--black); color: var(--white); }
+        .size-btn.active { background: var(--black); color: var(--white); }
 
-        /* Cantidad */
-        .qty-label { font-weight: 800; font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; }
-        .qty-wrapper { 
-            display: flex; align-items: center; border: 1px solid var(--border); 
-            border-radius: 30px; width: fit-content; padding: 5px 15px; margin-bottom: 30px;
+        /* QUANTITY */
+        .qty-container { margin-bottom: 30px; }
+        .qty-selector { 
+            display: inline-flex; align-items: center; border: 1px solid var(--border); 
+            border-radius: 12px; padding: 5px; width: 120px; justify-content: space-between;
         }
-        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 10px; font-weight: 700; }
-        .qty-input { 
-            width: 50px; border: none; text-align: center; font-family: inherit; 
-            font-weight: 700; font-size: 1rem; outline: none; 
-        }
+        .qty-btn { background: none; border: none; width: 30px; height: 30px; cursor: pointer; font-size: 1.2rem; font-weight: 700; }
+        .qty-input { width: 40px; border: none; text-align: center; font-family: inherit; font-weight: 700; font-size: 1rem; outline: none; }
+        /* Remove arrows from number input */
+        .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-        /* Características Desplegable */
-        .details-dropdown { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 30px; }
-        .details-header { 
-            padding: 15px 0; display: flex; justify-content: space-between; 
-            align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; 
-        }
-        .details-content { padding-bottom: 15px; color: #888; font-size: 0.9rem; line-height: 1.5; display: none; }
-        .details-dropdown.open .details-content { display: block; }
+        /* ACCORDION */
+        .accordion { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .acc-header { padding: 15px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; text-transform: uppercase; }
+        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .accordion.open .acc-content { max-height: 200px; padding-bottom: 15px; }
 
-        /* Botones de Compra */
-        .btn-stack { display: flex; flex-direction: column; gap: 12px; }
-        .btn-atc { 
-            background: var(--white); color: var(--black); border: 2px solid var(--black); 
-            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer; 
+        /* BUTTONS */
+        .btn-add { 
+            width: 100%; padding: 20px; background: var(--white); color: var(--black); 
+            border: 2px solid var(--black); font-weight: 900; text-transform: uppercase; 
+            cursor: pointer; margin-bottom: 15px; letter-spacing: 1px;
         }
         .btn-buy { 
-            background: var(--black); color: var(--white); border: none; 
-            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer;
-            position: relative; overflow: hidden;
+            width: 100%; padding: 20px; background: var(--black); color: var(--white); 
+            border: none; font-weight: 900; text-transform: uppercase; 
+            cursor: pointer; letter-spacing: 1px; position: relative; overflow: hidden;
+            animation: pulse-subtle 3s infinite;
         }
-
-        /* Animación Sutil Botón Comprar */
-        @keyframes pulseSlight {
+        @keyframes pulse-subtle {
             0% { transform: scale(1); }
             50% { transform: scale(1.02); }
             100% { transform: scale(1); }
         }
-        .btn-buy { animation: pulseSlight 3s infinite ease-in-out; }
 
-        /* Animación Transportación Rápida */
+        /* --- FLYING ANIMATION --- */
         .flying-img {
             position: fixed; z-index: 9999; pointer-events: none;
-            width: 50px; height: 50px; object-fit: cover; border-radius: 50%;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100px; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px;
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* Resto de Estilos (Home, Hero, etc.) */
+        /* Rest of existing styles (Hero, Social, etc) retained from original */
         .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-slide.active { transform: translateX(0); }
-        .hero-slide::before { content: ''; position: absolute; inset:0; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 10; color: white; }
-        .store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        @media (min-width: 768px) { .store-grid { grid-template-columns: repeat(4, 1fr); } }
+        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .hero-slide.active { transform: translateX(0); z-index: 2; }
+        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
+        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
+        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; }
+        .btn-mas-info { display: inline-flex; align-items: center; justify-content: center; background: var(--black); color: var(--white); padding: 18px 40px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px; cursor: pointer; }
+        
+        .section-container { max-width: 1400px; margin: 0 auto; padding: 60px 20px; }
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
         .product-item { cursor: pointer; }
-        .product-img-wrapper { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: #f0f0f0; margin-bottom: 10px; }
-        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .view { display: none; }
-        .view.active { display: block; }
-        footer { padding: 40px; text-align: center; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 50px; color: #999; }
+        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
+        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <div class="announcement-bar">
+        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="announcement-track" id="ticketTrack">
-            <div class="ticket active">ANKOR: BE UNSTOPPABLE.</div>
-            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE</div>
+            <div class="ticket active">BE UNSTOPPABLE.</div>
+            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
+            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
+        </div>
+        <div class="ann-controls-right">
+            <button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 
     <header>
-        <div class="header-left">
-            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars-staggered"></i></button>
-            <nav class="desktop-nav">
-                <a class="nav-link" onclick="navigate('home')">Home</a>
-                <a class="nav-link" onclick="navigate('wc2027')">WC 2027</a>
-            </nav>
-        </div>
-
+        <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars-staggered"></i></button>
         <div class="logo" onclick="goHomeTop()">ANKOR</div>
-
-        <div class="header-right">
-            <div class="cart-icon-wrapper" id="headerCart" onclick="openCart()">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
+        <nav class="desktop-nav">
+            <a class="nav-link active" onclick="navigate('home')">Home</a>
+            <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
+            <a class="nav-link" onclick="navigate('contact')">Contacto</a>
+        </nav>
+        <div class="header-cart" id="cartIcon">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-count" id="cartCount">0</span>
         </div>
     </header>
 
+    <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" onclick="toggleMenu()">&times;</button>
+        <a class="nav-link active" onclick="navigate('home')">Home</a>
+        <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
+        <a class="nav-link" onclick="navigate('contact')">Contacto</a>
+    </div>
+
     <main>
         <section id="view-home" class="view active">
-            <div class="hero-section">
-                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=1600');">
+            <div class="hero-section" id="heroSlider">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
-                        <h1 style="font-size: 3rem; font-weight: 900;">ANKOR STORE</h1>
-                        <p style="margin-bottom: 20px;">EQUIPAMIENTO DE ÉLITE</p>
+                        <h1 class="hero-title">ANKOR WC 2027</h1>
+                        <a onclick="navigate('wc2027')" class="btn-mas-info">MÁS INFORMACIÓN</a>
                     </div>
                 </div>
             </div>
 
-            <div style="padding: 40px 20px;">
-                <h2 style="text-align: center; margin-bottom: 30px; font-weight: 900;">COLECCIÓN DESTACADA</h2>
+            <div class="section-container" id="store-anchor">
+                <h2 style="text-align: center; font-weight: 900; margin-bottom: 40px;">ANKOR STORE</h2>
                 <div class="store-grid" id="productGrid"></div>
             </div>
         </section>
 
-        <section id="view-product" class="view" style="padding: 20px;">
-            <div class="product-detail-layout">
+        <section id="view-product" class="view section-container">
+            <button class="back-btn" onclick="navigate('home')" style="border:none; background:none; cursor:pointer; font-weight:700; margin-bottom:20px;">
+                <i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA
+            </button>
+            
+            <div class="product-detail-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
                         <div class="main-carousel" id="detailMainCarousel"></div>
@@ -242,100 +297,123 @@
                 </div>
 
                 <div class="prod-info-panel">
-                    <h1 id="detailTitle">PRODUCTO</h1>
+                    <h1 id="detailTitle">PRODUCT NAME</h1>
                     <div class="price" id="detailPrice">$0.00 USD</div>
-
-                    <div class="size-selector">
-                        <div class="size-btn" onclick="selectSize(this, 'S')">S</div>
-                        <div class="size-btn" onclick="selectSize(this, 'M')">M</div>
-                        <div class="size-btn" onclick="selectSize(this, 'L')">L</div>
-                        <div class="size-btn" onclick="selectSize(this, 'XL')">XL</div>
+                    
+                    <span class="selector-label">Talla</span>
+                    <div class="size-grid">
+                        <button class="size-btn active" onclick="selectSize(this)">S</button>
+                        <button class="size-btn" onclick="selectSize(this)">M</button>
+                        <button class="size-btn" onclick="selectSize(this)">L</button>
+                        <button class="size-btn" onclick="selectSize(this)">XL</button>
                     </div>
 
-                    <div class="qty-label">Cantidad</div>
-                    <div class="qty-wrapper">
-                        <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                        <input type="number" id="qtyInput" class="qty-input" value="1" min="1" onkeypress="return isNumberKey(event)" inputmode="numeric">
-                        <button class="qty-btn" onclick="changeQty(1)">+</button>
-                    </div>
-
-                    <div class="details-dropdown" onclick="this.classList.toggle('open')">
-                        <div class="details-header">Características <i class="fa-solid fa-chevron-down"></i></div>
-                        <div class="details-content">
-                            Tejido técnico transpirable de alta densidad. Costuras reforzadas para entrenamiento de alto impacto. Diseño minimalista con logo en serigrafía premium.
+                    <div class="qty-container">
+                        <span class="selector-label">Cantidad</span>
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                            <input type="number" id="qtyInput" class="qty-input" value="1" min="1" onkeypress="return isNumberKey(event)">
+                            <button class="qty-btn" onclick="changeQty(1)">+</button>
                         </div>
                     </div>
 
-                    <div class="btn-stack">
-                        <button class="btn-atc" onclick="addToCartAnimation(event)">Añadir al Carrito</button>
-                        <button class="btn-buy" onclick="stripeCheckout()">Comprar Ahora</button>
+                    <div class="accordion" id="featuresAccordion">
+                        <div class="acc-header" onclick="this.parentElement.classList.toggle('open')">
+                            Características <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="acc-content">
+                            Tejido técnico de alta resistencia, costuras reforzadas y diseño ergonómico para máximo rendimiento en cualquier entorno.
+                        </div>
                     </div>
+
+                    <button class="btn-add" onclick="addToCartAnimation(event)">AÑADIR AL CARRITO</button>
+                    <button class="btn-buy" onclick="checkout()">COMPRAR AHORA</button>
                 </div>
             </div>
         </section>
+
+        <section id="view-wc2027" class="view">
+            <div class="section-container"><h1>ANKOR World Cup 2027</h1></div>
+        </section>
+
+        <section id="view-contact" class="view">
+            <div class="section-container"><h1>Contacto</h1></div>
+        </section>
     </main>
 
-    <footer>ANKOR© 2026. BE UNSTOPPABLE.</footer>
+    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
+        let cart = 0;
+
+        /* --- NAVIGATION --- */
+        function navigate(viewId) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+            window.scrollTo(0, 0);
+            if(document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+        }
+
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+
+        /* --- STORE LOGIC --- */
         const products = Array.from({length: 8}, (_, i) => ({
             id: i + 1,
-            name: `ANKOR ELITE SERIES v${i+1}`,
-            price: 55.00 + (i * 10),
-            imgs: [`https://picsum.photos/seed/ank${i}1/800/800`, `https://picsum.photos/seed/ank${i}2/800/800`, `https://picsum.photos/seed/ank${i}3/800/800`]
+            name: `ANKOR PRO GEAR v${i+1}`,
+            price: `$${(50 + (i * 10)).toFixed(2)} USD`,
+            imgs: [
+                `https://picsum.photos/seed/ank${i}1/800/800`,
+                `https://picsum.photos/seed/ank${i}2/800/800`,
+                `https://picsum.photos/seed/ank${i}3/800/800`
+            ]
         }));
 
-        let currentProduct = null;
-        let cartCount = 0;
-
-        // Render Home
-        function renderHome() {
+        function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = products.map(p => `
-                <div class="product-item" onclick="openProduct(${p.id})">
-                    <div class="product-img-wrapper"><img src="${p.imgs[0]}"></div>
-                    <div style="font-weight: 800; font-size: 0.8rem;">${p.name}</div>
-                    <div style="font-size: 0.8rem;">$${p.price.toFixed(2)} USD</div>
+                <div class="product-item" onclick="openProductDetail(${p.id})">
+                    <div class="product-img-wrapper">
+                        <img src="${p.imgs[0]}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="product-title">${p.name}</div>
+                    <div class="product-price">${p.price}</div>
                 </div>
             `).join('');
         }
 
-        function navigate(view) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + view).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        function openProduct(id) {
-            currentProduct = products.find(p => p.id === id);
-            document.getElementById('detailTitle').innerText = currentProduct.name;
-            document.getElementById('detailPrice').innerText = `$${currentProduct.price.toFixed(2)} USD`;
+        /* --- DETAIL LOGIC --- */
+        function openProductDetail(id) {
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailPrice').innerText = p.price;
             
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
             
-            mainC.innerHTML = currentProduct.imgs.map(img => `<div class="img-card"><img src="${img}"></div>`).join('');
-            thumbC.innerHTML = currentProduct.imgs.map((img, i) => `<img src="${img}" onclick="scrollMain(${i})" class="${i===0?'active':''}">`).join('');
+            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
+            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0?'active':''}" onclick="syncCarousel(${idx})">`).join('');
             
-            // Sync carrusel pequeñó al hacer scroll
             mainC.onscroll = () => {
-                const index = Math.round(mainC.scrollLeft / mainC.offsetWidth);
-                document.querySelectorAll('.thumb-carousel img').forEach((img, i) => {
-                    img.classList.toggle('active', i === index);
-                });
+                const activeIndex = Math.round(mainC.scrollLeft / (mainC.clientWidth * 0.9));
+                document.querySelectorAll('.thumb-carousel img').forEach((t, i) => t.classList.toggle('active', i === activeIndex));
             };
-
+            
             navigate('product');
         }
 
-        function scrollMain(index) {
+        function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
-            mainC.scrollTo({ left: mainC.offsetWidth * index, behavior: 'smooth' });
+            const target = document.getElementById(`main-img-${index}`);
+            mainC.scrollTo({ left: target.offsetLeft - 10, behavior: 'smooth' });
         }
 
-        function selectSize(btn, size) {
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+        /* --- PRODUCT UI HELPERS --- */
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
         function changeQty(amt) {
@@ -351,43 +429,61 @@
             return true;
         }
 
+        /* --- CART ANIMATION --- */
         function addToCartAnimation(e) {
-            const cart = document.getElementById('headerCart');
-            const imgToFly = currentProduct.imgs[0];
+            const btn = e.target;
+            const cartIcon = document.getElementById('cartIcon');
+            const firstImg = document.querySelector('#detailMainCarousel img');
             
-            const flyer = document.createElement('img');
-            flyer.src = imgToFly;
-            flyer.classList.add('flying-img');
-            flyer.style.top = e.clientY + 'px';
-            flyer.style.left = e.clientX + 'px';
-            document.body.appendChild(flyer);
-
-            const cartPos = cart.getBoundingClientRect();
-
+            // Create flying clone
+            const clone = firstImg.cloneNode();
+            clone.classList.add('flying-img');
+            
+            const rect = firstImg.getBoundingClientRect();
+            const cartRect = cartIcon.getBoundingClientRect();
+            
+            clone.style.top = rect.top + 'px';
+            clone.style.left = rect.left + 'px';
+            clone.style.width = rect.width + 'px';
+            
+            document.body.appendChild(clone);
+            
+            // Trigger animation
             setTimeout(() => {
-                flyer.style.top = cartPos.top + 'px';
-                flyer.style.left = cartPos.left + 'px';
-                flyer.style.transform = 'scale(0.1)';
-                flyer.style.opacity = '0';
+                clone.style.top = (cartRect.top + 10) + 'px';
+                clone.style.left = (cartRect.left + 10) + 'px';
+                clone.style.width = '20px';
+                clone.style.opacity = '0';
             }, 10);
-
+            
             setTimeout(() => {
-                flyer.remove();
-                cartCount += parseInt(document.getElementById('qtyInput').value);
-                document.getElementById('cartCount').innerText = cartCount;
-                cart.classList.add('cart-jump');
-                setTimeout(() => cart.classList.remove('cart-jump'), 500);
+                clone.remove();
+                cart += parseInt(document.getElementById('qtyInput').value);
+                document.getElementById('cartCount').innerText = cart;
+                
+                // Jump animation
+                cartIcon.classList.add('cart-jump');
+                setTimeout(() => cartIcon.classList.remove('cart-jump'), 400);
             }, 800);
         }
 
-        function stripeCheckout() {
-            alert("Redirigiendo a Pasarela de Pago Stripe de ANKOR...");
-            // Aquí iría la lógica de Stripe: stripe.redirectToCheckout({ lineItems: [...] });
+        function checkout() {
+            // Lógica para Stripe (Redirección o Checkout)
+            alert("Redirigiendo a Stripe seguro...");
+            // window.location.href = 'TU_LINK_DE_STRIPE';
         }
 
-        function goHomeTop() { navigate('home'); }
+        /* --- ANNOUNCEMENT --- */
+        let tIndex = 0;
+        function moveTicket(step) {
+            const tickets = document.querySelectorAll('.ticket');
+            tickets[tIndex].classList.remove('active');
+            tIndex = (tIndex + step + tickets.length) % tickets.length;
+            tickets[tIndex].classList.add('active');
+        }
+        setInterval(() => moveTicket(1), 4000);
 
-        window.onload = renderHome;
+        window.onload = renderProducts;
     </script>
 </body>
 </html>
