@@ -20,7 +20,7 @@
             --transition-smooth: 0.3s ease;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -67,16 +67,14 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .ann-controls { position: absolute; right: 10px; display: flex; gap: 5px; align-items: center; }
-        .ann-btn {
-            background: rgba(255,255,255,0.1); border: none; color: white; cursor: pointer;
-            width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; transition: background 0.3s;
+        .ann-arrow {
+            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
+            font-size: 1rem; position: absolute; z-index: 10;
         }
-        .ann-btn:hover { background: rgba(255,255,255,0.3); }
-        .ann-prev-btn { position: absolute; left: 10px; }
+        .ann-prev { left: 10px; }
+        .ann-next { right: 10px; }
 
-        /* --- HEADER --- */
+        /* --- HEADER & NAVIGATION --- */
         header {
             position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
@@ -84,115 +82,225 @@
             padding: 15px 30px; height: 70px;
         }
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); }
+        
         .desktop-nav { display: none; gap: 30px; }
-        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; position: relative; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--black); transition: 0.3s; }
+        .nav-link {
+            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
+            position: relative; cursor: pointer;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--black); transition: width 0.3s ease;
+        }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; }
 
+        .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
+        
         /* Mobile Menu */
-        .mobile-menu { position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh; background: var(--white); z-index: 2000; padding: 80px 30px; transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; gap: 25px; box-shadow: 20px 0 50px rgba(0,0,0,0.1); }
+        .mobile-menu {
+            position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
+            background: var(--white); z-index: 2000; padding: 80px 30px 30px;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex; flex-direction: column; gap: 25px;
+        }
         .mobile-menu.open { left: 0; }
+        .mobile-menu .nav-link { font-size: 1.5rem; letter-spacing: -0.5px; }
+        .close-menu { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
         .overlay.active { display: block; }
 
-        @media (min-width: 768px) { .desktop-nav { display: flex; } .hamburger { display: none; } }
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; }
+            .hamburger { display: none; }
+        }
 
-        /* --- VIEWS --- */
-        .view { display: none; }
-        .view.active { display: block; animation: fadeIn 0.6s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- VIEWS CONTROLLER --- */
+        .view { display: none; animation: fadeIn 0.5s ease forwards; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- HERO SLIDER --- */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #000; }
+        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
         .hero-slide {
-            position: absolute; inset: 0; background-size: cover; background-position: center;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transform: translateX(100%); transition: transform var(--transition-strong);
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-            transition: transform var(--transition-strong);
         }
-        .hero-slide::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 10; color: white; padding: 20px; }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+        .hero-slide.active { transform: translateX(0); z-index: 2; }
+        .hero-slide.prev { transform: translateX(-100%); z-index: 1; }
         
+        /* Overlay for text readability */
+        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
+        
+        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
+        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+
+        /* The Special Button */
         .btn-mas-info {
-            display: inline-flex; align-items: center; background: var(--black); color: white; padding: 18px 40px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-radius: 4px;
-            cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--black); color: var(--white); padding: 18px 40px;
+            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth);
+            border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
         }
-        .btn-mas-info .arrow { width: 0; opacity: 0; transition: 0.3s; margin-left: 0; }
-        .btn-mas-info:hover .text { text-decoration: underline; text-underline-offset: 5px; }
-        .btn-mas-info:hover .arrow { width: 20px; opacity: 1; margin-left: 10px; }
+        .btn-mas-info span.text { position: relative; }
+        .btn-mas-info span.arrow {
+            display: inline-block; opacity: 0; width: 0; overflow: hidden;
+            transform: translateX(-10px); transition: all 0.3s ease;
+        }
+        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
+        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
+        .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
 
-        .slider-controls { position: absolute; top: 50%; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
+        /* Slider Controls */
+        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
         .slider-arrow {
-            pointer-events: auto; width: 55px; height: 55px; border-radius: 50%; background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: white; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s;
+            pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
         }
-        .slider-arrow:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
 
-        /* --- SOCIAL CONTENT --- */
-        .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: -40px; margin-bottom: 50px; font-weight: 500; }
-        .social-grid { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 500px; margin: 0 auto; }
+        /* --- SECTIONS LAYOUT --- */
+        .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 50px; }
+
+        /* --- SOCIAL CONTENT (NEW DESIGN) --- */
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card {
-            width: 100%; background: var(--light-gray); border-radius: 12px; padding: 25px; cursor: pointer;
-            transition: 0.4s; border: 1px solid var(--border); text-align: center; overflow: hidden; position: relative;
+            background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
+            transition: transform var(--transition-smooth), background 0.3s; position: relative; overflow: hidden;
+            border: 1px solid var(--border);
         }
-        .social-card.expanded { background: var(--black); color: white; }
-        .social-card .main-info { transition: 0.3s; }
-        .social-card.expanded .main-info { transform: translateY(-10px); opacity: 0.5; }
-        .social-card .social-name { font-weight: 900; text-transform: uppercase; font-size: 1.2rem; margin-top: 10px; }
-        
-        .sub-accounts { display: none; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .social-card.expanded .sub-accounts { display: flex; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .sub-btn {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;
-            padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.8rem; transition: 0.3s;
+        .social-icon { font-size: 3rem; margin-bottom: 20px; color: var(--black); transition: transform 0.3s; }
+        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 20px; }
+        .social-accounts { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; position: absolute; bottom: 30px; left: 0; width: 100%; padding: 0 30px; }
+        .social-card:hover { transform: translateY(-10px); background: var(--black); color: var(--white); }
+        .social-card:hover .social-icon { transform: scale(0.8) translateY(-20px); color: var(--white); }
+        .social-card:hover .social-name { transform: translateY(-20px); transition: 0.3s; }
+        .social-card:hover .social-accounts { opacity: 1; transform: translateY(0); }
+        .account-btn {
+            background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
+            border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s;
+            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
         }
-        .sub-btn:hover { background: white; color: black; }
+        .account-btn:hover { background: var(--white); color: var(--black); }
 
-        /* --- STORE --- */
+        /* --- STORE GRID --- */
         .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
-        .product-item { position: relative; cursor: pointer; }
-        .product-img-wrapper { position: relative; aspect-ratio: 4/5; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
-        .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow: hidden; }
-        .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+        .product-item { cursor: pointer; group; position: relative; }
         
-        /* Product arrows (always visible or on hover based on preference, here always for immediate UX) */
-        .p-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px;
-            border-radius: 50%; background: rgba(255,255,255,0.6); border: none; backdrop-filter: blur(5px);
-            z-index: 5; display: flex; align-items: center; justify-content: center; cursor: pointer;
+        .product-img-wrapper {
+            position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray);
+            border-radius: 12px; overflow: hidden; margin-bottom: 15px;
         }
-        .p-prev { left: 8px; } .p-next { right: 8px; }
+        
+        .prod-mini-carousel {
+            display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory;
+            scrollbar-width: none; pointer-events: none; /* Let arrows handle interaction on hover */
+        }
+        .prod-mini-carousel::-webkit-scrollbar { display: none; }
+        .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+        
+        /* Inner arrows on hover */
+        .p-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px;
+            border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px);
+            border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10;
+            opacity: 0; transition: opacity 0.3s, transform 0.2s; pointer-events: auto;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .p-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
+        .p-prev { left: 10px; } .p-next { right: 10px; }
+        .product-item:hover .p-arrow { opacity: 1; }
 
-        /* --- PRODUCT DETAIL --- */
-        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-right: 15%; }
-        .main-carousel img { flex: 0 0 85%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start; margin-right: 10px; border-radius: 12px; }
+        .product-meta { text-align: left; }
+        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; color: var(--black); }
+        .product-price { font-weight: 500; font-size: 0.95rem; color: var(--black); }
 
-        /* --- CONTACT --- */
-        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: white; padding: 15px 30px; border-radius: 50px; z-index: 3000; transition: 0.5s; }
+        /* --- PRODUCT DETAIL VIEW --- */
+        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
+        
+        /* Peak Carousel */
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
+        .main-carousel {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+            padding-right: 15%; /* Creates the peak effect */ cursor: grab;
+        }
+        .main-carousel::-webkit-scrollbar { display: none; }
+        .main-carousel img {
+            flex: 0 0 85%; /* Shows 85% of image, leaving 15% for the next one */
+            aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start;
+            margin-right: 15px; border-radius: 12px;
+        }
+
+        /* Thumbnails */
+        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
+        .thumb-carousel img {
+            width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer;
+            opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent;
+        }
+        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
+
+        .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
+        .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
+        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
+        .add-to-cart-btn:hover { transform: scale(1.02); }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
+        .back-btn:hover { text-decoration: underline; }
+
+        /* --- ANKOR WC 2027 SECTION --- */
+        .wc-banner {
+            width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
+        
+        .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
+        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
+        .wc-content strong { color: var(--black); }
+        
+        .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
+        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
+        .download-link i { font-size: 1.5rem; }
+        .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .form-group { margin-bottom: 25px; position: relative; }
+        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
+        .form-control:focus { border-bottom-color: var(--black); }
+        .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
+        .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+        
+        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        /* Toast Notification */
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .toast.show { bottom: 40px; }
 
-        footer { text-align: center; padding: 60px 20px; border-top: 1px solid var(--border); font-weight: 700; font-size: 0.8rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
     </style>
 </head>
-<body id="body-top">
+<body>
 
     <div class="announcement-bar">
-        <button class="ann-btn ann-prev-btn" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="announcement-track" id="ticketTrack">
             <div class="ticket active">BE UNSTOPPABLE.</div>
             <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
             <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
             <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
         </div>
-        <div class="ann-controls">
-            <button class="ann-btn" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
-            <button class="ann-btn" id="pauseBtn" onclick="toggleAnnounce()"><i class="fa-solid fa-pause"></i></button>
-        </div>
+        <button class="ann-arrow ann-next" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
     <header>
@@ -207,31 +315,33 @@
 
     <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
-        <button onclick="toggleMenu()" style="background:none; border:none; font-size:2rem; position:absolute; top:20px; right:20px;">&times;</button>
+        <button class="close-menu" onclick="toggleMenu()">&times;</button>
         <a class="nav-link active" onclick="navigate('home')">Home</a>
         <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
         <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
     </div>
 
     <main>
+        
         <section id="view-home" class="view active">
-            <div class="hero-section">
-                <div class="hero-slide active" id="hero-0" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000');">
+            
+            <div class="hero-section" id="heroSlider">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR WC 2027</h1>
-                        <p style="margin-bottom:30px; letter-spacing:2px;">DOMINA TU MENTE, DOMINA EL JUEGO.</p>
+                        <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
                         <a onclick="navigate('wc2027')" class="btn-mas-info">
                             <span class="text">MÁS INFORMACIÓN</span>
                             <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     </div>
                 </div>
-                <div class="hero-slide" id="hero-1" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000'); transform: translateX(100%);">
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR STORE</h1>
-                        <p style="margin-bottom:30px; letter-spacing:2px;">EQUIPAMIENTO PARA EL 1%.</p>
-                        <a onclick="document.getElementById('store-anchor').scrollIntoView()" class="btn-mas-info">
-                            <span class="text">IR A LA TIENDA</span>
+                        <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
+                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">
+                            <span class="text">VER COLECCIÓN</span>
                             <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     </div>
@@ -245,118 +355,160 @@
 
             <div class="section-container">
                 <h2 class="section-title">CONTENIDO ANKOR</h2>
-                <p class="section-subtitle">El conocimiento es el arma del imparable. Síguenos y transmuta tu realidad.</p>
-                
                 <div class="social-grid">
-                    <div class="social-card" onclick="expandSocial(this)">
-                        <div class="main-info">
-                            <i class="fa-brands fa-tiktok" style="font-size:2rem;"></i>
-                            <h3 class="social-name">TikTok</h3>
-                        </div>
-                        <div class="sub-accounts">
-                            <a href="#" class="sub-btn">@ankor.inc (ENGLISH)</a>
-                            <a href="#" class="sub-btn">@ankor.es (ESPAÑOL)</a>
-                        </div>
-                    </div>
-
-                    <div class="social-card" onclick="expandSocial(this)">
-                        <div class="main-info">
-                            <i class="fa-brands fa-instagram" style="font-size:2rem;"></i>
-                            <h3 class="social-name">Instagram</h3>
-                        </div>
-                        <div class="sub-accounts">
-                            <a href="#" class="sub-btn">@ankor.inc (ENGLISH)</a>
-                            <a href="#" class="sub-btn">@ankor.esp (ESPAÑOL)</a>
+                    
+                    <div class="social-card">
+                        <i class="fa-brands fa-tiktok social-icon"></i>
+                        <h3 class="social-name">TikTok</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.inc (INGLÉS)</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.es (ESPAÑOL)</a>
                         </div>
                     </div>
 
-                    <div class="social-card" onclick="expandSocial(this)">
-                        <div class="main-info">
-                            <i class="fa-brands fa-youtube" style="font-size:2rem;"></i>
-                            <h3 class="social-name">YouTube</h3>
-                        </div>
-                        <div class="sub-accounts">
-                            <a href="#" class="sub-btn">@ankor.english</a>
-                            <a href="#" class="sub-btn">@ankor.español</a>
+                    <div class="social-card">
+                        <i class="fa-brands fa-instagram social-icon"></i>
+                        <h3 class="social-name">Instagram</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.inc (INGLÉS)</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.esp (ESPAÑOL)</a>
                         </div>
                     </div>
+
+                    <div class="social-card">
+                        <i class="fa-brands fa-youtube social-icon"></i>
+                        <h3 class="social-name">YouTube</h3>
+                        <div class="social-accounts">
+                            <a href="#" target="_blank" class="account-btn">@ankor.english</a>
+                            <a href="#" target="_blank" class="account-btn">@ankor.español</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <div class="section-container" id="store-anchor">
                 <h2 class="section-title">ANKOR STORE</h2>
-                <p class="section-subtitle">Tienda Oficial de ANKOR Mentality.</p>
-                <div class="store-grid" id="productGrid"></div>
+                <div class="store-grid" id="productGrid">
+                    </div>
+            </div>
+
+        </section>
+
+        <section id="view-product" class="view section-container" style="padding-top: 40px;">
+            <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
+            
+            <div class="product-detail-layout">
+                <div class="prod-images-panel">
+                    <div class="main-carousel-container">
+                        <div class="main-carousel" id="detailMainCarousel">
+                            </div>
+                    </div>
+                    <div class="thumb-carousel" id="detailThumbCarousel">
+                        </div>
+                </div>
+
+                <div class="prod-info-panel">
+                    <h1 id="detailTitle">PRODUCT NAME</h1>
+                    <div class="price" id="detailPrice">$00.00 USD</div>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">
+                        Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.
+                    </p>
+                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                </div>
             </div>
         </section>
 
-        <section id="view-product" class="view section-container">
-            <button class="back-btn" onclick="goBackToStore()" style="margin-bottom:40px; border:none; background:none; font-weight:900; cursor:pointer;">
-                <i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA
-            </button>
-            <div class="product-detail-layout">
-                <div class="main-carousel-container">
-                    <div class="main-carousel" id="detailMainCarousel"></div>
-                    <div class="thumb-carousel" id="detailThumbCarousel" style="display:flex; gap:10px; margin-top:20px; overflow-x:auto;"></div>
-                </div>
-                <div class="prod-info-panel">
-                    <h1 id="detailTitle" style="font-size:3rem; font-weight:900; margin-bottom:10px;"></h1>
-                    <div id="detailPrice" style="font-size:1.5rem; margin-bottom:30px;"></div>
-                    <button class="add-to-cart-btn" style="width:100%; padding:20px; background:black; color:white; font-weight:900; border:none; cursor:pointer;">AÑADIR AL CARRITO</button>
-                </div>
-            </div>
-        </section>
 
         <section id="view-wc2027" class="view">
-            <div style="height:40vh; background:black; display:flex; align-items:center; justify-content:center; color:white;">
-                <h1 style="font-size:4vw;">ANKOR WORLD CUP</h1>
+            <div class="wc-banner">
+                <h1>ANKOR World Cup</h1>
             </div>
+            
             <div class="section-container">
-                <h2>1.1 Cómo funciona</h2>
-                <p>Próximamente más detalles sobre la competición de mentalidad más grande de la historia.</p>
+                <div class="wc-content">
+                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
+                    
+                    <h2>1.1 Cómo Funciona</h2>
+                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
+                    
+                    <h2>1.2 Requisitos y Clasificación</h2>
+                    <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
+
+                    <div class="download-box">
+                        <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
+                        <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
+                        <a href="#" class="download-link"><i class="fa-solid fa-diagram-project"></i> Estructura y Fases del Torneo.pdf</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="view-contact" class="view section-container">
-            <h2 class="section-title">CONTACTO ANKOR</h2>
-            <form onsubmit="sendContact(event)" style="max-width:500px; margin: 0 auto; display:flex; flex-direction:column; gap:20px;">
-                <input type="text" placeholder="Nombre" required style="padding:15px; border:1px solid #ddd;">
-                <input type="email" placeholder="Email" required style="padding:15px; border:1px solid #ddd;">
-                <textarea placeholder="Motivo del mensaje" style="padding:15px; border:1px solid #ddd; height:150px;"></textarea>
-                <button type="submit" style="padding:20px; background:black; color:white; font-weight:900; border:none; cursor:pointer;">ENVIAR</button>
-            </form>
+
+        <section id="view-contact" class="view">
+            <div class="section-container">
+                <h2 class="section-title">CONTACTO ANKOR</h2>
+                
+                <div class="contact-wrapper">
+                    <form id="contactForm" onsubmit="handleContact(event)">
+                        <div class="form-group">
+                            <input type="text" id="c_nombre" class="form-control" placeholder=" " required>
+                            <label class="form-label">Nombre</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="c_apellido" class="form-control" placeholder=" " required>
+                            <label class="form-label">Apellido</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="c_tel" class="form-control" placeholder=" " required>
+                            <label class="form-label">Número de teléfono</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="c_email" class="form-control" placeholder=" " required>
+                            <label class="form-label">Correo electrónico</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="c_motivo" class="form-control" placeholder=" " required></textarea>
+                            <label class="form-label">Motivo del mensaje</label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
+                    </form>
+                </div>
+            </div>
         </section>
+
     </main>
 
-    <div id="toast" class="toast">Mensaje enviado correctamente.</div>
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i>
+        <span>Mensaje enviado correctamente.</span>
+    </div>
 
-    <footer>ANKOR© 2026. BE UNSTOPPABLE.</footer>
+    <footer>
+        ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.
+    </footer>
 
     <script>
-        /* --- NAVEGACIÓN Y MEMORIA --- */
-        let lastScrollPos = 0;
-        let activeProductId = null;
-
+        /* --- NAVIGATION / SPA LOGIC --- */
         function navigate(viewId) {
-            if (viewId === 'home' && document.getElementById('view-product').classList.contains('active')) {
-                // Si volvemos de producto, no hacemos nada especial aquí, goBackToStore se encarga
-            } else {
-                window.scrollTo(0, 0);
-            }
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            // Hide all views
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            // Show target view
             document.getElementById('view-' + viewId).classList.add('active');
             
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const link = document.querySelector(`.nav-link[onclick="navigate('${viewId}')"]`);
-            if(link) link.classList.add('active');
-        }
+            // Update active state in nav
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            // Very basic matching to set active state
+            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
 
-        function goBackToStore() {
-            navigate('home');
-            // Devolver el scroll a la posición donde estaba el producto
-            setTimeout(() => {
-                window.scrollTo({ top: lastScrollPos, behavior: 'instant' });
-            }, 50);
+            // Close mobile menu if open
+            if(document.getElementById('mobileMenu').classList.contains('open')) {
+                toggleMenu();
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
         function toggleMenu() {
@@ -364,129 +516,164 @@
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
 
-        /* --- TICKETS DE ANUNCIO CON PAUSA --- */
+        /* --- ANNOUNCEMENT TICKET LOGIC --- */
         let tIndex = 0;
-        let annPaused = false;
         const tickets = document.querySelectorAll('.ticket');
-        let annInterval = setInterval(() => { if(!annPaused) moveTicket(1); }, 4000);
-
         function moveTicket(step) {
             tickets[tIndex].classList.remove('active');
             tIndex = (tIndex + step + tickets.length) % tickets.length;
             tickets[tIndex].classList.add('active');
         }
+        setInterval(() => moveTicket(1), 4000);
 
-        function toggleAnnounce() {
-            annPaused = !annPaused;
-            const btn = document.getElementById('pauseBtn');
-            btn.innerHTML = annPaused ? '<i class="fa-solid fa-play"></i>' : '<i class="fa-solid fa-pause"></i>';
-        }
-
-        /* --- HERO SLIDER INFINITO (CORRECCIÓN DE ANIMACIÓN) --- */
+        /* --- HERO SLIDER LOGIC --- */
         let hIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
-
+        let heroTimer;
+        
         function moveHero(step) {
-            const current = slides[hIndex];
+            slides[hIndex].classList.remove('active');
+            slides[hIndex].style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+            
+            setTimeout(() => {
+                slides.forEach(s => {
+                    if(!s.classList.contains('active')) s.style.transform = 'translateX(100%)';
+                });
+            }, 800);
+
             hIndex = (hIndex + step + slides.length) % slides.length;
-            const next = slides[hIndex];
-
-            // Resetear posiciones
-            slides.forEach(s => {
-                if(s !== current) s.style.transition = 'none';
-            });
-
-            if (step > 0) {
-                // Siguiente: actual hacia la izquierda, nuevo entra desde derecha
-                next.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    next.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.2, 1)';
-                    current.style.transform = 'translateX(-100%)';
-                    next.style.transform = 'translateX(0)';
-                }, 20);
-            } else {
-                // Previo: actual hacia la derecha, nuevo entra desde izquierda
-                next.style.transform = 'translateX(-100%)';
-                setTimeout(() => {
-                    next.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.2, 1)';
-                    current.style.transform = 'translateX(100%)';
-                    next.style.transform = 'translateX(0)';
-                }, 20);
-            }
+            slides[hIndex].style.transform = 'translateX(0)';
+            slides[hIndex].classList.add('active');
+            
+            resetHeroTimer();
         }
 
-        /* --- REDES SOCIALES --- */
-        function expandSocial(card) {
-            const isExpanded = card.classList.contains('expanded');
-            document.querySelectorAll('.social-card').forEach(c => c.classList.remove('expanded'));
-            if(!isExpanded) card.classList.add('expanded');
-        }
+        function autoHero() { moveHero(1); }
+        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
+        resetHeroTimer();
 
-        /* --- TIENDA CON SCROLL INFINITO DE FOTOS --- */
-        const products = Array.from({length: 14}, (_, i) => ({
-            id: i,
-            name: `ANKOR ELITE SERIES v${i+1}`,
-            price: `$${(50 + i*10)}.00 USD`,
-            imgs: Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/ank${i}${j}/600/800`),
-            currentImg: 0
-        }));
 
-        function renderStore() {
-            const grid = document.getElementById('productGrid');
+        /* --- STORE GENERATOR & LOGIC --- */
+        const products = [
+            // SEED LOGO: Sin planta, diseño limpio
+            {
+                id: 1,
+                name: "SEED CORE LOGO TEE",
+                price: "$45.00 USD",
+                imgs: Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/seed-logo-${j}/600/800`)
+            },
+            // FORGE LOGO: Refinado y mejorado
+            {
+                id: 2,
+                name: "FORGE ELITE HOODIE",
+                price: "$85.00 USD",
+                imgs: Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/forge-logo-${j}/600/800`)
+            },
+            // Otros productos generados dinámicamente
+            ...Array.from({length: 12}, (_, i) => {
+                const id = i + 3;
+                return {
+                    id: id,
+                    name: `ANKOR PERFORMANCE v${id}`,
+                    price: `$${(50 + (i * 5)).toFixed(2)} USD`,
+                    imgs: Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${id*10 + j}/600/800`)
+                }
+            })
+        ];
+
+        const grid = document.getElementById('productGrid');
+        
+        function renderProducts() {
             grid.innerHTML = products.map(p => `
-                <div class="product-item" id="prod-${p.id}" onclick="openProduct(${p.id})">
-                    <div class="product-img-wrapper">
-                        <div class="prod-mini-carousel" id="carousel-${p.id}">
-                            <img src="${p.imgs[0]}" id="img-display-${p.id}">
+                <div class="product-item" onclick="openProductDetail(${p.id})">
+                    <div class="product-img-wrapper" id="pw-${p.id}">
+                        <div class="prod-mini-carousel" id="mc-${p.id}">
+                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
                         </div>
-                        <button class="p-arrow p-prev" onclick="changeProdImg(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="changeProdImg(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
-                    <div style="font-weight:900; text-transform:uppercase;">${p.name}</div>
-                    <div style="color:var(--text-muted);">${p.price}</div>
+                    <div class="product-meta">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">${p.price}</div>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function changeProdImg(e, id, step) {
+        function scrollMini(e, id, step) {
             e.stopPropagation();
-            const p = products[id];
-            // Lógica de loop: del 10 al 1 de inmediato
-            p.currentImg = (p.currentImg + step + p.imgs.length) % p.imgs.length;
-            document.getElementById(`img-display-${id}`).src = p.imgs[p.currentImg];
+            const carousel = document.getElementById(`mc-${id}`);
+            const scrollAmt = carousel.clientWidth;
+            carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' });
         }
 
-        function openProduct(id) {
-            lastScrollPos = window.scrollY; // Guardar posición actual
-            const p = products[id];
-            document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailPrice').innerText = p.price;
+        /* --- PRODUCT DETAIL VIEWER --- */
+        let currentProdObj = null;
+
+        function openProductDetail(id) {
+            currentProdObj = products.find(p => p.id === id);
+            document.getElementById('detailTitle').innerText = currentProdObj.name;
+            document.getElementById('detailPrice').innerText = currentProdObj.price;
             
-            const main = document.getElementById('detailMainCarousel');
-            const thumb = document.getElementById('detailThumbCarousel');
+            const mainC = document.getElementById('detailMainCarousel');
+            const thumbC = document.getElementById('detailThumbCarousel');
             
-            main.innerHTML = p.imgs.map(src => `<img src="${src}">`).join('');
-            thumb.innerHTML = p.imgs.map((src, i) => `<img src="${src}" style="width:60px; height:60px; object-fit:cover; cursor:pointer;" onclick="scrollDetail(${i})">`).join('');
+            mainC.innerHTML = currentProdObj.imgs.map((src, idx) => 
+                `<img src="${src}" id="main-img-${idx}">`
+            ).join('');
             
+            thumbC.innerHTML = currentProdObj.imgs.map((src, idx) => 
+                `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`
+            ).join('');
+
+            mainC.onscroll = () => {
+                const imgWidth = mainC.clientWidth * 0.85;
+                const scrollPos = mainC.scrollLeft;
+                const activeIndex = Math.round(scrollPos / imgWidth);
+                
+                const thumbs = thumbC.querySelectorAll('img');
+                thumbs.forEach((t, i) => {
+                    t.classList.toggle('active', i === activeIndex);
+                });
+            };
+
             navigate('product');
         }
 
-        function scrollDetail(idx) {
-            const main = document.getElementById('detailMainCarousel');
-            const target = main.querySelectorAll('img')[idx];
-            main.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+        function syncCarousel(index) {
+            const mainC = document.getElementById('detailMainCarousel');
+            const imgTarget = document.getElementById(`main-img-${index}`);
+            if(imgTarget) {
+                mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
+            }
         }
 
-        /* --- CONTACTO --- */
-        function sendContact(e) {
+
+        /* --- CONTACT FORM --- */
+        function handleContact(e) {
             e.preventDefault();
+            const btn = e.target.querySelector('.submit-btn');
+            btn.innerText = "ENVIANDO...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                e.target.reset();
+                btn.innerText = "ENVIAR MENSAJE";
+                btn.disabled = false;
+                showToast();
+            }, 1000);
+        }
+
+        function showToast() {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
-            e.target.reset();
         }
 
-        window.onload = renderStore;
+        window.onload = () => {
+            renderProducts();
+        };
     </script>
 </body>
 </html>
