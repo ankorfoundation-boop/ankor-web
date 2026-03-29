@@ -46,355 +46,193 @@
             text-transform: uppercase;
         }
         .announcement-track {
-            display: flex;
-            width: 100%;
-            max-width: 600px;
-            overflow: hidden;
-            position: relative;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
+            display: flex; width: 100%; max-width: 600px; overflow: hidden; position: relative; height: 100%; align-items: center; justify-content: center;
         }
-        .ticket {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .ticket.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .ann-arrow {
-            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
-            font-size: 1rem; position: absolute; z-index: 10;
-        }
+        .ticket { position: absolute; width: 100%; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .ticket.active { opacity: 1; transform: translateY(0); }
+        .ann-arrow { background: none; border: none; color: white; cursor: pointer; padding: 0 15px; font-size: 1rem; position: absolute; z-index: 10; }
         .ann-prev { left: 10px; }
-        
-        .ann-controls-right {
-            position: absolute;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            z-index: 10;
-        }
-        .ann-controls-right .ann-arrow {
-            position: relative;
-            right: auto;
-            padding: 0 5px;
-        }
+        .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 
         /* --- HEADER & NAVIGATION --- */
         header {
             position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 30px; height: 70px;
+            padding: 0 20px; height: 70px;
         }
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); position: absolute; left: 50%; transform: translateX(-50%); }
         
-        .desktop-nav { display: none; gap: 30px; }
-        .nav-link {
-            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
-            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
-            position: relative; cursor: pointer;
-        }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
-            background-color: var(--black); transition: width 0.3s ease;
-        }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .desktop-nav { display: none; gap: 20px; }
+        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
 
-        .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
+        /* Cambio de posiciones Header */
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
         
-        .mobile-menu {
-            position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
-            background: var(--white); z-index: 2000; padding: 80px 30px 30px;
-            box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            display: flex; flex-direction: column; gap: 25px;
-        }
-        .mobile-menu.open { left: 0; }
-        .mobile-menu .nav-link { font-size: 1.5rem; letter-spacing: -0.5px; }
-        .close-menu { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
-        .overlay.active { display: block; }
+        .hamburger { cursor: pointer; border: none; background: none; font-size: 1.3rem; color: var(--black); }
+        .cart-icon-wrapper { position: relative; cursor: pointer; font-size: 1.3rem; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--black); color: var(--white); font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
 
-        @media (min-width: 768px) {
-            .desktop-nav { display: flex; }
-            .hamburger { display: none; }
+        /* Animación Brinco Carrito */
+        @keyframes cartJump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
+        .cart-jump { animation: cartJump 0.5s ease; }
 
-        /* --- VIEWS CONTROLLER --- */
-        .view { display: none; animation: fadeIn 0.5s ease forwards; }
-        .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- PRODUCT DETAIL FIXES --- */
+        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
+        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; gap: 60px; } }
 
-        /* --- HERO SLIDER --- */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            transform: translateX(100%); transition: transform var(--transition-strong);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        /* Carrusel Principal con PEAK */
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; }
+        .main-carousel { 
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
+            scrollbar-width: none; padding: 0 10%; /* El padding crea el asomo (peak) */
+            gap: 15px;
         }
-        .hero-slide.active { transform: translateX(0); z-index: 2; }
-        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
-        
-        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-
-        .btn-mas-info {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: var(--black); color: var(--white); padding: 18px 40px;
-            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth);
-            border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
-        }
-        .btn-mas-info span.text { position: relative; }
-        .btn-mas-info span.arrow {
-            display: inline-block; opacity: 0; width: 0; overflow: hidden;
-            transform: translateX(-10px); transition: all 0.3s ease;
-        }
-        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
-        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
-        .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-
-        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
-        .slider-arrow {
-            pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
-        }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-
-        @media (max-width: 768px) {
-            .slider-controls { padding: 0 5px; }
-            .slider-arrow { width: 38px; height: 38px; font-size: 1rem; }
-        }
-
-        /* --- SECTIONS LAYOUT --- */
-        .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
-        .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
-
-        /* --- SOCIAL CONTENT --- */
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .social-card {
-            background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
-            transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden;
-            border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;
-        }
-        
-        .social-icon { font-size: 3rem; color: var(--black); transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; }
-        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-top: 20px; transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; color: var(--black); }
-        
-        .social-accounts { 
-            display: flex; flex-direction: column; gap: 10px; opacity: 0; 
-            visibility: hidden; 
-            transform: translateY(20px); transition: all 0.5s ease; 
-            position: absolute; bottom: 30px; left: 0; width: 100%; 
-            padding: 0 30px; align-items: center; pointer-events: none; z-index: 10;
-        }
-        
-        /* --- SOCIAL CARD HOVER / ACTIVE --- */
-        .social-card.active { background: var(--black); color: var(--white); }
-        
-        /* Logo sube y se pone blanco */
-        .social-card.active .social-icon { 
-            transform: translateY(-55px) scale(0.7); 
-            color: var(--white); 
-        }
-        
-        /* Nombre sube y se centra debajo del icono en blanco */
-        .social-card.active .social-name { 
-            opacity: 1; 
-            transform: translateY(-65px) scale(0.6); 
-            color: var(--white);
-            margin-top: 5px;
-        }
-        
-        .social-card.active .social-accounts { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0); 
-            pointer-events: auto; 
-        }
-        
-        .account-btn {
-            background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
-            border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s;
-            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 200px;
-        }
-        .account-btn:hover { background: var(--white); color: var(--black); }
-
-        /* --- STORE GRID --- */
-        .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
-        .product-item { cursor: pointer; position: relative; }
-        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
-        .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; pointer-events: none; }
-        .prod-mini-carousel::-webkit-scrollbar { display: none; }
-        .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
-        .p-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px); border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10; opacity: 1; transition: transform 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
-        .p-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
-        .p-prev { left: 10px; } .p-next { right: 10px; }
-        .product-meta { text-align: left; }
-        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; color: var(--black); }
-        .product-price { font-weight: 500; font-size: 0.95rem; color: var(--black); }
-
-        /* --- PRODUCT DETAIL --- */
-        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
-        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
-        .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
-        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 15%; cursor: grab; }
         .main-carousel::-webkit-scrollbar { display: none; }
-        .main-carousel img { flex: 0 0 85%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start; margin-right: 15px; border-radius: 12px; }
-        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
-        .thumb-carousel img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent; }
-        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
-        .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
-        .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
-        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
-        .add-to-cart-btn:hover { transform: scale(1.02); }
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
-        .back-btn:hover { text-decoration: underline; }
+        .main-carousel .img-card { 
+            flex: 0 0 100%; scroll-snap-align: center; 
+            aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; 
+            background: var(--light-gray);
+        }
+        .main-carousel img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- WC 2027 --- */
-        .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
-        .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
-        .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
-        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .wc-content strong { color: var(--black); }
-        .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
-        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
-        .download-link i { font-size: 1.5rem; }
-        .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        /* Carrusel Pequeño */
+        .thumb-carousel { display: flex; gap: 12px; margin-top: 15px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; justify-content: center; }
+        .thumb-carousel::-webkit-scrollbar { display: none; }
+        .thumb-carousel img { 
+            width: 60px; height: 60px; object-fit: cover; border-radius: 12px; 
+            cursor: pointer; border: 2px solid transparent; transition: all 0.3s;
+        }
+        .thumb-carousel img.active { border-color: var(--black); transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-        /* --- CONTACT --- */
-        .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-        .form-group { margin-bottom: 25px; position: relative; }
-        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
-        .form-control:focus { border-bottom-color: var(--black); }
-        .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
-        .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
-        textarea.form-control { resize: vertical; min-height: 100px; }
-        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        /* Info del Producto */
+        .prod-info-panel h1 { font-size: 1.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
+        .prod-info-panel .price { font-size: 1.2rem; font-weight: 500; margin-bottom: 25px; }
 
-        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .toast.show { bottom: 40px; }
+        /* Tallas */
+        .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
+        .size-btn { 
+            width: 50px; height: 40px; border: 1px solid var(--black); 
+            background: var(--white); color: var(--black); border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .size-btn.selected { background: var(--black); color: var(--white); }
 
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
+        /* Cantidad */
+        .qty-label { font-weight: 800; font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; }
+        .qty-wrapper { 
+            display: flex; align-items: center; border: 1px solid var(--border); 
+            border-radius: 30px; width: fit-content; padding: 5px 15px; margin-bottom: 30px;
+        }
+        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 10px; font-weight: 700; }
+        .qty-input { 
+            width: 50px; border: none; text-align: center; font-family: inherit; 
+            font-weight: 700; font-size: 1rem; outline: none; 
+        }
+
+        /* Características Desplegable */
+        .details-dropdown { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .details-header { 
+            padding: 15px 0; display: flex; justify-content: space-between; 
+            align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; 
+        }
+        .details-content { padding-bottom: 15px; color: #888; font-size: 0.9rem; line-height: 1.5; display: none; }
+        .details-dropdown.open .details-content { display: block; }
+
+        /* Botones de Compra */
+        .btn-stack { display: flex; flex-direction: column; gap: 12px; }
+        .btn-atc { 
+            background: var(--white); color: var(--black); border: 2px solid var(--black); 
+            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer; 
+        }
+        .btn-buy { 
+            background: var(--black); color: var(--white); border: none; 
+            padding: 18px; font-weight: 900; text-transform: uppercase; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+
+        /* Animación Sutil Botón Comprar */
+        @keyframes pulseSlight {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .btn-buy { animation: pulseSlight 3s infinite ease-in-out; }
+
+        /* Animación Transportación Rápida */
+        .flying-img {
+            position: fixed; z-index: 9999; pointer-events: none;
+            width: 50px; height: 50px; object-fit: cover; border-radius: 50%;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Resto de Estilos (Home, Hero, etc.) */
+        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
+        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-slide.active { transform: translateX(0); }
+        .hero-slide::before { content: ''; position: absolute; inset:0; background: rgba(0,0,0,0.4); }
+        .hero-content { position: relative; z-index: 10; color: white; }
+        .store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (min-width: 768px) { .store-grid { grid-template-columns: repeat(4, 1fr); } }
+        .product-item { cursor: pointer; }
+        .product-img-wrapper { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: #f0f0f0; margin-bottom: 10px; }
+        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .view { display: none; }
+        .view.active { display: block; }
+        footer { padding: 40px; text-align: center; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 50px; color: #999; }
     </style>
 </head>
 <body>
 
     <div class="announcement-bar">
-        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="announcement-track" id="ticketTrack">
-            <div class="ticket active">BE UNSTOPPABLE.</div>
-            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
-            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
-            <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
-        </div>
-        <div class="ann-controls-right">
-            <button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
-            <button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button>
+            <div class="ticket active">ANKOR: BE UNSTOPPABLE.</div>
+            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE</div>
         </div>
     </div>
 
     <header>
-        <div class="logo" onclick="goHomeTop()">ANKOR</div>
-        <nav class="desktop-nav">
-            <a class="nav-link active" onclick="navigate('home')">Home</a>
-            <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
-            <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
-        </nav>
-        <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-    </header>
+        <div class="header-left">
+            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars-staggered"></i></button>
+            <nav class="desktop-nav">
+                <a class="nav-link" onclick="navigate('home')">Home</a>
+                <a class="nav-link" onclick="navigate('wc2027')">WC 2027</a>
+            </nav>
+        </div>
 
-    <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-menu" onclick="toggleMenu()">&times;</button>
-        <a class="nav-link active" onclick="navigate('home')">Home</a>
-        <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
-        <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
-    </div>
+        <div class="logo" onclick="goHomeTop()">ANKOR</div>
+
+        <div class="header-right">
+            <div class="cart-icon-wrapper" id="headerCart" onclick="openCart()">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
 
     <main>
         <section id="view-home" class="view active">
-            <div class="hero-section" id="heroSlider">
-                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
+            <div class="hero-section">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=1600');">
                     <div class="hero-content">
-                        <h1 class="hero-title">ANKOR WC 2027</h1>
-                        <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
-                        <a onclick="navigate('wc2027')" class="btn-mas-info">
-                            <span class="text">MÁS INFORMACIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
-                    <div class="hero-content">
-                        <h1 class="hero-title">ANKOR STORE</h1>
-                        <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
-                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">
-                            <span class="text">VER COLECCIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <div class="section-container">
-                <h2 class="section-title">CONTENIDO ANKOR</h2>
-                <p class="section-subtitle">Contenido de valor. Mentalidad y Superación.</p>
-                <div class="social-grid">
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-tiktok social-icon"></i>
-                        <h3 class="social-name">TikTok</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.inc (INGLÉS)</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.es (ESPAÑOL)</a>
-                        </div>
-                    </div>
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-instagram social-icon"></i>
-                        <h3 class="social-name">Instagram</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.inc (INGLÉS)</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.esp (ESPAÑOL)</a>
-                        </div>
-                    </div>
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-youtube social-icon"></i>
-                        <h3 class="social-name">YouTube</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.english</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.español</a>
-                        </div>
+                        <h1 style="font-size: 3rem; font-weight: 900;">ANKOR STORE</h1>
+                        <p style="margin-bottom: 20px;">EQUIPAMIENTO DE ÉLITE</p>
                     </div>
                 </div>
             </div>
 
-            <div class="section-container" id="store-anchor">
-                <h2 class="section-title">ANKOR STORE</h2>
-                <p class="section-subtitle">Tienda Oficial de ANKOR Mentality.</p>
+            <div style="padding: 40px 20px;">
+                <h2 style="text-align: center; margin-bottom: 30px; font-weight: 900;">COLECCIÓN DESTACADA</h2>
                 <div class="store-grid" id="productGrid"></div>
             </div>
         </section>
 
-        <section id="view-product" class="view section-container" style="padding-top: 40px;">
-            <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
+        <section id="view-product" class="view" style="padding: 20px;">
             <div class="product-detail-layout">
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
@@ -402,221 +240,154 @@
                     </div>
                     <div class="thumb-carousel" id="detailThumbCarousel"></div>
                 </div>
+
                 <div class="prod-info-panel">
-                    <h1 id="detailTitle">PRODUCT NAME</h1>
-                    <div class="price" id="detailPrice">$00.00 USD</div>
-                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.</p>
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
-                </div>
-            </div>
-        </section>
+                    <h1 id="detailTitle">PRODUCTO</h1>
+                    <div class="price" id="detailPrice">$0.00 USD</div>
 
-        <section id="view-wc2027" class="view">
-            <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
-            <div class="section-container">
-                <div class="wc-content">
-                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
-                    <h2>1.1 Cómo Funciona</h2>
-                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
-                    <h2>1.2 Requisitos y Clasificación</h2>
-                    <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
-                    <div class="download-box">
-                        <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
-                        <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
-                        <a href="#" class="download-link"><i class="fa-solid fa-diagram-project"></i> Estructura y Fases del Torneo.pdf</a>
+                    <div class="size-selector">
+                        <div class="size-btn" onclick="selectSize(this, 'S')">S</div>
+                        <div class="size-btn" onclick="selectSize(this, 'M')">M</div>
+                        <div class="size-btn" onclick="selectSize(this, 'L')">L</div>
+                        <div class="size-btn" onclick="selectSize(this, 'XL')">XL</div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="view-contact" class="view">
-            <div class="section-container">
-                <h2 class="section-title">CONTACTO ANKOR</h2>
-                <div class="contact-wrapper">
-                    <form id="contactForm" onsubmit="handleContact(event)">
-                        <div class="form-group"><input type="text" id="c_nombre" class="form-control" placeholder=" " required><label class="form-label">Nombre</label></div>
-                        <div class="form-group"><input type="text" id="c_apellido" class="form-control" placeholder=" " required><label class="form-label">Apellido</label></div>
-                        <div class="form-group"><input type="tel" id="c_tel" class="form-control" placeholder=" " required><label class="form-label">Número de teléfono</label></div>
-                        <div class="form-group"><input type="email" id="c_email" class="form-control" placeholder=" " required><label class="form-label">Correo electrónico</label></div>
-                        <div class="form-group"><textarea id="c_motivo" class="form-control" placeholder=" " required></textarea><label class="form-label">Motivo del mensaje</label></div>
-                        <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
-                    </form>
+                    <div class="qty-label">Cantidad</div>
+                    <div class="qty-wrapper">
+                        <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                        <input type="number" id="qtyInput" class="qty-input" value="1" min="1" onkeypress="return isNumberKey(event)" inputmode="numeric">
+                        <button class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+
+                    <div class="details-dropdown" onclick="this.classList.toggle('open')">
+                        <div class="details-header">Características <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="details-content">
+                            Tejido técnico transpirable de alta densidad. Costuras reforzadas para entrenamiento de alto impacto. Diseño minimalista con logo en serigrafía premium.
+                        </div>
+                    </div>
+
+                    <div class="btn-stack">
+                        <button class="btn-atc" onclick="addToCartAnimation(event)">Añadir al Carrito</button>
+                        <button class="btn-buy" onclick="stripeCheckout()">Comprar Ahora</button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span>Mensaje enviado correctamente.</span></div>
-    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
+    <footer>ANKOR© 2026. BE UNSTOPPABLE.</footer>
 
     <script>
-        /* --- NAVIGATION / SPA LOGIC --- */
-        let storeScrollPos = 0;
+        const products = Array.from({length: 8}, (_, i) => ({
+            id: i + 1,
+            name: `ANKOR ELITE SERIES v${i+1}`,
+            price: 55.00 + (i * 10),
+            imgs: [`https://picsum.photos/seed/ank${i}1/800/800`, `https://picsum.photos/seed/ank${i}2/800/800`, `https://picsum.photos/seed/ank${i}3/800/800`]
+        }));
 
-        function goHomeTop() {
-            storeScrollPos = 0;
-            navigate('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        let currentProduct = null;
+        let cartCount = 0;
 
-        function navigate(viewId) {
-            if (viewId === 'product') {
-                storeScrollPos = window.scrollY;
-            }
-
-            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
-            
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
-
-            if(document.getElementById('mobileMenu').classList.contains('open')) {
-                toggleMenu();
-            }
-            
-            if (viewId === 'home') {
-                window.scrollTo(0, storeScrollPos);
-            } else {
-                window.scrollTo(0, 0);
-            }
-        }
-
-        function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('open');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-
-        /* --- SOCIAL CARDS INTERACTION --- */
-        function toggleSocialCard(card) {
-            // Si ya está activa, la cerramos
-            if(card.classList.contains('active')) {
-                card.classList.remove('active');
-            } else {
-                // Cerramos las otras primero
-                document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-            }
-        }
-
-        /* --- ANNOUNCEMENT --- */
-        let tIndex = 0;
-        const tickets = document.querySelectorAll('.ticket');
-        let annPaused = false;
-        let annInterval = setInterval(() => moveTicket(1), 4000);
-
-        function moveTicket(step) {
-            tickets[tIndex].classList.remove('active');
-            tIndex = (tIndex + step + tickets.length) % tickets.length;
-            tickets[tIndex].classList.add('active');
-        }
-
-        function togglePauseAnn() {
-            annPaused = !annPaused;
-            const btn = document.getElementById('pauseAnnBtn');
-            if(annPaused) { clearInterval(annInterval); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
-            else { annInterval = setInterval(() => moveTicket(1), 4000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
-        }
-
-        /* --- HERO SLIDER --- */
-        let hIndex = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        let heroTimer;
-        
-        function moveHero(step) {
-            if(!slides.length) return;
-            const currentSlide = slides[hIndex];
-            currentSlide.classList.remove('active');
-            currentSlide.style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
-            hIndex = (hIndex + step + slides.length) % slides.length;
-            const nextSlide = slides[hIndex];
-            nextSlide.style.transition = 'none';
-            nextSlide.style.transform = step > 0 ? 'translateX(100%)' : 'translateX(-100%)';
-            void nextSlide.offsetWidth;
-            nextSlide.style.transition = 'transform var(--transition-strong)';
-            nextSlide.style.transform = 'translateX(0)';
-            nextSlide.classList.add('active');
-            resetHeroTimer();
-        }
-        function autoHero() { moveHero(1); }
-        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
-        resetHeroTimer();
-
-        /* --- STORE RENDER --- */
-        const products = Array.from({length: 14}, (_, i) => {
-            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/800`);
-            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, imgs: imgs }
-        });
-
-        const grid = document.getElementById('productGrid');
-        function renderProducts() {
-            if(!grid) return;
+        // Render Home
+        function renderHome() {
+            const grid = document.getElementById('productGrid');
             grid.innerHTML = products.map(p => `
-                <div class="product-item" onclick="openProductDetail(${p.id})">
-                    <div class="product-img-wrapper" id="pw-${p.id}">
-                        <div class="prod-mini-carousel" id="mc-${p.id}">
-                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
-                        </div>
-                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                    <div class="product-meta"><div class="product-title">${p.name}</div><div class="product-price">${p.price}</div></div>
-                </div>`).join('');
+                <div class="product-item" onclick="openProduct(${p.id})">
+                    <div class="product-img-wrapper"><img src="${p.imgs[0]}"></div>
+                    <div style="font-weight: 800; font-size: 0.8rem;">${p.name}</div>
+                    <div style="font-size: 0.8rem;">$${p.price.toFixed(2)} USD</div>
+                </div>
+            `).join('');
         }
 
-        function scrollMini(e, id, step) {
-            e.stopPropagation(); 
-            const carousel = document.getElementById(`mc-${id}`);
-            const scrollAmt = carousel.clientWidth;
-            const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
-            const currentScroll = Math.round(carousel.scrollLeft);
-            if (step > 0 && currentScroll >= maxScroll - 5) { carousel.scrollTo({ left: 0, behavior: 'auto' }); }
-            else if (step < 0 && currentScroll <= 5) { carousel.scrollTo({ left: maxScroll, behavior: 'auto' }); }
-            else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
+        function navigate(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-' + view).classList.add('active');
+            window.scrollTo(0,0);
         }
 
-        /* --- DETAIL VIEWER --- */
-        function openProductDetail(id) {
-            const p = products.find(prod => prod.id === id);
-            document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailPrice').innerText = p.price;
+        function openProduct(id) {
+            currentProduct = products.find(p => p.id === id);
+            document.getElementById('detailTitle').innerText = currentProduct.name;
+            document.getElementById('detailPrice').innerText = `$${currentProduct.price.toFixed(2)} USD`;
+            
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
-            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
+            
+            mainC.innerHTML = currentProduct.imgs.map(img => `<div class="img-card"><img src="${img}"></div>`).join('');
+            thumbC.innerHTML = currentProduct.imgs.map((img, i) => `<img src="${img}" onclick="scrollMain(${i})" class="${i===0?'active':''}">`).join('');
+            
+            // Sync carrusel pequeñó al hacer scroll
             mainC.onscroll = () => {
-                const imgWidth = mainC.clientWidth * 0.85;
-                const activeIndex = Math.round(mainC.scrollLeft / imgWidth);
-                thumbC.querySelectorAll('img').forEach((t, i) => t.classList.toggle('active', i === activeIndex));
+                const index = Math.round(mainC.scrollLeft / mainC.offsetWidth);
+                document.querySelectorAll('.thumb-carousel img').forEach((img, i) => {
+                    img.classList.toggle('active', i === index);
+                });
             };
+
             navigate('product');
         }
 
-        function syncCarousel(index) {
+        function scrollMain(index) {
             const mainC = document.getElementById('detailMainCarousel');
-            const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
+            mainC.scrollTo({ left: mainC.offsetWidth * index, behavior: 'smooth' });
         }
 
-        /* --- CONTACT --- */
-        function handleContact(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('.submit-btn');
-            btn.innerText = "ENVIANDO...";
-            btn.disabled = true;
+        function selectSize(btn, size) {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function changeQty(amt) {
+            const input = document.getElementById('qtyInput');
+            let val = parseInt(input.value) + amt;
+            if (val < 1) val = 1;
+            input.value = val;
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+            return true;
+        }
+
+        function addToCartAnimation(e) {
+            const cart = document.getElementById('headerCart');
+            const imgToFly = currentProduct.imgs[0];
+            
+            const flyer = document.createElement('img');
+            flyer.src = imgToFly;
+            flyer.classList.add('flying-img');
+            flyer.style.top = e.clientY + 'px';
+            flyer.style.left = e.clientX + 'px';
+            document.body.appendChild(flyer);
+
+            const cartPos = cart.getBoundingClientRect();
+
             setTimeout(() => {
-                e.target.reset();
-                btn.innerText = "ENVIAR MENSAJE";
-                btn.disabled = false;
-                showToast();
-            }, 1000);
-        }
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+                flyer.style.top = cartPos.top + 'px';
+                flyer.style.left = cartPos.left + 'px';
+                flyer.style.transform = 'scale(0.1)';
+                flyer.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => {
+                flyer.remove();
+                cartCount += parseInt(document.getElementById('qtyInput').value);
+                document.getElementById('cartCount').innerText = cartCount;
+                cart.classList.add('cart-jump');
+                setTimeout(() => cart.classList.remove('cart-jump'), 500);
+            }, 800);
         }
 
-        window.onload = renderProducts;
+        function stripeCheckout() {
+            alert("Redirigiendo a Pasarela de Pago Stripe de ANKOR...");
+            // Aquí iría la lógica de Stripe: stripe.redirectToCheckout({ lineItems: [...] });
+        }
+
+        function goHomeTop() { navigate('home'); }
+
+        window.onload = renderHome;
     </script>
 </body>
 </html>
