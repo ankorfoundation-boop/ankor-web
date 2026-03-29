@@ -16,6 +16,7 @@
             --white: #ffffff;
             --light-gray: #f5f5f5;
             --border: #e0e0e0;
+            --error: #ff0000;
             --transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1);
             --transition-smooth: 0.3s ease;
         }
@@ -297,7 +298,7 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             outline: none;
-            transition: border-color 0.3s, background 0.3s;
+            transition: all 0.3s;
             background: var(--light-gray);
         }
         .ap-input::placeholder {
@@ -307,10 +308,24 @@
             border-color: var(--black);
             background: var(--white);
         }
+        
+        /* Error Styles */
+        .ap-input.input-error {
+            border-color: var(--error) !important;
+            background: #fffcfc;
+        }
+        .error-hint {
+            color: var(--error);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 2px;
+            display: none;
+        }
+
         .pw-group { position: relative; }
         .ap-eye {
             position: absolute;
-            bottom: 16px;
+            top: 40px;
             right: 15px;
             background: none;
             border: none;
@@ -391,201 +406,37 @@
         .product-reviews { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
         .product-reviews .stars { color: var(--black); display: flex; gap: 2px; font-size: 0.75rem; }
 
-        /* ========================================================= */
-        /* --- REDISEÑO PÁGINA DE PRODUCTO INDIVIDUAL (MÓVIL) --- */
-        /* ========================================================= */
-        
-        #view-product {
-            padding-top: 15px;
-            padding-bottom: 40px;
-        }
-
-        .back-btn { 
-            display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; 
-            margin-bottom: 20px; border: none; background: none; text-transform: uppercase; 
-            font-size: 0.8rem; letter-spacing: 0.5px; padding-left: 5px; color: var(--black);
-        }
-
+        /* --- PRODUCT DETAIL PAGE --- */
+        #view-product { padding-top: 15px; padding-bottom: 40px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; border: none; background: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; padding-left: 5px; color: var(--black); }
         .product-detail-layout { display: flex; flex-direction: column; width: 100%; gap: 15px; }
-
         .prod-images-panel { width: 100%; display: flex; flex-direction: column; gap: 10px; }
-        
-        .main-carousel-container { 
-            position: relative; width: 100%; overflow: hidden; background: transparent; 
-        }
-        .main-carousel { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            scrollbar-width: none; 
-            padding: 0 12%;
-            gap: 12px;
-            cursor: grab;
-            scroll-padding: 0 12%; 
-        }
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; background: transparent; }
+        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 12%; gap: 12px; cursor: grab; scroll-padding: 0 12%; }
         .main-carousel::-webkit-scrollbar { display: none; }
-        
-        .main-carousel img { 
-            flex: 0 0 100%;
-            aspect-ratio: 1/1; 
-            width: 100%;
-            height: auto; 
-            object-fit: cover; 
-            scroll-snap-align: center; 
-            border-radius: 24px; 
-        }
-
-        .thumb-carousel { 
-            display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; 
-            padding-bottom: 5px; scroll-behavior: smooth; padding: 0 5px;
-        }
+        .main-carousel img { flex: 0 0 100%; aspect-ratio: 1/1; width: 100%; height: auto; object-fit: cover; scroll-snap-align: center; border-radius: 24px; }
+        .thumb-carousel { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; scroll-behavior: smooth; padding: 0 5px; }
         .thumb-carousel::-webkit-scrollbar { display: none; }
-        
-        .thumb-carousel img { 
-            width: 70px; height: 70px; 
-            object-fit: cover; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            opacity: 0.4; 
-            transition: opacity 0.3s ease, border 0.3s ease; 
-            border: 2px solid transparent; 
-            flex-shrink: 0;
-        }
-        .thumb-carousel img.active { 
-            opacity: 1; 
-            border-color: var(--black); 
-        }
-
-        /* Información de Producto */
+        .thumb-carousel img { width: 70px; height: 70px; object-fit: cover; border-radius: 12px; cursor: pointer; opacity: 0.4; transition: opacity 0.3s ease, border 0.3s ease; border: 2px solid transparent; flex-shrink: 0; }
+        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
         .prod-info-panel { padding: 5px 5px 20px 5px; display: flex; flex-direction: column; }
-        
-        .pdp-title { 
-            font-size: 1.4rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            text-align: left; 
-            margin-bottom: 6px; 
-            color: var(--black);
-            line-height: 1.2;
-        }
-        
-        .pdp-price { 
-            font-size: 1.25rem; 
-            font-weight: 400; 
-            font-family: 'Inter', serif;
-            letter-spacing: 0.5px;
-            text-align: left; 
-            margin-bottom: 25px; 
-            color: var(--black);
-        }
-
+        .pdp-title { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; text-align: left; margin-bottom: 6px; color: var(--black); line-height: 1.2; }
+        .pdp-price { font-size: 1.25rem; font-weight: 400; font-family: 'Inter', serif; letter-spacing: 0.5px; text-align: left; margin-bottom: 25px; color: var(--black); }
         .pdp-qty-wrapper { margin-bottom: 25px; }
-        .pdp-qty-label { 
-            font-size: 0.75rem; 
-            color: var(--text-muted); 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            text-align: left;
-        }
-        .pdp-qty-control {
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid var(--border);
-            border-radius: 30px; 
-            height: 44px;
-            width: 130px;
-            padding: 0 15px;
-            background: var(--white);
-        }
-        .pdp-qty-btn {
-            background: none; border: none; color: var(--black);
-            font-size: 1rem; cursor: pointer; padding: 5px;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .pdp-qty-val {
-            font-weight: 700; font-size: 1rem; color: var(--black);
-            width: 30px; text-align: center;
-        }
-
+        .pdp-qty-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 8px; text-align: left; }
+        .pdp-qty-control { display: inline-flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 30px; height: 44px; width: 130px; padding: 0 15px; background: var(--white); }
+        .pdp-qty-btn { background: none; border: none; color: var(--black); font-size: 1rem; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; }
+        .pdp-qty-val { font-weight: 700; font-size: 1rem; color: var(--black); width: 30px; text-align: center; }
         .pdp-accordion-wrapper { margin-bottom: 25px; }
-        .pdp-accordion-btn {
-            width: 100%;
-            background: var(--white);
-            color: var(--black);
-            border: 1px solid var(--black);
-            border-radius: 0; 
-            padding: 16px 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+        .pdp-accordion-btn { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); border-radius: 0; padding: 16px 20px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
         .pdp-accordion-btn i { transition: transform 0.3s; }
         .pdp-accordion-btn.active i { transform: rotate(180deg); }
-        .pdp-accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            background: var(--white);
-            border: 1px solid var(--black);
-            border-top: none;
-            border-radius: 0; 
-            padding: 0 20px; 
-        }
-        .pdp-accordion-content p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin: 0;
-            padding: 15px 0; 
-        }
-
+        .pdp-accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; background: var(--white); border: 1px solid var(--black); border-top: none; border-radius: 0; padding: 0 20px; }
+        .pdp-accordion-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; padding: 15px 0; }
         .pdp-actions { display: flex; flex-direction: column; gap: 10px; }
-        
-        .btn-add-cart {
-            width: 100%;
-            background: var(--white);
-            color: var(--black);
-            border: 1px solid var(--black);
-            border-radius: 0; 
-            padding: 18px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .btn-buy-now {
-            width: 100%;
-            background: var(--black);
-            color: var(--white);
-            border: 1px solid var(--black);
-            border-radius: 0; 
-            padding: 18px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-        }
-
-        @media (min-width: 900px) { 
-            .product-detail-layout { flex-direction: row; gap: 40px; }
-            .prod-images-panel { width: 55%; }
-            .prod-info-panel { width: 45%; }
-        }
+        .btn-add-cart { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
+        .btn-buy-now { width: 100%; background: var(--black); color: var(--white); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        @media (min-width: 900px) { .product-detail-layout { flex-direction: row; gap: 40px; } .prod-images-panel { width: 55%; } .prod-info-panel { width: 45%; } }
 
         /* --- WC 2027 --- */
         .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
@@ -782,24 +633,27 @@
 
         <section id="view-account" class="view section-container">
             <div class="account-page-wrapper">
-                <img src="TU_URL_DE_IMAGEN_AQUI" alt="ANKOR" class="account-page-logo">
-                <form class="account-page-form" onsubmit="handleAccountCreation(event)">
-                    <div class="ap-input-group">
+                <img src="https://images.squarespace-cdn.com/content/v1/5f4039328246f40954f67606/1598031252118-W6P1P0N9Z7XN96Z9X2PZ/ANKOR_LOGO_WHITE.png" alt="ANKOR" class="account-page-logo">
+                <form class="account-page-form" onsubmit="handleAccountCreation(event)" novalidate>
+                    <div class="ap-input-group" id="group_nombre">
                         <label>NOMBRE</label>
-                        <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre" required>
+                        <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre">
+                        <span class="error-hint">Ingrese un nombre válido.</span>
                     </div>
                     <div class="ap-input-group">
                         <label>APELLIDO</label>
                         <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
                     </div>
-                    <div class="ap-input-group">
+                    <div class="ap-input-group" id="group_email">
                         <label>CORREO ELECTRÓNICO</label>
-                        <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro" required>
+                        <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro">
+                        <span class="error-hint">Ingrese un correo electrónico válido.</span>
                     </div>
-                    <div class="ap-input-group pw-group">
+                    <div class="ap-input-group pw-group" id="group_password">
                         <label>CONTRASEÑA</label>
-                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña" minlength="8" required>
+                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
                         <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
+                        <span class="error-hint">Límite de caracteres alcanzado (20 caracteres)</span>
                     </div>
                     <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
                 </form>
@@ -965,36 +819,17 @@
             grid.innerHTML = products.map(p => {
                 const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
                 const reviews = Math.floor(Math.random() * 1000) + 50;
-                const formattedName = p.name;
-
-                return `
-                <div class="product-item" onclick="openProductDetail(${p.id})">
+                return `<div class="product-item" onclick="openProductDetail(${p.id})">
                     <div class="product-img-wrapper" id="pw-${p.id}">
-                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">
-                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
-                        </div>
+                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}</div>
                         <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                        
-                        <div class="dots-container">
-                            <div class="dots-viewport">
-                                <div class="dots-track" id="track-${p.id}">
-                                    ${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}
-                                </div>
-                            </div>
-                        </div>
+                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}</div></div></div>
                     </div>
                     <div class="product-meta">
-                        <div class="product-title">${formattedName}</div>
+                        <div class="product-title">${p.name}</div>
                         <div class="product-price">${p.price}</div>
-                        
-                        <div class="product-reviews">
-                            <span class="rating-score">${rating}</span>
-                            <span class="stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
-                            </span>
-                            <span class="rating-count">(${reviews})</span>
-                        </div>
+                        <div class="product-reviews"><span class="rating-score">${rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(${reviews})</span></div>
                     </div>
                 </div>`
             }).join('');
@@ -1015,26 +850,21 @@
             const carousel = document.getElementById(`mc-${id}`);
             const track = document.getElementById(`track-${id}`);
             if(!carousel || !track) return;
-            
             const scrollLeft = carousel.scrollLeft;
             const width = carousel.clientWidth;
-            
             let index = Math.round(scrollLeft / width);
             const totalDots = track.children.length;
             if(index >= totalDots) index = totalDots - 1; 
             if(index < 0) index = 0;
-            
             const dots = track.querySelectorAll('.dot');
             dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-            
             let transX = -(index * 11) + 22; 
             if(transX > 0) transX = 0; 
             if(transX < -59) transX = -59; 
-            
             track.style.transform = `translateX(${transX}px)`;
         }
 
-        /* --- DETAIL VIEWER & LOGIC --- */
+        /* --- DETAIL VIEWER --- */
         let currentProductQty = 1;
         let currentOpenProductId = null;
 
@@ -1055,45 +885,29 @@
         function toggleAccordion(btn) {
             btn.classList.toggle("active");
             let content = btn.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
+            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
         }
 
         function openProductDetail(id) {
             currentOpenProductId = id;
             const p = products.find(prod => prod.id === id);
             document.getElementById('detailTitle').innerText = p.name;
-            
             currentProductQty = 1;
             document.getElementById('pdp-qty').innerText = currentProductQty;
             updateDetailPrice();
-            
-            const accBtn = document.querySelector('.pdp-accordion-btn');
-            if(accBtn.classList.contains('active')) { toggleAccordion(accBtn); }
-
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
-            
             mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
             thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
-            
             mainC.onscroll = () => {
                 const centerPoint = mainC.scrollLeft + (mainC.clientWidth / 2);
                 let activeIndex = 0;
                 let minDiff = Infinity;
-                
                 Array.from(mainC.children).forEach((img, i) => {
                     const imgCenter = img.offsetLeft + (img.offsetWidth / 2);
                     const diff = Math.abs(imgCenter - centerPoint);
-                    if (diff < minDiff) {
-                        minDiff = diff;
-                        activeIndex = i;
-                    }
+                    if (diff < minDiff) { minDiff = diff; activeIndex = i; }
                 });
-                
                 thumbC.querySelectorAll('img').forEach((t, i) => {
                     if (i === activeIndex) {
                         t.classList.add('active');
@@ -1103,9 +917,7 @@
                         if (tLeft < thumbC.scrollLeft || (tLeft + tWidth) > (thumbC.scrollLeft + cWidth)) {
                             thumbC.scrollTo({ left: tLeft - (cWidth/2) + (tWidth/2), behavior: 'smooth' });
                         }
-                    } else {
-                        t.classList.remove('active');
-                    }
+                    } else { t.classList.remove('active'); }
                 });
             };
             navigate('product');
@@ -1114,22 +926,16 @@
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
             const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) {
-                const scrollPos = imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2);
-                mainC.scrollTo({ left: scrollPos, behavior: 'smooth' });
-            }
+            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2), behavior: 'smooth' });
         }
 
         /* --- CONTACT & TOAST --- */
         function handleContact(e) {
             e.preventDefault();
             const btn = e.target.querySelector('.submit-btn');
-            btn.innerText = "ENVIANDO...";
-            btn.disabled = true;
+            btn.innerText = "ENVIANDO..."; btn.disabled = true;
             setTimeout(() => {
-                e.target.reset();
-                btn.innerText = "ENVIAR MENSAJE";
-                btn.disabled = false;
+                e.target.reset(); btn.innerText = "ENVIAR MENSAJE"; btn.disabled = false;
                 showToast("Mensaje enviado correctamente.");
             }, 1000);
         }
@@ -1140,42 +946,111 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        /* --- CUENTAS DE USUARIO (SPA) --- */
-        let loggedUser = null;
-
-        function togglePasswordVisibility() {
-            const input = document.getElementById('reg_password');
-            const icon = document.getElementById('eyeIcon');
-            if(input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+        /* --- SECURITY LOGIC (LOGEO) --- */
+        const passInput = document.getElementById('reg_password');
+        const passHint = document.querySelector('#group_password .error-hint');
+        
+        // Bloqueo de caracteres en contraseña > 20
+        passInput.addEventListener('input', function() {
+            if (this.value.length >= 20) {
+                this.value = this.value.substring(0, 20);
+                this.classList.add('input-error');
+                passHint.style.display = 'block';
             } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                this.classList.remove('input-error');
+                passHint.style.display = 'none';
             }
-        }
+        });
 
         function handleAccountCreation(e) {
             e.preventDefault();
-            const email = document.getElementById('reg_email').value;
-            const domainRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|outlook\.com|gmail\.es|hotmail\.es|outlook\.es)$/i;
             
-            if (!domainRegex.test(email)) {
-                alert("Por seguridad, solo se permiten correos de Gmail, Hotmail u Outlook.");
+            // Limpiar errores previos
+            document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
+            document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
+
+            const nombreInput = document.getElementById('reg_nombre');
+            const emailInput = document.getElementById('reg_email');
+            const passwordInput = document.getElementById('reg_password');
+
+            const nombre = nombreInput.value;
+            const email = emailInput.value;
+            const pass = passwordInput.value;
+
+            // 1. RESTRICCIÓN NOMBRE
+            // No permitir caracteres raros y no permitir 3 letras iguales seguidas
+            const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+            const tripleLetterRegex = /(.)\1\1/;
+
+            if (!nameRegex.test(nombre) || tripleLetterRegex.test(nombre) || nombre.trim() === "") {
+                applyValidationError('group_nombre', nombreInput);
                 return;
             }
 
+            // 2. RESTRICCIÓN CORREO
+            const emailParts = email.split('@');
+            const validDomains = ['gmail.com', 'hotmail.com', 'outlook.com'];
+            const tempDomains = ['yopmail.com', 'tempmail.com', 'mailinator.com'];
+            
+            let isEmailValid = true;
+            if (emailParts.length !== 2) {
+                isEmailValid = false;
+            } else {
+                const domain = emailParts[1];
+                // Solo dominios específicos, en minúsculas y no temporales
+                if (!validDomains.includes(domain) || tempDomains.includes(domain) || domain !== domain.toLowerCase()) {
+                    isEmailValid = false;
+                }
+            }
+            
+            if (!isEmailValid) {
+                applyValidationError('group_email', emailInput);
+                return;
+            }
+
+            // 3. RESTRICCIÓN CONTRASEÑA (MIN 8)
+            if (pass.length < 8) {
+                alert("La contraseña debe tener al menos 8 caracteres.");
+                passwordInput.classList.add('input-error');
+                return;
+            }
+
+            // ÉXITO
             loggedUser = {
-                nombre: document.getElementById('reg_nombre').value,
-                avatar: 'https://ui-avatars.com/api/?name=' + document.getElementById('reg_nombre').value + '&background=000&color=fff' // Placeholder elegante
+                nombre: nombre,
+                avatar: 'https://ui-avatars.com/api/?name=' + nombre + '&background=000&color=fff'
             };
             
             updateHeaderUserUI();
             e.target.reset();
-            goHomeTop(); // Redirige al inicio tras crear cuenta/login
-            showToast("Cuenta iniciada exitosamente.");
+            goHomeTop();
+            showToast("Cuenta creada exitosamente.");
+        }
+
+        function applyValidationError(groupId, inputElement) {
+            const group = document.getElementById(groupId);
+            const hint = group.querySelector('.error-hint');
+            
+            inputElement.classList.add('input-error');
+            hint.style.display = 'block';
+            
+            // "Teletransportar" al elemento
+            group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            inputElement.focus();
+        }
+
+        /* --- USER UI --- */
+        let loggedUser = null;
+
+        function togglePasswordVisibility() {
+            const icon = document.getElementById('eyeIcon');
+            if(passInput.type === 'password') {
+                passInput.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
         }
 
         function updateHeaderUserUI() {
@@ -1190,24 +1065,12 @@
             }
         }
 
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('active');
-        }
+        function toggleUserDropdown() { document.getElementById('userDropdown').classList.toggle('active'); }
+        function closeUserDropdown() { document.getElementById('userDropdown').classList.remove('active'); }
+        function logoutUser() { loggedUser = null; updateHeaderUserUI(); showToast("Sesión cerrada."); }
 
-        function closeUserDropdown() {
-            document.getElementById('userDropdown').classList.remove('active');
-        }
-
-        function logoutUser() {
-            loggedUser = null;
-            updateHeaderUserUI();
-            showToast("Sesión cerrada.");
-        }
-
-        /* --- CARRITO DE COMPRAS Y ANIMACIÓN DE VUELO --- */
+        /* --- CART LOGIC --- */
         let shoppingCart = [];
-
         function toggleCartMenu() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
@@ -1219,21 +1082,10 @@
         function addProductToCart() {
             if (!currentOpenProductId) return;
             const p = products.find(prod => prod.id === currentOpenProductId);
-            
             const existingItem = shoppingCart.find(item => item.id === p.id);
-            if (existingItem) {
-                existingItem.qty += currentProductQty;
-            } else {
-                shoppingCart.push({
-                    id: p.id,
-                    name: p.name,
-                    priceNum: p.numPrice,
-                    qty: currentProductQty,
-                    img: p.imgs[0]
-                });
-            }
+            if (existingItem) existingItem.qty += currentProductQty;
+            else shoppingCart.push({ id: p.id, name: p.name, priceNum: p.numPrice, qty: currentProductQty, img: p.imgs[0] });
 
-            // --- ANIMACIÓN DE TELETRANSPORTACIÓN ---
             const cartBtn = document.getElementById('headerCartBtn');
             const cartIcon = cartBtn.querySelector('i');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
@@ -1241,91 +1093,40 @@
             if (cartBtn && activeImg) {
                 const imgRect = activeImg.getBoundingClientRect();
                 const cartRect = cartBtn.getBoundingClientRect();
-
                 const flyingImg = document.createElement('img');
                 flyingImg.src = p.imgs[0];
-                flyingImg.style.position = 'fixed';
-                flyingImg.style.top = imgRect.top + 'px';
-                flyingImg.style.left = imgRect.left + 'px';
-                flyingImg.style.width = imgRect.width + 'px';
-                flyingImg.style.height = imgRect.height + 'px';
-                flyingImg.style.borderRadius = '24px';
-                flyingImg.style.zIndex = '9999';
-                flyingImg.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)';
-                flyingImg.style.objectFit = 'cover';
-                flyingImg.style.pointerEvents = 'none';
+                Object.assign(flyingImg.style, { position: 'fixed', top: imgRect.top+'px', left: imgRect.left+'px', width: imgRect.width+'px', height: imgRect.height+'px', borderRadius: '24px', zIndex: '9999', transition: 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)', objectFit: 'cover', pointerEvents: 'none' });
                 document.body.appendChild(flyingImg);
-
-                // Forzar reflujo
                 void flyingImg.offsetWidth;
-
-                // Animación hacia el carrito
-                flyingImg.style.top = (cartRect.top + cartRect.height / 2 - 10) + 'px';
-                flyingImg.style.left = (cartRect.left + cartRect.width / 2 - 10) + 'px';
-                flyingImg.style.width = '20px';
-                flyingImg.style.height = '20px';
-                flyingImg.style.opacity = '0';
-                flyingImg.style.borderRadius = '50%';
-
-                setTimeout(() => {
-                    flyingImg.remove();
-                    updateCartBadge();
-                    // Ejecutar doble salto
-                    cartIcon.classList.add('cart-double-jump');
-                    setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600);
-                }, 700);
-            } else {
-                updateCartBadge();
-            }
+                Object.assign(flyingImg.style, { top: (cartRect.top+10)+'px', left: (cartRect.left+10)+'px', width: '20px', height: '20px', opacity: '0' });
+                setTimeout(() => { flyingImg.remove(); updateCartBadge(); cartIcon.classList.add('cart-double-jump'); setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600); }, 700);
+            } else { updateCartBadge(); }
         }
 
         function modifyCartQty(id, step) {
             const item = shoppingCart.find(i => i.id === id);
-            if (item) {
-                item.qty += step;
-                if (item.qty < 1) item.qty = 1;
-                renderCartUI();
-                updateCartBadge();
-            }
+            if (item) { item.qty += step; if (item.qty < 1) item.qty = 1; renderCartUI(); updateCartBadge(); }
         }
-
-        function removeCartItem(id) {
-            shoppingCart = shoppingCart.filter(i => i.id !== id);
-            renderCartUI();
-            updateCartBadge();
-        }
-
+        function removeCartItem(id) { shoppingCart = shoppingCart.filter(i => i.id !== id); renderCartUI(); updateCartBadge(); }
         function updateCartBadge() {
             const badge = document.getElementById('cartCountBadge');
-            const totalItems = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
-            if(totalItems > 0) {
-                badge.style.display = 'flex';
-                badge.innerText = totalItems;
-            } else {
-                badge.style.display = 'none';
-            }
+            const total = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
+            badge.style.display = total > 0 ? 'flex' : 'none';
+            badge.innerText = total;
         }
 
         function renderCartUI() {
             const list = document.getElementById('cartItemsList');
             const totalDisplay = document.getElementById('cartTotalValue');
-            
-            if (shoppingCart.length === 0) {
-                list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`;
-                totalDisplay.innerText = `$0.00 USD`;
-                return;
-            }
-
+            if (shoppingCart.length === 0) { list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`; totalDisplay.innerText = `$0.00 USD`; return; }
             let totalValue = 0;
             list.innerHTML = shoppingCart.map(item => {
-                const itemTotal = item.priceNum * item.qty;
-                totalValue += itemTotal;
-                return `
-                <div class="cs-item">
-                    <img src="${item.img}" class="cs-item-img" alt="${item.name}">
+                totalValue += (item.priceNum * item.qty);
+                return `<div class="cs-item">
+                    <img src="${item.img}" class="cs-item-img">
                     <div class="cs-item-info">
                         <div class="cs-item-name">${item.name}</div>
-                        <div class="cs-item-price">$${itemTotal.toFixed(2)} USD</div>
+                        <div class="cs-item-price">$${(item.priceNum * item.qty).toFixed(2)} USD</div>
                         <div class="cs-qty-control">
                             <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
                             <span class="cs-qty-val">${item.qty}</span>
@@ -1335,7 +1136,6 @@
                     <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             }).join('');
-
             totalDisplay.innerText = `$${totalValue.toFixed(2)} USD`;
         }
 
