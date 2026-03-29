@@ -59,7 +59,15 @@
         .header-icon-btn { background: none; border: none; font-size: 1.25rem; color: var(--black); cursor: pointer; position: relative; transition: transform 0.2s; display: flex; align-items: center; justify-content: center;}
         .header-icon-btn:hover { transform: scale(1.1); }
         .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--black); color: var(--white); font-size: 0.65rem; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .header-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: transform 0.2s; }
+        .header-avatar { 
+            width: 36px; 
+            height: 36px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            cursor: pointer; 
+            border: 1px solid var(--border); 
+            transition: transform 0.2s; 
+        }
         .header-avatar:hover { transform: scale(1.05); }
 
         /* --- USER DROPDOWN --- */
@@ -69,21 +77,21 @@
         .ud-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
         .ud-avatar-container { position: relative; }
         .ud-avatar { 
-            width: 70px; 
-            height: 70px; 
+            width: 80px; 
+            height: 80px; 
             border-radius: 50%; 
             object-fit: cover; 
         }
         .camera-icon-btn { 
             position: absolute; 
-            bottom: 4px; 
-            right: 4px; 
+            bottom: 6px; 
+            right: 6px; 
             background: #666666; 
             color: var(--white); 
             border: none; 
             border-radius: 50%; 
-            width: 30px; 
-            height: 30px; 
+            width: 32px; 
+            height: 32px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -312,6 +320,17 @@
         .vm-code-input { width: 50px; height: 60px; border: 1px solid var(--black); text-align: center; font-size: 1.5rem; font-weight: 900; font-family: 'Inter', sans-serif; outline: none; border-radius: 0; }
         .vm-code-input:focus { border-width: 2px; }
         .vm-btn { background: var(--black); color: var(--white); border: none; padding: 15px 40px; font-weight: 900; width: 100%; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 15px; }
+        
+        /* Texto nuevo solicitado: "¿No eres tú (email)?" */
+        .vm-wrong-email {
+            margin-top: 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--black);
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+        }
 
         /* --- SUCCESS FLOATING TOAST --- */
         .floating-success { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: var(--white); border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.15); border-radius: 12px; padding: 30px 40px; z-index: 3500; display: none; flex-direction: column; align-items: center; opacity: 0; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -562,6 +581,11 @@
                 <span class="error-hint" id="vm_error_hint" style="display:none; margin-bottom: 10px;">Código incorrecto. Intente de nuevo.</span>
                 
                 <button class="vm-btn" onclick="verifyNewsletterCode()">VERIFICAR</button>
+                
+                <!-- Texto solicitado por el usuario -->
+                <p class="vm-wrong-email" onclick="wrongEmailNewsletter()">
+                    ¿No eres tú <span id="vm_wrong_email_display" style="color: var(--black);"></span>?
+                </p>
             </div>
         </div>
 
@@ -654,13 +678,12 @@
                         <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
                     </form>
                     
-                    <!-- Texto solicitado por el usuario -->
                     <p style="text-align: center; margin: 25px 0 10px; font-size: 0.9rem; color: var(--text-muted);">
                         <span onclick="switchToLoginMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer; color: var(--black);">¿Ya tienes una cuenta?</span>
                     </p>
                 </div>
 
-                <!-- LOGIN (se muestra al hacer clic en el texto) -->
+                <!-- LOGIN -->
                 <div id="loginContainer" style="display: none; width: 100%;">
                     <form class="account-page-form" id="loginForm" onsubmit="handleLogin(event)" novalidate>
                         <div class="ap-input-group">
@@ -805,7 +828,6 @@
         function navigate(viewId) {
             if (viewId === 'product') { storeScrollPos = window.scrollY; }
             if (viewId === 'account') {
-                // Resetear al modo registro
                 switchToRegisterMode();
                 const form = document.getElementById('registerForm');
                 if(form) form.reset();
@@ -1007,7 +1029,6 @@
         }
 
         /* --- CONTACT SECTIONS & VALIDATIONS --- */
-        
         const countryDB = [
             { name: "Estados Unidos / Canadá", code: "1", flag: "🇺🇸", max: 10 }, { name: "Rusia / Kazajistán", code: "7", flag: "🇷🇺", max: 10 },
             { name: "Egipto", code: "20", flag: "🇪🇬", max: 10 }, { name: "Sudáfrica", code: "27", flag: "🇿🇦", max: 9 },
@@ -1303,7 +1324,7 @@
 
         /* ======================== LÓGICA DE SESIÓN PERSISTENTE Y CARRITO ======================== */
         let loggedUser = null;
-        let shoppingCart = []; // Solo {id, qty} - precios e imágenes se obtienen en tiempo real de "products"
+        let shoppingCart = [];
 
         function saveCart() {
             localStorage.setItem('ankorCart', JSON.stringify(shoppingCart));
@@ -1316,7 +1337,6 @@
         }
 
         function loadPersistentData() {
-            // Cargar usuario
             const savedUserStr = localStorage.getItem('ankorUser');
             if (savedUserStr) {
                 const saved = JSON.parse(savedUserStr);
@@ -1327,7 +1347,6 @@
                 };
             }
             
-            // Cargar carrito
             const savedCartStr = localStorage.getItem('ankorCart');
             if (savedCartStr) {
                 shoppingCart = JSON.parse(savedCartStr);
@@ -1353,18 +1372,16 @@
                 const dataUrl = ev.target.result;
                 loggedUser.avatar = dataUrl;
 
-                // Guardar en localStorage (permanente)
                 const fullUser = JSON.parse(localStorage.getItem('ankorUser'));
                 fullUser.avatar = dataUrl;
                 localStorage.setItem('ankorUser', JSON.stringify(fullUser));
 
-                // Actualizar UI
                 document.getElementById('ud-avatar-img').src = dataUrl;
                 const headerAvatar = document.querySelector('.header-avatar');
                 if (headerAvatar) headerAvatar.src = dataUrl;
 
                 showToast("Foto de perfil actualizada correctamente.");
-                e.target.value = ''; // reset input
+                e.target.value = '';
             };
             reader.readAsDataURL(file);
         }
@@ -1416,7 +1433,7 @@
                     avatar: savedUser.avatar,
                     email: savedUser.email
                 };
-                localStorage.setItem('ankorUser', JSON.stringify(savedUser)); // ya está guardado
+                localStorage.setItem('ankorUser', JSON.stringify(savedUser));
                 updateHeaderUserUI();
                 navigate('home');
                 showToast("¡Sesión iniciada correctamente! Tu perfil está activo para siempre.");
@@ -1425,17 +1442,14 @@
             }
         }
 
-        /* --- REGISTRO (modificado para guardar en localStorage) --- */
+        /* --- REGISTRO --- */
         function handleAccountCreation(e) {
             e.preventDefault();
             document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
             document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
 
-            const nombreInput = document.getElementById('reg_nombre');
-            const apellidoInput = document.getElementById('reg_apellido');
-            
-            const nombre = nombreInput.value.trim();
-            const apellido = apellidoInput.value.trim();
+            const nombre = document.getElementById('reg_nombre').value.trim();
+            const apellido = document.getElementById('reg_apellido').value.trim();
             const email = document.getElementById('reg_email').value.trim();
             const pass = document.getElementById('reg_password').value;
 
@@ -1491,7 +1505,7 @@
             document.getElementById('userDropdown').classList.remove('active'); 
         }
 
-        /* --- LOGOUT CON CONFIRMACIÓN --- */
+        /* --- LOGOUT --- */
         function showLogoutModal() {
             if (!loggedUser) return;
             document.getElementById('logout-name-display').innerText = loggedUser.nombre.split(' ')[0] || loggedUser.nombre;
@@ -1507,8 +1521,6 @@
             
             loggedUser = null;
             localStorage.removeItem('ankorUser');
-            
-            // Carrito se vacía completamente
             shoppingCart = [];
             localStorage.removeItem('ankorCart');
             
@@ -1518,7 +1530,7 @@
             closeUserDropdown();
         }
 
-        /* --- CART LOGIC (persistente y sincronizado con store) --- */
+        /* --- CART --- */
         function toggleCartMenu() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
@@ -1526,7 +1538,7 @@
             overlay.classList.toggle('active');
             
             if (sidebar.classList.contains('open')) {
-                syncCartWithStore(); // Elimina productos que ya no existan en la tienda
+                syncCartWithStore();
                 renderCartUI();
             }
         }
@@ -1544,7 +1556,6 @@
             
             saveCart();
             
-            // Animación flying
             const cartBtn = document.getElementById('headerCartBtn');
             const cartIcon = cartBtn.querySelector('i');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
@@ -1639,7 +1650,7 @@
             totalDisplay.innerText = `$${totalValue.toFixed(2)} USD`;
         }
 
-        /* --- NEWSTELLER LOGIC --- */
+        /* --- NEWSLETTER LOGIC --- */
         let isNlChecked = false;
         let generatedNlCode = "";
         let pendingNlEmail = "";
@@ -1677,7 +1688,9 @@
             
             console.log("Código de prueba generado:", generatedNlCode);
 
+            // Actualizar ambos textos con el correo
             document.getElementById('vm_email_display').innerText = pendingNlEmail;
+            document.getElementById('vm_wrong_email_display').innerText = pendingNlEmail;
             
             for(let i=1; i<=4; i++) {
                 document.getElementById(`code_${i}`).value = '';
@@ -1772,6 +1785,13 @@
             anotherLink.style.display = "none";
         }
 
+        /* Nueva función solicitada: cerrar modal y limpiar newsletter */
+        function wrongEmailNewsletter() {
+            document.getElementById('verifyModalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            unlockNewsletter();
+        }
+
         function checkNewsletterLock() {
             const savedEmail = localStorage.getItem('ankor_elite_email');
             if(savedEmail) {
@@ -1809,7 +1829,7 @@
             populateCountryList();
             checkContactBlock(); 
             checkNewsletterLock();
-            loadPersistentData();   // ← Carga usuario + carrito persistente
+            loadPersistentData();
         };
     </script>
 </body>
