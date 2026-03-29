@@ -550,7 +550,7 @@
                     </div>
 
                     <div class="pdp-actions">
-                        <button class="btn-add-cart" onclick="addProductToCart()">AGREGAR ALCARRITO</button>
+                        <button class="btn-add-cart" onclick="addProductToCart()">AGREGAR AL CARRITO</button>
                         <a href="#" class="btn-buy-now">ADQUIRIR AHORA</a>
                     </div>
                 </div>
@@ -694,7 +694,7 @@
     <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
-        /* ---NAVIGATION / SPA LOGIC --- */
+        /* --- NAVIGATION / SPA LOGIC --- */
         let storeScrollPos = 0;
 
         function goHomeTop() {
@@ -786,7 +786,7 @@
         /* --- STORE RENDER --- */
         const products = Array.from({length: 14}, (_, i) => {
             const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
-            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, numPrice: (40 + (i * 5)), imgs:imgs }
+            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, numPrice: (40 + (i * 5)), imgs: imgs }
         });
 
         const grid = document.getElementById('productGrid');
@@ -800,7 +800,7 @@
                         <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}</div>
                         <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span`).join('')}</div></div></div>
+                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}</div></div></div>
                     </div>
                     <div class="product-meta">
                         <div class="product-title">${p.name}</div>
@@ -1544,4 +1544,3 @@
     </script>
 </body>
 </html>
-```
