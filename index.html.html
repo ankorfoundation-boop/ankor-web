@@ -67,7 +67,30 @@
         .user-dropdown-window.active { display: flex; opacity: 1; transform: translateY(0); }
         .ud-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
         .ud-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .ud-avatar-container { position: relative; }
         .ud-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .camera-icon-btn { 
+            position: absolute; 
+            bottom: 2px; 
+            right: 2px; 
+            background: #666666; 
+            color: var(--white); 
+            border: none; 
+            border-radius: 50%; 
+            width: 26px; 
+            height: 26px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.85rem; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25); 
+            cursor: pointer; 
+            transition: background 0.2s, transform 0.2s; 
+        }
+        .camera-icon-btn:hover { 
+            background: #333333; 
+            transform: scale(1.15); 
+        }
         .ud-greeting { font-weight: 900; font-size: 1.1rem; color: var(--black); }
         .ud-logout { display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; transition: color 0.2s; align-self: flex-end; }
         .ud-logout:hover { color: var(--black); }
@@ -151,6 +174,28 @@
         .ap-eye { position: absolute; top: 40px; right: 15px; background: none; border: none; color: gray; cursor: pointer; font-size: 1.1rem; }
         .ap-submit { background: var(--black); color: var(--white); border: none; padding: 18px; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; margin-top: 15px; cursor: pointer; transition: background 0.3s; letter-spacing: 1px; width: 100%; }
         .ap-submit:hover { background: #333; }
+
+        /* --- LOGOUT CONFIRM MODAL --- */
+        .logout-modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.6); z-index: 4000; display: none; 
+            align-items: center; justify-content: center; 
+        }
+        .logout-modal-overlay.active { display: flex; }
+        .logout-modal { 
+            background: var(--white); width: 90%; max-width: 380px; 
+            border-radius: 16px; padding: 35px 30px; text-align: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 1px solid var(--border);
+        }
+        .logout-modal p { font-size: 1.1rem; font-weight: 700; margin-bottom: 30px; line-height: 1.4; }
+        .logout-buttons { display: flex; gap: 15px; }
+        .logout-buttons button { 
+            flex: 1; padding: 16px; font-weight: 900; text-transform: uppercase; 
+            font-size: 0.9rem; letter-spacing: 1px; border: none; border-radius: 8px; 
+            cursor: pointer; transition: all 0.2s;
+        }
+        .logout-no { background: var(--black); color: var(--white); }
+        .logout-yes { background: var(--black); color: var(--white); }
 
         /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -284,7 +329,7 @@
 
         /* --- CONTACT --- */
         .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-        .form-group { margin-bottom: 30px; position: relative; } /* Incrementado para el espacio del contador */
+        .form-group { margin-bottom: 30px; position: relative; }
         .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
         .form-control:focus { border-bottom-color: var(--black); }
         .form-control.input-error { border-bottom-color: var(--error) !important; background: #fffcfc; }
@@ -367,7 +412,7 @@
             </nav>
             <div class="header-icons-container">
                 <div id="userBtnContainer">
-                    <button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>
+                    <!-- Se llena dinámicamente -->
                 </div>
                 <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -380,10 +425,15 @@
     <div class="user-dropdown-window" id="userDropdown">
         <button class="ud-close" onclick="closeUserDropdown()">&times;</button>
         <div class="ud-header">
-            <img src="" id="ud-avatar-img" class="ud-avatar" alt="Avatar">
+            <div class="ud-avatar-container">
+                <img src="" id="ud-avatar-img" class="ud-avatar" alt="Avatar">
+                <button class="camera-icon-btn" onclick="triggerProfilePicUpload()" title="Cambiar foto de perfil">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+            </div>
             <div class="ud-greeting" id="ud-greeting-text">¡Hola!</div>
         </div>
-        <button class="ud-logout" onclick="logoutUser()"><i class="fa-solid fa-door-open"></i> Cerrar sesión</button>
+        <button class="ud-logout" onclick="showLogoutModal()"><i class="fa-solid fa-door-open"></i> Cerrar sesión</button>
     </div>
 
     <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
@@ -516,6 +566,17 @@
             <p class="fs-text">Operación exitosa.</p>
         </div>
 
+        <!-- MODAL DE CERRAR SESIÓN -->
+        <div class="logout-modal-overlay" id="logoutModalOverlay">
+            <div class="logout-modal">
+                <p>¿Estás seguro de cerrar sesión con <span id="logout-name-display" style="color: var(--black); font-weight: 900;"></span>?</p>
+                <div class="logout-buttons">
+                    <button class="logout-no" onclick="cancelLogout()">NO</button>
+                    <button class="logout-yes" onclick="confirmLogout()">SÍ</button>
+                </div>
+            </div>
+        </div>
+
         <section id="view-product" class="view section-container">
             <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
             <div class="product-detail-layout">
@@ -560,30 +621,60 @@
         <section id="view-account" class="view section-container">
             <div class="account-page-wrapper">
                 <img src="https://images.squarespace-cdn.com/content/v1/5f4039328246f40954f67606/1598031252118-W6P1P0N9Z7XN96Z9X2PZ/ANKOR_LOGO_WHITE.png" alt="ANKOR" class="account-page-logo">
-                <form class="account-page-form" id="registerForm" onsubmit="handleAccountCreation(event)" novalidate>
-                    <div class="ap-input-group" id="group_nombre">
-                        <label>NOMBRE</label>
-                        <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre">
-                        <span class="error-hint" id="hint_nombre">Ingrese un nombre válido.</span>
-                    </div>
-                    <div class="ap-input-group" id="group_apellido">
-                        <label>APELLIDO</label>
-                        <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
-                        <span class="error-hint" id="hint_apellido">Ingrese un apellido válido.</span>
-                    </div>
-                    <div class="ap-input-group" id="group_email">
-                        <label>CORREO ELECTRÓNICO</label>
-                        <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro">
-                        <span class="error-hint" id="hint_email">Ingrese un correo electrónico válido.</span>
-                    </div>
-                    <div class="ap-input-group pw-group" id="group_password">
-                        <label>CONTRASEÑA</label>
-                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
-                        <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
-                        <span class="error-hint" id="hint_password">Límite de caracteres alcanzado (20 caracteres)</span>
-                    </div>
-                    <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
-                </form>
+                
+                <!-- REGISTRO -->
+                <div id="registerContainer">
+                    <form class="account-page-form" id="registerForm" onsubmit="handleAccountCreation(event)" novalidate>
+                        <div class="ap-input-group" id="group_nombre">
+                            <label>NOMBRE</label>
+                            <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre">
+                            <span class="error-hint" id="hint_nombre">Ingrese un nombre válido.</span>
+                        </div>
+                        <div class="ap-input-group" id="group_apellido">
+                            <label>APELLIDO</label>
+                            <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
+                            <span class="error-hint" id="hint_apellido">Ingrese un apellido válido.</span>
+                        </div>
+                        <div class="ap-input-group" id="group_email">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro">
+                            <span class="error-hint" id="hint_email">Ingrese un correo electrónico válido.</span>
+                        </div>
+                        <div class="ap-input-group pw-group" id="group_password">
+                            <label>CONTRASEÑA</label>
+                            <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
+                            <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
+                            <span class="error-hint" id="hint_password">Límite de caracteres alcanzado (20 caracteres)</span>
+                        </div>
+                        <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
+                    </form>
+                    
+                    <!-- Texto solicitado por el usuario -->
+                    <p style="text-align: center; margin: 25px 0 10px; font-size: 0.9rem; color: var(--text-muted);">
+                        <span onclick="switchToLoginMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer; color: var(--black);">¿Ya tienes una cuenta?</span>
+                    </p>
+                </div>
+
+                <!-- LOGIN (se muestra al hacer clic en el texto) -->
+                <div id="loginContainer" style="display: none; width: 100%;">
+                    <form class="account-page-form" id="loginForm" onsubmit="handleLogin(event)" novalidate>
+                        <div class="ap-input-group">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input type="email" id="login_email" class="ap-input" placeholder="Escriba su correo de ANKOR">
+                            <span class="error-hint" id="login_hint_email" style="display:none;">Ingrese un correo electrónico válido.</span>
+                        </div>
+                        <div class="ap-input-group pw-group">
+                            <label>CONTRASEÑA</label>
+                            <input type="password" id="login_password" class="ap-input" placeholder="Ingrese su contraseña ANKOR">
+                            <button type="button" class="ap-eye" onclick="toggleLoginPasswordVisibility(this)"><i class="fa-regular fa-eye" id="loginEyeIcon"></i></button>
+                        </div>
+                        <button type="submit" class="ap-submit">INICIAR SESIÓN ANKOR</button>
+                    </form>
+                    
+                    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+                        <span onclick="switchToRegisterMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer;">¿No tienes una cuenta? Crear cuenta ANKOR</span>
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -673,6 +764,9 @@
 
     <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span id="toast-msg">Mensaje enviado correctamente.</span></div>
 
+    <!-- INPUT OCULTO PARA SUBIR FOTO DE PERFIL -->
+    <input type="file" id="profile-upload" accept="image/*" style="display: none;" onchange="handleProfilePicUpload(event)">
+
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartMenu()"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cs-header">
@@ -706,6 +800,8 @@
         function navigate(viewId) {
             if (viewId === 'product') { storeScrollPos = window.scrollY; }
             if (viewId === 'account') {
+                // Resetear al modo registro
+                switchToRegisterMode();
                 const form = document.getElementById('registerForm');
                 if(form) form.reset();
                 document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
@@ -722,7 +818,7 @@
             
             if (viewId === 'home') { 
                 window.scrollTo(0, storeScrollPos); 
-                checkNewsletterLock(); // Verificar estado del newsletter al volver a home
+                checkNewsletterLock(); 
             } 
             else { window.scrollTo(0, 0); }
         }
@@ -1011,7 +1107,6 @@
             }
         });
 
-        // Aplicar los límites de validación (12 chars + Evitar 3 letras consecutivas)
         function setupRestrictedNameLimits(inputId, hintId) {
             const input = document.getElementById(inputId);
             const hint = document.getElementById(hintId);
@@ -1201,28 +1296,131 @@
             document.querySelector('.phone-prefix-btn').style.pointerEvents = 'none';
         }
 
-        /* --- LOGEO ORIGINAL LÓGICA --- */
-        const passInput = document.getElementById('reg_password');
-        const passHint = document.getElementById('hint_password');
-        const emailInput = document.getElementById('reg_email');
-        const emailHint = document.getElementById('hint_email');
+        /* ======================== LÓGICA DE SESIÓN PERSISTENTE Y CARRITO ======================== */
+        let loggedUser = null;
+        let shoppingCart = []; // Solo {id, qty} - precios e imágenes se obtienen en tiempo real de "products"
 
-        passInput.addEventListener('input', function() {
-            if (this.value.length >= 20) {
-                this.value = this.value.substring(0, 20);
-                this.classList.add('input-error');
-                passHint.style.display = 'block';
-            } else {
-                this.classList.remove('input-error');
-                passHint.style.display = 'none';
+        function saveCart() {
+            localStorage.setItem('ankorCart', JSON.stringify(shoppingCart));
+        }
+
+        function syncCartWithStore() {
+            const validIds = products.map(p => p.id);
+            shoppingCart = shoppingCart.filter(item => validIds.includes(item.id));
+            saveCart();
+        }
+
+        function loadPersistentData() {
+            // Cargar usuario
+            const savedUserStr = localStorage.getItem('ankorUser');
+            if (savedUserStr) {
+                const saved = JSON.parse(savedUserStr);
+                loggedUser = { 
+                    nombre: saved.nombre, 
+                    avatar: saved.avatar, 
+                    email: saved.email || '' 
+                };
             }
-        });
+            
+            // Cargar carrito
+            const savedCartStr = localStorage.getItem('ankorCart');
+            if (savedCartStr) {
+                shoppingCart = JSON.parse(savedCartStr);
+            }
+            
+            syncCartWithStore();
+            updateCartBadge();
+            updateHeaderUserUI();
+        }
 
-        emailInput.addEventListener('input', function() {
-            this.classList.remove('input-error');
-            emailHint.style.display = 'none';
-        });
+        /* --- FOTO DE PERFIL --- */
+        function triggerProfilePicUpload() {
+            if (!loggedUser) return;
+            document.getElementById('profile-upload').click();
+        }
 
+        function handleProfilePicUpload(e) {
+            const file = e.target.files[0];
+            if (!file || !loggedUser) return;
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const dataUrl = ev.target.result;
+                loggedUser.avatar = dataUrl;
+
+                // Guardar en localStorage (permanente)
+                const fullUser = JSON.parse(localStorage.getItem('ankorUser'));
+                fullUser.avatar = dataUrl;
+                localStorage.setItem('ankorUser', JSON.stringify(fullUser));
+
+                // Actualizar UI
+                document.getElementById('ud-avatar-img').src = dataUrl;
+                const headerAvatar = document.querySelector('.header-avatar');
+                if (headerAvatar) headerAvatar.src = dataUrl;
+
+                showToast("Foto de perfil actualizada correctamente.");
+                e.target.value = ''; // reset input
+            };
+            reader.readAsDataURL(file);
+        }
+
+        /* --- CAMBIO DE MODO REGISTRO / LOGIN --- */
+        function switchToLoginMode() {
+            document.getElementById('registerContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+        }
+
+        function switchToRegisterMode() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'block';
+        }
+
+        /* --- LOGIN --- */
+        function toggleLoginPasswordVisibility(btn) {
+            const input = btn.previousElementSibling;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login_email').value.trim();
+            const pass = document.getElementById('login_password').value;
+
+            if (!email || !pass) {
+                showToast("Por favor completa correo y contraseña.");
+                return;
+            }
+
+            const savedUserStr = localStorage.getItem('ankorUser');
+            if (!savedUserStr) {
+                showToast("No existe ninguna cuenta. Crea una primero.");
+                return;
+            }
+
+            const savedUser = JSON.parse(savedUserStr);
+            if (savedUser.email === email && savedUser.password === pass) {
+                loggedUser = {
+                    nombre: savedUser.nombre,
+                    avatar: savedUser.avatar,
+                    email: savedUser.email
+                };
+                localStorage.setItem('ankorUser', JSON.stringify(savedUser)); // ya está guardado
+                updateHeaderUserUI();
+                navigate('home');
+                showToast("¡Sesión iniciada correctamente! Tu perfil está activo para siempre.");
+            } else {
+                showToast("Correo o contraseña incorrectos.");
+            }
+        }
+
+        /* --- REGISTRO (modificado para guardar en localStorage) --- */
         function handleAccountCreation(e) {
             e.preventDefault();
             document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
@@ -1233,16 +1431,14 @@
             
             const nombre = nombreInput.value.trim();
             const apellido = apellidoInput.value.trim();
-            const email = emailInput.value.trim();
-            const pass = passInput.value;
+            const email = document.getElementById('reg_email').value.trim();
+            const pass = document.getElementById('reg_password').value;
 
             if (!checkNameValidity(nombre)) {
                 applyFieldError('reg_nombre', 'hint_nombre', "Ingrese un nombre válido."); return;
             }
-            if (apellido.length > 0) {
-                if (!checkNameValidity(apellido)) {
-                    applyFieldError('reg_apellido', 'hint_apellido', "Ingrese un apellido válido."); return;
-                }
+            if (apellido.length > 0 && !checkNameValidity(apellido)) {
+                applyFieldError('reg_apellido', 'hint_apellido', "Ingrese un apellido válido."); return;
             }
             if (!checkEmailValidity(email)) {
                 applyFieldError('reg_email', 'hint_email', "Ingrese un correo electrónico válido."); return;
@@ -1252,22 +1448,24 @@
             }
 
             let fullName = nombre + (apellido ? ' ' + apellido : '');
-            loggedUser = { nombre: fullName, avatar: 'https://ui-avatars.com/api/?name=' + nombre + '&background=000&color=fff' };
+
+            const userData = {
+                nombre: fullName,
+                email: email,
+                password: pass,
+                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(nombre)}&background=000&color=fff`
+            };
+
+            localStorage.setItem('ankorUser', JSON.stringify(userData));
+            loggedUser = { nombre: fullName, avatar: userData.avatar, email: email };
+
             updateHeaderUserUI();
             e.target.reset();
             goHomeTop();
-            showToast("Cuenta creada exitosamente.");
+            showToast("Cuenta creada exitosamente. ¡Tu perfil está activo para siempre!");
         }
 
         /* --- USER UI --- */
-        let loggedUser = null;
-
-        function togglePasswordVisibility() {
-            const icon = document.getElementById('eyeIcon');
-            if(passInput.type === 'password') { passInput.type = 'text'; icon.classList.replace('fa-eye', 'fa-eye-slash'); } 
-            else { passInput.type = 'password'; icon.classList.replace('fa-eye-slash', 'fa-eye'); }
-        }
-
         function updateHeaderUserUI() {
             const container = document.getElementById('userBtnContainer');
             if (loggedUser) {
@@ -1280,34 +1478,68 @@
             }
         }
 
-        function toggleUserDropdown() { document.getElementById('userDropdown').classList.toggle('active'); }
-        function closeUserDropdown() { document.getElementById('userDropdown').classList.remove('active'); }
-        function logoutUser() { loggedUser = null; updateHeaderUserUI(); showToast("Sesión cerrada."); }
-        
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+        function toggleUserDropdown() { 
+            const dd = document.getElementById('userDropdown');
+            dd.classList.toggle('active'); 
+        }
+        function closeUserDropdown() { 
+            document.getElementById('userDropdown').classList.remove('active'); 
         }
 
-        /* --- CART LOGIC --- */
-        let shoppingCart = [];
+        /* --- LOGOUT CON CONFIRMACIÓN --- */
+        function showLogoutModal() {
+            if (!loggedUser) return;
+            document.getElementById('logout-name-display').innerText = loggedUser.nombre.split(' ')[0] || loggedUser.nombre;
+            document.getElementById('logoutModalOverlay').classList.add('active');
+        }
+
+        function cancelLogout() {
+            document.getElementById('logoutModalOverlay').classList.remove('active');
+        }
+
+        function confirmLogout() {
+            document.getElementById('logoutModalOverlay').classList.remove('active');
+            
+            loggedUser = null;
+            localStorage.removeItem('ankorUser');
+            
+            // Carrito se vacía completamente
+            shoppingCart = [];
+            localStorage.removeItem('ankorCart');
+            
+            updateHeaderUserUI();
+            updateCartBadge();
+            showToast("Sesión cerrada correctamente.");
+            closeUserDropdown();
+        }
+
+        /* --- CART LOGIC (persistente y sincronizado con store) --- */
         function toggleCartMenu() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
-            if (sidebar.classList.contains('open')) renderCartUI();
+            
+            if (sidebar.classList.contains('open')) {
+                syncCartWithStore(); // Elimina productos que ya no existan en la tienda
+                renderCartUI();
+            }
         }
 
         function addProductToCart() {
             if (!currentOpenProductId) return;
             const p = products.find(prod => prod.id === currentOpenProductId);
-            const existingItem = shoppingCart.find(item => item.id === p.id);
-            if (existingItem) existingItem.qty += currentProductQty;
-            else shoppingCart.push({ id: p.id, name: p.name, priceNum: p.numPrice, qty: currentProductQty, img: p.imgs[0] });
-
+            
+            const existing = shoppingCart.find(item => item.id === p.id);
+            if (existing) {
+                existing.qty += currentProductQty;
+            } else {
+                shoppingCart.push({ id: p.id, qty: currentProductQty });
+            }
+            
+            saveCart();
+            
+            // Animación flying
             const cartBtn = document.getElementById('headerCartBtn');
             const cartIcon = cartBtn.querySelector('i');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
@@ -1317,19 +1549,48 @@
                 const cartRect = cartBtn.getBoundingClientRect();
                 const flyingImg = document.createElement('img');
                 flyingImg.src = p.imgs[0];
-                Object.assign(flyingImg.style, { position: 'fixed', top: imgRect.top+'px', left: imgRect.left+'px', width: imgRect.width+'px', height: imgRect.height+'px', borderRadius: '24px', zIndex: '9999', transition: 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)', objectFit: 'cover', pointerEvents: 'none' });
+                Object.assign(flyingImg.style, { 
+                    position: 'fixed', top: imgRect.top+'px', left: imgRect.left+'px', 
+                    width: imgRect.width+'px', height: imgRect.height+'px', 
+                    borderRadius: '24px', zIndex: '9999', 
+                    transition: 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)', 
+                    objectFit: 'cover', pointerEvents: 'none' 
+                });
                 document.body.appendChild(flyingImg);
                 void flyingImg.offsetWidth;
-                Object.assign(flyingImg.style, { top: (cartRect.top+10)+'px', left: (cartRect.left+10)+'px', width: '20px', height: '20px', opacity: '0' });
-                setTimeout(() => { flyingImg.remove(); updateCartBadge(); cartIcon.classList.add('cart-double-jump'); setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600); }, 700);
-            } else { updateCartBadge(); }
+                Object.assign(flyingImg.style, { 
+                    top: (cartRect.top+10)+'px', left: (cartRect.left+10)+'px', 
+                    width: '20px', height: '20px', opacity: '0' 
+                });
+                setTimeout(() => { 
+                    flyingImg.remove(); 
+                    updateCartBadge(); 
+                    cartIcon.classList.add('cart-double-jump'); 
+                    setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600); 
+                }, 700);
+            } else {
+                updateCartBadge();
+            }
         }
 
         function modifyCartQty(id, step) {
             const item = shoppingCart.find(i => i.id === id);
-            if (item) { item.qty += step; if (item.qty < 1) item.qty = 1; renderCartUI(); updateCartBadge(); }
+            if (item) { 
+                item.qty += step; 
+                if (item.qty < 1) item.qty = 1; 
+                saveCart();
+                renderCartUI();
+                updateCartBadge();
+            }
         }
-        function removeCartItem(id) { shoppingCart = shoppingCart.filter(i => i.id !== id); renderCartUI(); updateCartBadge(); }
+
+        function removeCartItem(id) {
+            shoppingCart = shoppingCart.filter(i => i.id !== id);
+            saveCart();
+            renderCartUI();
+            updateCartBadge();
+        }
+
         function updateCartBadge() {
             const badge = document.getElementById('cartCountBadge');
             const total = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
@@ -1340,15 +1601,26 @@
         function renderCartUI() {
             const list = document.getElementById('cartItemsList');
             const totalDisplay = document.getElementById('cartTotalValue');
-            if (shoppingCart.length === 0) { list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`; totalDisplay.innerText = `$0.00 USD`; return; }
+            
+            if (shoppingCart.length === 0) { 
+                list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`; 
+                totalDisplay.innerText = `$0.00 USD`; 
+                return; 
+            }
+            
             let totalValue = 0;
             list.innerHTML = shoppingCart.map(item => {
-                totalValue += (item.priceNum * item.qty);
+                const prod = products.find(pr => pr.id === item.id);
+                if (!prod) return '';
+                
+                const itemPrice = prod.numPrice * item.qty;
+                totalValue += itemPrice;
+                
                 return `<div class="cs-item">
-                    <img src="${item.img}" class="cs-item-img">
+                    <img src="${prod.imgs[0]}" class="cs-item-img">
                     <div class="cs-item-info">
-                        <div class="cs-item-name">${item.name}</div>
-                        <div class="cs-item-price">$${(item.priceNum * item.qty).toFixed(2)} USD</div>
+                        <div class="cs-item-name">${prod.name}</div>
+                        <div class="cs-item-price">$${(itemPrice).toFixed(2)} USD</div>
                         <div class="cs-qty-control">
                             <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
                             <span class="cs-qty-val">${item.qty}</span>
@@ -1358,9 +1630,9 @@
                     <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             }).join('');
+            
             totalDisplay.innerText = `$${totalValue.toFixed(2)} USD`;
         }
-
 
         /* --- NEWSTELLER LOGIC --- */
         let isNlChecked = false;
@@ -1370,7 +1642,7 @@
 
         function toggleNlCheckbox() {
             const btn = document.getElementById('nl_submit_btn');
-            if(btn.classList.contains('joined')) return; // Bloquear si ya está unido
+            if(btn.classList.contains('joined')) return;
             
             isNlChecked = !isNlChecked;
             const cb = document.getElementById('nl_checkbox');
@@ -1380,7 +1652,7 @@
 
         function initNewsletter() {
             const btn = document.getElementById('nl_submit_btn');
-            if(btn.classList.contains('joined')) return; // Ya está suscrito
+            if(btn.classList.contains('joined')) return;
 
             const emailInput = document.getElementById('nl_email');
             const email = emailInput.value.trim();
@@ -1390,25 +1662,18 @@
                 return;
             }
             if(!isNlChecked) {
-                // Pequeño feedback visual de que falta el checkbox
                 document.getElementById('nl_checkbox').style.borderColor = "red";
                 setTimeout(() => document.getElementById('nl_checkbox').style.borderColor = "var(--black)", 1000);
                 return;
             }
 
             pendingNlEmail = email;
-            // Generar un código aleatorio de 4 dígitos
             generatedNlCode = Math.floor(1000 + Math.random() * 9000).toString();
             
-            // [AQUÍ PEGAR URL DEL GOOGLE SCRIPT]
-            // const SCRIPT_URL = "https://script.google.com/macros/s/TU_SCRIPT_ID/exec";
-            
-            // Simularemos el envío al correo por ahora (abriendo el modal)
             console.log("Código de prueba generado:", generatedNlCode);
 
             document.getElementById('vm_email_display').innerText = pendingNlEmail;
             
-            // Limpiar inputs del modal
             for(let i=1; i<=4; i++) {
                 document.getElementById(`code_${i}`).value = '';
                 document.getElementById(`code_${i}`).style.borderColor = "var(--black)";
@@ -1418,15 +1683,11 @@
             document.getElementById('verifyModalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Iniciar temporizador de 15 minutos (900000 ms)
             clearTimeout(nlTimer);
-            nlTimer = setTimeout(() => {
-                cancelNewsletter();
-            }, 900000); 
+            nlTimer = setTimeout(() => cancelNewsletter(), 900000); 
         }
 
         function moveCodeFocus(input, index) {
-            // Permitir solo números
             input.value = input.value.replace(/[^0-9]/g, '');
             if(input.value.length === 1 && index < 4) {
                 document.getElementById(`code_${index + 1}`).focus();
@@ -1444,33 +1705,16 @@
             const userCode = `${code1}${code2}${code3}${code4}`;
 
             if(userCode === generatedNlCode) {
-                // Éxito
                 clearTimeout(nlTimer);
                 document.getElementById('verifyModalOverlay').classList.remove('active');
                 document.body.style.overflow = '';
                 
-                // Mostrar tostada flotante de éxito
                 const toast = document.getElementById('floatingSuccess');
                 toast.classList.add('active');
                 
-                // Guardar en base de datos Ankor (Simulado aquí, deberás usar fetch hacia el Google Script)
-                /*
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: pendingNlEmail })
-                });
-                */
-                
-                // Bloquear UI
                 lockNewsletterUI(pendingNlEmail);
-                
-                // Persistencia de dispositivo
                 localStorage.setItem('ankor_elite_email', pendingNlEmail);
-
             } else {
-                // Error
                 document.getElementById('vm_error_hint').style.display = 'block';
                 for(let i=1; i<=4; i++) {
                     document.getElementById(`code_${i}`).style.borderColor = "var(--error)";
@@ -1501,7 +1745,6 @@
             btn.classList.add('joined');
             btn.innerText = "YA ERES PARTE DE LA ÉLITE.";
             
-            // Quitar check
             isNlChecked = false;
             document.getElementById('nl_checkbox').classList.remove('checked');
 
@@ -1535,11 +1778,20 @@
             document.getElementById('floatingSuccess').classList.remove('active');
         }
 
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        /* ======================== INICIO ======================== */
         window.onload = () => {
             renderProducts();
             populateCountryList();
             checkContactBlock(); 
             checkNewsletterLock();
+            loadPersistentData();   // ← Carga usuario + carrito persistente
         };
     </script>
 </body>
