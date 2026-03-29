@@ -229,11 +229,11 @@
         }
         .account-btn:hover { background: var(--white); color: var(--black); }
 
-        /* --- STORE GRID (MODIFICADO) --- */
+        /* --- STORE GRID --- */
         .store-grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* 2 en 2 en móviles */
-            gap: 20px 10px; 
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles */
+            gap: 20px 12px; 
         }
         @media (min-width: 768px) {
             .store-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
@@ -246,7 +246,7 @@
             width: 100%; 
             aspect-ratio: 1/1; 
             background: #f7f7f7; 
-            border-radius: 8px; 
+            border-radius: 4px; 
             overflow: hidden; 
             margin-bottom: 8px; 
         }
@@ -263,7 +263,6 @@
         .prod-mini-carousel::-webkit-scrollbar { display: none; }
         .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
         
-        /* Flechas pequeñas */
         .p-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); 
             width: 28px; height: 28px; border-radius: 50%; 
@@ -274,7 +273,6 @@
         }
         .p-prev { left: 5px; } .p-next { right: 5px; }
 
-        /* Puntos de guía */
         .carousel-dots {
             position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 4px; z-index: 5;
@@ -294,7 +292,6 @@
         }
         .product-price { font-weight: 900; font-size: 0.9rem; color: var(--black); margin-bottom: 4px; }
 
-        /* Reviews Estilo Adidas */
         .product-reviews { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: #000; }
         .stars { display: flex; gap: 1px; }
         .stars i { font-size: 0.7rem; }
@@ -366,11 +363,9 @@
         <div class="header-left">
             <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
         </div>
-        
         <div class="header-center">
             <div class="logo" onclick="goHomeTop()">ANKOR</div>
         </div>
-        
         <div class="header-right">
             <nav class="desktop-nav">
                 <a class="nav-link active" onclick="navigate('home')">Home</a>
@@ -479,7 +474,7 @@
                 <div class="wc-content">
                     <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
                     <h2>1.1 Cómo Funciona</h2>
-                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
+                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos.</p>
                     <h2>1.2 Requisitos y Clasificación</h2>
                     <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
                     <div class="download-box">
@@ -513,7 +508,7 @@
 
     <script>
         /* --- NAVIGATION / SPA LOGIC --- */
-        let storeScrollPos = 0;
+        let storeScrollPos = 0; // Guardamos el scroll para volver
 
         function goHomeTop() {
             storeScrollPos = 0;
@@ -522,7 +517,8 @@
         }
 
         function navigate(viewId) {
-            if (viewId === 'product') {
+            // Si estamos en home y vamos a un producto, guardamos la posición actual
+            if (viewId === 'product' && document.getElementById('view-home').classList.contains('active')) {
                 storeScrollPos = window.scrollY;
             }
 
@@ -536,6 +532,7 @@
                 toggleMenu();
             }
             
+            // Si volvemos a home, restauramos el scroll anterior
             if (viewId === 'home') {
                 window.scrollTo(0, storeScrollPos);
             } else {
@@ -601,21 +598,21 @@
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
         resetHeroTimer();
 
-        /* --- STORE RENDER (ACTUALIZADO) --- */
-        const products = Array.from({length: 14}, (_, i) => {
-            const imgs = Array.from({length: 4}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
+        /* --- STORE RENDER --- */
+        const products = Array.from({length: 12}, (_, i) => {
+            const imgs = Array.from({length: 4}, (_, j) => `https://picsum.photos/seed/${i*20 + j}/600/600`);
             return { 
                 id: i + 1, 
-                name: i % 2 === 0 ? `ANKOR Samba OG Lifestyle` : `ANKOR Superstar Classic`, 
-                price: `$${(40 + (i * 5)).toFixed(2)} USD`, 
+                name: i % 2 === 0 ? `ANKOR High-Performance Tee` : `ANKOR Training Shorts`, 
+                price: `$${(45 + (i * 3)).toFixed(2)} USD`, 
                 imgs: imgs,
-                rating: (4.5 + (Math.random() * 0.5)).toFixed(1),
-                reviews: Math.floor(Math.random() * 500) + 50
+                rating: (4.7 + (Math.random() * 0.3)).toFixed(1),
+                reviews: Math.floor(Math.random() * 300) + 20
             }
         });
 
-        const grid = document.getElementById('productGrid');
         function renderProducts() {
+            const grid = document.getElementById('productGrid');
             if(!grid) return;
             grid.innerHTML = products.map(p => `
                 <div class="product-item" onclick="openProductDetail(${p.id})">
