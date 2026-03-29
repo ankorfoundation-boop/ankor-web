@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ANKOR | Official Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,7 +20,7 @@
             --transition-smooth: 0.3s ease;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -46,488 +46,372 @@
             text-transform: uppercase;
         }
         .announcement-track {
-            display: flex;
-            width: 100%;
-            max-width: 600px;
-            overflow: hidden;
-            position: relative;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
+            display: flex; width: 100%; max-width: 600px; overflow: hidden; position: relative; height: 100%; align-items: center; justify-content: center;
         }
         .ticket {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            position: absolute; width: 100%; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .ticket.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .ann-arrow {
-            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
-            font-size: 1rem; position: absolute; z-index: 10;
-        }
+        .ticket.active { opacity: 1; transform: translateY(0); }
+        .ann-arrow { background: none; border: none; color: white; cursor: pointer; padding: 0 15px; font-size: 1rem; position: absolute; z-index: 10; }
         .ann-prev { left: 10px; }
-        
-        .ann-controls-right {
-            position: absolute;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            z-index: 10;
-        }
-        .ann-controls-right .ann-arrow {
-            position: relative;
-            right: auto;
-            padding: 0 5px;
-        }
+        .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER --- */
         header {
             position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999;
-            display: grid; 
-            grid-template-columns: 1fr auto 1fr; 
-            align-items: center;
-            padding: 0 30px; height: 70px;
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+            padding: 0 20px; height: 60px;
         }
-        
-        .header-left { display: flex; align-items: center; }
-        .header-center { display: flex; justify-content: center; }
-        .header-right { display: flex; justify-content: flex-end; }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1.5px; cursor: pointer; text-transform: uppercase; color: var(--black); }
+        .hamburger { border: none; background: none; font-size: 1.2rem; color: var(--black); }
 
-        .logo { 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            letter-spacing: -2px; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            color: var(--black);
-            white-space: nowrap;
-        }
-        
-        .desktop-nav { display: none; gap: 30px; }
-        .nav-link {
-            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
-            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
-            position: relative; cursor: pointer;
-        }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
-            background-color: var(--black); transition: width 0.3s ease;
-        }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-        .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
-        
-        .mobile-menu {
-            position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
-            background: var(--white); z-index: 2000; padding: 80px 30px 30px;
-            box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            display: flex; flex-direction: column; gap: 25px;
-        }
-        .mobile-menu.open { left: 0; }
-        .mobile-menu .nav-link { font-size: 1.5rem; letter-spacing: -0.5px; }
-        .close-menu { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
-        .overlay.active { display: block; }
-
-        @media (min-width: 768px) {
-            .desktop-nav { display: flex; }
-            .hamburger { display: none; }
-            header { grid-template-columns: 1fr auto 1fr; }
-        }
-
-        /* --- VIEWS CONTROLLER --- */
-        .view { display: none; animation: fadeIn 0.5s ease forwards; }
+        /* --- VIEWS --- */
+        .view { display: none; animation: fadeIn 0.4s ease forwards; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- HERO SLIDER --- */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            transform: translateX(100%); transition: transform var(--transition-strong);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-        }
-        .hero-slide.active { transform: translateX(0); z-index: 2; }
-        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
+        /* --- PRODUCT DETAIL (ESPECIFICACIONES NUEVAS) --- */
+        .product-page-container { padding: 15px; width: 100%; max-width: 100vw; overflow-x: hidden; }
         
-        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-
-        .btn-mas-info {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: var(--black); color: var(--white); padding: 18px 40px;
-            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth);
-            border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+        /* Carrusel Principal con efecto Peak */
+        .main-carousel-wrapper {
+            position: relative;
+            margin: 0 -15px; /* Compensa el padding del contenedor para que las fotos asomen */
+            margin-bottom: 15px;
         }
-        .btn-mas-info span.text { position: relative; }
-        .btn-mas-info span.arrow {
-            display: inline-block; opacity: 0; width: 0; overflow: hidden;
-            transform: translateX(-10px); transition: all 0.3s ease;
+        .main-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding: 0 40px; /* Esto permite ver el asomo de las fotos laterales */
+            gap: 15px;
         }
-        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
-        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
-        .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-
-        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
-        .slider-arrow {
-            pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
-        }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-
-        /* --- SECTIONS LAYOUT --- */
-        .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
-        .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
-
-        /* --- SOCIAL CONTENT --- */
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .social-card {
-            background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
-            transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden;
-            border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;
-        }
-        .social-icon { font-size: 3rem; color: var(--black); transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; }
-        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-top: 20px; transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; color: var(--black); }
-        .social-accounts { 
-            display: flex; flex-direction: column; gap: 10px; opacity: 0; 
-            visibility: hidden; transform: translateY(20px); transition: all 0.5s ease; 
-            position: absolute; bottom: 30px; left: 0; width: 100%; 
-            padding: 0 30px; align-items: center; pointer-events: none; z-index: 10;
-        }
-        .social-card.active { background: var(--black); color: var(--white); }
-        .social-card.active .social-icon { transform: translateY(-55px) scale(0.7); color: var(--white); }
-        .social-card.active .social-name { opacity: 1; transform: translateY(-65px) scale(0.6); color: var(--white); margin-top: 5px; }
-        .social-card.active .social-accounts { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
-        .account-btn {
-            background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
-            border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s;
-            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 200px;
-        }
-        .account-btn:hover { background: var(--white); color: var(--black); }
-
-        /* --- STORE GRID --- */
-        .store-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 15px; width: 100%; box-sizing: border-box; }
-        .product-item { cursor: pointer; position: relative; display: flex; flex-direction: column; width: 100%; }
-        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; background: var(--light-gray); border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
-        .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; pointer-events: none; }
-        .prod-mini-carousel::-webkit-scrollbar { display: none; }
-        .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
-        
-        .p-arrow { 
-            position: absolute; bottom: 8px; top: auto; width: 32px; height: 32px; 
-            background: transparent; border: none; color: var(--black); 
-            text-shadow: 0 0 6px rgba(255, 255, 255, 0.9); font-size: 1.1rem; 
-            cursor: pointer; z-index: 10; transition: transform 0.2s; pointer-events: auto; 
-            display: flex; align-items: center; justify-content: center; 
-        }
-        .p-arrow:hover { transform: scale(1.15); }
-        .p-prev { left: 8px; }
-        .p-next { right: 8px; }
-
-        .dots-container {
-            position: absolute; bottom: 12px; left: 45px; right: 45px;
-            display: flex; justify-content: center; align-items: center; z-index: 10; pointer-events: none;
-        }
-        .dots-viewport {
-            width: 55px; overflow: hidden; background: rgba(255,255,255,0.85); 
-            backdrop-filter: blur(4px); padding: 6px 0; border-radius: 12px;
-            display: flex; justify-content: flex-start;
-        }
-        .dots-track {
-            display: flex; gap: 6px; padding: 0 5px; transition: transform 0.3s ease-out; width: max-content;
-        }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: #aaa; transition: all 0.3s; flex-shrink: 0; }
-        .dot.active { background: var(--black); transform: scale(1.2); }
-
-        /* --- PRODUCT META --- */
-        .product-meta { text-align: left; display: flex; flex-direction: column; }
-        .product-title { font-weight: 400; font-size: 0.9rem; text-transform: none; margin-bottom: 4px; color: var(--black); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .product-price { font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 6px; }
-        .product-reviews { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
-        .product-reviews .stars { color: var(--black); display: flex; gap: 2px; font-size: 0.75rem; }
-
-        /* --- PRODUCT DETAIL --- */
-        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
-        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
-        .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
-        .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 15%; cursor: grab; }
         .main-carousel::-webkit-scrollbar { display: none; }
-        .main-carousel img { flex: 0 0 85%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start; margin-right: 15px; border-radius: 12px; }
-        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
-        .thumb-carousel img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent; }
-        .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
-        .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
-        .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
-        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
-        .add-to-cart-btn:hover { transform: scale(1.02); }
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
-        .back-btn:hover { text-decoration: underline; }
+        .main-carousel img {
+            flex: 0 0 100%; /* La imagen ocupa el ancho del contenedor visible */
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 20px; /* Vértices redondeados */
+            scroll-snap-align: center;
+        }
 
-        /* --- WC 2027 --- */
-        .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
-        .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
-        .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
-        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
-        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
-        .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        /* Mini Carrusel (Secundario) */
+        .thumb-carousel-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 0 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .thumb-carousel-container::-webkit-scrollbar { display: none; }
+        .thumb-item {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-item.active {
+            opacity: 1;
+            border-color: var(--black);
+            transform: scale(1.05);
+        }
 
-        /* --- CONTACT --- */
-        .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-        .form-group { margin-bottom: 25px; position: relative; }
-        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
-        .form-control:focus { border-bottom-color: var(--black); }
-        .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
-        .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
-        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-        
-        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .toast.show { bottom: 40px; }
+        /* Info del producto */
+        .product-info-section { padding: 0 5px; }
+        .product-name-detail {
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        .product-price-detail {
+            font-family: 'Playfair Display', serif; /* Tipografía elegante */
+            font-size: 1.3rem;
+            text-align: left;
+            margin-bottom: 25px;
+            color: var(--black);
+        }
 
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
+        /* Selector Cantidad */
+        .quantity-label {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 110px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 25px; /* Vértices redondeados elegantes */
+            padding: 0 15px;
+            margin-bottom: 30px;
+        }
+        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--black); }
+        .qty-num { font-weight: 600; font-size: 1rem; }
+
+        /* Acordeón Características */
+        .dropdown-details {
+            border: 1px solid var(--black);
+            background: var(--white);
+            margin-bottom: 15px;
+        }
+        .dropdown-header {
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 18px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .dropdown-details.open .dropdown-content {
+            max-height: 500px;
+            padding-bottom: 20px;
+        }
+
+        /* Botones de Acción */
+        .btn-action {
+            width: 100%;
+            padding: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            border: 1px solid var(--black);
+            transition: opacity 0.2s;
+        }
+        .btn-add-cart { background: var(--white); color: var(--black); }
+        .btn-buy-now { background: var(--black); color: var(--white); }
+        .btn-action:active { opacity: 0.7; }
+
+        /* --- HOME GRID --- */
+        .section-container { padding: 40px 15px; }
+        .section-title { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 30px; }
+        .store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card { cursor: pointer; }
+        .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; background: var(--light-gray); }
+        .product-card h4 { font-size: 0.85rem; margin-top: 8px; font-weight: 500; }
+        .product-card p { font-weight: 700; font-size: 0.9rem; }
+
+        footer { text-align: center; padding: 40px 20px; font-size: 0.7rem; color: #999; text-transform: uppercase; font-weight: 700; }
     </style>
 </head>
 <body>
 
     <div class="announcement-bar">
-        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="announcement-track" id="ticketTrack">
             <div class="ticket active">BE UNSTOPPABLE.</div>
-            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
-            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
-            <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
-        </div>
-        <div class="ann-controls-right">
-            <button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
-            <button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button>
+            <div class="ticket">ENVÍO GRATIS EN PEDIDOS +$150</div>
         </div>
     </div>
 
     <header>
-        <div class="header-left"><button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button></div>
-        <div class="header-center"><div class="logo" onclick="goHomeTop()">ANKOR</div></div>
-        <div class="header-right">
-            <nav class="desktop-nav">
-                <a class="nav-link active" onclick="navigate('home')">Home</a>
-                <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
-                <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
-            </nav>
-        </div>
+        <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        <div class="logo" onclick="navigate('home')">ANKOR</div>
+        <div style="text-align: right;"><i class="fa-solid fa-cart-shopping"></i></div>
     </header>
-
-    <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-menu" onclick="toggleMenu()">&times;</button>
-        <a class="nav-link active" onclick="navigate('home')">Home</a>
-        <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
-        <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
-    </div>
 
     <main>
         <section id="view-home" class="view active">
-            <div class="hero-section" id="heroSlider">
-                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
-                    <div class="hero-content">
-                        <h1 class="hero-title">ANKOR WC 2027</h1>
-                        <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
-                        <a onclick="navigate('wc2027')" class="btn-mas-info"><span class="text">MÁS INFORMACIÓN</span><span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
-                    </div>
-                </div>
-                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
-                    <div class="hero-content">
-                        <h1 class="hero-title">ANKOR STORE</h1>
-                        <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
-                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info"><span class="text">VER COLECCIÓN</span><span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
-                    </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-            </div>
-
             <div class="section-container">
-                <h2 class="section-title">CONTENIDO ANKOR</h2>
-                <div class="social-grid">
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-tiktok social-icon"></i><h3 class="social-name">TikTok</h3>
-                        <div class="social-accounts"><a href="#" class="account-btn">@ankor.inc</a><a href="#" class="account-btn">@ankor.es</a></div>
-                    </div>
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-instagram social-icon"></i><h3 class="social-name">Instagram</h3>
-                        <div class="social-accounts"><a href="#" class="account-btn">@ankor.inc</a><a href="#" class="account-btn">@ankor.esp</a></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-container" id="store-anchor">
                 <h2 class="section-title">ANKOR STORE</h2>
-                <div class="store-grid" id="productGrid"></div>
-            </div>
-        </section>
-
-        <section id="view-product" class="view section-container">
-            <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
-            <div class="product-detail-layout">
-                <div class="prod-images-panel">
-                    <div class="main-carousel-container"><div class="main-carousel" id="detailMainCarousel"></div></div>
-                    <div class="thumb-carousel" id="detailThumbCarousel"></div>
-                </div>
-                <div class="prod-info-panel">
-                    <h1 id="detailTitle">PRODUCT NAME</h1>
-                    <div class="price" id="detailPrice">$00.00 USD</div>
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="view-wc2027" class="view">
-            <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
-            <div class="section-container">
-                <div class="wc-content">
-                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre de mentalidad y superación física.</p>
-                    <div class="download-box">
-                        <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
+                <div class="store-grid" id="mainGrid">
                     </div>
-                </div>
             </div>
         </section>
 
-        <section id="view-contact" class="view">
-            <div class="section-container">
-                <h2 class="section-title">CONTACTO ANKOR</h2>
-                <div class="contact-wrapper">
-                    <form id="contactForm" onsubmit="handleContact(event)">
-                        <div class="form-group"><input type="text" class="form-control" placeholder=" " required><label class="form-label">Nombre</label></div>
-                        <div class="form-group"><input type="email" class="form-control" placeholder=" " required><label class="form-label">Email</label></div>
-                        <div class="form-group"><textarea class="form-control" placeholder=" " required></textarea><label class="form-label">Mensaje</label></div>
-                        <button type="submit" class="submit-btn">ENVIAR</button>
-                    </form>
+        <section id="view-product" class="view">
+            <div class="product-page-container">
+                
+                <div class="main-carousel-wrapper">
+                    <div class="main-carousel" id="mainCarousel" onscroll="syncThumbsOnScroll()">
+                        </div>
                 </div>
+
+                <div class="thumb-carousel-container" id="thumbCarousel">
+                    </div>
+
+                <div class="product-info-section">
+                    <h1 class="product-name-detail" id="p-name">ANKOR PRO WATER BOTTLE</h1>
+                    <div class="product-price-detail" id="p-price">$45.00 USD</div>
+
+                    <p class="quantity-label">CANTIDAD</p>
+                    <div class="quantity-selector">
+                        <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                        <span class="qty-num" id="qty-val">1</span>
+                        <button class="qty-btn" onclick="updateQty(1)">+</button>
+                    </div>
+
+                    <div class="dropdown-details" id="featuresDropdown" onclick="this.classList.toggle('open')">
+                        <div class="dropdown-header">
+                            CARACTERÍSTICAS
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-content" id="p-desc">
+                            - Capacidad de 2.2 Litros para máxima hidratación.<br>
+                            - Acero inoxidable de doble capa.<br>
+                            - Funda de transporte con bolsillo para smartphone.<br>
+                            - Diseño ergonómico para atletas de alto rendimiento.
+                        </div>
+                    </div>
+
+                    <button class="btn-action btn-add-cart">AGREGAR AL CARRITO</button>
+                    <button class="btn-action btn-buy-now" id="stripe-link">ADQUIRIR AHORA</button>
+                </div>
+
             </div>
         </section>
     </main>
 
-    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span>Enviado con éxito.</span></div>
-    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
+    <footer>ANKOR© 2026. ALL RIGHTS RESERVED.</footer>
 
     <script>
-        let storeScrollPos = 0;
+        // Datos de ejemplo
+        const products = [
+            {
+                id: 1,
+                name: "ANKOR ELITE BOTTLE",
+                price: "$55.00",
+                stripe: "https://buy.stripe.com/test_example1",
+                imgs: [
+                    "https://images.unsplash.com/photo-1602143352538-406ec45ba771?q=80&w=800",
+                    "https://images.unsplash.com/photo-1594539829553-6593561a337a?q=80&w=800",
+                    "https://images.unsplash.com/photo-1589365278144-c9e705f843ba?q=80&w=800",
+                    "https://images.unsplash.com/photo-1628102422204-76495476a664?q=80&w=800"
+                ]
+            },
+            {
+                id: 2,
+                name: "ANKOR TRAINING BAG",
+                price: "$75.00",
+                stripe: "https://buy.stripe.com/test_example2",
+                imgs: [
+                    "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=800",
+                    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800"
+                ]
+            }
+        ];
 
+        // 1. Navegación
         function navigate(viewId) {
-            if (viewId === 'product') storeScrollPos = window.scrollY;
-            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            if (viewId === 'home') window.scrollTo(0, storeScrollPos);
-            else window.scrollTo(0, 0);
-            if(document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+            window.scrollTo(0, 0);
         }
 
-        function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('open');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
-
-        function toggleSocialCard(card) {
-            document.querySelectorAll('.social-card').forEach(c => { if(c !== card) c.classList.remove('active'); });
-            card.classList.toggle('active');
-        }
-
-        /* Hero Slider */
-        let hIndex = 0;
-        function moveHero(step) {
-            const slides = document.querySelectorAll('.hero-slide');
-            slides[hIndex].classList.remove('active');
-            hIndex = (hIndex + step + slides.length) % slides.length;
-            slides[hIndex].classList.add('active');
-        }
-        setInterval(() => moveHero(1), 5000);
-
-        /* Tickets */
-        let tIndex = 0;
-        function moveTicket(step) {
-            const tickets = document.querySelectorAll('.ticket');
-            tickets[tIndex].classList.remove('active');
-            tIndex = (tIndex + step + tickets.length) % tickets.length;
-            tickets[tIndex].classList.add('active');
-        }
-        let annInterval = setInterval(() => moveTicket(1), 4000);
-
-        /* Products Logic */
-        const products = Array.from({length: 8}, (_, i) => ({
-            id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(49.99 + i*10).toFixed(2)} USD`,
-            imgs: Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`)
-        }));
-
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
+        // 2. Renderizar Home
+        function renderHome() {
+            const grid = document.getElementById('mainGrid');
             grid.innerHTML = products.map(p => `
-                <div class="product-item" onclick="openProductDetail(${p.id})">
-                    <div class="product-img-wrapper">
-                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">
-                            ${p.imgs.map(img => `<img src="${img}">`).join('')}
-                        </div>
-                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">
-                            ${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}
-                        </div></div></div>
-                    </div>
-                    <div class="product-meta">
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-price">${p.price}</div>
-                    </div>
-                </div>`).join('');
+                <div class="product-card" onclick="openProduct(${p.id})">
+                    <img src="${p.imgs[0]}" alt="${p.name}">
+                    <h4>${p.name}</h4>
+                    <p>${p.price} USD</p>
+                </div>
+            `).join('');
         }
 
-        function scrollMini(e, id, step) {
-            e.stopPropagation();
-            const c = document.getElementById(`mc-${id}`);
-            c.scrollBy({ left: c.clientWidth * step, behavior: 'smooth' });
-        }
-
-        function updateDots(id) {
-            const c = document.getElementById(`mc-${id}`), t = document.getElementById(`track-${id}`);
-            let idx = Math.round(c.scrollLeft / c.clientWidth);
-            t.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-            let tx = Math.max(Math.min(-(idx * 11) + 22, 0), -59);
-            t.style.transform = `translateX(${tx}px)`;
-        }
-
-        function openProductDetail(id) {
+        // 3. Abrir Producto (Cargar carruseles y detalles)
+        function openProduct(id) {
             const p = products.find(prod => prod.id === id);
-            document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailPrice').innerText = p.price;
-            const mc = document.getElementById('detailMainCarousel');
-            mc.innerHTML = p.imgs.map(src => `<img src="${src}">`).join('');
+            document.getElementById('p-name').innerText = p.name;
+            document.getElementById('p-price').innerText = p.price + " USD";
+            document.getElementById('qty-val').innerText = "1";
+            
+            // Link de Stripe
+            document.getElementById('stripe-link').onclick = () => window.location.href = p.stripe;
+
+            // Llenar Carrusel Principal
+            const mainC = document.getElementById('mainCarousel');
+            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
+
+            // Llenar Mini Carrusel
+            const thumbC = document.getElementById('thumbCarousel');
+            thumbC.innerHTML = p.imgs.map((src, idx) => `
+                <div class="thumb-item ${idx === 0 ? 'active' : ''}" id="thumb-${idx}" onclick="jumpToImage(${idx})">
+                    <img src="${src}">
+                </div>
+            `).join('');
+
             navigate('product');
         }
 
-        function handleContact(e) {
-            e.preventDefault();
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-            e.target.reset();
+        // 4. Lógica de Sincronización de Carruseles
+        function jumpToImage(idx) {
+            const mainC = document.getElementById('mainCarousel');
+            const targetImg = document.getElementById(`main-img-${idx}`);
+            if (targetImg) {
+                mainC.scrollTo({
+                    left: targetImg.offsetLeft - 40, // Ajuste por el padding del peak
+                    behavior: 'smooth'
+                });
+            }
+            updateThumbActive(idx);
         }
 
-        window.onload = renderProducts;
+        function syncThumbsOnScroll() {
+            const mainC = document.getElementById('mainCarousel');
+            const scrollPos = mainC.scrollLeft;
+            const imgWidth = mainC.offsetWidth - 80 + 15; // ancho visible - paddings + gap
+            const activeIdx = Math.round(scrollPos / imgWidth);
+            updateThumbActive(activeIdx);
+        }
+
+        function updateThumbActive(idx) {
+            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+            const activeThumb = document.getElementById(`thumb-${idx}`);
+            if (activeThumb) {
+                activeThumb.classList.add('active');
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // 5. Lógica de Cantidad
+        function updateQty(val) {
+            const el = document.getElementById('qty-val');
+            let current = parseInt(el.innerText);
+            current += val;
+            if (current < 1) current = 1;
+            el.innerText = current;
+        }
+
+        // 6. Barra de Anuncios
+        let tIdx = 0;
+        setInterval(() => {
+            const tickets = document.querySelectorAll('.ticket');
+            tickets[tIdx].classList.remove('active');
+            tIdx = (tIdx + 1) % tickets.length;
+            tickets[tIdx].classList.add('active');
+        }, 4000);
+
+        window.onload = renderHome;
     </script>
 </body>
 </html>
