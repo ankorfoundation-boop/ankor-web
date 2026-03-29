@@ -68,21 +68,26 @@
         .ud-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
         .ud-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
         .ud-avatar-container { position: relative; }
-        .ud-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .ud-avatar { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+        }
         .camera-icon-btn { 
             position: absolute; 
-            bottom: 2px; 
-            right: 2px; 
+            bottom: 4px; 
+            right: 4px; 
             background: #666666; 
             color: var(--white); 
             border: none; 
             border-radius: 50%; 
-            width: 26px; 
-            height: 26px; 
+            width: 30px; 
+            height: 30px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 0.85rem; 
+            font-size: 1rem; 
             box-shadow: 0 2px 6px rgba(0,0,0,0.25); 
             cursor: pointer; 
             transition: background 0.2s, transform 0.2s; 
@@ -1783,6 +1788,19 @@
             document.getElementById('toast-msg').innerText = msg;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        /* ======================== BOTONES DE VISIBILIDAD DE CONTRASEÑA ======================== */
+        function togglePasswordVisibility() {
+            const input = document.getElementById('reg_password');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
         }
 
         /* ======================== INICIO ======================== */
