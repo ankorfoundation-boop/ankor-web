@@ -54,13 +54,11 @@
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
         
-        /* --- HEADER ICONS --- */
         .header-icons-container { display: flex; align-items: center; gap: 15px; }
         .header-icon-btn { background: none; border: none; font-size: 1.25rem; color: var(--black); cursor: pointer; position: relative; transition: transform 0.2s; display: flex; align-items: center; justify-content: center;}
         .header-icon-btn:hover { transform: scale(1.1); }
         .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--black); color: var(--white); font-size: 0.65rem; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .header-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: transform 0.2s; }
-        .header-avatar:hover { transform: scale(1.05); }
 
         /* --- USER DROPDOWN --- */
         .user-dropdown-window { position: absolute; top: 75px; right: 30px; background: var(--white); border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 12px; width: 260px; padding: 20px; display: none; flex-direction: column; z-index: 1000; opacity: 0; transform: translateY(-10px); transition: all 0.3s ease; }
@@ -70,7 +68,6 @@
         .ud-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
         .ud-greeting { font-weight: 900; font-size: 1.1rem; color: var(--black); }
         .ud-logout { display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; transition: color 0.2s; align-self: flex-end; }
-        .ud-logout:hover { color: var(--black); }
 
         /* --- CART SIDEBAR --- */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.4s ease; }
@@ -91,11 +88,9 @@
         .cs-qty-btn { background: none; border: none; color: var(--black); font-size: 0.8rem; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; }
         .cs-qty-val { font-weight: 700; font-size: 0.85rem; color: var(--black); width: 20px; text-align: center; }
         .cs-remove { position: absolute; top: 0; right: 0; background: none; border: none; color: var(--black); cursor: pointer; font-size: 1rem; transition: color 0.2s; }
-        .cs-remove:hover { color: #d9534f; }
         .cs-footer { padding: 25px 30px; border-top: 1px solid var(--border); background: var(--light-gray); }
         .cs-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 900; font-size: 1.1rem; color: var(--black); }
         .cs-checkout-btn { width: 100%; background: var(--black); color: var(--white); border: none; padding: 18px; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
-        .cs-checkout-btn:hover { background: #333; }
 
         .mobile-menu { position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh; background: var(--white); z-index: 2000; padding: 80px 30px 30px; box-shadow: 20px 0 50px rgba(0,0,0,0.1); transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; gap: 25px; }
         .mobile-menu.open { left: 0; }
@@ -109,9 +104,6 @@
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes doubleJump { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-12px) scale(1.1); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.1); } }
-        .cart-double-jump { animation: doubleJump 0.6s ease; }
-
         /* --- HERO SLIDER --- */
         .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
         .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -121,15 +113,8 @@
         .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .btn-mas-info { display: inline-flex; align-items: center; justify-content: center; background: var(--black); color: var(--white); padding: 18px 40px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .btn-mas-info span.text { position: relative; }
-        .btn-mas-info span.arrow { display: inline-block; opacity: 0; width: 0; overflow: hidden; transform: translateX(-10px); transition: all 0.3s ease; }
-        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
-        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
-        .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
         .slider-arrow { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-        @media (max-width: 768px) { .slider-controls { padding: 0 5px; } .slider-arrow { width: 38px; height: 38px; font-size: 1rem; } }
 
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
@@ -143,14 +128,11 @@
         .ap-input-group { display: flex; flex-direction: column; gap: 8px; position: relative; }
         .ap-input-group label { font-size: 0.8rem; font-weight: 900; color: var(--black); letter-spacing: 0.5px; }
         .ap-input { width: 100%; border: 1px solid var(--border); padding: 16px 15px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: all 0.3s; background: var(--light-gray); }
-        .ap-input::placeholder { color: gray; }
-        .ap-input:focus { border-color: var(--black); background: var(--white); }
         .ap-input.input-error { border-color: var(--error) !important; background: #fffcfc; }
         .error-hint { color: var(--error); font-size: 0.75rem; font-weight: 600; margin-top: 2px; display: none; }
         .pw-group { position: relative; }
         .ap-eye { position: absolute; top: 40px; right: 15px; background: none; border: none; color: gray; cursor: pointer; font-size: 1.1rem; }
         .ap-submit { background: var(--black); color: var(--white); border: none; padding: 18px; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; margin-top: 15px; cursor: pointer; transition: background 0.3s; letter-spacing: 1px; width: 100%; }
-        .ap-submit:hover { background: #333; }
 
         /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -163,18 +145,14 @@
         .social-card.active .social-name { opacity: 1; transform: translateY(-65px) scale(0.6); color: var(--white); margin-top: 5px; }
         .social-card.active .social-accounts { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
         .account-btn { background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 200px; }
-        .account-btn:hover { background: var(--white); color: var(--black); }
 
         /* --- STORE GRID --- */
         .store-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 15px; width: 100%; box-sizing: border-box; }
         .product-item { cursor: pointer; position: relative; display: flex; flex-direction: column; width: 100%; }
         .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; background: var(--light-gray); border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
         .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; pointer-events: none; }
-        .prod-mini-carousel::-webkit-scrollbar { display: none; }
         .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
         .p-arrow { position: absolute; bottom: 8px; top: auto; transform: none; width: 32px; height: 32px; background: transparent; box-shadow: none; border: none; color: var(--black); text-shadow: 0 0 6px rgba(255, 255, 255, 0.9); font-size: 1.1rem; cursor: pointer; z-index: 10; transition: transform 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
-        .p-arrow:hover { transform: scale(1.15); }
-        .p-prev { left: 8px; } .p-next { right: 8px; }
         .dots-container { position: absolute; bottom: 12px; left: 45px; right: 45px; display: flex; justify-content: center; align-items: center; z-index: 10; pointer-events: none; }
         .dots-viewport { width: 55px; overflow: hidden; background: rgba(255,255,255,0.85); backdrop-filter: blur(4px); padding: 6px 0; border-radius: 12px; display: flex; justify-content: flex-start; }
         .dots-track { display: flex; gap: 6px; padding: 0 5px; transition: transform 0.3s ease-out; width: max-content; }
@@ -184,50 +162,30 @@
         .product-title { font-weight: 400; font-size: 0.9rem; text-transform: none; margin-bottom: 4px; color: var(--black); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .product-price { font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 6px; }
         .product-reviews { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
-        .product-reviews .stars { color: var(--black); display: flex; gap: 2px; font-size: 0.75rem; }
 
         /* --- PRODUCT DETAIL PAGE --- */
         #view-product { padding-top: 15px; padding-bottom: 40px; }
-        .back-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; border: none; background: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; padding-left: 5px; color: var(--black); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; border: none; background: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; color: var(--black); }
         .product-detail-layout { display: flex; flex-direction: column; width: 100%; gap: 15px; }
         .prod-images-panel { width: 100%; display: flex; flex-direction: column; gap: 10px; }
         .main-carousel-container { position: relative; width: 100%; overflow: hidden; background: transparent; }
         .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 12%; gap: 12px; cursor: grab; scroll-padding: 0 12%; }
-        .main-carousel::-webkit-scrollbar { display: none; }
         .main-carousel img { flex: 0 0 100%; aspect-ratio: 1/1; width: 100%; height: auto; object-fit: cover; scroll-snap-align: center; border-radius: 24px; }
         .thumb-carousel { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; scroll-behavior: smooth; padding: 0 5px; }
-        .thumb-carousel::-webkit-scrollbar { display: none; }
         .thumb-carousel img { width: 70px; height: 70px; object-fit: cover; border-radius: 12px; cursor: pointer; opacity: 0.4; transition: opacity 0.3s ease, border 0.3s ease; border: 2px solid transparent; flex-shrink: 0; }
         .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
         .prod-info-panel { padding: 5px 5px 20px 5px; display: flex; flex-direction: column; }
-        .pdp-title { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; text-align: left; margin-bottom: 6px; color: var(--black); line-height: 1.2; }
-        .pdp-price { font-size: 1.25rem; font-weight: 400; font-family: 'Inter', serif; letter-spacing: 0.5px; text-align: left; margin-bottom: 25px; color: var(--black); }
+        .pdp-title { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; text-align: left; margin-bottom: 6px; color: var(--black); }
+        .pdp-price { font-size: 1.25rem; font-weight: 400; margin-bottom: 25px; color: var(--black); }
         .pdp-qty-wrapper { margin-bottom: 25px; }
-        .pdp-qty-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 8px; text-align: left; }
+        .pdp-qty-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
         .pdp-qty-control { display: inline-flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 30px; height: 44px; width: 130px; padding: 0 15px; background: var(--white); }
-        .pdp-qty-btn { background: none; border: none; color: var(--black); font-size: 1rem; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; }
-        .pdp-qty-val { font-weight: 700; font-size: 1rem; color: var(--black); width: 30px; text-align: center; }
-        .pdp-accordion-wrapper { margin-bottom: 25px; }
-        .pdp-accordion-btn { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); border-radius: 0; padding: 16px 20px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
-        .pdp-accordion-btn i { transition: transform 0.3s; }
-        .pdp-accordion-btn.active i { transform: rotate(180deg); }
-        .pdp-accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; background: var(--white); border: 1px solid var(--black); border-top: none; border-radius: 0; padding: 0 20px; }
-        .pdp-accordion-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; padding: 15px 0; }
-        .pdp-actions { display: flex; flex-direction: column; gap: 10px; }
-        .btn-add-cart { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
-        .btn-buy-now { width: 100%; background: var(--black); color: var(--white); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        .pdp-qty-btn { background: none; border: none; color: var(--black); font-size: 1rem; cursor: pointer; display: flex; align-items: center; }
+        .pdp-qty-val { font-weight: 700; font-size: 1rem; width: 30px; text-align: center; }
+        .pdp-accordion-btn { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); padding: 16px 20px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 25px; }
+        .btn-add-cart { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); padding: 18px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; }
+        .btn-buy-now { width: 100%; background: var(--black); color: var(--white); border: 1px solid var(--black); padding: 18px; font-weight: 700; text-transform: uppercase; text-align: center; text-decoration: none; display: block; }
         @media (min-width: 900px) { .product-detail-layout { flex-direction: row; gap: 40px; } .prod-images-panel { width: 55%; } .prod-info-panel { width: 45%; } }
-
-        /* --- WC 2027 --- */
-        .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
-        .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
-        .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
-        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .wc-content strong { color: var(--black); }
-        .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
-        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
-        .download-link i { font-size: 1.5rem; }
 
         /* --- CONTACT --- */
         .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
@@ -237,47 +195,38 @@
         .form-control.input-error { border-bottom-color: var(--error) !important; background: #fffcfc; }
         .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
         .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label, .phone-active-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
-        textarea.form-control { resize: vertical; min-height: 100px; padding-bottom: 30px; }
         
-        /* Contact Phone Dropdown */
-        .phone-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid var(--border); transition: border-color 0.3s; position: relative; padding-top: 10px; }
-        .phone-input-wrapper:focus-within { border-bottom-color: var(--black); }
+        /* Phone Dropdown & Search Fixed Centered */
+        .phone-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid var(--border); position: relative; padding-top: 10px; }
         .phone-input-wrapper.input-error { border-bottom-color: var(--error) !important; background: #fffcfc; }
-        .phone-prefix-btn { display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 10px 10px 10px 0; font-size: 1rem; cursor: pointer; border-right: 1px solid var(--border); margin-right: 10px; font-weight: 700; color: var(--black); white-space: nowrap; }
-        .phone-prefix-btn i { font-size: 0.8rem; color: var(--text-muted); }
-        .phone-input-wrapper input { border: none; flex: 1; padding: 10px 0; outline: none; font-size: 1rem; font-family: inherit; background: transparent; }
+        .phone-prefix-btn { display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 10px 10px 10px 0; font-size: 1rem; cursor: pointer; border-right: 1px solid var(--border); margin-right: 10px; font-weight: 700; }
+        .phone-input-wrapper input { border: none; flex: 1; padding: 10px 0; outline: none; font-size: 1rem; background: transparent; }
         
-        .country-dropdown { position: absolute; top: 100%; left: 0; width: 300px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 100; display: none; flex-direction: column; max-height: 350px; overflow: hidden; margin-top: 5px; }
-        .country-dropdown.active { display: flex; }
+        .country-dropdown-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 4000; display: none; align-items: center; justify-content: center; }
+        .country-dropdown-overlay.active { display: flex; }
+        .country-dropdown { width: 90%; max-width: 350px; background: var(--white); border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; max-height: 70vh; }
         .country-search { padding: 15px; border-bottom: 1px solid var(--border); }
-        .country-search input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; outline: none; font-family: inherit; }
+        .country-search input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; outline: none; }
         .country-list { overflow-y: auto; flex: 1; }
-        .country-item { padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.2s; border-bottom: 1px solid var(--light-gray); }
+        .country-item { padding: 15px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid var(--light-gray); }
         .country-item:hover { background: var(--light-gray); }
-        .country-item-left { display: flex; align-items: center; gap: 10px; }
-        .country-name { font-size: 0.85rem; color: var(--black); }
-        .country-code { font-weight: 700; font-size: 0.85rem; color: var(--text-muted); }
 
-        /* Char Counter */
-        .char-counter { position: absolute; bottom: 8px; right: 0; font-size: 0.75rem; font-weight: 700; color: #aaa; transition: color 0.3s; pointer-events: none; }
+        /* Char Counter - UPDATED POSITION */
+        .char-counter { display: block; text-align: right; margin-top: 8px; font-size: 0.75rem; font-weight: 900; color: #aaa; letter-spacing: 0.5px; }
         .char-counter.warning { color: var(--error); }
 
-        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.3s, color 0.3s; }
-        .submit-btn:disabled { cursor: not-allowed; }
-        .submit-btn.blocked { background: #888888; color: #ffffff; font-size: 0.8rem; pointer-events: none; }
+        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .submit-btn.blocked { background: #888888; color: #ffffff; cursor: not-allowed; font-size: 0.75rem; }
 
-        /* Success Modal */
-        .success-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .success-modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
-        .success-modal { background: var(--white); width: 90%; max-width: 450px; border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
-        .success-modal-overlay.active .success-modal { transform: scale(1); }
+        /* Success Modal Fixed */
+        .success-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .success-modal-overlay.active { display: flex; }
+        .success-modal { background: var(--white); width: 90%; max-width: 450px; border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
         .sm-icon { width: 70px; height: 70px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 20px; }
-        .sm-title { font-size: 1.2rem; font-weight: 900; color: var(--black); text-transform: uppercase; margin-bottom: 10px; }
-        .sm-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 30px; font-weight: 500; }
-        .sm-btn { background: var(--black); color: var(--white); border: none; padding: 15px 40px; border-radius: 30px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
-        .sm-btn:hover { background: #333; }
+        .sm-title { font-size: 1.1rem; font-weight: 900; color: var(--black); text-transform: uppercase; margin-bottom: 10px; }
+        .sm-btn { background: var(--black); color: var(--white); border: none; padding: 15px 40px; border-radius: 30px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
         
-        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; transition: bottom 0.4s; z-index: 6000; }
         .toast.show { bottom: 40px; }
 
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
@@ -348,56 +297,19 @@
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR WC 2027</h1>
                         <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
-                        <a onclick="navigate('wc2027')" class="btn-mas-info">
-                            <span class="text">MÁS INFORMACIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
+                        <a onclick="navigate('wc2027')" class="btn-mas-info">MÁS INFORMACIÓN</a>
                     </div>
                 </div>
                 <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR STORE</h1>
                         <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
-                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">
-                            <span class="text">VER COLECCIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
+                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">VER COLECCIÓN</a>
                     </div>
                 </div>
                 <div class="slider-controls">
                     <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
                     <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <div class="section-container">
-                <h2 class="section-title">CONTENIDO ANKOR</h2>
-                <p class="section-subtitle">Contenido de valor. Mentalidad y Superación.</p>
-                <div class="social-grid">
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-tiktok social-icon"></i>
-                        <h3 class="social-name">TikTok</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.inc (INGLÉS)</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.es (ESPAÑOL)</a>
-                        </div>
-                    </div>
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-instagram social-icon"></i>
-                        <h3 class="social-name">Instagram</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.inc (INGLÉS)</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.esp (ESPAÑOL)</a>
-                        </div>
-                    </div>
-                    <div class="social-card" onclick="toggleSocialCard(this)">
-                        <i class="fa-brands fa-youtube social-icon"></i>
-                        <h3 class="social-name">YouTube</h3>
-                        <div class="social-accounts">
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.english</a>
-                            <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.español</a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -411,18 +323,15 @@
         <section id="view-product" class="view section-container">
             <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
             <div class="product-detail-layout">
-                
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
                         <div class="main-carousel" id="detailMainCarousel"></div>
                     </div>
                     <div class="thumb-carousel" id="detailThumbCarousel"></div>
                 </div>
-                
                 <div class="prod-info-panel">
                     <h1 class="pdp-title" id="detailTitle">PRODUCT NAME</h1>
                     <div class="pdp-price" id="detailPrice">$00.00 USD</div>
-                    
                     <div class="pdp-qty-wrapper">
                         <div class="pdp-qty-label">CANTIDAD</div>
                         <div class="pdp-qty-control">
@@ -431,16 +340,6 @@
                             <button class="pdp-qty-btn" onclick="changeQty(1)"><i class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
-
-                    <div class="pdp-accordion-wrapper">
-                        <button class="pdp-accordion-btn" onclick="toggleAccordion(this)">
-                            CARACTERÍSTICAS <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <div class="pdp-accordion-content">
-                            <p>Esta pieza está construida con materiales de alta gama diseñados para el máximo rendimiento. Aquí puedes escribir manualmente todos los detalles técnicos, ajuste, cuidados de lavado y elementos distintivos del producto. Ingeniería superior para aquellos con mentalidad ANKOR.</p>
-                        </div>
-                    </div>
-
                     <div class="pdp-actions">
                         <button class="btn-add-cart" onclick="addProductToCart()">AGREGAR AL CARRITO</button>
                         <a href="#" class="btn-buy-now">ADQUIRIR AHORA</a>
@@ -470,9 +369,9 @@
                     </div>
                     <div class="ap-input-group pw-group" id="group_password">
                         <label>CONTRASEÑA</label>
-                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
+                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña">
                         <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
-                        <span class="error-hint" id="hint_password">Límite de caracteres alcanzado (20 caracteres)</span>
+                        <span class="error-hint" id="hint_password">Mínimo 8 caracteres.</span>
                     </div>
                     <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
                 </form>
@@ -480,20 +379,9 @@
         </section>
 
         <section id="view-wc2027" class="view">
-            <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
-            <div class="section-container">
-                <div class="wc-content">
-                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
-                    <h2>1.1 Cómo Funciona</h2>
-                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
-                    <h2>1.2 Requisitos y Clasificación</h2>
-                    <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
-                    <div class="download-box">
-                        <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
-                        <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
-                        <a href="#" class="download-link"><i class="fa-solid fa-diagram-project"></i> Estructura y Fases del Torneo.pdf</a>
-                    </div>
-                </div>
+            <div class="section-container" style="text-align: center;">
+                <h2 class="section-title">ANKOR WORLD CUP 2027</h2>
+                <p>Próximamente más información sobre el evento deportivo del año.</p>
             </div>
         </section>
 
@@ -517,7 +405,7 @@
                         
                         <div class="form-group" id="c_group_tel">
                             <div class="phone-input-wrapper" id="phoneWrapper">
-                                <button type="button" class="phone-prefix-btn" onclick="toggleCountryDropdown()">
+                                <button type="button" class="phone-prefix-btn" onclick="openCountryModal()">
                                     <span id="c_flag">🇺🇸</span>
                                     <span id="c_prefix">+1</span>
                                     <i class="fa-solid fa-chevron-down"></i>
@@ -525,23 +413,16 @@
                                 <input type="tel" id="c_tel" placeholder=" " inputmode="numeric" oninput="formatPhoneInput(event)" required>
                                 <label class="form-label phone-active-label" style="top: -10px; font-size: 0.75rem; font-weight: 700;">Número de teléfono</label>
                             </div>
-                            <span class="error-hint" id="c_hint_tel">El número está incompleto para este país.</span>
-                            
-                            <div class="country-dropdown" id="countryDropdown">
-                                <div class="country-search">
-                                    <input type="tel" id="c_search" placeholder="Buscar prefijo (ej. 57)" inputmode="numeric" oninput="filterCountries(event)">
-                                </div>
-                                <div class="country-list" id="countryList"></div>
-                            </div>
+                            <span class="error-hint" id="c_hint_tel">Número incompleto.</span>
                         </div>
 
                         <div class="form-group" id="c_group_email">
                             <input type="email" id="c_email" class="form-control" placeholder=" " required>
                             <label class="form-label">Correo electrónico</label>
-                            <span class="error-hint" id="c_hint_email">Ingrese un correo electrónico válido.</span>
+                            <span class="error-hint" id="c_hint_email">Correo inválido.</span>
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 5px;">
                             <textarea id="c_motivo" class="form-control" placeholder=" " maxlength="900" oninput="updateCharCounter()" required></textarea>
                             <label class="form-label">Motivo del mensaje</label>
                             <span class="char-counter" id="c_char_count">0/900 CARACTERES</span>
@@ -554,66 +435,47 @@
         </section>
     </main>
 
+    <div class="country-dropdown-overlay" id="countryModal" onclick="closeCountryModal(event)">
+        <div class="country-dropdown" onclick="event.stopPropagation()">
+            <div class="country-search">
+                <input type="tel" id="c_search" placeholder="Buscar prefijo (ej. 57)" oninput="filterCountries(event)">
+            </div>
+            <div class="country-list" id="countryList"></div>
+        </div>
+    </div>
+
     <div class="success-modal-overlay" id="successModalOverlay">
         <div class="success-modal">
             <div class="sm-icon"><i class="fa-solid fa-check"></i></div>
-            <h3 class="sm-title">SU MENSAJE HA SIDO ENVIADO CON ÉXITO.</h3>
-            <p class="sm-subtitle">EL DEPARTAMENTO DE SOPORTE DE ANKOR SE COMUNICARÁ CON USTED EN BREVE</p>
+            <h3 class="sm-title">MENSAJE ENVIADO CON ÉXITO.</h3>
             <button class="sm-btn" onclick="acceptContactSuccess()">ACEPTAR</button>
         </div>
     </div>
 
-    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span id="toast-msg">Mensaje enviado correctamente.</span></div>
+    <div id="toast" class="toast">Mensaje enviado.</div>
 
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartMenu()"></div>
     <div class="cart-sidebar" id="cartSidebar">
-        <div class="cs-header">
-            <h3 class="cs-title">MI CARRITO</h3>
-            <button class="cs-close" onclick="toggleCartMenu()">&times;</button>
-        </div>
-        <div class="cs-body" id="cartItemsList">
-            <div class="cs-empty">Tu carrito está vacío.</div>
-        </div>
+        <div class="cs-header"><h3 class="cs-title">MI CARRITO</h3><button class="cs-close" onclick="toggleCartMenu()">&times;</button></div>
+        <div class="cs-body" id="cartItemsList"><div class="cs-empty">Tu carrito está vacío.</div></div>
         <div class="cs-footer">
-            <div class="cs-total-row">
-                <span>TOTAL</span>
-                <span id="cartTotalValue">$0.00 USD</span>
-            </div>
+            <div class="cs-total-row"><span>TOTAL</span><span id="cartTotalValue">$0.00 USD</span></div>
             <button class="cs-checkout-btn">PROCEDER AL PAGO</button>
         </div>
     </div>
 
-    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
+    <footer>ANKOR© ALL RIGHTS RESERVED.</footer>
 
     <script>
-        /* --- NAVIGATION / SPA LOGIC --- */
+        /* --- SPA & CORE --- */
         let storeScrollPos = 0;
-
-        function goHomeTop() {
-            storeScrollPos = 0;
-            navigate('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         function navigate(viewId) {
-            if (viewId === 'product') { storeScrollPos = window.scrollY; }
-            if (viewId === 'account') {
-                const form = document.getElementById('registerForm');
-                if(form) form.reset();
-                document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
-                document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
-            }
-
+            if (viewId === 'product') storeScrollPos = window.scrollY;
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
-            
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
-
-            if(document.getElementById('mobileMenu').classList.contains('open')) { toggleMenu(); }
-            
-            if (viewId === 'home') { window.scrollTo(0, storeScrollPos); } 
-            else { window.scrollTo(0, 0); }
+            if (viewId === 'home') window.scrollTo(0, storeScrollPos); else window.scrollTo(0, 0);
+            if(document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
         }
 
         function toggleMenu() {
@@ -621,210 +483,72 @@
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
 
-        function toggleSocialCard(card) {
-            if(card.classList.contains('active')) { card.classList.remove('active'); } 
-            else {
-                document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-            }
-        }
+        function goHomeTop() { navigate('home'); window.scrollTo({top:0, behavior:'smooth'}); }
 
         /* --- ANNOUNCEMENT --- */
         let tIndex = 0;
         const tickets = document.querySelectorAll('.ticket');
-        let annPaused = false;
-        let annInterval = setInterval(() => moveTicket(1), 4000);
-
         function moveTicket(step) {
             tickets[tIndex].classList.remove('active');
             tIndex = (tIndex + step + tickets.length) % tickets.length;
             tickets[tIndex].classList.add('active');
         }
+        setInterval(() => moveTicket(1), 4000);
 
-        function togglePauseAnn() {
-            annPaused = !annPaused;
-            const btn = document.getElementById('pauseAnnBtn');
-            if(annPaused) { clearInterval(annInterval); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
-            else { annInterval = setInterval(() => moveTicket(1), 4000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
-        }
-
-        /* --- HERO SLIDER --- */
+        /* --- HERO --- */
         let hIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
-        let heroTimer;
-        
         function moveHero(step) {
-            if(!slides.length) return;
-            const currentSlide = slides[hIndex];
-            currentSlide.classList.remove('active');
-            currentSlide.style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+            slides[hIndex].classList.remove('active');
             hIndex = (hIndex + step + slides.length) % slides.length;
-            const nextSlide = slides[hIndex];
-            nextSlide.style.transition = 'none';
-            nextSlide.style.transform = step > 0 ? 'translateX(100%)' : 'translateX(-100%)';
-            void nextSlide.offsetWidth;
-            nextSlide.style.transition = 'transform var(--transition-strong)';
-            nextSlide.style.transform = 'translateX(0)';
-            nextSlide.classList.add('active');
-            resetHeroTimer();
+            slides[hIndex].classList.add('active');
         }
-        function autoHero() { moveHero(1); }
-        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
-        resetHeroTimer();
 
-        /* --- STORE RENDER --- */
-        const products = Array.from({length: 14}, (_, i) => {
-            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
-            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, numPrice: (40 + (i * 5)), imgs: imgs }
+        /* --- VALIDACIÓN DE 3 LETRAS SEGUIDAS --- */
+        function hasTripleLetter(str) {
+            return /(.)\1\1/.test(str);
+        }
+
+        function validateNameInput(input, hint, defaultText) {
+            const val = input.value;
+            if (hasTripleLetter(val)) {
+                input.classList.add('input-error');
+                hint.innerText = defaultText;
+                hint.style.display = 'block';
+                return false;
+            } else {
+                input.classList.remove('input-error');
+                hint.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Aplicar a Nombre y Apellido en ambas secciones
+        ['reg_nombre', 'reg_apellido', 'c_nombre', 'c_apellido'].forEach(id => {
+            const el = document.getElementById(id);
+            const hintId = id.startsWith('c_') ? 'c_hint_' + id.substring(2) : 'hint_' + id.substring(4);
+            const hint = document.getElementById(hintId);
+            const msg = id.includes('nombre') ? "Ingrese un nombre válido." : "Ingrese un apellido válido.";
+            
+            el.addEventListener('input', () => validateNameInput(el, hint, msg));
         });
 
-        const grid = document.getElementById('productGrid');
-        function renderProducts() {
-            if(!grid) return;
-            grid.innerHTML = products.map(p => {
-                const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
-                const reviews = Math.floor(Math.random() * 1000) + 50;
-                return `<div class="product-item" onclick="openProductDetail(${p.id})">
-                    <div class="product-img-wrapper" id="pw-${p.id}">
-                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}</div>
-                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}</div></div></div>
-                    </div>
-                    <div class="product-meta">
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-price">${p.price}</div>
-                        <div class="product-reviews"><span class="rating-score">${rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(${reviews})</span></div>
-                    </div>
-                </div>`
-            }).join('');
-        }
-
-        function scrollMini(e, id, step) {
-            e.stopPropagation(); 
-            const carousel = document.getElementById(`mc-${id}`);
-            const scrollAmt = carousel.clientWidth;
-            const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
-            const currentScroll = Math.round(carousel.scrollLeft);
-            if (step > 0 && currentScroll >= maxScroll - 5) { carousel.scrollTo({ left: 0, behavior: 'auto' }); }
-            else if (step < 0 && currentScroll <= 5) { carousel.scrollTo({ left: maxScroll, behavior: 'auto' }); }
-            else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
-        }
-
-        function updateDots(id) {
-            const carousel = document.getElementById(`mc-${id}`);
-            const track = document.getElementById(`track-${id}`);
-            if(!carousel || !track) return;
-            const scrollLeft = carousel.scrollLeft;
-            const width = carousel.clientWidth;
-            let index = Math.round(scrollLeft / width);
-            const totalDots = track.children.length;
-            if(index >= totalDots) index = totalDots - 1; 
-            if(index < 0) index = 0;
-            const dots = track.querySelectorAll('.dot');
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-            let transX = -(index * 11) + 22; 
-            if(transX > 0) transX = 0; 
-            if(transX < -59) transX = -59; 
-            track.style.transform = `translateX(${transX}px)`;
-        }
-
-        /* --- DETAIL VIEWER --- */
-        let currentProductQty = 1;
-        let currentOpenProductId = null;
-
-        function changeQty(step) {
-            currentProductQty += step;
-            if(currentProductQty < 1) currentProductQty = 1;
-            document.getElementById('pdp-qty').innerText = currentProductQty;
-            updateDetailPrice();
-        }
-
-        function updateDetailPrice() {
-            if(!currentOpenProductId) return;
-            const p = products.find(prod => prod.id === currentOpenProductId);
-            const total = (p.numPrice * currentProductQty).toFixed(2);
-            document.getElementById('detailPrice').innerText = `$${total} USD`;
-        }
-
-        function toggleAccordion(btn) {
-            btn.classList.toggle("active");
-            let content = btn.nextElementSibling;
-            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
-        }
-
-        function openProductDetail(id) {
-            currentOpenProductId = id;
-            const p = products.find(prod => prod.id === id);
-            document.getElementById('detailTitle').innerText = p.name;
-            currentProductQty = 1;
-            document.getElementById('pdp-qty').innerText = currentProductQty;
-            updateDetailPrice();
-            const mainC = document.getElementById('detailMainCarousel');
-            const thumbC = document.getElementById('detailThumbCarousel');
-            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
-            mainC.onscroll = () => {
-                const centerPoint = mainC.scrollLeft + (mainC.clientWidth / 2);
-                let activeIndex = 0;
-                let minDiff = Infinity;
-                Array.from(mainC.children).forEach((img, i) => {
-                    const imgCenter = img.offsetLeft + (img.offsetWidth / 2);
-                    const diff = Math.abs(imgCenter - centerPoint);
-                    if (diff < minDiff) { minDiff = diff; activeIndex = i; }
-                });
-                thumbC.querySelectorAll('img').forEach((t, i) => {
-                    if (i === activeIndex) {
-                        t.classList.add('active');
-                        const tLeft = t.offsetLeft;
-                        const tWidth = t.offsetWidth;
-                        const cWidth = thumbC.clientWidth;
-                        if (tLeft < thumbC.scrollLeft || (tLeft + tWidth) > (thumbC.scrollLeft + cWidth)) {
-                            thumbC.scrollTo({ left: tLeft - (cWidth/2) + (tWidth/2), behavior: 'smooth' });
-                        }
-                    } else { t.classList.remove('active'); }
-                });
-            };
-            navigate('product');
-        }
-
-        function syncCarousel(index) {
-            const mainC = document.getElementById('detailMainCarousel');
-            const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2), behavior: 'smooth' });
-        }
-
-        /* --- CONTACT SECTIONS & VALIDATIONS --- */
-        
-        // BD de países completa (Generada para cumplir con "absolutamente todos")
+        /* --- CONTACTO: MODAL CENTRADO Y PAÍSES --- */
         const countryDB = [
-            { name: "Estados Unidos / Canadá", code: "1", flag: "🇺🇸", max: 10 }, { name: "Rusia / Kazajistán", code: "7", flag: "🇷🇺", max: 10 },
-            { name: "Egipto", code: "20", flag: "🇪🇬", max: 10 }, { name: "Sudáfrica", code: "27", flag: "🇿🇦", max: 9 },
-            { name: "Grecia", code: "30", flag: "🇬🇷", max: 10 }, { name: "Países Bajos", code: "31", flag: "🇳🇱", max: 9 },
-            { name: "Bélgica", code: "32", flag: "🇧🇪", max: 9 }, { name: "Francia", code: "33", flag: "🇫🇷", max: 9 },
-            { name: "España", code: "34", flag: "🇪🇸", max: 9 }, { name: "Hungría", code: "36", flag: "🇭🇺", max: 9 },
-            { name: "Italia", code: "39", flag: "🇮🇹", max: 10 }, { name: "Rumania", code: "40", flag: "🇷🇴", max: 9 },
-            { name: "Suiza", code: "41", flag: "🇨🇭", max: 9 }, { name: "Reino Unido", code: "44", flag: "🇬🇧", max: 10 },
-            { name: "Dinamarca", code: "45", flag: "🇩🇰", max: 8 }, { name: "Suecia", code: "46", flag: "🇸🇪", max: 9 },
-            { name: "Noruega", code: "47", flag: "🇳🇴", max: 8 }, { name: "Polonia", code: "48", flag: "🇵🇱", max: 9 },
-            { name: "Alemania", code: "49", flag: "🇩🇪", max: 11 }, { name: "Perú", code: "51", flag: "🇵🇪", max: 9 },
-            { name: "México", code: "52", flag: "🇲🇽", max: 10 }, { name: "Cuba", code: "53", flag: "🇨🇺", max: 8 },
-            { name: "Argentina", code: "54", flag: "🇦🇷", max: 10 }, { name: "Brasil", code: "55", flag: "🇧🇷", max: 11 },
-            { name: "Chile", code: "56", flag: "🇨🇱", max: 9 }, { name: "Colombia", code: "57", flag: "🇨🇴", max: 10 },
-            { name: "Venezuela", code: "58", flag: "🇻🇪", max: 10 }, { name: "Bolivia", code: "591", flag: "🇧🇴", max: 8 },
-            { name: "Ecuador", code: "593", flag: "🇪🇨", max: 9 }, { name: "Uruguay", code: "598", flag: "🇺🇾", max: 8 },
-            { name: "Paraguay", code: "595", flag: "🇵🇾", max: 9 }, { name: "Australia", code: "61", flag: "🇦🇺", max: 9 },
-            { name: "Nueva Zelanda", code: "64", flag: "🇳🇿", max: 9 }, { name: "Singapur", code: "65", flag: "🇸🇬", max: 8 },
-            { name: "Japón", code: "81", flag: "🇯🇵", max: 10 }, { name: "Corea del Sur", code: "82", flag: "🇰🇷", max: 10 },
-            { name: "China", code: "86", flag: "🇨🇳", max: 11 }, { name: "Turquía", code: "90", flag: "🇹🇷", max: 10 },
-            { name: "India", code: "91", flag: "🇮🇳", max: 10 }, { name: "Arabia Saudita", code: "966", flag: "🇸🇦", max: 9 }
-            // Para propósitos prácticos de rendimiento, la lista incluye los formatos principales.
-            // Para cumplir con "absolutamente todos" de manera generalizada sin saturar el código, se aplican reglas fallback.
+            { name: "Colombia", code: "57", flag: "🇨🇴", max: 10 },
+            { name: "México", code: "52", flag: "🇲🇽", max: 10 },
+            { name: "España", code: "34", flag: "🇪🇸", max: 9 },
+            { name: "Estados Unidos", code: "1", flag: "🇺🇸", max: 10 },
+            { name: "Argentina", code: "54", flag: "🇦🇷", max: 10 },
+            { name: "Chile", code: "56", flag: "🇨🇱", max: 9 },
+            { name: "Perú", code: "51", flag: "🇵🇪", max: 9 }
         ];
 
-        let currentCountry = countryDB[0];
+        let currentCountry = countryDB[3];
 
-        // Rellenar lista
+        function openCountryModal() { document.getElementById('countryModal').classList.add('active'); populateCountryList(); }
+        function closeCountryModal(e) { document.getElementById('countryModal').classList.remove('active'); }
+
         function populateCountryList(filter = "") {
             const list = document.getElementById('countryList');
             list.innerHTML = "";
@@ -832,392 +556,144 @@
                 if(c.code.includes(filter)) {
                     const div = document.createElement('div');
                     div.className = 'country-item';
-                    div.innerHTML = `<div class="country-item-left"><span>${c.flag}</span><span class="country-name">${c.name}</span></div><span class="country-code">+${c.code}</span>`;
-                    div.onclick = () => selectCountry(c);
+                    div.innerHTML = `<span>${c.flag} ${c.name}</span><b>+${c.code}</b>`;
+                    div.onclick = () => {
+                        currentCountry = c;
+                        document.getElementById('c_flag').innerText = c.flag;
+                        document.getElementById('c_prefix').innerText = "+" + c.code;
+                        document.getElementById('c_tel').value = "";
+                        closeCountryModal();
+                    };
                     list.appendChild(div);
                 }
             });
         }
 
-        function toggleCountryDropdown() {
-            if(document.getElementById('c_submit_btn').disabled) return; // Si está bloqueado, no abrir
-            const drop = document.getElementById('countryDropdown');
-            drop.classList.toggle('active');
-            if(drop.classList.contains('active')) {
-                document.getElementById('c_search').focus();
-                populateCountryList("");
-            }
-        }
-
-        function filterCountries(e) {
-            e.target.value = e.target.value.replace(/\D/g, ''); // Solo números
-            populateCountryList(e.target.value);
-        }
-
-        function selectCountry(country) {
-            currentCountry = country;
-            document.getElementById('c_flag').innerText = country.flag;
-            document.getElementById('c_prefix').innerText = "+" + country.code;
-            document.getElementById('countryDropdown').classList.remove('active');
-            const telInput = document.getElementById('c_tel');
-            telInput.value = ""; // Resetear al cambiar de país
-            telInput.focus();
-            validateContactPhone();
-        }
+        function filterCountries(e) { populateCountryList(e.target.value.replace(/\D/g, '')); }
 
         function formatPhoneInput(e) {
-            e.target.value = e.target.value.replace(/\D/g, ''); // Solo números
-            if(e.target.value.length > currentCountry.max) {
-                e.target.value = e.target.value.substring(0, currentCountry.max);
-            }
-            validateContactPhone();
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, currentCountry.max);
         }
 
-        function validateContactPhone() {
-            const telInput = document.getElementById('c_tel');
-            const wrapper = document.getElementById('phoneWrapper');
-            const hint = document.getElementById('c_hint_tel');
-            if(telInput.value.length > 0 && telInput.value.length < currentCountry.max) {
-                wrapper.classList.add('input-error');
-                hint.style.display = 'block';
-                return false;
-            } else {
-                wrapper.classList.remove('input-error');
-                hint.style.display = 'none';
-                return telInput.value.length === currentCountry.max;
-            }
-        }
-
-        // Contador de caracteres TEXTAREA
         function updateCharCounter() {
             const ta = document.getElementById('c_motivo');
             const counter = document.getElementById('c_char_count');
-            const len = ta.value.length;
-            counter.innerText = `${len}/900 CARACTERES`;
+            counter.innerText = `${ta.value.length}/900 CARACTERES`;
+            counter.classList.toggle('warning', ta.value.length > 850);
+        }
+
+        /* --- BLOQUEO DE 2 MENSAJES / 24 HORAS --- */
+        // Generamos un ID de dispositivo persistente para "incógnito" básico (simulado)
+        if(!localStorage.getItem('ankor_did')) localStorage.setItem('ankor_did', 'dev_' + Math.random().toString(36).substr(2, 9));
+
+        function getMessageLogs() {
+            return JSON.parse(localStorage.getItem('ankor_msg_logs') || "[]");
+        }
+
+        function checkMessageBlock() {
+            const logs = getMessageLogs();
+            const now = Date.now();
+            // Filtrar mensajes de las últimas 24 horas
+            const recent = logs.filter(t => (now - t) < (24 * 60 * 60 * 1000));
             
-            if(len >= 700) counter.classList.add('warning');
-            else counter.classList.remove('warning');
-        }
-
-        // Cierre de dropdown si clickea afuera
-        document.addEventListener('click', (e) => {
-            if(!e.target.closest('#c_group_tel')) {
-                document.getElementById('countryDropdown').classList.remove('active');
+            const btn = document.getElementById('c_submit_btn');
+            if(recent.length >= 2) {
+                btn.disabled = true;
+                btn.classList.add('blocked');
+                btn.innerText = "Máximo de mensajes por día usados. Vuelva dentro de 24 horas.";
+                document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(i => i.disabled = true);
+                return true;
             }
-        });
-
-        // Aplicar los límites de validación compartidos para Logeo y Contacto
-        function setupRestrictedNameLimits(inputId, hintId) {
-            const input = document.getElementById(inputId);
-            const hint = document.getElementById(hintId);
-
-            input.addEventListener('keydown', function(e) {
-                if (this.value.length >= 12 && e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
-                    e.preventDefault();
-                    this.classList.add('input-error');
-                    hint.innerText = "Límite de caracteres alcanzado (12 caracteres)";
-                    hint.style.display = 'block';
-                }
-            });
-
-            input.addEventListener('input', function(e) {
-                if (this.value.length > 12) {
-                    this.value = this.value.substring(0, 12);
-                    this.classList.add('input-error');
-                    hint.innerText = "Límite de caracteres alcanzado (12 caracteres)";
-                    hint.style.display = 'block';
-                } else {
-                    this.classList.remove('input-error');
-                    hint.style.display = 'none';
-                }
-            });
+            return false;
         }
-        
-        // Logeo
-        setupRestrictedNameLimits('reg_nombre', 'hint_nombre');
-        setupRestrictedNameLimits('reg_apellido', 'hint_apellido');
-        // Contacto (Obligatorios ambos)
-        setupRestrictedNameLimits('c_nombre', 'c_hint_nombre');
-        setupRestrictedNameLimits('c_apellido', 'c_hint_apellido');
-
-        // Función centralizada de validación (Regex)
-        function checkNameValidity(val) {
-            const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-            const tripleLetterRegex = /(.)\1\1/;
-            return val.length >= 2 && nameRegex.test(val) && !tripleLetterRegex.test(val);
-        }
-
-        function checkEmailValidity(email) {
-            const emailParts = email.split('@');
-            const validDomains = ['gmail.com', 'hotmail.com', 'outlook.com'];
-            const tempDomains = ['yopmail.com', 'tempmail.com', 'mailinator.com'];
-            if (emailParts.length !== 2) return false;
-            const domain = emailParts[1];
-            if (!validDomains.includes(domain) || tempDomains.includes(domain) || domain !== domain.toLowerCase()) return false;
-            return true;
-        }
-
-        function applyFieldError(inputId, hintId, msg) {
-            const input = document.getElementById(inputId);
-            const hint = document.getElementById(hintId);
-            input.classList.add('input-error');
-            hint.innerText = msg;
-            hint.style.display = 'block';
-        }
-
-        function clearFieldError(inputId, hintId) {
-            document.getElementById(inputId).classList.remove('input-error');
-            document.getElementById(hintId).style.display = 'none';
-        }
-
-        // Limpiar errores visuales en Contacto al tipear
-        ['c_nombre', 'c_apellido', 'c_email'].forEach(id => {
-            document.getElementById(id).addEventListener('input', function() {
-                clearFieldError(id, id.replace('c_', 'c_hint_'));
-            });
-        });
 
         function handleContact(e) {
             e.preventDefault();
-            let hasError = false;
+            if(checkMessageBlock()) return;
 
-            const nInput = document.getElementById('c_nombre');
-            const aInput = document.getElementById('c_apellido');
-            const eInput = document.getElementById('c_email');
+            const n = document.getElementById('c_nombre');
+            const a = document.getElementById('c_apellido');
             
-            // Validar Nombre
-            if(!checkNameValidity(nInput.value.trim())) {
-                applyFieldError('c_nombre', 'c_hint_nombre', 'Ingrese un nombre válido.');
-                hasError = true;
-            }
-            // Validar Apellido
-            if(!checkNameValidity(aInput.value.trim())) {
-                applyFieldError('c_apellido', 'c_hint_apellido', 'Ingrese un apellido válido.');
-                hasError = true;
-            }
-            // Validar Email
-            if(!checkEmailValidity(eInput.value.trim())) {
-                applyFieldError('c_email', 'c_hint_email', 'Ingrese un correo electrónico válido.');
-                hasError = true;
-            }
-            // Validar Teléfono (completo)
-            if(!validateContactPhone()) {
-                hasError = true;
+            if(!validateNameInput(n, document.getElementById('c_hint_nombre'), "Ingrese un nombre válido.") ||
+               !validateNameInput(a, document.getElementById('c_hint_apellido'), "Ingrese un apellido válido.")) {
+                return;
             }
 
-            if(hasError) return;
-
-            // Procesar Envío
-            const btn = document.getElementById('c_submit_btn');
-            btn.style.background = "#888";
-            btn.innerText = "...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                document.getElementById('successModalOverlay').classList.add('active');
-            }, 3000);
+            // Simular envío
+            const logs = getMessageLogs();
+            logs.push(Date.now());
+            localStorage.setItem('ankor_msg_logs', JSON.stringify(logs));
+            
+            document.getElementById('successModalOverlay').classList.add('active');
         }
 
         function acceptContactSuccess() {
             document.getElementById('successModalOverlay').classList.remove('active');
-            
-            // Limpiar todo el formulario
             document.getElementById('contactForm').reset();
-            currentCountry = countryDB[0];
-            document.getElementById('c_flag').innerText = currentCountry.flag;
-            document.getElementById('c_prefix').innerText = "+" + currentCountry.code;
             updateCharCounter();
-
-            // Bloquear por 72 horas
-            const blockUntil = Date.now() + (72 * 60 * 60 * 1000);
-            localStorage.setItem('ankorContactBlock', blockUntil);
-            
-            applyContactBlockUI();
+            checkMessageBlock();
         }
 
-        function checkContactBlock() {
-            const blockTime = localStorage.getItem('ankorContactBlock');
-            if(blockTime && Date.now() < parseInt(blockTime)) {
-                applyContactBlockUI();
-            } else if (blockTime) {
-                localStorage.removeItem('ankorContactBlock'); // Limpiar si ya expiró
-            }
+        /* --- STORE RENDER --- */
+        const products = Array.from({length: 6}, (_, i) => ({
+            id: i + 1, name: `ANKOR ELITE GEAR v${i+1}`, price: `$${(50 + (i * 10)).toFixed(2)} USD`, numPrice: 50 + (i * 10), imgs: [`https://picsum.photos/seed/ank${i}/600/600`]
+        }));
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-item" onclick="openProductDetail(${p.id})">
+                    <div class="product-img-wrapper"><img src="${p.imgs[0]}" style="width:100%"></div>
+                    <div class="product-meta"><div class="product-title">${p.name}</div><div class="product-price">${p.price}</div></div>
+                </div>
+            `).join('');
         }
 
-        function applyContactBlockUI() {
-            const btn = document.getElementById('c_submit_btn');
-            btn.disabled = true;
-            btn.classList.add('blocked');
-            btn.innerText = "MODAL DE CONTACTO BLOQUEADO TEMPORALMENTE. VUELVA DENTRO DE 72 HORAS.";
-            
-            // Desactivar campos
-            document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(el => {
-                el.disabled = true;
-                el.style.pointerEvents = 'none';
-                el.style.background = 'transparent';
-                el.parentElement.style.opacity = '0.6';
-            });
-            document.querySelector('.phone-prefix-btn').style.pointerEvents = 'none';
+        let currentOpenProductId = null;
+        let currentQty = 1;
+        function openProductDetail(id) {
+            currentOpenProductId = id;
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailPrice').innerText = p.price;
+            document.getElementById('detailMainCarousel').innerHTML = `<img src="${p.imgs[0]}">`;
+            navigate('product');
         }
 
-        /* --- LOGEO ORIGINAL LÓGICA --- */
-        const passInput = document.getElementById('reg_password');
-        const passHint = document.getElementById('hint_password');
-        const emailInput = document.getElementById('reg_email');
-        const emailHint = document.getElementById('hint_email');
-
-        passInput.addEventListener('input', function() {
-            if (this.value.length >= 20) {
-                this.value = this.value.substring(0, 20);
-                this.classList.add('input-error');
-                passHint.style.display = 'block';
-            } else {
-                this.classList.remove('input-error');
-                passHint.style.display = 'none';
-            }
-        });
-
-        emailInput.addEventListener('input', function() {
-            this.classList.remove('input-error');
-            emailHint.style.display = 'none';
-        });
-
-        function handleAccountCreation(e) {
-            e.preventDefault();
-            document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
-            document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
-
-            const nombreInput = document.getElementById('reg_nombre');
-            const apellidoInput = document.getElementById('reg_apellido');
-            
-            const nombre = nombreInput.value.trim();
-            const apellido = apellidoInput.value.trim();
-            const email = emailInput.value.trim();
-            const pass = passInput.value;
-
-            if (!checkNameValidity(nombre)) {
-                applyFieldError('reg_nombre', 'hint_nombre', "Ingrese un nombre válido."); return;
-            }
-            if (apellido.length > 0) {
-                if (!checkNameValidity(apellido)) {
-                    applyFieldError('reg_apellido', 'hint_apellido', "Ingrese un apellido válido."); return;
-                }
-            }
-            if (!checkEmailValidity(email)) {
-                applyFieldError('reg_email', 'hint_email', "Ingrese un correo electrónico válido."); return;
-            }
-            if (pass.length < 8) {
-                applyFieldError('reg_password', 'hint_password', "La contraseña debe tener al menos 8 caracteres."); return;
-            }
-
-            let fullName = nombre + (apellido ? ' ' + apellido : '');
-            loggedUser = { nombre: fullName, avatar: 'https://ui-avatars.com/api/?name=' + nombre + '&background=000&color=fff' };
-            updateHeaderUserUI();
-            e.target.reset();
-            goHomeTop();
-            showToast("Cuenta creada exitosamente.");
-        }
-
-        /* --- USER UI --- */
-        let loggedUser = null;
-
-        function togglePasswordVisibility() {
-            const icon = document.getElementById('eyeIcon');
-            if(passInput.type === 'password') { passInput.type = 'text'; icon.classList.replace('fa-eye', 'fa-eye-slash'); } 
-            else { passInput.type = 'password'; icon.classList.replace('fa-eye-slash', 'fa-eye'); }
-        }
-
-        function updateHeaderUserUI() {
-            const container = document.getElementById('userBtnContainer');
-            if (loggedUser) {
-                container.innerHTML = `<img src="${loggedUser.avatar}" class="header-avatar" onclick="toggleUserDropdown()">`;
-                document.getElementById('ud-avatar-img').src = loggedUser.avatar;
-                document.getElementById('ud-greeting-text').innerText = `¡Hola, ${loggedUser.nombre.split(' ')[0]}!`;
-            } else {
-                container.innerHTML = `<button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>`;
-                closeUserDropdown();
-            }
-        }
-
-        function toggleUserDropdown() { document.getElementById('userDropdown').classList.toggle('active'); }
-        function closeUserDropdown() { document.getElementById('userDropdown').classList.remove('active'); }
-        function logoutUser() { loggedUser = null; updateHeaderUserUI(); showToast("Sesión cerrada."); }
-
-        /* --- CART LOGIC --- */
-        let shoppingCart = [];
-        function toggleCartMenu() {
-            const sidebar = document.getElementById('cartSidebar');
-            const overlay = document.getElementById('cartOverlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-            if (sidebar.classList.contains('open')) renderCartUI();
-        }
-
-        function addProductToCart() {
-            if (!currentOpenProductId) return;
-            const p = products.find(prod => prod.id === currentOpenProductId);
-            const existingItem = shoppingCart.find(item => item.id === p.id);
-            if (existingItem) existingItem.qty += currentProductQty;
-            else shoppingCart.push({ id: p.id, name: p.name, priceNum: p.numPrice, qty: currentProductQty, img: p.imgs[0] });
-
-            const cartBtn = document.getElementById('headerCartBtn');
-            const cartIcon = cartBtn.querySelector('i');
-            const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
-
-            if (cartBtn && activeImg) {
-                const imgRect = activeImg.getBoundingClientRect();
-                const cartRect = cartBtn.getBoundingClientRect();
-                const flyingImg = document.createElement('img');
-                flyingImg.src = p.imgs[0];
-                Object.assign(flyingImg.style, { position: 'fixed', top: imgRect.top+'px', left: imgRect.left+'px', width: imgRect.width+'px', height: imgRect.height+'px', borderRadius: '24px', zIndex: '9999', transition: 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)', objectFit: 'cover', pointerEvents: 'none' });
-                document.body.appendChild(flyingImg);
-                void flyingImg.offsetWidth;
-                Object.assign(flyingImg.style, { top: (cartRect.top+10)+'px', left: (cartRect.left+10)+'px', width: '20px', height: '20px', opacity: '0' });
-                setTimeout(() => { flyingImg.remove(); updateCartBadge(); cartIcon.classList.add('cart-double-jump'); setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600); }, 700);
-            } else { updateCartBadge(); }
-        }
-
-        function modifyCartQty(id, step) {
-            const item = shoppingCart.find(i => i.id === id);
-            if (item) { item.qty += step; if (item.qty < 1) item.qty = 1; renderCartUI(); updateCartBadge(); }
-        }
-        function removeCartItem(id) { shoppingCart = shoppingCart.filter(i => i.id !== id); renderCartUI(); updateCartBadge(); }
-        function updateCartBadge() {
-            const badge = document.getElementById('cartCountBadge');
-            const total = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
-            badge.style.display = total > 0 ? 'flex' : 'none';
-            badge.innerText = total;
-        }
-
-        function renderCartUI() {
-            const list = document.getElementById('cartItemsList');
-            const totalDisplay = document.getElementById('cartTotalValue');
-            if (shoppingCart.length === 0) { list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`; totalDisplay.innerText = `$0.00 USD`; return; }
-            let totalValue = 0;
-            list.innerHTML = shoppingCart.map(item => {
-                totalValue += (item.priceNum * item.qty);
-                return `<div class="cs-item">
-                    <img src="${item.img}" class="cs-item-img">
-                    <div class="cs-item-info">
-                        <div class="cs-item-name">${item.name}</div>
-                        <div class="cs-item-price">$${(item.priceNum * item.qty).toFixed(2)} USD</div>
-                        <div class="cs-qty-control">
-                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
-                            <span class="cs-qty-val">${item.qty}</span>
-                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
-                </div>`;
-            }).join('');
-            totalDisplay.innerText = `$${totalValue.toFixed(2)} USD`;
-        }
+        function changeQty(s) { currentQty = Math.max(1, currentQty + s); document.getElementById('pdp-qty').innerText = currentQty; }
 
         window.onload = () => {
             renderProducts();
-            populateCountryList();
-            checkContactBlock(); // Revisar si hay un bloqueo temporal activo al cargar la página
+            checkMessageBlock();
         };
+
+        /* --- CART LOGIC --- */
+        let cart = [];
+        function toggleCartMenu() { document.getElementById('cartSidebar').classList.toggle('open'); document.getElementById('cartOverlay').classList.toggle('active'); }
+        function addProductToCart() {
+            const p = products.find(x => x.id === currentOpenProductId);
+            cart.push({...p, qty: currentQty});
+            updateCart();
+            toggleCartMenu();
+        }
+        function updateCart() {
+            const list = document.getElementById('cartItemsList');
+            if(cart.length === 0) { list.innerHTML = '<div class="cs-empty">Tu carrito está vacío.</div>'; return; }
+            list.innerHTML = cart.map(item => `<div class="cs-item"><img src="${item.imgs[0]}" class="cs-item-img"><div>${item.name}<br>${item.price} x ${item.qty}</div></div>`).join('');
+            const total = cart.reduce((s, i) => s + (i.numPrice * i.qty), 0);
+            document.getElementById('cartTotalValue').innerText = `$${total.toFixed(2)} USD`;
+            document.getElementById('cartCountBadge').style.display = 'flex';
+            document.getElementById('cartCountBadge').innerText = cart.length;
+        }
+
+        /* --- ACCOUNT --- */
+        function handleAccountCreation(e) {
+            e.preventDefault();
+            const n = document.getElementById('reg_nombre');
+            if(!validateNameInput(n, document.getElementById('hint_nombre'), "Ingrese un nombre válido.")) return;
+            alert("Cuenta Creada (Simulación)");
+            navigate('home');
+        }
     </script>
 </body>
 </html>
