@@ -46,46 +46,17 @@
             text-transform: uppercase;
         }
         .announcement-track {
-            display: flex;
-            width: 100%;
-            max-width: 600px;
-            overflow: hidden;
-            position: relative;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
+            display: flex; width: 100%; max-width: 600px; overflow: hidden;
+            position: relative; height: 100%; align-items: center; justify-content: center;
         }
         .ticket {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            position: absolute; width: 100%; text-align: center; opacity: 0;
+            transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .ticket.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .ann-arrow {
-            background: none; border: none; color: white; cursor: pointer; padding: 0 15px;
-            font-size: 1rem; position: absolute; z-index: 10;
-        }
+        .ticket.active { opacity: 1; transform: translateY(0); }
+        .ann-arrow { background: none; border: none; color: white; cursor: pointer; padding: 0 15px; font-size: 1rem; position: absolute; z-index: 10; }
         .ann-prev { left: 10px; }
-        
-        .ann-controls-right {
-            position: absolute;
-            right: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            z-index: 10;
-        }
-        .ann-controls-right .ann-arrow {
-            position: relative;
-            right: auto;
-            padding: 0 5px;
-        }
+        .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 
         /* --- HEADER & NAVIGATION --- */
         header {
@@ -95,21 +66,12 @@
             padding: 15px 30px; height: 70px;
         }
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -2px; cursor: pointer; text-transform: uppercase; color: var(--black); }
-        
         .desktop-nav { display: none; gap: 30px; }
-        .nav-link {
-            text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem;
-            letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth);
-            position: relative; cursor: pointer;
-        }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
-            background-color: var(--black); transition: width 0.3s ease;
-        }
+        .nav-link { text-decoration: none; color: var(--black); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color var(--transition-smooth); position: relative; cursor: pointer; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--black); transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
         .hamburger { display: block; cursor: pointer; border: none; background: none; font-size: 1.5rem; color: var(--black); }
-        
+
         .mobile-menu {
             position: fixed; top: 0; left: -100%; width: 80%; max-width: 400px; height: 100vh;
             background: var(--white); z-index: 2000; padding: 80px 30px 30px;
@@ -117,15 +79,9 @@
             display: flex; flex-direction: column; gap: 25px;
         }
         .mobile-menu.open { left: 0; }
-        .mobile-menu .nav-link { font-size: 1.5rem; letter-spacing: -0.5px; }
-        .close-menu { position: absolute; top: 20px; right: 25px; font-size: 2rem; background: none; border: none; cursor: pointer; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
         .overlay.active { display: block; }
-
-        @media (min-width: 768px) {
-            .desktop-nav { display: flex; }
-            .hamburger { display: none; }
-        }
+        @media (min-width: 768px) { .desktop-nav { display: flex; } .hamburger { display: none; } }
 
         /* --- VIEWS CONTROLLER --- */
         .view { display: none; animation: fadeIn 0.5s ease forwards; }
@@ -142,93 +98,67 @@
         }
         .hero-slide.active { transform: translateX(0); z-index: 2; }
         .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
-        
         .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-
-        .btn-mas-info {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: var(--black); color: var(--white); padding: 18px 40px;
-            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth);
-            border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
-        }
-        .btn-mas-info span.text { position: relative; }
-        .btn-mas-info span.arrow {
-            display: inline-block; opacity: 0; width: 0; overflow: hidden;
-            transform: translateX(-10px); transition: all 0.3s ease;
-        }
-        .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
-        .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
+        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; }
+        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; }
+        .btn-mas-info { display: inline-flex; align-items: center; justify-content: center; background: var(--black); color: var(--white); padding: 18px 40px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-
         .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
-        .slider-arrow {
-            pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;
-        }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-
-        @media (max-width: 768px) {
-            .slider-controls { padding: 0 5px; }
-            .slider-arrow { width: 38px; height: 38px; font-size: 1rem; }
-        }
+        .slider-arrow { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
 
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
         .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
 
-        /* --- SOCIAL CONTENT --- */
+        /* --- SOCIAL CONTENT (MODIFIED ANIMATION) --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card {
             background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
-            transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden;
+            transition: transform 0.5s ease, background 0.5s ease; position: relative; overflow: hidden;
             border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;
         }
         
-        .social-icon { font-size: 3rem; color: var(--black); transition: all 0.4s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; }
-        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-top: 20px; transition: all 0.2s ease-in; z-index: 5; position: relative; }
+        .social-icon { font-size: 3rem; color: var(--black); transition: all 0.6s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; }
+        
+        .social-name { 
+            font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; 
+            margin-top: 20px; transition: all 0.6s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; 
+        }
         
         .social-accounts { 
             display: flex; flex-direction: column; gap: 10px; opacity: 0; 
-            visibility: hidden; 
-            transform: translateY(20px); transition: all 0.5s ease; 
-            position: absolute; bottom: 30px; left: 0; width: 100%; 
+            visibility: hidden; transform: translateY(30px); 
+            transition: all 0.5s ease; position: absolute; bottom: 30px; left: 0; width: 100%; 
             padding: 0 30px; align-items: center; pointer-events: none; z-index: 10;
         }
         
-        /* --- SOCIAL CARD HOVER / ACTIVE --- */
+        /* HOVER / ACTIVE STATE */
         .social-card.active { background: var(--black); color: var(--white); }
         
-        /* Logo sube y se pone blanco */
+        /* ICONO SUBE */
         .social-card.active .social-icon { 
-            transform: translateY(-60px) scale(0.7); 
+            transform: translateY(-75px) scale(0.65); 
             color: var(--white); 
         }
         
-        /* Nombre desaparece rápido */
+        /* TEXTO SUBE Y SE CENTRA DEBAJO DEL ICONO */
         .social-card.active .social-name { 
-            opacity: 0; 
-            transform: translateY(-10px); 
-            pointer-events: none;
-            transition: opacity 0.15s ease-out;
+            transform: translateY(-85px) scale(0.8); 
+            color: rgba(255,255,255,0.7);
+            margin-top: 0;
         }
         
+        /* BOTONES APARECEN */
         .social-card.active .social-accounts { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0); 
-            pointer-events: auto; 
+            opacity: 1; visibility: visible; 
+            transform: translateY(0); pointer-events: auto; 
         }
         
         .account-btn {
             background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
             border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s;
-            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 200px;
+            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 220px;
         }
         .account-btn:hover { background: var(--white); color: var(--black); }
 
@@ -237,58 +167,43 @@
         .product-item { cursor: pointer; position: relative; }
         .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4/5; background: var(--light-gray); border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
         .prod-mini-carousel { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; pointer-events: none; }
-        .prod-mini-carousel::-webkit-scrollbar { display: none; }
         .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
-        .p-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(4px); border: none; color: var(--black); font-size: 1rem; cursor: pointer; z-index: 10; opacity: 1; transition: transform 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
-        .p-arrow:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
-        .p-prev { left: 10px; } .p-next { right: 10px; }
+        .p-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.4); border: none; color: var(--black); cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
         .product-meta { text-align: left; }
-        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; color: var(--black); }
-        .product-price { font-weight: 500; font-size: 0.95rem; color: var(--black); }
+        .product-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; margin-bottom: 5px; }
+        .product-price { font-weight: 500; font-size: 0.95rem; }
 
         /* --- PRODUCT DETAIL --- */
         .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
         @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.5fr 1fr; } }
         .main-carousel-container { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: var(--light-gray); }
         .main-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 15%; cursor: grab; }
-        .main-carousel::-webkit-scrollbar { display: none; }
         .main-carousel img { flex: 0 0 85%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: start; margin-right: 15px; border-radius: 12px; }
-        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
+        .thumb-carousel { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; padding-bottom: 10px; }
         .thumb-carousel img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.5; transition: opacity 0.3s, border 0.3s; border: 2px solid transparent; }
         .thumb-carousel img.active { opacity: 1; border-color: var(--black); }
         .prod-info-panel h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 10px; }
-        .prod-info-panel .price { font-size: 1.5rem; font-weight: 500; margin-bottom: 30px; }
-        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; letter-spacing: 1px; }
-        .add-to-cart-btn:hover { transform: scale(1.02); }
+        .add-to-cart-btn { background: var(--black); color: var(--white); width: 100%; padding: 20px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
         .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
-        .back-btn:hover { text-decoration: underline; }
 
         /* --- WC 2027 --- */
         .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
         .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
+        .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-align: center; }
         .wc-content { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
-        .wc-content h2 { color: var(--black); font-size: 1.8rem; font-weight: 900; margin: 40px 0 20px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .wc-content strong { color: var(--black); }
         .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
-        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
-        .download-link i { font-size: 1.5rem; }
-        .download-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); }
 
         /* --- CONTACT --- */
         .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         .form-group { margin-bottom: 25px; position: relative; }
-        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); transition: border-color 0.3s; outline: none; }
-        .form-control:focus { border-bottom-color: var(--black); }
+        .form-control { width: 100%; padding: 15px 0; border: none; border-bottom: 2px solid var(--border); background: transparent; font-family: inherit; font-size: 1rem; color: var(--black); outline: none; }
         .form-label { position: absolute; top: 15px; left: 0; color: var(--text-muted); font-size: 1rem; transition: all 0.3s ease; pointer-events: none; }
         .form-control:focus ~ .form-label, .form-control:not(:placeholder-shown) ~ .form-label { top: -10px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-transform: uppercase; }
-        textarea.form-control { resize: vertical; min-height: 100px; }
-        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; border-radius: 8px; cursor: pointer; }
 
-        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; }
         .toast.show { bottom: 40px; }
-
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
     </style>
 </head>
@@ -333,20 +248,14 @@
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR WC 2027</h1>
                         <p class="hero-subtitle">LA GLORIA PERTENECE A LOS IMPARABLES.</p>
-                        <a onclick="navigate('wc2027')" class="btn-mas-info">
-                            <span class="text">MÁS INFORMACIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
+                        <a onclick="navigate('wc2027')" class="btn-mas-info">MÁS INFORMACIÓN</a>
                     </div>
                 </div>
                 <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR STORE</h1>
                         <p class="hero-subtitle">EQUIPAMIENTO PARA MENTES SUPERIORES.</p>
-                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">
-                            <span class="text">VER COLECCIÓN</span>
-                            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                        </a>
+                        <a onclick="document.getElementById('store-anchor').scrollIntoView({behavior:'smooth'})" class="btn-mas-info">VER COLECCIÓN</a>
                     </div>
                 </div>
                 <div class="slider-controls">
@@ -404,7 +313,7 @@
                 </div>
                 <div class="prod-info-panel">
                     <h1 id="detailTitle">PRODUCT NAME</h1>
-                    <div class="price" id="detailPrice">$00.00 USD</div>
+                    <div class="price" id="detailPrice" style="font-size:1.5rem; margin-bottom:20px;">$00.00 USD</div>
                     <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con ajuste perfecto. Sé imparable.</p>
                     <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
                 </div>
@@ -415,15 +324,12 @@
             <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
             <div class="section-container">
                 <div class="wc-content">
-                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo. Organizada en su totalidad por la marca ANKOR, esta copa no es solo una prueba física, sino el máximo test de mentalidad y superación.</p>
+                    <p>La <strong>ANKOR World Cup 2027</strong> es el evento cumbre que reúne a los competidores más disciplinados y mentalmente preparados del mundo.</p>
                     <h2>1.1 Cómo Funciona</h2>
-                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos. Solo aquellos con una mentalidad inquebrantable avanzarán a las rondas finales.</p>
-                    <h2>1.2 Requisitos y Clasificación</h2>
-                    <p>La clasificación está reservada para la Élite. Se evaluarán métricas de rendimiento previo y fortaleza mental. Las inscripciones se abren en enero de 2026. Prepárate.</p>
+                    <p>El torneo se divide en fases rigurosas donde los participantes se enfrentarán a desafíos que empujarán sus límites absolutos.</p>
                     <div class="download-box">
                         <h3 style="font-weight: 900; text-transform: uppercase;">Recursos Oficiales</h3>
                         <a href="#" class="download-link"><i class="fa-solid fa-file-pdf"></i> Reglamento Oficial AWC 2027.pdf</a>
-                        <a href="#" class="download-link"><i class="fa-solid fa-diagram-project"></i> Estructura y Fases del Torneo.pdf</a>
                     </div>
                 </div>
             </div>
@@ -435,10 +341,8 @@
                 <div class="contact-wrapper">
                     <form id="contactForm" onsubmit="handleContact(event)">
                         <div class="form-group"><input type="text" id="c_nombre" class="form-control" placeholder=" " required><label class="form-label">Nombre</label></div>
-                        <div class="form-group"><input type="text" id="c_apellido" class="form-control" placeholder=" " required><label class="form-label">Apellido</label></div>
-                        <div class="form-group"><input type="tel" id="c_tel" class="form-control" placeholder=" " required><label class="form-label">Número de teléfono</label></div>
                         <div class="form-group"><input type="email" id="c_email" class="form-control" placeholder=" " required><label class="form-label">Correo electrónico</label></div>
-                        <div class="form-group"><textarea id="c_motivo" class="form-control" placeholder=" " required></textarea><label class="form-label">Motivo del mensaje</label></div>
+                        <div class="form-group"><textarea id="c_motivo" class="form-control" placeholder=" " required></textarea><label class="form-label">Motivo</label></div>
                         <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
                     </form>
                 </div>
@@ -446,135 +350,78 @@
         </section>
     </main>
 
-    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span>Mensaje enviado correctamente.</span></div>
+    <div id="toast" class="toast"><span>Mensaje enviado correctamente.</span></div>
     <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
-        /* --- NAVIGATION / SPA LOGIC --- */
+        /* --- NAVIGATION --- */
         let storeScrollPos = 0;
-
-        function goHomeTop() {
-            storeScrollPos = 0;
-            navigate('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
+        function goHomeTop() { navigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
         function navigate(viewId) {
-            if (viewId === 'product') {
-                storeScrollPos = window.scrollY;
-            }
-
+            if (viewId === 'product') storeScrollPos = window.scrollY;
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
-            
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
-
-            if(document.getElementById('mobileMenu').classList.contains('open')) {
-                toggleMenu();
-            }
-            
-            if (viewId === 'home') {
-                window.scrollTo(0, storeScrollPos);
-            } else {
-                window.scrollTo(0, 0);
-            }
+            if(document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+            if (viewId === 'home') window.scrollTo(0, storeScrollPos); else window.scrollTo(0, 0);
         }
-
         function toggleMenu() {
             document.getElementById('mobileMenu').classList.toggle('open');
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
 
-        /* --- SOCIAL CARDS INTERACTION --- */
+        /* --- SOCIAL CARDS --- */
         function toggleSocialCard(card) {
-            // Si ya está activa, la cerramos
             if(card.classList.contains('active')) {
                 card.classList.remove('active');
             } else {
-                // Cerramos las otras primero
                 document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
             }
         }
 
         /* --- ANNOUNCEMENT --- */
-        let tIndex = 0;
-        const tickets = document.querySelectorAll('.ticket');
-        let annPaused = false;
-        let annInterval = setInterval(() => moveTicket(1), 4000);
-
-        function moveTicket(step) {
+        let tIndex = 0; const tickets = document.querySelectorAll('.ticket');
+        setInterval(() => {
             tickets[tIndex].classList.remove('active');
-            tIndex = (tIndex + step + tickets.length) % tickets.length;
+            tIndex = (tIndex + 1) % tickets.length;
             tickets[tIndex].classList.add('active');
-        }
-
-        function togglePauseAnn() {
-            annPaused = !annPaused;
-            const btn = document.getElementById('pauseAnnBtn');
-            if(annPaused) { clearInterval(annInterval); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
-            else { annInterval = setInterval(() => moveTicket(1), 4000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
-        }
+        }, 4000);
 
         /* --- HERO SLIDER --- */
-        let hIndex = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        let heroTimer;
-        
+        let hIndex = 0; const slides = document.querySelectorAll('.hero-slide');
         function moveHero(step) {
-            if(!slides.length) return;
-            const currentSlide = slides[hIndex];
-            currentSlide.classList.remove('active');
-            currentSlide.style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+            slides[hIndex].classList.remove('active');
+            slides[hIndex].style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
             hIndex = (hIndex + step + slides.length) % slides.length;
-            const nextSlide = slides[hIndex];
-            nextSlide.style.transition = 'none';
-            nextSlide.style.transform = step > 0 ? 'translateX(100%)' : 'translateX(-100%)';
-            void nextSlide.offsetWidth;
-            nextSlide.style.transition = 'transform var(--transition-strong)';
-            nextSlide.style.transform = 'translateX(0)';
-            nextSlide.classList.add('active');
-            resetHeroTimer();
+            slides[hIndex].style.transition = 'none';
+            slides[hIndex].style.transform = step > 0 ? 'translateX(100%)' : 'translateX(-100%)';
+            void slides[hIndex].offsetWidth;
+            slides[hIndex].style.transition = 'transform var(--transition-strong)';
+            slides[hIndex].style.transform = 'translateX(0)';
+            slides[hIndex].classList.add('active');
         }
-        function autoHero() { moveHero(1); }
-        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
-        resetHeroTimer();
 
-        /* --- STORE RENDER --- */
-        const products = Array.from({length: 14}, (_, i) => {
-            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/800`);
-            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, imgs: imgs }
-        });
+        /* --- STORE --- */
+        const products = Array.from({length: 12}, (_, i) => ({
+            id: i + 1, name: `ANKOR GEAR ${i+1}`, price: `$${(45 + i*5).toFixed(2)} USD`,
+            imgs: Array.from({length: 4}, (_, j) => `https://picsum.photos/seed/ankor${i}${j}/600/800`)
+        }));
 
-        const grid = document.getElementById('productGrid');
         function renderProducts() {
+            const grid = document.getElementById('productGrid');
             if(!grid) return;
             grid.innerHTML = products.map(p => `
                 <div class="product-item" onclick="openProductDetail(${p.id})">
-                    <div class="product-img-wrapper" id="pw-${p.id}">
+                    <div class="product-img-wrapper">
                         <div class="prod-mini-carousel" id="mc-${p.id}">
-                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
+                            ${p.imgs.map(img => `<img src="${img}">`).join('')}
                         </div>
-                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="product-meta"><div class="product-title">${p.name}</div><div class="product-price">${p.price}</div></div>
                 </div>`).join('');
         }
 
-        function scrollMini(e, id, step) {
-            e.stopPropagation(); 
-            const carousel = document.getElementById(`mc-${id}`);
-            const scrollAmt = carousel.clientWidth;
-            const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
-            const currentScroll = Math.round(carousel.scrollLeft);
-            if (step > 0 && currentScroll >= maxScroll - 5) { carousel.scrollTo({ left: 0, behavior: 'auto' }); }
-            else if (step < 0 && currentScroll <= 5) { carousel.scrollTo({ left: maxScroll, behavior: 'auto' }); }
-            else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
-        }
-
-        /* --- DETAIL VIEWER --- */
         function openProductDetail(id) {
             const p = products.find(prod => prod.id === id);
             document.getElementById('detailTitle').innerText = p.name;
@@ -582,38 +429,22 @@
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
             mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
-            mainC.onscroll = () => {
-                const imgWidth = mainC.clientWidth * 0.85;
-                const activeIndex = Math.round(mainC.scrollLeft / imgWidth);
-                thumbC.querySelectorAll('img').forEach((t, i) => t.classList.toggle('active', i === activeIndex));
-            };
+            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" onclick="syncCarousel(${idx})">`).join('');
             navigate('product');
         }
 
-        function syncCarousel(index) {
+        function syncCarousel(idx) {
             const mainC = document.getElementById('detailMainCarousel');
-            const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
+            const target = document.getElementById(`main-img-${idx}`);
+            mainC.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
         }
 
-        /* --- CONTACT --- */
         function handleContact(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('.submit-btn');
-            btn.innerText = "ENVIANDO...";
-            btn.disabled = true;
-            setTimeout(() => {
-                e.target.reset();
-                btn.innerText = "ENVIAR MENSAJE";
-                btn.disabled = false;
-                showToast();
-            }, 1000);
-        }
-        function showToast() {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
+            e.target.reset();
         }
 
         window.onload = renderProducts;
