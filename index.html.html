@@ -140,7 +140,6 @@
         @media (min-width: 768px) {
             .desktop-nav { display: flex; }
             .hamburger { display: none; }
-            /* Ajuste para que el logo siga centrado con la nav a la derecha */
             header { grid-template-columns: 1fr auto 1fr; }
         }
 
@@ -218,16 +217,13 @@
             padding: 0 30px; align-items: center; pointer-events: none; z-index: 10;
         }
         
-        /* --- SOCIAL CARD HOVER / ACTIVE --- */
         .social-card.active { background: var(--black); color: var(--white); }
         
-        /* Logo sube y se pone blanco */
         .social-card.active .social-icon { 
             transform: translateY(-55px) scale(0.7); 
             color: var(--white); 
         }
         
-        /* Nombre sube y se centra debajo del icono en blanco */
         .social-card.active .social-name { 
             opacity: 1; 
             transform: translateY(-65px) scale(0.6); 
@@ -257,14 +253,78 @@
         .prod-mini-carousel::-webkit-scrollbar { display: none; }
         .prod-mini-carousel img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
         
-        .p-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: none; color: var(--black); font-size: 0.8rem; cursor: pointer; z-index: 10; opacity: 1; transition: transform 0.2s; pointer-events: auto; display: flex; align-items: center; justify-content: center; }
-        .p-arrow:hover { transform: translateY(-50%) scale(1.1); }
-        .p-prev { left: 8px; } .p-next { right: 8px; }
+        /* FLECHAS DE LOS PRODUCTOS MODIFICADAS */
+        .p-arrow { 
+            position: absolute; 
+            bottom: 8px; /* Movidas a la parte inferior */
+            top: auto;
+            transform: none; /* Quitamos el centrado vertical */
+            width: 32px; 
+            height: 32px; 
+            background: transparent; /* Totalmente transparentes */
+            box-shadow: none; /* Sin sombra de caja */
+            border: none; 
+            color: var(--black); 
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.9); /* Sombra al icono para buen contraste */
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            z-index: 10; 
+            transition: transform 0.2s; 
+            pointer-events: auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .p-arrow:hover { transform: scale(1.15); }
+        .p-prev { left: 8px; } /* Lado correspondiente (Izquierdo) */
+        .p-next { right: 8px; } /* Lado correspondiente (Derecho) */
 
-        .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; background: rgba(255,255,255,0.9); padding: 5px 8px; border-radius: 12px; z-index: 10; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: #ccc; transition: all 0.3s; }
-        .dot.active { background: #666; width: 12px; border-radius: 4px; }
+        /* CONTENEDOR DE PUNTOS DINÁMICO */
+        .dots-container {
+            position: absolute;
+            bottom: 12px;
+            left: 45px; /* Deja espacio para la flecha izquierda */
+            right: 45px; /* Deja espacio para la flecha derecha */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none;
+        }
 
+        .dots-viewport {
+            width: 55px; /* Ajustado para mostrar exactamente 5 puntos */
+            overflow: hidden;
+            background: rgba(255,255,255,0.85); /* Fondo premium y sutil */
+            backdrop-filter: blur(4px);
+            padding: 6px 0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .dots-track {
+            display: flex;
+            gap: 6px;
+            padding: 0 5px; /* Compensa la falta de padding en el viewport */
+            transition: transform 0.3s ease-out; /* Efecto de deslizamiento suave */
+            width: max-content;
+        }
+
+        .dot { 
+            width: 5px; 
+            height: 5px; 
+            border-radius: 50%; 
+            background: #aaa; 
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .dot.active { 
+            background: var(--black); 
+            transform: scale(1.2); 
+        }
+
+        /* --- PRODUCT META --- */
         .product-meta { text-align: left; display: flex; flex-direction: column; }
         .product-title { font-weight: 400; font-size: 0.9rem; text-transform: none; margin-bottom: 4px; color: var(--black); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .product-price { font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 6px; }
@@ -522,11 +582,9 @@
 
         /* --- SOCIAL CARDS INTERACTION --- */
         function toggleSocialCard(card) {
-            // Si ya está activa, la cerramos
             if(card.classList.contains('active')) {
                 card.classList.remove('active');
             } else {
-                // Cerramos las otras primero
                 document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
             }
@@ -585,10 +643,8 @@
         function renderProducts() {
             if(!grid) return;
             grid.innerHTML = products.map(p => {
-                // Ratings y reviews simuladas para el diseño visual
                 const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
                 const reviews = Math.floor(Math.random() * 1000) + 50;
-                // Capitalizar formato estilo "Lifestyle" (minúsculas con primeras mayúsculas)
                 const formattedName = p.name.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
 
                 return `
@@ -600,11 +656,12 @@
                         <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
                         
-                        <div class="carousel-dots" id="dots-${p.id}">
-                            <span class="dot active"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
+                        <div class="dots-container">
+                            <div class="dots-viewport">
+                                <div class="dots-track" id="track-${p.id}">
+                                    ${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="product-meta">
@@ -634,22 +691,39 @@
             else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
         }
 
-        // Función nueva para actualizar los puntos al hacer scroll
+        // Lógica actualizada para el efecto slider de los dots
         function updateDots(id) {
             const carousel = document.getElementById(`mc-${id}`);
-            const dotsContainer = document.getElementById(`dots-${id}`);
-            if(!carousel || !dotsContainer) return;
+            const track = document.getElementById(`track-${id}`);
+            if(!carousel || !track) return;
             
             const scrollLeft = carousel.scrollLeft;
             const width = carousel.clientWidth;
-            // Cálculo simple para 4 puntos visuales
-            let index = Math.round(scrollLeft / width);
-            if(index > 3) index = 3; 
             
-            const dots = dotsContainer.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
+            // Determinar índice actual
+            let index = Math.round(scrollLeft / width);
+            const totalDots = track.children.length; // En este caso 10
+            if(index >= totalDots) index = totalDots - 1; 
+            if(index < 0) index = 0;
+            
+            // Actualizar clase 'active'
+            const dots = track.querySelectorAll('.dot');
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+            
+            // Lógica de desplazamiento (Sliding Window)
+            // Se asume: width punto=5, gap=6 -> paso total=11px
+            // El viewport mide 55px. Queremos centrar el punto en el viewport.
+            let transX = -(index * 11) + 22; 
+            
+            // Tope izquierdo (no dejar espacio vacío al inicio)
+            if(transX > 0) transX = 0; 
+            
+            // Tope derecho (10 puntos de 5px + 9 gaps de 6px = 104px total ancho de track)
+            // Límite: 104px (track) + 10px (padding track) = 114px.
+            // 55px (viewport) - 114px = -59px máximo desplazamiento
+            if(transX < -59) transX = -59; 
+            
+            track.style.transform = `translateX(${transX}px)`;
         }
 
         /* --- DETAIL VIEWER --- */
