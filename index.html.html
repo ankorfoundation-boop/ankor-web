@@ -297,35 +297,32 @@
             text-transform: uppercase; font-size: 0.85rem; color: var(--black);
         }
         
-        /* Contenedor principal sin paddings excesivos para aprovechar el ancho */
         #view-product {
             padding-left: 0;
             padding-right: 0;
-            overflow: hidden; /* Evitar scroll horizontal extra */
+            overflow: hidden; 
         }
-        #view-product .back-btn {
-            margin-left: 20px; /* Margen solo al botón */
-        }
+        #view-product .back-btn { margin-left: 20px; }
 
         .product-detail-layout { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 
-        /* CARRUSEL PRINCIPAL */
+        /* CARRUSEL PRINCIPAL - CORREGIDO */
         .prod-images-panel { width: 100%; }
         .main-carousel { 
             display: flex; 
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
             scrollbar-width: none; 
-            padding: 0 7.5%; /* Deja 7.5% de margen lateral para que se asome la otra foto */
-            gap: 15px; 
+            padding: 0 9%; /* Mantiene la imagen perfectamente centrada dejando asomar los bordes */
+            gap: 16px; 
             scroll-behavior: smooth;
         }
         .main-carousel::-webkit-scrollbar { display: none; }
         .main-carousel img { 
-            flex: 0 0 85%; /* Ocupa 85% para poder ver el asomo (peak) */
-            aspect-ratio: 1/1; /* Cuadrado perfecto */
+            flex: 0 0 82%; /* Ocupa el 82% del contenedor para complementar el padding */
+            aspect-ratio: 1/1; /* Forzado a cuadrado perfecto */
             object-fit: cover; 
-            scroll-snap-align: center; /* Centra la imagen activa en la pantalla */
+            scroll-snap-align: center; /* Centra con precisión */
             border-radius: 16px; /* Vértices redondeados */
         }
 
@@ -335,7 +332,7 @@
             gap: 12px; 
             margin-top: 15px; 
             overflow-x: auto; 
-            padding: 0 7.5%; /* Mismo margen que el principal */
+            padding: 0 9%; /* Sincronizado con el margen del principal */
             scrollbar-width: none; 
             scroll-behavior: smooth;
         }
@@ -344,7 +341,7 @@
             width: 65px; 
             height: 65px; 
             object-fit: cover; 
-            border-radius: 12px; /* Vértices redondeados */
+            border-radius: 12px; 
             cursor: pointer; 
             opacity: 0.5; 
             transition: all 0.3s ease; 
@@ -353,8 +350,8 @@
         }
         .thumb-carousel img.active { 
             opacity: 1; 
-            border-color: var(--black); /* Resalte con contorno marcado */
-            transform: scale(1.05); /* Efecto pop */
+            border-color: var(--black); 
+            transform: scale(1.05); 
         }
 
         /* INFORMACIÓN DEL PRODUCTO */
@@ -364,81 +361,30 @@
             flex-direction: column;
             width: 100%;
         }
-        .prod-title-new { 
-            font-size: 1.3rem; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            margin-bottom: 5px; 
-            color: var(--black); 
-            text-align: left; 
-        }
-        .prod-price-new { 
-            font-size: 1.25rem; 
-            font-weight: 500; 
-            font-family: 'Inter', sans-serif; /* Tipografía elegante cargada */
-            color: var(--black); 
-            margin-bottom: 25px; 
-            text-align: left; 
-        }
+        .prod-title-new { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; color: var(--black); text-align: left; }
+        .prod-price-new { font-size: 1.25rem; font-weight: 500; font-family: 'Inter', sans-serif; color: var(--black); margin-bottom: 25px; text-align: left; }
 
         /* CANTIDAD */
         .qty-wrapper { margin-bottom: 25px; display: flex; flex-direction: column; align-items: flex-start; }
-        .qty-label { 
-            color: var(--text-muted); 
-            font-size: 0.75rem; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            text-align: left; 
-        }
-        .qty-control { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 120px; 
-            border: 1px solid var(--border); 
-            border-radius: 30px; /* Rectángulo pequeño y elegante con vértices redondeados */
-            padding: 8px 15px; 
-            background: var(--white); 
-        }
-        .qty-btn { 
-            background: none; border: none; font-size: 1.2rem; color: var(--black); 
-            cursor: pointer; display: flex; align-items: center; justify-content: center; 
-        }
+        .qty-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; text-align: left; }
+        .qty-control { display: flex; align-items: center; justify-content: space-between; width: 120px; border: 1px solid var(--border); border-radius: 30px; padding: 8px 15px; background: var(--white); }
+        .qty-btn { background: none; border: none; font-size: 1.2rem; color: var(--black); cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .qty-value { font-weight: 700; font-size: 1rem; color: var(--black); }
 
         /* ACORDEÓN CARACTERÍSTICAS */
         .acc-wrapper { margin-bottom: 25px; width: 100%; }
-        .acc-header { 
-            width: 100%; background: var(--white); border: 1px solid var(--black); 
-            border-radius: 0; /* Sin vértices redondeados */
-            padding: 16px; display: flex; justify-content: space-between; align-items: center; 
-            font-weight: 700; font-size: 0.9rem; color: var(--black); 
-            text-transform: uppercase; cursor: pointer; transition: background 0.2s;
-        }
+        .acc-header { width: 100%; background: var(--white); border: 1px solid var(--black); border-radius: 0; padding: 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.9rem; color: var(--black); text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
         .acc-header .icon { transition: transform 0.3s ease; }
-        .acc-content { 
-            display: none; border: 1px solid var(--black); border-top: none; 
-            padding: 16px; font-size: 0.9rem; color: var(--black); line-height: 1.6; 
-            border-radius: 0; background: var(--white);
-        }
+        .acc-content { display: none; border: 1px solid var(--black); border-top: none; padding: 16px; font-size: 0.9rem; color: var(--black); line-height: 1.6; border-radius: 0; background: var(--white); }
         .acc-content.show { display: block; animation: fadeIn 0.3s ease; }
 
         /* BOTONES DE COMPRA */
-        .btn-add-cart, .btn-buy-now { 
-            width: 100%; padding: 18px; font-size: 0.9rem; font-weight: 900; 
-            text-transform: uppercase; border-radius: 0; cursor: pointer; 
-            letter-spacing: 1px; display: block; text-align: center; text-decoration: none; 
-            transition: transform 0.2s;
-        }
-        .btn-add-cart { 
-            background: var(--white); color: var(--black); border: 1px solid var(--black); margin-bottom: 12px; 
-        }
-        .btn-buy-now { 
-            background: var(--black); color: var(--white); border: 1px solid var(--black); 
-        }
+        .btn-add-cart, .btn-buy-now { width: 100%; padding: 18px; font-size: 0.9rem; font-weight: 900; text-transform: uppercase; border-radius: 0; cursor: pointer; letter-spacing: 1px; display: block; text-align: center; text-decoration: none; transition: transform 0.2s; }
+        .btn-add-cart { background: var(--white); color: var(--black); border: 1px solid var(--black); margin-bottom: 12px; }
+        .btn-buy-now { background: var(--black); color: var(--white); border: 1px solid var(--black); }
         .btn-add-cart:hover, .btn-buy-now:hover { transform: scale(1.02); }
 
-        /* --- WC 2027 & CONTACT (Manteniendo el código original intacto) --- */
+        /* --- WC 2027 & CONTACT --- */
         .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
         .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
         .wc-banner h1 { position: relative; z-index: 10; color: #ffd700; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 0 4px 20px rgba(255,215,0,0.4); text-align: center; }
@@ -753,7 +699,7 @@
             grid.innerHTML = products.map(p => {
                 const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
                 const reviews = Math.floor(Math.random() * 1000) + 50;
-                const formattedName = p.name; // Mayúscula como solicitó
+                const formattedName = p.name; 
 
                 return `
                 <div class="product-item" onclick="openProductDetail(${p.id})">
@@ -822,7 +768,7 @@
             track.style.transform = `translateX(${transX}px)`;
         }
 
-        /* --- LÓGICA DE DETALLE DE PRODUCTO Y CARRUSELES --- */
+        /* --- LÓGICA DE DETALLE DE PRODUCTO Y CARRUSELES (MEJORADA) --- */
         let productQty = 1;
 
         function openProductDetail(id) {
@@ -830,7 +776,6 @@
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailPrice').innerText = p.price;
             
-            // Reiniciar Valores
             productQty = 1;
             document.getElementById('qtyValue').innerText = productQty;
             document.getElementById('accContent').classList.remove('show');
@@ -839,21 +784,27 @@
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
             
-            // Pintar imágenes
             mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
             thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="thumb-img-${idx}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
             
-            // Lógica para que se actualicen las miniaturas al scrollear el carrusel principal
+            // Detección precisa de imagen activa basada en la posición central
             mainC.onscroll = () => {
-                // Cálculo matemático para detectar la imagen centrada actualmente
-                // 85% de ancho (imagen) + 15px de espacio
-                const itemWidthWithGap = (mainC.clientWidth * 0.85) + 15;
-                const activeIndex = Math.round(mainC.scrollLeft / itemWidthWithGap);
+                let activeIndex = 0;
+                let minDistance = Infinity;
+                const containerCenter = mainC.scrollLeft + (mainC.clientWidth / 2);
+
+                mainC.querySelectorAll('img').forEach((img, i) => {
+                    const imgCenter = img.offsetLeft + (img.offsetWidth / 2);
+                    const distance = Math.abs(containerCenter - imgCenter);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeIndex = i;
+                    }
+                });
                 
                 thumbC.querySelectorAll('img').forEach((t, i) => {
                     if(i === activeIndex) {
                         t.classList.add('active');
-                        // Asegurar que la miniatura activa también scrollee y sea visible
                         const thumbRect = t.getBoundingClientRect();
                         const containerRect = thumbC.getBoundingClientRect();
                         if(thumbRect.left < containerRect.left || thumbRect.right > containerRect.right) {
@@ -865,7 +816,6 @@
                 });
             };
             
-            // Hacer scroll directo al inicio del carrusel por si guardó memoria
             setTimeout(() => {
                 mainC.scrollTo({ left: 0, behavior: 'instant' });
                 thumbC.scrollTo({ left: 0, behavior: 'instant' });
@@ -874,12 +824,14 @@
             navigate('product');
         }
 
-        // Sincronizar al hacer click en la miniatura
+        // Sincronización exacta en base al elemento objetivo
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
-            const itemWidthWithGap = (mainC.clientWidth * 0.85) + 15;
-            // Deslizarse a la imagen exacta matemáticamente
-            mainC.scrollTo({ left: index * itemWidthWithGap, behavior: 'smooth' });
+            const targetImg = mainC.querySelectorAll('img')[index];
+            if(targetImg) {
+                const scrollPos = targetImg.offsetLeft - (mainC.clientWidth / 2) + (targetImg.offsetWidth / 2);
+                mainC.scrollTo({ left: scrollPos, behavior: 'smooth' });
+            }
         }
 
         /* --- CONTROL DE CANTIDAD Y ACORDEÓN --- */
