@@ -634,26 +634,27 @@
         <section id="view-account" class="view section-container">
             <div class="account-page-wrapper">
                 <img src="https://images.squarespace-cdn.com/content/v1/5f4039328246f40954f67606/1598031252118-W6P1P0N9Z7XN96Z9X2PZ/ANKOR_LOGO_WHITE.png" alt="ANKOR" class="account-page-logo">
-                <form class="account-page-form" onsubmit="handleAccountCreation(event)" novalidate>
+                <form class="account-page-form" id="registerForm" onsubmit="handleAccountCreation(event)" novalidate>
                     <div class="ap-input-group" id="group_nombre">
                         <label>NOMBRE</label>
                         <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre">
-                        <span class="error-hint">Ingrese un nombre válido.</span>
+                        <span class="error-hint" id="hint_nombre">Ingrese un nombre válido.</span>
                     </div>
-                    <div class="ap-input-group">
+                    <div class="ap-input-group" id="group_apellido">
                         <label>APELLIDO</label>
                         <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
+                        <span class="error-hint" id="hint_apellido">Ingrese un apellido válido.</span>
                     </div>
                     <div class="ap-input-group" id="group_email">
                         <label>CORREO ELECTRÓNICO</label>
                         <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro">
-                        <span class="error-hint">Ingrese un correo electrónico válido.</span>
+                        <span class="error-hint" id="hint_email">Ingrese un correo electrónico válido.</span>
                     </div>
                     <div class="ap-input-group pw-group" id="group_password">
                         <label>CONTRASEÑA</label>
                         <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
                         <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
-                        <span class="error-hint">Límite de caracteres alcanzado (20 caracteres)</span>
+                        <span class="error-hint" id="hint_password">Límite de caracteres alcanzado (20 caracteres)</span>
                     </div>
                     <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
                 </form>
@@ -730,6 +731,14 @@
         function navigate(viewId) {
             if (viewId === 'product') {
                 storeScrollPos = window.scrollY;
+            }
+
+            // LIMPIEZA ABSOLUTA DEL FORMULARIO AL ENTRAR A LA VISTA DE REGISTRO
+            if (viewId === 'account') {
+                const form = document.getElementById('registerForm');
+                if(form) form.reset();
+                document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
+                document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
             }
 
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -948,9 +957,43 @@
 
         /* --- SECURITY LOGIC (LOGEO) --- */
         const passInput = document.getElementById('reg_password');
-        const passHint = document.querySelector('#group_password .error-hint');
+        const passHint = document.getElementById('hint_password');
+        const emailInput = document.getElementById('reg_email');
+        const emailHint = document.getElementById('hint_email');
         
-        // Bloqueo de caracteres en contraseña > 20
+        // Función genérica para límites de Nombre y Apellido
+        function setupNameLimits(inputId, hintId) {
+            const input = document.getElementById(inputId);
+            const hint = document.getElementById(hintId);
+
+            input.addEventListener('keydown', function(e) {
+                // Bloquea el teclado si hay 12 o más caracteres y el usuario intenta tipear más (evitando teclas de control)
+                if (this.value.length >= 12 && e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    this.classList.add('input-error');
+                    hint.innerText = "Límite de caracteres alcanzado (12 caracteres)";
+                    hint.style.display = 'block';
+                }
+            });
+
+            input.addEventListener('input', function(e) {
+                if (this.value.length > 12) {
+                    this.value = this.value.substring(0, 12);
+                    this.classList.add('input-error');
+                    hint.innerText = "Límite de caracteres alcanzado (12 caracteres)";
+                    hint.style.display = 'block';
+                } else {
+                    // Si se borra algo (o el tamaño es correcto), vuelve al estado neutro
+                    this.classList.remove('input-error');
+                    hint.style.display = 'none';
+                }
+            });
+        }
+        
+        setupNameLimits('reg_nombre', 'hint_nombre');
+        setupNameLimits('reg_apellido', 'hint_apellido');
+
+        // Contraseña
         passInput.addEventListener('input', function() {
             if (this.value.length >= 20) {
                 this.value = this.value.substring(0, 20);
@@ -962,32 +1005,47 @@
             }
         });
 
+        // Email neutro al borrar/escribir
+        emailInput.addEventListener('input', function() {
+            this.classList.remove('input-error');
+            emailHint.style.display = 'none';
+        });
+
         function handleAccountCreation(e) {
             e.preventDefault();
             
-            // Limpiar errores previos
+            // Limpiar errores previos visualmente por si acaso
             document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
             document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
 
             const nombreInput = document.getElementById('reg_nombre');
-            const emailInput = document.getElementById('reg_email');
-            const passwordInput = document.getElementById('reg_password');
+            const apellidoInput = document.getElementById('reg_apellido');
+            
+            const nombre = nombreInput.value.trim();
+            const apellido = apellidoInput.value.trim();
+            const email = emailInput.value.trim();
+            const pass = passInput.value;
 
-            const nombre = nombreInput.value;
-            const email = emailInput.value;
-            const pass = passwordInput.value;
-
-            // 1. RESTRICCIÓN NOMBRE
-            // No permitir caracteres raros y no permitir 3 letras iguales seguidas
             const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
             const tripleLetterRegex = /(.)\1\1/;
 
-            if (!nameRegex.test(nombre) || tripleLetterRegex.test(nombre) || nombre.trim() === "") {
+            // 1. RESTRICCIÓN NOMBRE
+            if (nombre.length < 2 || !nameRegex.test(nombre) || tripleLetterRegex.test(nombre)) {
+                document.getElementById('hint_nombre').innerText = "Ingrese un nombre válido.";
                 applyValidationError('group_nombre', nombreInput);
                 return;
             }
 
-            // 2. RESTRICCIÓN CORREO
+            // 2. RESTRICCIÓN APELLIDO (Opcional, pero con las mismas reglas si se llena)
+            if (apellido.length > 0) {
+                if (apellido.length < 2 || !nameRegex.test(apellido) || tripleLetterRegex.test(apellido)) {
+                    document.getElementById('hint_apellido').innerText = "Ingrese un apellido válido.";
+                    applyValidationError('group_apellido', apellidoInput);
+                    return;
+                }
+            }
+
+            // 3. RESTRICCIÓN CORREO
             const emailParts = email.split('@');
             const validDomains = ['gmail.com', 'hotmail.com', 'outlook.com'];
             const tempDomains = ['yopmail.com', 'tempmail.com', 'mailinator.com'];
@@ -997,27 +1055,28 @@
                 isEmailValid = false;
             } else {
                 const domain = emailParts[1];
-                // Solo dominios específicos, en minúsculas y no temporales
                 if (!validDomains.includes(domain) || tempDomains.includes(domain) || domain !== domain.toLowerCase()) {
                     isEmailValid = false;
                 }
             }
             
             if (!isEmailValid) {
+                emailHint.innerText = "Ingrese un correo electrónico válido.";
                 applyValidationError('group_email', emailInput);
                 return;
             }
 
-            // 3. RESTRICCIÓN CONTRASEÑA (MIN 8)
+            // 4. RESTRICCIÓN CONTRASEÑA
             if (pass.length < 8) {
-                alert("La contraseña debe tener al menos 8 caracteres.");
-                passwordInput.classList.add('input-error');
+                passHint.innerText = "La contraseña debe tener al menos 8 caracteres.";
+                applyValidationError('group_password', passInput);
                 return;
             }
 
-            // ÉXITO
+            // ÉXITO - Se crea el usuario (Si no hay apellido, queda solo el nombre)
+            let fullName = nombre + (apellido ? ' ' + apellido : '');
             loggedUser = {
-                nombre: nombre,
+                nombre: fullName,
                 avatar: 'https://ui-avatars.com/api/?name=' + nombre + '&background=000&color=fff'
             };
             
@@ -1034,7 +1093,6 @@
             inputElement.classList.add('input-error');
             hint.style.display = 'block';
             
-            // "Teletransportar" al elemento
             group.scrollIntoView({ behavior: 'smooth', block: 'center' });
             inputElement.focus();
         }
@@ -1058,7 +1116,7 @@
             if (loggedUser) {
                 container.innerHTML = `<img src="${loggedUser.avatar}" class="header-avatar" onclick="toggleUserDropdown()">`;
                 document.getElementById('ud-avatar-img').src = loggedUser.avatar;
-                document.getElementById('ud-greeting-text').innerText = `¡Hola, ${loggedUser.nombre}!`;
+                document.getElementById('ud-greeting-text').innerText = `¡Hola, ${loggedUser.nombre.split(' ')[0]}!`;
             } else {
                 container.innerHTML = `<button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>`;
                 closeUserDropdown();
