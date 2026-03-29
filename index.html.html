@@ -273,26 +273,29 @@
 
         .product-detail-layout { display: flex; flex-direction: column; width: 100%; gap: 15px; }
 
-        /* Carruceles */
+        /* Carruceles Ajustados (Cuadrado, Centrado, Asomo y Bordes Redondeados) */
         .prod-images-panel { width: 100%; display: flex; flex-direction: column; gap: 10px; }
         
         .main-carousel-container { 
             position: relative; width: 100%; overflow: hidden; background: transparent; 
         }
         .main-carousel { 
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; 
-            padding-right: 15%; /* Espacio para el asomo */
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            scrollbar-width: none; 
+            padding: 0 10%; /* Crea el espacio a los lados para el asomo */
+            gap: 15px; /* Espacio limpio y simétrico entre imágenes */
             cursor: grab;
         }
         .main-carousel::-webkit-scrollbar { display: none; }
         
         .main-carousel img { 
-            flex: 0 0 85%; /* Muestra el 85% y deja ver el asomo del siguiente */
-            aspect-ratio: 1/1; /* Cuadrado perfecto */
+            flex: 0 0 100%; /* Toma el 100% del área interna (que es el 80% total debido al padding) */
+            aspect-ratio: 1/1; /* Cuadrado perfecto garantizado */
             object-fit: cover; 
-            scroll-snap-align: start; 
-            margin-right: 15px; /* Espacio entre imágenes */
-            border-radius: 12px; /* Vértices redondeados */
+            scroll-snap-align: center; /* Se centra perfectamente al detener el scroll */
+            border-radius: 16px; /* Vértices redondeados acentuados */
         }
 
         .thumb-carousel { 
@@ -861,7 +864,6 @@
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailPrice').innerText = p.price;
             
-            // Reset Qty & Accordion on open
             currentProductQty = 1;
             document.getElementById('pdp-qty').innerText = currentProductQty;
             const accBtn = document.querySelector('.pdp-accordion-btn');
@@ -873,16 +875,27 @@
             mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
             thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
             
-            // Sync Principal -> Miniatura
+            // Sync Principal -> Miniatura (Actualizado para el diseño centrado)
             mainC.onscroll = () => {
-                // Cálculo preciso del scroll actual teniendo en cuenta el margin (15px)
-                const imgWidth = (mainC.children[0].offsetWidth) + 15; 
-                const activeIndex = Math.round(mainC.scrollLeft / imgWidth);
+                // Buscamos el punto central del contenedor visual en lugar del borde
+                const centerPoint = mainC.scrollLeft + (mainC.clientWidth / 2);
+                let activeIndex = 0;
+                let minDiff = Infinity;
+                
+                // Encontramos qué imagen está más cerca del centro
+                Array.from(mainC.children).forEach((img, i) => {
+                    const imgCenter = img.offsetLeft + (img.offsetWidth / 2);
+                    const diff = Math.abs(imgCenter - centerPoint);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        activeIndex = i;
+                    }
+                });
                 
                 thumbC.querySelectorAll('img').forEach((t, i) => {
                     if (i === activeIndex) {
                         t.classList.add('active');
-                        // Auto-scroll del mini carrusel para que la miniatura se vea en pantalla
+                        // Auto-scroll del mini carrusel
                         const tLeft = t.offsetLeft;
                         const tWidth = t.offsetWidth;
                         const cWidth = thumbC.clientWidth;
@@ -897,13 +910,14 @@
             navigate('product');
         }
 
-        // Sync Miniatura -> Principal
+        // Sync Miniatura -> Principal (Actualizado para el diseño centrado)
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
             const imgTarget = document.getElementById(`main-img-${index}`);
             if(imgTarget) {
-                // Al hacer scroll, la imagen debe quedar a la izquierda (offsetLeft)
-                mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
+                // Desplazamiento calculado para que la imagen quede en el centro de la pantalla
+                const scrollPos = imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2);
+                mainC.scrollTo({ left: scrollPos, behavior: 'smooth' });
             }
         }
 
