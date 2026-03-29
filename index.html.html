@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANKOR | Official Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -219,24 +219,9 @@
         
         .social-card.active { background: var(--black); color: var(--white); }
         
-        .social-card.active .social-icon { 
-            transform: translateY(-55px) scale(0.7); 
-            color: var(--white); 
-        }
-        
-        .social-card.active .social-name { 
-            opacity: 1; 
-            transform: translateY(-65px) scale(0.6); 
-            color: var(--white);
-            margin-top: 5px;
-        }
-        
-        .social-card.active .social-accounts { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0); 
-            pointer-events: auto; 
-        }
+        .social-card.active .social-icon { transform: translateY(-55px) scale(0.7); color: var(--white); }
+        .social-card.active .social-name { opacity: 1; transform: translateY(-65px) scale(0.6); color: var(--white); margin-top: 5px; }
+        .social-card.active .social-accounts { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
         
         .account-btn {
             background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px;
@@ -272,113 +257,120 @@
         .product-meta { text-align: left; display: flex; flex-direction: column; }
         .product-title { font-weight: 400; font-size: 0.9rem; text-transform: none; margin-bottom: 4px; color: var(--black); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .product-price { font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 6px; }
-        
         .product-reviews { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
         .product-reviews .stars { color: var(--black); display: flex; gap: 2px; font-size: 0.75rem; }
 
-        /* --- NUEVA: PRODUCT DETAIL PAGE COMPLETA --- */
-        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 20px; }
-        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: flex-start;} }
+        /* --- PRODUCT DETAIL PAGE (NEW DESIGN) --- */
+        .product-detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 900px) { .product-detail-layout { grid-template-columns: 1.2fr 1fr; gap: 60px; } }
         
-        /* Contenedor Principal Carrusel */
-        .main-carousel-container { position: relative; width: 100%; overflow: hidden; background: transparent; }
+        /* Carrusel Principal */
+        .prod-images-panel { width: 100%; display: flex; flex-direction: column; }
+        .main-carousel-container { position: relative; width: 100%; overflow: hidden; }
         .main-carousel { 
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-            scrollbar-width: none; gap: 15px; padding: 0 calc(7.5%); 
-            scroll-behavior: smooth; cursor: grab;
+            scrollbar-width: none; padding-right: 15%; /* Esto crea el "peak" o asomo */
         }
         .main-carousel::-webkit-scrollbar { display: none; }
         .main-carousel img { 
-            flex: 0 0 85%; /* Deja espacio a los lados para el "peak" */
+            flex: 0 0 85%; /* Ocupa el 85% para dejar el 15% visible a la derecha */
             aspect-ratio: 1/1; /* Cuadrado perfecto */
             object-fit: cover; 
-            scroll-snap-align: center; /* Se centra perfectamente en pantalla */
-            border-radius: 12px; /* Vértices redondeados */
+            scroll-snap-align: start; 
+            margin-right: 15px; 
+            border-radius: 16px; /* Vértices redondeados */
         }
         
         /* Mini Carrusel */
         .thumb-carousel { 
-            display: flex; gap: 10px; margin-top: 15px; overflow-x: auto; 
-            padding: 5px calc(7.5%) 15px; scrollbar-width: none; scroll-behavior: smooth;
+            display: flex; gap: 12px; margin-top: 15px; overflow-x: auto; 
+            padding-bottom: 10px; scrollbar-width: none; 
         }
         .thumb-carousel::-webkit-scrollbar { display: none; }
         .thumb-carousel img { 
-            width: 70px; height: 70px; /* Cuadrado perfecto */
-            object-fit: cover; border-radius: 8px; /* Vértices redondeados */
-            cursor: pointer; opacity: 0.5; transition: all 0.3s ease; 
-            border: 2px solid transparent; flex-shrink: 0; 
+            width: 80px; height: 80px; aspect-ratio: 1/1; object-fit: cover; 
+            border-radius: 12px; cursor: pointer; opacity: 0.5; 
+            transition: opacity 0.3s ease, border 0.3s ease, transform 0.2s; 
+            border: 2px solid transparent; flex-shrink: 0;
         }
         .thumb-carousel img.active { 
-            opacity: 1; 
-            border-color: var(--black); /* Contorno más marcado */
-            transform: scale(1.05);
+            opacity: 1; border-color: var(--black); 
+        }
+        .thumb-carousel img:hover { opacity: 0.8; }
+
+        /* Info del Producto */
+        .prod-info-panel { text-align: left; display: flex; flex-direction: column; }
+        
+        .detail-title { 
+            font-size: 1.8rem; font-weight: 900; letter-spacing: -0.5px; 
+            text-transform: uppercase; margin-bottom: 10px; color: var(--black); 
+        }
+        .detail-price { 
+            font-family: 'Inter', sans-serif; font-size: 1.4rem; font-weight: 400; 
+            letter-spacing: 0.5px; color: var(--black); margin-bottom: 30px; 
         }
 
-        /* Información del Producto */
-        .prod-info-panel h1 { 
-            font-size: 1.6rem; font-weight: 700; text-transform: uppercase; 
-            text-align: left; margin-bottom: 8px; color: var(--black); 
-        }
-        .prod-info-panel .price { 
-            font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 400; 
-            text-align: left; margin-bottom: 25px; color: var(--black); letter-spacing: 0.5px;
-        }
-
-        /* Selector de Cantidad */
+        /* Cantidad */
         .qty-label { 
-            font-size: 0.75rem; color: var(--text-muted); text-align: left; 
-            margin-bottom: 8px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+            font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; 
+            font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; 
         }
         .qty-selector { 
-            display: inline-flex; align-items: center; border: 1px solid var(--border); 
-            border-radius: 8px; /* Pequeño rectángulo con vértices redondeados */
-            overflow: hidden; height: 40px; margin-bottom: 30px; 
+            display: inline-flex; align-items: center; justify-content: space-between;
+            border: 1px solid var(--border); border-radius: 8px; 
+            height: 45px; background: var(--white); width: 120px; margin-bottom: 30px;
         }
         .qty-btn { 
-            background: transparent; border: none; width: 40px; height: 100%; 
-            cursor: pointer; font-size: 1.2rem; color: var(--black); transition: background 0.2s; 
+            width: 40px; height: 100%; background: none; border: none; 
+            font-size: 1.2rem; cursor: pointer; color: var(--black); 
+            display: flex; align-items: center; justify-content: center;
         }
-        .qty-btn:hover { background: var(--light-gray); }
-        .qty-input { 
-            width: 40px; text-align: center; border: none; font-size: 1rem; 
-            font-weight: 500; pointer-events: none; background: transparent; color: var(--black); 
-        }
+        .qty-btn:hover { color: var(--text-muted); }
+        .qty-val { font-weight: 700; font-size: 1rem; color: var(--black); }
 
         /* Acordeón Características */
-        .accordion { width: 100%; margin-bottom: 30px; }
-        .accordion-header { 
-            border: 1px solid var(--black); background: var(--white); 
-            border-radius: 0; /* Sin vértices redondeados */
-            padding: 15px 20px; display: flex; justify-content: space-between; 
-            align-items: center; cursor: pointer; text-transform: uppercase; 
-            font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; 
-            color: var(--black); transition: background 0.2s; 
+        .features-wrapper { margin-bottom: 30px; }
+        .features-btn { 
+            width: 100%; background: var(--white); border: 1px solid var(--black); 
+            border-radius: 0; /* Sin redondeo */
+            padding: 18px 20px; display: flex; justify-content: space-between; 
+            align-items: center; font-family: inherit; font-size: 0.9rem; 
+            font-weight: 700; color: var(--black); text-transform: uppercase; 
+            cursor: pointer; transition: background 0.2s;
         }
-        .accordion-content { 
-            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; 
-            border-left: 1px solid var(--black); border-right: 1px solid var(--black); 
-            border-bottom: 0 solid var(--black); background: var(--white); 
-        }
-        .accordion.open .accordion-content { 
-            border-bottom: 1px solid var(--black); max-height: 800px; 
-        }
-        .accordion.open .accordion-header { border-bottom: none; }
-        .accordion-inner { padding: 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
-
-        /* Botones de Compra */
-        .btn-add-cart, .btn-buy-now { 
-            width: 100%; padding: 18px; font-weight: 700; font-size: 0.9rem; 
-            text-transform: uppercase; border-radius: 0; /* Sin vértices redondeados */
-            cursor: pointer; transition: transform 0.2s, background 0.2s, color 0.2s; 
-            letter-spacing: 1px; margin-bottom: 15px; display: block; text-align: center; text-decoration: none;
-        }
-        .btn-add-cart { background: var(--white); color: var(--black); border: 1px solid var(--black); }
-        .btn-add-cart:hover { background: var(--light-gray); }
+        .features-btn:hover { background: var(--light-gray); }
+        .features-icon { transition: transform 0.3s ease; font-size: 0.9rem; }
+        .features-btn.active .features-icon { transform: rotate(180deg); }
         
-        .btn-buy-now { background: var(--black); color: var(--white); border: 1px solid var(--black); }
-        .btn-buy-now:hover { background: #222; }
+        .features-content { 
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease; 
+            border: 1px solid var(--black); border-top: none; 
+            border-radius: 0; background: var(--white);
+        }
+        .features-inner { 
+            padding: 20px; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); 
+            white-space: pre-wrap;
+        }
 
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; }
+        /* Botones Acción */
+        .btn-cart { 
+            width: 100%; background: var(--white); border: 1px solid var(--black); 
+            color: var(--black); padding: 18px; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 1px; border-radius: 0; 
+            cursor: pointer; margin-bottom: 12px; transition: all 0.2s; 
+            font-size: 0.95rem;
+        }
+        .btn-cart:hover { background: var(--light-gray); }
+        
+        .btn-buy { 
+            width: 100%; background: var(--black); border: 1px solid var(--black); 
+            color: var(--white); padding: 18px; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 1px; border-radius: 0; 
+            cursor: pointer; transition: all 0.2s; font-size: 0.95rem;
+        }
+        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; margin-bottom: 30px; border: none; background: none; text-transform: uppercase; font-size: 0.85rem; color: var(--black); }
         .back-btn:hover { text-decoration: underline; }
 
         /* --- WC 2027 --- */
@@ -529,40 +521,35 @@
                     </div>
                     <div class="thumb-carousel" id="detailThumbCarousel"></div>
                 </div>
-                
+
                 <div class="prod-info-panel">
-                    <h1 id="detailTitle">PRODUCT NAME</h1>
-                    <div class="price" id="detailPrice">$00.00 USD</div>
+                    <h1 class="detail-title" id="detailTitle">PRODUCT NAME</h1>
+                    <div class="detail-price" id="detailPrice">$00.00 USD</div>
                     
                     <div class="qty-label">Cantidad</div>
                     <div class="qty-selector">
-                        <button class="qty-btn" onclick="changeQty(-1)"><i class="fa-solid fa-minus" style="font-size:0.8rem;"></i></button>
-                        <input type="text" id="qtyInput" class="qty-input" value="1" readonly>
-                        <button class="qty-btn" onclick="changeQty(1)"><i class="fa-solid fa-plus" style="font-size:0.8rem;"></i></button>
+                        <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <span class="qty-val" id="prodQty">1</span>
+                        <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
                     </div>
 
-                    <div class="accordion" id="prodAccordion">
-                        <div class="accordion-header" onclick="toggleAccordion()">
-                            <span>Características</span>
-                            <i class="fa-solid fa-chevron-down" id="accordionIcon" style="transition: transform 0.3s;"></i>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <p style="margin-bottom: 10px;">Prenda premium diseñada para resistir y potenciar tu rendimiento. Materiales de alta ingeniería con un ajuste perfecto. Sé imparable en cada entrenamiento.</p>
-                                <ul style="margin-left: 20px;">
-                                    <li>Material premium de secado ultra rápido.</li>
-                                    <li>Costuras reforzadas de grado industrial.</li>
-                                    <li>Diseño de estética silenciosa y misteriosa.</li>
-                                </ul>
-                            </div>
+                    <div class="features-wrapper">
+                        <button class="features-btn" id="featuresBtn" onclick="toggleFeatures()">
+                            CARACTERÍSTICAS <i class="fa-solid fa-chevron-down features-icon"></i>
+                        </button>
+                        <div class="features-content" id="featuresContent">
+                            <div class="features-inner">Prenda ultra premium diseñada bajo los estándares de ANKOR.
+- Ajuste arquitectónico perfecto.
+- Tela de alta ingeniería resistente al desgaste.
+- Minimalismo absoluto. Sin distracciones.
+- Edición limitada para la élite.</div>
                         </div>
                     </div>
 
-                    <button class="btn-add-cart">Agregar al carrito</button>
-                    
-                    <a href="https://buy.stripe.com/test_link" target="_blank" class="btn-buy-now">Adquirir ahora</a>
+                    <button class="btn-cart">AGREGAR AL CARRITO</button>
+                    <button class="btn-buy" onclick="window.location.href='#'">ADQUIRIR AHORA</button>
                 </div>
-                
+
             </div>
         </section>
 
@@ -761,7 +748,7 @@
             const width = carousel.clientWidth;
             
             let index = Math.round(scrollLeft / width);
-            const totalDots = track.children.length; 
+            const totalDots = track.children.length;
             if(index >= totalDots) index = totalDots - 1; 
             if(index < 0) index = 0;
             
@@ -775,89 +762,80 @@
             track.style.transform = `translateX(${transX}px)`;
         }
 
-        /* --- NUEVA LÓGICA: DETAIL VIEWER --- */
-        let currentDetailImgs = [];
-        
+        /* --- PRODUCT DETAIL LOGIC --- */
+        let currentQty = 1;
+
         function openProductDetail(id) {
             const p = products.find(prod => prod.id === id);
-            currentDetailImgs = p.imgs;
             
+            // Setear info
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailPrice').innerText = p.price;
             
-            // Reiniciar inputs visuales
-            document.getElementById('qtyInput').value = 1;
-            document.getElementById('prodAccordion').classList.remove('open');
-            document.getElementById('accordionIcon').style.transform = 'rotate(0deg)';
+            // Resetear cantidad
+            currentQty = 1;
+            document.getElementById('prodQty').innerText = currentQty;
 
+            // Resetear Acordeón
+            const fContent = document.getElementById('featuresContent');
+            const fBtn = document.getElementById('featuresBtn');
+            fContent.style.maxHeight = null;
+            fBtn.classList.remove('active');
+
+            // Renderizar Imágenes
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
             
             mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" id="thumb-img-${idx}" onclick="syncCarousel(${idx})">`).join('');
+            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})" id="thumb-img-${idx}">`).join('');
             
-            // Reset scroll
-            mainC.scrollTo({left: 0});
-            thumbC.scrollTo({left: 0});
-
-            // Sincronización al scrollear el carrusel principal
+            // Conexión del scroll principal a los thumbs
             mainC.onscroll = () => {
-                const centerPosition = mainC.scrollLeft + (mainC.clientWidth / 2);
-                let activeIndex = 0;
-                let minDistance = Infinity;
+                // Calculamos el tamaño de la imagen visible (85% + margin)
+                const imgWidth = mainC.clientWidth * 0.85 + 15;
+                const activeIndex = Math.round(mainC.scrollLeft / imgWidth);
                 
-                currentDetailImgs.forEach((_, idx) => {
-                    const img = document.getElementById(`main-img-${idx}`);
-                    if(img) {
-                        const imgCenter = img.offsetLeft + (img.offsetWidth / 2);
-                        const distance = Math.abs(centerPosition - imgCenter);
-                        if(distance < minDistance) {
-                            minDistance = distance;
-                            activeIndex = idx;
+                thumbC.querySelectorAll('img').forEach((t, i) => {
+                    t.classList.toggle('active', i === activeIndex);
+                    // Mover ligeramente el thumb carousel para que siempre se vea el activo
+                    if(i === activeIndex) {
+                        const thumbTarget = document.getElementById(`thumb-img-${i}`);
+                        if(thumbTarget) {
+                            thumbTarget.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
                         }
                     }
                 });
-
-                thumbC.querySelectorAll('img').forEach((t, i) => {
-                    if(i === activeIndex) {
-                        t.classList.add('active');
-                        // Auto-scroll the thumb carousel to keep it in view
-                        t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    } else {
-                        t.classList.remove('active');
-                    }
-                });
             };
-
+            
             navigate('product');
         }
 
+        // Conexión del thumb al principal
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
             const imgTarget = document.getElementById(`main-img-${index}`);
-            if(imgTarget) {
-                // Centramos perfectamente la imagen seleccionada
-                const scrollPos = imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2);
-                mainC.scrollTo({ left: scrollPos, behavior: 'smooth' });
-            }
+            // Como usamos scroll-snap, el scrollTo al offsetLeft encaja perfectamente la imagen
+            if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft, behavior: 'smooth' });
         }
 
-        /* --- LÓGICA CANTIDAD Y ACORDEÓN --- */
-        function changeQty(step) {
-            const input = document.getElementById('qtyInput');
-            let val = parseInt(input.value) + step;
-            if(val < 1) val = 1;
-            input.value = val;
+        // Lógica de Cantidad
+        function updateQty(step) {
+            currentQty += step;
+            if(currentQty < 1) currentQty = 1;
+            document.getElementById('prodQty').innerText = currentQty;
         }
 
-        function toggleAccordion() {
-            const acc = document.getElementById('prodAccordion');
-            const icon = document.getElementById('accordionIcon');
-            acc.classList.toggle('open');
-            if(acc.classList.contains('open')) {
-                icon.style.transform = 'rotate(180deg)';
+        // Lógica de Acordeón
+        function toggleFeatures() {
+            const btn = document.getElementById('featuresBtn');
+            const content = document.getElementById('featuresContent');
+            
+            btn.classList.toggle('active');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
             } else {
-                icon.style.transform = 'rotate(0deg)';
+                content.style.maxHeight = content.scrollHeight + "px";
             }
         }
 
