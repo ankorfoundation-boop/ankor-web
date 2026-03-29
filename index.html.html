@@ -148,20 +148,6 @@
         .ud-logout { display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; transition: color 0.2s; align-self: flex-end; }
         .ud-logout:hover { color: var(--black); }
 
-        /* --- ACCOUNT MODAL --- */
-        .account-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .account-modal { background: var(--white); width: 90%; max-width: 420px; border-radius: 0; padding: 40px 30px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: modalIn 0.4s ease forwards; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .am-close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--black); }
-        .am-logo { display: block; margin: 0 auto 30px; max-width: 120px; height: auto; }
-        .am-form { display: flex; flex-direction: column; gap: 15px; }
-        .am-input-group { position: relative; width: 100%; }
-        .am-input { width: 100%; border: 1px solid var(--border); padding: 14px 15px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.3s; background: var(--light-gray); }
-        .am-input:focus { border-color: var(--black); background: var(--white); }
-        .am-eye { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem; }
-        .am-submit { background: var(--black); color: var(--white); border: none; padding: 16px; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; margin-top: 10px; cursor: pointer; transition: background 0.3s; letter-spacing: 1px; }
-        .am-submit:hover { background: #333; }
-
         /* --- CART SIDEBAR --- */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.4s ease; }
         .cart-overlay.active { display: block; opacity: 1; }
@@ -208,6 +194,17 @@
         .view { display: none; animation: fadeIn 0.5s ease forwards; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- ANIMACIONES DE CARRITO --- */
+        @keyframes doubleJump {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-12px) scale(1.1); }
+            50% { transform: translateY(0) scale(1); }
+            75% { transform: translateY(-8px) scale(1.1); }
+        }
+        .cart-double-jump {
+            animation: doubleJump 0.6s ease;
+        }
 
         /* --- HERO SLIDER --- */
         .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
@@ -258,6 +255,84 @@
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
         .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
+
+        /* --- ACCOUNT/REGISTER VIEW --- */
+        .account-page-wrapper {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .account-page-logo {
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 40px;
+            object-fit: contain;
+        }
+        .account-page-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .ap-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+        .ap-input-group label {
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: var(--black);
+            letter-spacing: 0.5px;
+        }
+        .ap-input {
+            width: 100%;
+            border: 1px solid var(--border);
+            padding: 16px 15px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s, background 0.3s;
+            background: var(--light-gray);
+        }
+        .ap-input::placeholder {
+            color: gray;
+        }
+        .ap-input:focus {
+            border-color: var(--black);
+            background: var(--white);
+        }
+        .pw-group { position: relative; }
+        .ap-eye {
+            position: absolute;
+            bottom: 16px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: gray;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .ap-submit {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+        .ap-submit:hover { background: #333; }
 
         /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -333,7 +408,6 @@
 
         .product-detail-layout { display: flex; flex-direction: column; width: 100%; gap: 15px; }
 
-        /* Carruceles Ajustados (Cuadrado, Centrado, Asomo y Bordes Redondeados) */
         .prod-images-panel { width: 100%; display: flex; flex-direction: column; gap: 10px; }
         
         .main-carousel-container { 
@@ -344,21 +418,21 @@
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
             scrollbar-width: none; 
-            padding: 0 12%; /* Espacio lateral para permitir el "peek" */
-            gap: 12px; /* Espacio simétrico entre imágenes */
+            padding: 0 12%;
+            gap: 12px;
             cursor: grab;
-            scroll-padding: 0 12%; /* Asegura que el snap considere el padding lateral */
+            scroll-padding: 0 12%; 
         }
         .main-carousel::-webkit-scrollbar { display: none; }
         
         .main-carousel img { 
-            flex: 0 0 100%; /* Ocupa el espacio central definido por el padding del contenedor */
-            aspect-ratio: 1/1; /* FORZADO CUADRADO */
+            flex: 0 0 100%;
+            aspect-ratio: 1/1; 
             width: 100%;
             height: auto; 
             object-fit: cover; 
             scroll-snap-align: center; 
-            border-radius: 24px; /* Vértices redondeados marcados */
+            border-radius: 24px; 
         }
 
         .thumb-carousel { 
@@ -571,9 +645,9 @@
             </nav>
             <div class="header-icons-container">
                 <div id="userBtnContainer">
-                    <button class="header-icon-btn" onclick="openAccountModal()"><i class="fa-regular fa-user"></i></button>
+                    <button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>
                 </div>
-                <button class="header-icon-btn" onclick="toggleCartMenu()">
+                <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
                 </button>
@@ -706,6 +780,32 @@
             </div>
         </section>
 
+        <section id="view-account" class="view section-container">
+            <div class="account-page-wrapper">
+                <img src="TU_URL_DE_IMAGEN_AQUI" alt="ANKOR" class="account-page-logo">
+                <form class="account-page-form" onsubmit="handleAccountCreation(event)">
+                    <div class="ap-input-group">
+                        <label>NOMBRE</label>
+                        <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre" required>
+                    </div>
+                    <div class="ap-input-group">
+                        <label>APELLIDO</label>
+                        <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
+                    </div>
+                    <div class="ap-input-group">
+                        <label>CORREO ELECTRÓNICO</label>
+                        <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro" required>
+                    </div>
+                    <div class="ap-input-group pw-group">
+                        <label>CONTRASEÑA</label>
+                        <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña" minlength="8" required>
+                        <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
+                    </div>
+                    <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
+                </form>
+            </div>
+        </section>
+
         <section id="view-wc2027" class="view">
             <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
             <div class="section-container">
@@ -741,26 +841,7 @@
         </section>
     </main>
 
-    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span>Mensaje enviado correctamente.</span></div>
-    
-    <div class="account-modal-overlay" id="accountModal">
-        <div class="account-modal">
-            <button class="am-close" onclick="closeAccountModal()">&times;</button>
-            <img src="URL_DEL_LOGO_AQUI" alt="ANKOR" class="am-logo">
-            <form class="am-form" onsubmit="handleAccountCreation(event)">
-                <input type="text" id="reg_nombre" class="am-input" placeholder="NOMBRE" required>
-                <input type="text" id="reg_apellido" class="am-input" placeholder="APELLIDO (Opcional)">
-                <input type="email" id="reg_email" class="am-input" placeholder="CORREO ELECTRÓNICO" required>
-                
-                <div class="am-input-group">
-                    <input type="password" id="reg_password" class="am-input" placeholder="CONTRASEÑA (Min. 8 caracteres)" minlength="8" required>
-                    <button type="button" class="am-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
-                </div>
-                
-                <button type="submit" class="am-submit">CREAR CUENTA ANKOR</button>
-            </form>
-        </div>
-    </div>
+    <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span id="toast-msg">Mensaje enviado correctamente.</span></div>
 
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartMenu()"></div>
     <div class="cart-sidebar" id="cartSidebar">
@@ -1039,7 +1120,7 @@
             }
         }
 
-        /* --- CONTACT --- */
+        /* --- CONTACT & TOAST --- */
         function handleContact(e) {
             e.preventDefault();
             const btn = e.target.querySelector('.submit-btn');
@@ -1049,25 +1130,18 @@
                 e.target.reset();
                 btn.innerText = "ENVIAR MENSAJE";
                 btn.disabled = false;
-                showToast();
+                showToast("Mensaje enviado correctamente.");
             }, 1000);
         }
-        function showToast() {
+        function showToast(msg) {
             const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        /* --- CUENTAS DE USUARIO --- */
+        /* --- CUENTAS DE USUARIO (SPA) --- */
         let loggedUser = null;
-
-        function openAccountModal() {
-            document.getElementById('accountModal').style.display = 'flex';
-        }
-        
-        function closeAccountModal() {
-            document.getElementById('accountModal').style.display = 'none';
-        }
 
         function togglePasswordVisibility() {
             const input = document.getElementById('reg_password');
@@ -1098,9 +1172,10 @@
                 avatar: 'https://ui-avatars.com/api/?name=' + document.getElementById('reg_nombre').value + '&background=000&color=fff' // Placeholder elegante
             };
             
-            closeAccountModal();
             updateHeaderUserUI();
             e.target.reset();
+            goHomeTop(); // Redirige al inicio tras crear cuenta/login
+            showToast("Cuenta iniciada exitosamente.");
         }
 
         function updateHeaderUserUI() {
@@ -1110,7 +1185,7 @@
                 document.getElementById('ud-avatar-img').src = loggedUser.avatar;
                 document.getElementById('ud-greeting-text').innerText = `¡Hola, ${loggedUser.nombre}!`;
             } else {
-                container.innerHTML = `<button class="header-icon-btn" onclick="openAccountModal()"><i class="fa-regular fa-user"></i></button>`;
+                container.innerHTML = `<button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>`;
                 closeUserDropdown();
             }
         }
@@ -1127,9 +1202,10 @@
         function logoutUser() {
             loggedUser = null;
             updateHeaderUserUI();
+            showToast("Sesión cerrada.");
         }
 
-        /* --- CARRITO DE COMPRAS --- */
+        /* --- CARRITO DE COMPRAS Y ANIMACIÓN DE VUELO --- */
         let shoppingCart = [];
 
         function toggleCartMenu() {
@@ -1156,8 +1232,51 @@
                     img: p.imgs[0]
                 });
             }
-            updateCartBadge();
-            toggleCartMenu();
+
+            // --- ANIMACIÓN DE TELETRANSPORTACIÓN ---
+            const cartBtn = document.getElementById('headerCartBtn');
+            const cartIcon = cartBtn.querySelector('i');
+            const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
+
+            if (cartBtn && activeImg) {
+                const imgRect = activeImg.getBoundingClientRect();
+                const cartRect = cartBtn.getBoundingClientRect();
+
+                const flyingImg = document.createElement('img');
+                flyingImg.src = p.imgs[0];
+                flyingImg.style.position = 'fixed';
+                flyingImg.style.top = imgRect.top + 'px';
+                flyingImg.style.left = imgRect.left + 'px';
+                flyingImg.style.width = imgRect.width + 'px';
+                flyingImg.style.height = imgRect.height + 'px';
+                flyingImg.style.borderRadius = '24px';
+                flyingImg.style.zIndex = '9999';
+                flyingImg.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.2, 1)';
+                flyingImg.style.objectFit = 'cover';
+                flyingImg.style.pointerEvents = 'none';
+                document.body.appendChild(flyingImg);
+
+                // Forzar reflujo
+                void flyingImg.offsetWidth;
+
+                // Animación hacia el carrito
+                flyingImg.style.top = (cartRect.top + cartRect.height / 2 - 10) + 'px';
+                flyingImg.style.left = (cartRect.left + cartRect.width / 2 - 10) + 'px';
+                flyingImg.style.width = '20px';
+                flyingImg.style.height = '20px';
+                flyingImg.style.opacity = '0';
+                flyingImg.style.borderRadius = '50%';
+
+                setTimeout(() => {
+                    flyingImg.remove();
+                    updateCartBadge();
+                    // Ejecutar doble salto
+                    cartIcon.classList.add('cart-double-jump');
+                    setTimeout(() => cartIcon.classList.remove('cart-double-jump'), 600);
+                }, 700);
+            } else {
+                updateCartBadge();
+            }
         }
 
         function modifyCartQty(id, step) {
