@@ -163,7 +163,6 @@
         .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
 
-        /* Slider Controls */
         .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
         .slider-arrow {
             pointer-events: auto; width: 50px; height: 50px; border-radius: 50%;
@@ -173,7 +172,6 @@
         }
         .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
 
-        /* --- CORRECCIÓN 1: Flechas móviles más pequeñas y esquinadas --- */
         @media (max-width: 768px) {
             .slider-controls { padding: 0 5px; }
             .slider-arrow { width: 38px; height: 38px; font-size: 1rem; }
@@ -188,29 +186,43 @@
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card {
             background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center;
-            transition: transform var(--transition-smooth), background 0.3s; position: relative; overflow: hidden;
-            border: 1px solid var(--border); cursor: pointer;
+            transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden;
+            border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;
         }
-        .social-icon { font-size: 3rem; margin-bottom: 20px; color: var(--black); transition: transform 0.3s; }
-        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 20px; }
         
-        /* --- CORRECCIÓN 2: Bug clics redes sociales (visibility hidden) --- */
+        .social-icon { font-size: 3rem; color: var(--black); transition: all 0.4s cubic-bezier(0.25, 1, 0.2, 1); z-index: 5; position: relative; }
+        .social-name { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; letter-spacing: -0.5px; margin-top: 20px; transition: all 0.2s ease-in; z-index: 5; position: relative; }
+        
         .social-accounts { 
             display: flex; flex-direction: column; gap: 10px; opacity: 0; 
-            visibility: hidden; /* Bloquea clics accidentales */
-            transform: translateY(20px); transition: all 0.4s ease; 
+            visibility: hidden; 
+            transform: translateY(20px); transition: all 0.5s ease; 
             position: absolute; bottom: 30px; left: 0; width: 100%; 
-            padding: 0 30px; align-items: center; pointer-events: none; 
+            padding: 0 30px; align-items: center; pointer-events: none; z-index: 10;
         }
         
-        .social-card:hover, .social-card.active { transform: translateY(-10px); background: var(--black); color: var(--white); }
-        .social-card:hover .social-icon, .social-card.active .social-icon { transform: scale(0.8) translateY(-20px); color: var(--white); }
-        .social-card:hover .social-name, .social-card.active .social-name { transform: translateY(-20px); transition: 0.3s; }
+        /* --- SOCIAL CARD HOVER / ACTIVE --- */
+        .social-card.active { background: var(--black); color: var(--white); }
         
-        .social-card:hover .social-accounts, .social-card.active .social-accounts { 
+        /* Logo sube y se pone blanco */
+        .social-card.active .social-icon { 
+            transform: translateY(-60px) scale(0.7); 
+            color: var(--white); 
+        }
+        
+        /* Nombre desaparece rápido */
+        .social-card.active .social-name { 
+            opacity: 0; 
+            transform: translateY(-10px); 
+            pointer-events: none;
+            transition: opacity 0.15s ease-out;
+        }
+        
+        .social-card.active .social-accounts { 
             opacity: 1; 
-            visibility: visible; /* Activa clics solo cuando es visible */
-            transform: translateY(0); pointer-events: auto; 
+            visibility: visible; 
+            transform: translateY(0); 
+            pointer-events: auto; 
         }
         
         .account-btn {
@@ -347,7 +359,7 @@
                 <h2 class="section-title">CONTENIDO ANKOR</h2>
                 <p class="section-subtitle">Contenido de valor. Mentalidad y Superación.</p>
                 <div class="social-grid">
-                    <div class="social-card" onclick="this.classList.toggle('active')">
+                    <div class="social-card" onclick="toggleSocialCard(this)">
                         <i class="fa-brands fa-tiktok social-icon"></i>
                         <h3 class="social-name">TikTok</h3>
                         <div class="social-accounts">
@@ -355,7 +367,7 @@
                             <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.es (ESPAÑOL)</a>
                         </div>
                     </div>
-                    <div class="social-card" onclick="this.classList.toggle('active')">
+                    <div class="social-card" onclick="toggleSocialCard(this)">
                         <i class="fa-brands fa-instagram social-icon"></i>
                         <h3 class="social-name">Instagram</h3>
                         <div class="social-accounts">
@@ -363,7 +375,7 @@
                             <a href="#" target="_blank" class="account-btn" onclick="event.stopPropagation()">@ankor.esp (ESPAÑOL)</a>
                         </div>
                     </div>
-                    <div class="social-card" onclick="this.classList.toggle('active')">
+                    <div class="social-card" onclick="toggleSocialCard(this)">
                         <i class="fa-brands fa-youtube social-icon"></i>
                         <h3 class="social-name">YouTube</h3>
                         <div class="social-accounts">
@@ -441,7 +453,6 @@
         /* --- NAVIGATION / SPA LOGIC --- */
         let storeScrollPos = 0;
 
-        // Función nueva para el logo
         function goHomeTop() {
             storeScrollPos = 0;
             navigate('home');
@@ -475,6 +486,18 @@
             document.getElementById('mobileOverlay').classList.toggle('active');
         }
 
+        /* --- SOCIAL CARDS INTERACTION --- */
+        function toggleSocialCard(card) {
+            // Si ya está activa, la cerramos
+            if(card.classList.contains('active')) {
+                card.classList.remove('active');
+            } else {
+                // Cerramos las otras primero
+                document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            }
+        }
+
         /* --- ANNOUNCEMENT --- */
         let tIndex = 0;
         const tickets = document.querySelectorAll('.ticket');
@@ -500,6 +523,7 @@
         let heroTimer;
         
         function moveHero(step) {
+            if(!slides.length) return;
             const currentSlide = slides[hIndex];
             currentSlide.classList.remove('active');
             currentSlide.style.transform = step > 0 ? 'translateX(-100%)' : 'translateX(100%)';
@@ -517,7 +541,7 @@
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
         resetHeroTimer();
 
-        /* --- STORE --- */
+        /* --- STORE RENDER --- */
         const products = Array.from({length: 14}, (_, i) => {
             const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/800`);
             return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, imgs: imgs }
@@ -525,6 +549,7 @@
 
         const grid = document.getElementById('productGrid');
         function renderProducts() {
+            if(!grid) return;
             grid.innerHTML = products.map(p => `
                 <div class="product-item" onclick="openProductDetail(${p.id})">
                     <div class="product-img-wrapper" id="pw-${p.id}">
