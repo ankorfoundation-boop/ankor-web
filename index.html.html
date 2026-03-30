@@ -412,89 +412,7 @@
         .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .toast.show { bottom: 40px; }
 
-        /* === NUEVO FOOTER ULTRA PROFESIONAL === */
-        .site-footer {
-            background: var(--black);
-            color: var(--white);
-            padding: 70px 20px 40px;
-            margin-top: 80px;
-        }
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 50px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid #333;
-        }
-        .footer-col h4 {
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.95rem;
-            margin-bottom: 18px;
-        }
-        .footer-col a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 9px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .footer-col a:hover {
-            color: var(--white);
-        }
-        .footer-logo-col img {
-            max-width: 160px;
-            margin-bottom: 12px;
-        }
-        .footer-logo-col p {
-            font-size: 1.1rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-        }
-        .footer-social {
-            display: flex;
-            gap: 18px;
-            margin-top: 10px;
-        }
-        .footer-social a {
-            color: #ccc;
-            font-size: 1.4rem;
-            transition: all 0.2s;
-        }
-        .footer-social a:hover {
-            color: var(--white);
-            transform: scale(1.15);
-        }
-        .footer-bottom {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: #999;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-        .footer-bottom a {
-            color: #999;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-        .footer-bottom a:hover {
-            color: var(--white);
-        }
-        @media (max-width: 768px) {
-            .footer-container {
-                gap: 35px;
-            }
-        }
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
     </style>
 </head>
 <body>
@@ -905,55 +823,7 @@
         </div>
     </div>
 
-    <!-- === FOOTER ULTRA PROFESIONAL === -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            <!-- Columna Logo -->
-            <div class="footer-col footer-logo-col">
-                <img src="https://images.squarespace-cdn.com/content/v1/5f4039328246f40954f67606/1598031252118-W6P1P0N9Z7XN96Z9X2PZ/ANKOR_LOGO_WHITE.png" alt="ANKOR" class="footer-logo">
-                <p>BE UNSTOPPABLE.</p>
-            </div>
-
-            <!-- Columna Navegación -->
-            <div class="footer-col">
-                <h4>Navegación</h4>
-                <a onclick="navigate('home')">Home</a>
-                <a onclick="navigate('home')">Tienda ANKOR</a>
-                <a onclick="navigate('wc2027')">ANKOR WC 2027</a>
-                <a onclick="navigate('contact')">Contacto ANKOR</a>
-            </div>
-
-            <!-- Columna Comunidad -->
-            <div class="footer-col">
-                <h4>Comunidad</h4>
-                <a href="#" target="_blank">TikTok @ankor.inc</a>
-                <a href="#" target="_blank">Instagram @ankor.inc</a>
-                <a href="#" target="_blank">YouTube @ankor.english</a>
-                <a href="#" target="_blank">TikTok @ankor.es</a>
-                <a href="#" target="_blank">Instagram @ankor.esp</a>
-            </div>
-
-            <!-- Columna Cuenta & Legal -->
-            <div class="footer-col">
-                <h4>Cuenta</h4>
-                <a onclick="navigate('account')">Iniciar Sesión</a>
-                <a onclick="navigate('account')">Crear Cuenta</a>
-                <h4 style="margin-top: 25px;">Legal</h4>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Términos de Servicio</a>
-                <a href="#">Envíos y Devoluciones</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>ANKOR© 2026 • ALL RIGHTS RESERVED • BE UNSTOPPABLE.</p>
-            <div>
-                <a onclick="navigate('home')">Home</a>
-                <a onclick="navigate('wc2027')">WC 2027</a>
-                <a onclick="navigate('contact')">Contacto</a>
-            </div>
-        </div>
-    </footer>
+    <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
         /* --- NAVIGATION / SPA LOGIC --- */
@@ -1576,7 +1446,14 @@
                 localStorage.setItem('ankorUser', JSON.stringify(savedUser));
                 updateHeaderUserUI();
                 navigate('home');
-                showToast("¡Sesión iniciada correctamente! Tu perfil está activo para siempre.");
+
+                // Mensaje solicitado para login exitoso
+                document.getElementById('fs-text').innerText = `¡Bienvenido de nuevo, ${loggedUser.nombre.split(' ')[0]}!`;
+                const fs = document.getElementById('floatingSuccess');
+                fs.classList.add('active');
+                setTimeout(() => {
+                    fs.classList.remove('active');
+                }, 4000);
             } else {
                 showToast("Correo o contraseña incorrectos.");
             }
@@ -1621,7 +1498,14 @@
             updateHeaderUserUI();
             e.target.reset();
             goHomeTop();
-            showToast("Cuenta creada exitosamente. ¡Tu perfil está activo para siempre!");
+
+            // Mensaje solicitado para creación de cuenta (dura exactamente 4 segundos y desaparece)
+            document.getElementById('fs-text').innerText = "Cuenta ANKOR creada con éxito.";
+            const fs = document.getElementById('floatingSuccess');
+            fs.classList.add('active');
+            setTimeout(() => {
+                fs.classList.remove('active');
+            }, 4000);
         }
 
         /* --- USER UI --- */
