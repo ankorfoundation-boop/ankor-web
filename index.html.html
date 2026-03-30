@@ -601,7 +601,7 @@
         <div class="floating-success" id="floatingSuccess">
             <button class="fs-close" onclick="closeFloatingSuccess()">&times;</button>
             <div class="fs-icon"><i class="fa-solid fa-check"></i></div>
-            <p class="fs-text">Operación exitosa.</p>
+            <p id="fs-text" class="fs-text">Operación exitosa.</p>
         </div>
 
         <!-- MODAL DE CERRAR SESIÓN -->
@@ -1447,20 +1447,17 @@
                 updateHeaderUserUI();
                 navigate('home');
 
-                // Mensaje solicitado para login exitoso
                 document.getElementById('fs-text').innerText = `¡Bienvenido de nuevo, ${loggedUser.nombre.split(' ')[0]}!`;
                 const fs = document.getElementById('floatingSuccess');
                 fs.classList.add('active');
-                setTimeout(() => {
-                    fs.classList.remove('active');
-                }, 4000);
+                setTimeout(() => { fs.classList.remove('active'); }, 4000);
             } else {
                 showToast("Correo o contraseña incorrectos.");
             }
         }
 
         /* --- REGISTRO --- */
-        function handleAccountCreation(e) {
+        async function handleAccountCreation(e) {
             e.preventDefault();
             document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
             document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
@@ -1499,7 +1496,26 @@
             e.target.reset();
             goHomeTop();
 
-            // Mensaje solicitado para creación de cuenta (dura exactamente 4 segundos y desaparece)
+            // === ENVÍO AUTOMÁTICO A GOOGLE SHEETS ===
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9Kb9-NAsLQoCRk7rbvqs3771ZcwXwq_D2JPu7TXf8QdKWjJnF3BDBIbKU4nEdYm4O/exec";
+            
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        apellido: apellido,
+                        email: email,
+                        password: pass
+                    })
+                });
+                console.log("✅ Datos guardados correctamente en Google Sheets (con fecha y hora exacta)");
+            } catch (err) {
+                console.error("⚠️ No se pudo guardar en Google Sheets:", err);
+            }
+
+            // Mensaje en pantalla (4 segundos)
             document.getElementById('fs-text').innerText = "Cuenta ANKOR creada con éxito.";
             const fs = document.getElementById('floatingSuccess');
             fs.classList.add('active');
