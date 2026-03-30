@@ -709,6 +709,11 @@
                         <button type="submit" class="ap-submit">INICIAR SESIÓN ANKOR</button>
                     </form>
                     
+                    <!-- NUEVO TEXTO SOLICITADO -->
+                    <p style="text-align: center; margin-top: 15px; font-size: 0.85rem;">
+                        <span onclick="forgotPassword()" style="color: #000000; font-weight: 700; text-decoration: underline; cursor: pointer;">¿Olvidaste tu contraseña ANKOR?</span>
+                    </p>
+                    
                     <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
                         <span onclick="switchToRegisterMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer;">¿No tienes una cuenta? Crear cuenta ANKOR</span>
                     </p>
@@ -1456,7 +1461,22 @@
             }
         }
 
-        /* --- REGISTRO --- */
+        /* --- FUNCIÓN OLVIDÓ CONTRASEÑA --- */
+        function forgotPassword() {
+            const emailInput = document.getElementById('login_email').value.trim();
+            if (!emailInput) {
+                showToast("Por favor ingresa tu correo electrónico para recuperar la contraseña.");
+                return;
+            }
+            document.getElementById('fs-text').innerText = `Se acaba de enviar la contraseña a ${emailInput}. Por favor, revise su correo e ingrese su contraseña.`;
+            const fs = document.getElementById('floatingSuccess');
+            fs.classList.add('active');
+            setTimeout(() => {
+                fs.classList.remove('active');
+            }, 6000);
+        }
+
+        /* --- REGISTRO CON VERIFICACIÓN DE CORREO EXISTENTE --- */
         async function handleAccountCreation(e) {
             e.preventDefault();
             document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
@@ -1480,6 +1500,17 @@
                 applyFieldError('reg_password', 'hint_password', "La contraseña debe tener al menos 8 caracteres."); return;
             }
 
+            // === VERIFICACIÓN DE CORREO YA EXISTENTE ===
+            const savedUserStr = localStorage.getItem('ankorUser');
+            if (savedUserStr) {
+                const savedUser = JSON.parse(savedUserStr);
+                if (savedUser.email === email) {
+                    showToast("Ese correo electrónico ya tiene cuenta ANKOR creada.");
+                    switchToLoginMode();
+                    return;
+                }
+            }
+
             let fullName = nombre + (apellido ? ' ' + apellido : '');
 
             const userData = {
@@ -1496,8 +1527,8 @@
             e.target.reset();
             goHomeTop();
 
-            // === ENVÍO AUTOMÁTICO A GOOGLE SHEETS ===
-            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9Kb9-NAsLQoCRk7rbvqs3771ZcwXwq_D2JPu7TXf8QdKWjJnF3BDBIbKU4nEdYm4O/exec";
+            // === ENVÍO AUTOMÁTICO A GOOGLE SHEETS (URL ACTUALIZADA) ===
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPoU55GJNimktK7p-fS9RKnaKMIk_vba4uLwRkPud_WQnqr9mgHCk1gfOzXNiYLSAO/exec";
             
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
