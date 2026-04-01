@@ -408,6 +408,36 @@
         .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 15px 30px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); z-index: 3000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .toast.show { bottom: 40px; }
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
+
+        /* ESTILOS PARA LOS ESPACIOS DE IMAGEN MULTIMEDIA (centrado y con margen exacto solicitado) */
+        .image-url-container {
+            text-align: center;
+            margin-top: 42px; /* ≈ 3.5-4 cm según DPI estándar en pantallas web */
+            margin-bottom: 15px;
+        }
+        .image-url-container input {
+            width: 85%;
+            max-width: 420px;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background: var(--white);
+        }
+        .image-url-container input:focus {
+            border-color: var(--black);
+        }
+        .image-url-container img {
+            display: none;
+            max-width: 300px;
+            margin: 22px auto 0;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border: 1px solid #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -667,6 +697,13 @@
                     <p style="text-align: center; margin: 25px 0 10px; font-size: 0.9rem; color: var(--text-muted);">
                         <span onclick="switchToLoginMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer; color: var(--black);">¿Ya tienes una cuenta?</span>
                     </p>
+
+                    <!-- ESPACIO PARA INSERTAR URL DE IMAGEN MULTIMEDIA (debajo de "¿Ya tienes una cuenta?") -->
+                    <!-- Imagen centrada con 3.5-4 cm de separación del texto superior -->
+                    <div class="image-url-container">
+                        <input type="text" id="register-image-url" placeholder="Inserta URL de imagen multimedia aquí">
+                        <img id="register-image-preview" src="" alt="Vista previa de imagen multimedia">
+                    </div>
                 </div>
                 <!-- LOGIN -->
                 <div id="loginContainer" style="display: none; width: 100%;">
@@ -692,6 +729,13 @@
                     <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
                         <span onclick="switchToRegisterMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer;">¿No tienes una cuenta? Crear cuenta ANKOR</span>
                     </p>
+
+                    <!-- ESPACIO PARA INSERTAR URL DE IMAGEN MULTIMEDIA (debajo de "¿No tienes una cuenta? Crear cuenta ANKOR") -->
+                    <!-- Imagen centrada con 3.5-4 cm de separación del texto superior -->
+                    <div class="image-url-container">
+                        <input type="text" id="login-image-url" placeholder="Inserta URL de imagen multimedia aquí">
+                        <img id="login-image-preview" src="" alt="Vista previa de imagen multimedia">
+                    </div>
                 </div>
             </div>
         </section>
@@ -1744,6 +1788,29 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
+
+        /* ======================== PREVISUALIZACIÓN DE IMAGEN MULTIMEDIA (para los dos espacios solicitados) ======================== */
+        function setupImagePreview(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            if (!input || !preview) return;
+
+            const updatePreview = () => {
+                const url = input.value.trim();
+                if (url) {
+                    preview.src = url;
+                    preview.style.display = 'block';
+                } else {
+                    preview.style.display = 'none';
+                }
+            };
+
+            input.addEventListener('input', updatePreview);
+            input.addEventListener('change', updatePreview);
+            // Si ya tiene valor al cargar
+            if (input.value.trim()) updatePreview();
+        }
+
         /* ======================== INICIO ======================== */
         window.onload = () => {
             renderProducts();
@@ -1751,6 +1818,10 @@
             checkContactBlock();
             checkNewsletterLock();
             loadPersistentData();
+
+            /* Configuración de los dos espacios de URL de imagen (centrado y con margen solicitado) */
+            setupImagePreview('register-image-url', 'register-image-preview');
+            setupImagePreview('login-image-url', 'login-image-preview');
         };
     </script>
 </body>
