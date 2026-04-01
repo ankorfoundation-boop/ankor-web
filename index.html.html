@@ -409,34 +409,19 @@
         .toast.show { bottom: 40px; }
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
 
-        /* ESTILOS PARA LOS ESPACIOS DE IMAGEN MULTIMEDIA (centrado y con margen exacto solicitado) */
-        .image-url-container {
+        /* ESTILOS PARA LAS IMÁGENES MULTIMEDIA (centrado y con 3-4 cm de separación exacta) */
+        .multimedia-image-wrapper {
             text-align: center;
-            margin-top: 42px; /* ≈ 3.5-4 cm según DPI estándar en pantallas web */
-            margin-bottom: 15px;
+            margin-top: 45px; /* ≈ 4 cm de separación del texto superior */
+            margin-bottom: 30px;
         }
-        .image-url-container input {
-            width: 85%;
-            max-width: 420px;
-            padding: 14px 18px;
-            font-size: 0.95rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s ease;
-            background: var(--white);
-        }
-        .image-url-container input:focus {
-            border-color: var(--black);
-        }
-        .image-url-container img {
-            display: none;
-            max-width: 300px;
-            margin: 22px auto 0;
+        .multimedia-image-wrapper img {
+            max-width: 100%;
+            height: auto;
             border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-            border: 1px solid #f0f0f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -698,11 +683,10 @@
                         <span onclick="switchToLoginMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer; color: var(--black);">¿Ya tienes una cuenta?</span>
                     </p>
 
-                    <!-- ESPACIO PARA INSERTAR URL DE IMAGEN MULTIMEDIA (debajo de "¿Ya tienes una cuenta?") -->
-                    <!-- Imagen centrada con 3.5-4 cm de separación del texto superior -->
-                    <div class="image-url-container">
-                        <input type="text" id="register-image-url" placeholder="Inserta URL de imagen multimedia aquí">
-                        <img id="register-image-preview" src="" alt="Vista previa de imagen multimedia">
+                    <!-- IMAGEN MULTIMEDIA - DEBajo de "¿Ya tienes una cuenta?" (para que tú insertes el URL directamente en el código) -->
+                    <!-- Reemplaza la URL entre comillas con tu enlace de imagen multimedia -->
+                    <div class="multimedia-image-wrapper">
+                        <img src="https://TU-URL-DE-IMAGEN-MULTIMEDIA-AQUÍ.com/imagen.jpg" alt="Imagen multimedia registro" style="max-width: 320px;">
                     </div>
                 </div>
                 <!-- LOGIN -->
@@ -721,7 +705,6 @@
                         <button type="submit" class="ap-submit">INICIAR SESIÓN ANKOR</button>
                     </form>
                   
-                    <!-- NUEVO TEXTO SOLICITADO -->
                     <p style="text-align: center; margin-top: 15px; font-size: 0.85rem;">
                         <span onclick="forgotPassword()" style="color: #000000; font-weight: 700; text-decoration: underline; cursor: pointer;">¿Olvidaste tu contraseña ANKOR?</span>
                     </p>
@@ -730,11 +713,10 @@
                         <span onclick="switchToRegisterMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer;">¿No tienes una cuenta? Crear cuenta ANKOR</span>
                     </p>
 
-                    <!-- ESPACIO PARA INSERTAR URL DE IMAGEN MULTIMEDIA (debajo de "¿No tienes una cuenta? Crear cuenta ANKOR") -->
-                    <!-- Imagen centrada con 3.5-4 cm de separación del texto superior -->
-                    <div class="image-url-container">
-                        <input type="text" id="login-image-url" placeholder="Inserta URL de imagen multimedia aquí">
-                        <img id="login-image-preview" src="" alt="Vista previa de imagen multimedia">
+                    <!-- IMAGEN MULTIMEDIA - DEBajo de "¿No tienes una cuenta? Crear cuenta ANKOR" (para que tú insertes el URL directamente en el código) -->
+                    <!-- Reemplaza la URL entre comillas con tu enlace de imagen multimedia -->
+                    <div class="multimedia-image-wrapper">
+                        <img src="https://TU-URL-DE-IMAGEN-MULTIMEDIA-AQUÍ.com/imagen.jpg" alt="Imagen multimedia login" style="max-width: 320px;">
                     </div>
                 </div>
             </div>
@@ -1788,29 +1770,6 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
-
-        /* ======================== PREVISUALIZACIÓN DE IMAGEN MULTIMEDIA (para los dos espacios solicitados) ======================== */
-        function setupImagePreview(inputId, previewId) {
-            const input = document.getElementById(inputId);
-            const preview = document.getElementById(previewId);
-            if (!input || !preview) return;
-
-            const updatePreview = () => {
-                const url = input.value.trim();
-                if (url) {
-                    preview.src = url;
-                    preview.style.display = 'block';
-                } else {
-                    preview.style.display = 'none';
-                }
-            };
-
-            input.addEventListener('input', updatePreview);
-            input.addEventListener('change', updatePreview);
-            // Si ya tiene valor al cargar
-            if (input.value.trim()) updatePreview();
-        }
-
         /* ======================== INICIO ======================== */
         window.onload = () => {
             renderProducts();
@@ -1818,10 +1777,6 @@
             checkContactBlock();
             checkNewsletterLock();
             loadPersistentData();
-
-            /* Configuración de los dos espacios de URL de imagen (centrado y con margen solicitado) */
-            setupImagePreview('register-image-url', 'register-image-preview');
-            setupImagePreview('login-image-url', 'login-image-preview');
         };
     </script>
 </body>
