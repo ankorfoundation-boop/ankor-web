@@ -184,34 +184,10 @@
         .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
         .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        /* --- HERO DOTS (NUEVOS) --- */
-        .hero-dots {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 14px;
-            z-index: 25;
-            pointer-events: auto;
-        }
-        .hero-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.7);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.2, 1);
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-        }
-        .hero-dot.active {
-            background: #000000;
-            transform: scale(1.35);
-        }
-        @media (max-width: 768px) {
-            .hero-dots { bottom: 25px; gap: 10px; }
-            .hero-dot { width: 11px; height: 11px; }
-        }
+        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
+        .slider-arrow { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
+        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+        @media (max-width: 768px) { .slider-controls { padding: 0 5px; } .slider-arrow { width: 38px; height: 38px; font-size: 1rem; } }
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
@@ -451,7 +427,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="hero-dots" id="heroDotsContainer"></div>
+                <div class="slider-controls">
+                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
             </div>
             <div class="section-container">
                 <h2 class="section-title">CONTENIDO ANKOR</h2>
@@ -755,36 +734,11 @@
             nextSlide.style.transition = 'transform var(--transition-strong)';
             nextSlide.style.transform = 'translateX(0)';
             nextSlide.classList.add('active');
-            updateHeroDots();
             resetHeroTimer();
         }
         function autoHero() { moveHero(1); }
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
         resetHeroTimer();
-
-        /* --- HERO DOTS --- */
-        function createHeroDots() {
-            const container = document.getElementById('heroDotsContainer');
-            if (!container || !slides.length) return;
-            container.innerHTML = '';
-            slides.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.className = `hero-dot${index === hIndex ? ' active' : ''}`;
-                dot.addEventListener('click', () => goToHeroSlide(index));
-                container.appendChild(dot);
-            });
-        }
-        function updateHeroDots() {
-            const dots = document.querySelectorAll('.hero-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === hIndex);
-            });
-        }
-        function goToHeroSlide(targetIndex) {
-            if (targetIndex === hIndex) return;
-            const step = (targetIndex > hIndex) ? 1 : -1;
-            moveHero(step);
-        }
         /* --- STORE RENDER --- */
         const products = Array.from({length: 14}, (*, i) => {
             const imgs = Array.from({length: 10}, (*, j) => https://picsum.photos/seed/${i*10 + j}/600/600);
@@ -1237,7 +1191,7 @@
                     <img src="${prod.imgs[0]}" class="cs-item-img">
                     <div class="cs-item-info">
                         <div class="cs-item-name">${prod.name}</div>
-                        <div class="cs-item-price">$$  ${(itemPrice).toFixed(2)} USD</div>
+                        <div class="cs-item-price">$$  {(itemPrice).toFixed(2)} USD</div>
 
 <div class="cs-qty-control"> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button> <span class="cs-qty-val">${item.qty}</span> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button> </div> </div> <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button> </div>`; }).join('');
 totalDisplay.innerText = $${totalValue.toFixed(2)} USD;
@@ -1433,7 +1387,6 @@ html += `
             renderProducts();
             populateCountryList();
             loadPersistentData();
-            createHeroDots();
         };
     </script>
 
