@@ -203,8 +203,29 @@
         @keyframes doubleJump { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-12px) scale(1.1); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.1); } }
         .cart-double-jump { animation: doubleJump 0.6s ease; }
         /* --- HERO SLIDER --- */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .hero-section { 
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 1 / 1; 
+            overflow: hidden; 
+            background: #111; 
+        }
+        .hero-slide { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-size: cover; 
+            background-position: center; 
+            transform: translateX(100%); 
+            transition: transform var(--transition-strong); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+        }
         .hero-slide.active { transform: translateX(0); z-index: 2; }
         .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
         .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
@@ -216,10 +237,6 @@
         .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
         .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
-        .slider-arrow { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-        @media (max-width: 768px) { .slider-controls { padding: 0 5px; } .slider-arrow { width: 38px; height: 38px; font-size: 1rem; } }
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
@@ -497,10 +514,6 @@
                             <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
             <div class="section-container">
@@ -810,6 +823,28 @@
         function autoHero() { moveHero(1); }
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
         resetHeroTimer();
+
+        /* --- HERO SWIPE SUPPORT (deslizar dedo izquierda/derecha) --- */
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const heroSlider = document.getElementById('heroSlider');
+
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const delta = touchStartX - touchEndX;
+            if (Math.abs(delta) > 50) { 
+                if (delta > 0) {
+                    moveHero(1); // swipe izquierda → siguiente banner
+                } else {
+                    moveHero(-1); // swipe derecha → banner anterior
+                }
+            }
+        }
+
         /* --- STORE RENDER --- */
         const products = Array.from({length: 14}, (_, i) => {
             const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
@@ -1435,7 +1470,6 @@
                 document.getElementById('searchResults').innerHTML = '';
             } else {
                 overlay.style.display = 'flex';
-                // En móvil el teclado aparece inmediatamente
                 setTimeout(() => {
                     input.focus();
                 }, 10);
@@ -1451,7 +1485,6 @@
                 return;
             }
 
-            // Solo buscar en productos de ANKOR STORE
             const filtered = products.filter(p => 
                 p.name.toLowerCase().includes(query)
             );
@@ -1476,7 +1509,7 @@
         }
 
         function selectSearchResult(id) {
-            toggleSearch(); // cerrar búsqueda
+            toggleSearch();
             setTimeout(() => {
                 openProductDetail(id);
             }, 300);
@@ -1487,6 +1520,10 @@
             renderProducts();
             populateCountryList();
             loadPersistentData();
+
+            /* Activar swipe en el hero slider */
+            heroSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
+            heroSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
         };
     </script>
 </body>
