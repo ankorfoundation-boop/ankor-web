@@ -1,7 +1,3 @@
-Elimina las secciones de CREAR CUENTA y la de INICIO DE SESIÓN. Y también reemplaza el icono de la perosnita por un ícono de lupa, y que al dar click se abra arriba un rectángulo horizontal blanco de búsqueda, y el teclado en celular inmediatamente aparezca. Que mientras el usuario va escribiendo se van apareciendo debajo una lista de resultados, pero solamente de los productos de la ANKOR STORE, mostrando la foto principal de dicho producto en la parte izquierda en una casilla pequeña y el nombre a la derecha en negrita y mayúscula y el precio de dicho producto debajo del nombre sin negrita.
-Si el usuario escribe otra cosa, así sea una sección o palabra que esté en la tienda, pero no es un producto de la ANKOR STORE entonces que de todas formas le  aparezca en la búsqueda que NO SE ENCUENTRAN RESULTADOS
-Pasar el código full completo:
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,7 +45,6 @@ Pasar el código full completo:
         .wc-banner h1,
         .wc-content h2,
         .social-name,
-        .ud-greeting,
         .fs-text,
         .product-title {
             font-family: 'Eurostile-Extended Black', sans-serif;
@@ -81,53 +76,96 @@ Pasar el código full completo:
         .header-icon-btn { background: none; border: none; font-size: 1.25rem; color: var(--black); cursor: pointer; position: relative; transition: transform 0.2s; display: flex; align-items: center; justify-content: center;}
         .header-icon-btn:hover { transform: scale(1.1); }
         .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--black); color: var(--white); font-size: 0.65rem; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .header-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            transition: transform 0.2s;
+        
+        /* === NUEVA BARRA DE BÚSQUEDA === */
+        .search-overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1100;
+            display: none;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
         }
-        .header-avatar:hover { transform: scale(1.05); }
-        /* --- USER DROPDOWN --- */
-        .user-dropdown-window { position: absolute; top: 75px; right: 30px; background: var(--white); border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 12px; width: 260px; padding: 20px; display: none; flex-direction: column; z-index: 1000; opacity: 0; transform: translateY(-10px); transition: all 0.3s ease; }
-        .user-dropdown-window.active { display: flex; opacity: 1; transform: translateY(0); }
-        .ud-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
-        .ud-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .ud-avatar-container { position: relative; }
-        .ud-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .camera-icon-btn {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            background: #666666;
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
+        .search-bar {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            padding: 12px 30px;
+            gap: 12px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: transparent;
+            color: var(--black);
+        }
+        .search-bar button {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--text-muted);
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
         }
-        .camera-icon-btn:hover {
-            background: #333333;
-            transform: scale(1.15);
+        .search-results {
+            max-height: 55vh;
+            overflow-y: auto;
+            padding: 10px 20px 20px;
+            background: var(--white);
         }
-        .ud-greeting { font-weight: 900; font-size: 1.1rem; color: var(--black); }
-        .ud-logout { display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; transition: color 0.2s; align-self: flex-end; }
-        .ud-logout:hover { color: var(--black); }
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-result-item:hover {
+            background: var(--light-gray);
+        }
+        .search-result-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .search-result-info {
+            flex: 1;
+        }
+        .search-result-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+        .search-result-price {
+            font-weight: 400;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 768px) {
+            .search-overlay { top: 70px; }
+        }
+
         /* --- CART SIDEBAR --- */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.4s ease; }
         .cart-overlay.active { display: block; opacity: 1; }
@@ -186,56 +224,6 @@ Pasar el código full completo:
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
         .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
-        /* --- ACCOUNT/REGISTER VIEW --- */
-        .account-page-wrapper {
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .account-page-logo {
-            width: 100%;
-            max-width: 180px;
-            height: auto;
-            margin: 0 auto 40px;
-            display: block;
-            object-fit: contain;
-        }
-        .account-page-form { width: 100%; display: flex; flex-direction: column; gap: 20px; }
-        .ap-input-group { display: flex; flex-direction: column; gap: 8px; position: relative; }
-        .ap-input-group label { font-size: 0.8rem; font-weight: 900; color: var(--black); letter-spacing: 0.5px; }
-        .ap-input { width: 100%; border: 1px solid var(--border); padding: 16px 15px; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: all 0.3s; background: var(--light-gray); }
-        .ap-input::placeholder { color: gray; }
-        .ap-input:focus { border-color: var(--black); background: var(--white); }
-        .ap-input.input-error { border-color: var(--error) !important; background: #fffcfc; }
-        .error-hint { color: var(--error); font-size: 0.75rem; font-weight: 600; margin-top: 2px; display: none; }
-        .pw-group { position: relative; }
-        .ap-eye { position: absolute; top: 40px; right: 15px; background: none; border: none; color: gray; cursor: pointer; font-size: 1.1rem; }
-        .ap-submit { background: var(--black); color: var(--white); border: none; padding: 18px; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; margin-top: 15px; cursor: pointer; transition: background 0.3s; letter-spacing: 1px; width: 100%; }
-        .ap-submit:hover { background: #333; }
-        /* --- LOGOUT CONFIRM MODAL --- */
-        .logout-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 4000; display: none;
-            align-items: center; justify-content: center;
-        }
-        .logout-modal-overlay.active { display: flex; }
-        .logout-modal {
-            background: var(--white); width: 90%; max-width: 380px;
-            border-radius: 16px; padding: 35px 30px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 1px solid var(--border);
-        }
-        .logout-modal p { font-size: 1.1rem; font-weight: 700; margin-bottom: 30px; line-height: 1.4; }
-        .logout-buttons { display: flex; gap: 15px; }
-        .logout-buttons button {
-            flex: 1; padding: 16px; font-weight: 900; text-transform: uppercase;
-            font-size: 0.9rem; letter-spacing: 1px; border: none; border-radius: 8px;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .logout-no { background: var(--black); color: var(--white); }
-        .logout-yes { background: var(--black); color: var(--white); }
         /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card { background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center; transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden; border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px; }
@@ -413,14 +401,14 @@ Pasar el código full completo:
         .toast.show { bottom: 40px; }
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 60px; }
 
-        /* ESTILOS PARA LAS IMÁGENES MULTIMEDIA (implantadas directamente, sin recuadro, tamaño más pequeño y subidas 3 cm más) */
+        /* ESTILOS PARA LAS IMÁGENES MULTIMEDIA */
         .multimedia-image-wrapper {
             text-align: center;
-            margin-top: 15px;   /* reducido para subir la imagen ~3 cm más cerca del texto superior */
+            margin-top: 15px;
             margin-bottom: 30px;
         }
         .multimedia-image-wrapper img {
-            max-width: 150px;   /* tamaño más pequeño */
+            max-width: 150px;
             height: auto;
             border-radius: 8px;
             box-shadow: none;
@@ -458,9 +446,10 @@ Pasar el código full completo:
                 <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
             </nav>
             <div class="header-icons-container">
-                <div id="userBtnContainer">
-                    <!-- Se llena dinámicamente -->
-                </div>
+                <!-- ÍCONO DE LUPA REEMPLAZANDO A LA PERSONITA -->
+                <button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
                 <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
@@ -468,19 +457,17 @@ Pasar el código full completo:
             </div>
         </div>
     </header>
-    <div class="user-dropdown-window" id="userDropdown">
-        <button class="ud-close" onclick="closeUserDropdown()">&times;</button>
-        <div class="ud-header">
-            <div class="ud-avatar-container">
-                <img src="" id="ud-avatar-img" class="ud-avatar" alt="Avatar">
-                <button class="camera-icon-btn" onclick="triggerProfilePicUpload()" title="Cambiar foto de perfil">
-                    <i class="fa-solid fa-camera"></i>
-                </button>
-            </div>
-            <div class="ud-greeting" id="ud-greeting-text">¡Hola!</div>
+
+    <!-- === BARRA DE BÚSQUEDA NUEVA (RECTÁNGULO HORIZONTAL BLANCO) === -->
+    <div id="searchOverlay" class="search-overlay">
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass" style="color:#999; font-size:1.3rem;"></i>
+            <input type="text" id="searchInput" placeholder="BUSCAR PRODUCTOS ANKOR..." autocomplete="off" oninput="liveSearch()">
+            <button onclick="toggleSearch()" style="font-size:1.6rem;">✕</button>
         </div>
-        <button class="ud-logout" onclick="showLogoutModal()"><i class="fa-solid fa-door-open"></i> Cerrar sesión</button>
+        <div id="searchResults" class="search-results"></div>
     </div>
+
     <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
         <button class="close-menu" onclick="toggleMenu()">&times;</button>
@@ -563,7 +550,6 @@ Pasar el código full completo:
             <div class="section-container">
                 <div class="newsletter-container">
                     <h3 class="nl-title">ÚNETE A LA ÉLITE</h3>
-                    <!-- IMAGEN CENTRADA ENTRE "ÚNETE A LA ÉLITE" Y "Sé el primero...." -->
                     <div class="multimedia-image-wrapper">
                         <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488998994720981142/24096-removebg-preview.png?ex=69ced1e0&is=69cd8060&hm=07ddb6f365a949279b311b4b59ff0a031f28f5207200187056e8498e3df87c9d&" alt="Imagen Élite ANKOR">
                     </div>
@@ -581,7 +567,6 @@ Pasar el código full completo:
                     <div class="nl-another-email" id="nl_another_email" onclick="unlockNewsletter()">Ingresar otro correo electrónico</div>
                 </div>
 
-                <!-- IMAGEN MULTIMEDIA DEBAJO DEL NEWSLETTER -->
                 <div class="multimedia-image-wrapper">
                     <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488953710477574244/24889-removebg-preview.png?ex=69cea7b4&is=69cd5634&hm=218098097879e2d0d92fba076889048512b58bcdb983b7f62390c6c8494688b7&" alt="Imagen multimedia newsletter">
                 </div>
@@ -612,16 +597,6 @@ Pasar el código full completo:
             <button class="fs-close" onclick="closeFloatingSuccess()">&times;</button>
             <div class="fs-icon"><i class="fa-solid fa-check"></i></div>
             <p id="fs-text" class="fs-text">Operación exitosa.</p>
-        </div>
-        <!-- MODAL DE CERRAR SESIÓN -->
-        <div class="logout-modal-overlay" id="logoutModalOverlay">
-            <div class="logout-modal">
-                <p>¿Estás seguro de cerrar sesión con <span id="logout-name-display" style="color: var(--black); font-weight: 900;"></span>?</p>
-                <div class="logout-buttons">
-                    <button class="logout-no" onclick="cancelLogout()">NO</button>
-                    <button class="logout-yes" onclick="confirmLogout()">SÍ</button>
-                </div>
-            </div>
         </div>
         <section id="view-product" class="view section-container">
             <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
@@ -657,78 +632,6 @@ Pasar el código full completo:
                     <div class="pdp-actions">
                         <button class="btn-add-cart" onclick="addProductToCart()">AGREGAR AL CARRITO</button>
                         <a href="#" class="btn-buy-now">ADQUIRIR AHORA</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="view-account" class="view section-container">
-            <div class="account-page-wrapper">
-                <!-- Logo centrado exactamente en la parte superior (mediano) -->
-                <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1486749451493179462/Airbrush-IMAGE-ENHANCER-1774538419803-1774538419803.png?ex=69cde313&is=69cc9193&hm=7c5158f4d7a7b5c75845cb7a33d9dbfc777e4d747b70e44522ba583a030d74bc&" alt="ANKOR" class="account-page-logo">
-              
-                <!-- REGISTRO -->
-                <div id="registerContainer">
-                    <form class="account-page-form" id="registerForm" onsubmit="handleAccountCreation(event)" novalidate>
-                        <div class="ap-input-group" id="group_nombre">
-                            <label>NOMBRE</label>
-                            <input type="text" id="reg_nombre" class="ap-input" placeholder="Escriba su nombre">
-                            <span class="error-hint" id="hint_nombre">Ingrese un nombre válido.</span>
-                        </div>
-                        <div class="ap-input-group" id="group_apellido">
-                            <label>APELLIDO</label>
-                            <input type="text" id="reg_apellido" class="ap-input" placeholder="Opcional">
-                            <span class="error-hint" id="hint_apellido">Ingrese un apellido válido.</span>
-                        </div>
-                        <div class="ap-input-group" id="group_email">
-                            <label>CORREO ELECTRÓNICO</label>
-                            <input type="email" id="reg_email" class="ap-input" placeholder="Escriba un correo de registro">
-                            <span class="error-hint" id="hint_email">Ingrese un correo electrónico válido.</span>
-                        </div>
-                        <div class="ap-input-group pw-group" id="group_password">
-                            <label>CONTRASEÑA</label>
-                            <input type="password" id="reg_password" class="ap-input" placeholder="Cree una contraseña (mín. 8 caracteres)">
-                            <button type="button" class="ap-eye" onclick="togglePasswordVisibility()"><i class="fa-regular fa-eye" id="eyeIcon"></i></button>
-                            <span class="error-hint" id="hint_password">Límite de caracteres alcanzado (20 caracteres)</span>
-                        </div>
-                        <button type="submit" class="ap-submit">CREAR CUENTA ANKOR</button>
-                    </form>
-                  
-                    <p style="text-align: center; margin: 25px 0 10px; font-size: 0.9rem; color: var(--text-muted);">
-                        <span onclick="switchToLoginMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer; color: var(--black);">¿Ya tienes una cuenta?</span>
-                    </p>
-
-                    <!-- IMAGEN MULTIMEDIA - DEBajo de "¿Ya tienes una cuenta?" -->
-                    <div class="multimedia-image-wrapper">
-                        <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488953710477574244/24889-removebg-preview.png?ex=69cea7b4&is=69cd5634&hm=218098097879e2d0d92fba076889048512b58bcdb983b7f62390c6c8494688b7&" alt="Imagen multimedia registro">
-                    </div>
-                </div>
-                <!-- LOGIN -->
-                <div id="loginContainer" style="display: none; width: 100%;">
-                    <form class="account-page-form" id="loginForm" onsubmit="handleLogin(event)" novalidate>
-                        <div class="ap-input-group">
-                            <label>CORREO ELECTRÓNICO</label>
-                            <input type="email" id="login_email" class="ap-input" placeholder="Escriba su correo de ANKOR">
-                            <span class="error-hint" id="login_hint_email" style="display:none;">Ingrese un correo electrónico válido.</span>
-                        </div>
-                        <div class="ap-input-group pw-group">
-                            <label>CONTRASEÑA</label>
-                            <input type="password" id="login_password" class="ap-input" placeholder="Ingrese su contraseña ANKOR">
-                            <button type="button" class="ap-eye" onclick="toggleLoginPasswordVisibility(this)"><i class="fa-regular fa-eye" id="loginEyeIcon"></i></button>
-                        </div>
-                        <button type="submit" class="ap-submit">INICIAR SESIÓN ANKOR</button>
-                    </form>
-                  
-                    <p style="text-align: center; margin-top: 15px; font-size: 0.85rem;">
-                        <span onclick="forgotPassword()" style="color: #000000; font-weight: 700; text-decoration: underline; cursor: pointer;">¿Olvidaste tu contraseña ANKOR?</span>
-                    </p>
-                  
-                    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
-                        <span onclick="switchToRegisterMode()" style="font-weight: 700; text-decoration: underline; cursor: pointer;">¿No tienes una cuenta? Crear cuenta ANKOR</span>
-                    </p>
-
-                    <!-- IMAGEN MULTIMEDIA - DEBajo de "¿No tienes una cuenta? Crear cuenta ANKOR" -->
-                    <div class="multimedia-image-wrapper">
-                        <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488953710477574244/24889-removebg-preview.png?ex=69cea7b4&is=69cd5634&hm=218098097879e2d0d92fba076889048512b58bcdb983b7f62390c6c8494688b7&" alt="Imagen multimedia login">
                     </div>
                 </div>
             </div>
@@ -814,8 +717,7 @@ Pasar el código full completo:
         </div>
     </div>
     <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span id="toast-msg">Mensaje enviado correctamente.</span></div>
-    <!-- INPUT OCULTO PARA SUBIR FOTO DE PERFIL -->
-    <input type="file" id="profile-upload" accept="image/*" style="display: none;" onchange="handleProfilePicUpload(event)">
+
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartMenu()"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cs-header">
@@ -834,6 +736,7 @@ Pasar el código full completo:
         </div>
     </div>
     <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
+
     <script>
         /* --- NAVIGATION / SPA LOGIC --- */
         let storeScrollPos = 0;
@@ -844,13 +747,6 @@ Pasar el código full completo:
         }
         function navigate(viewId) {
             if (viewId === 'product') { storeScrollPos = window.scrollY; }
-            if (viewId === 'account') {
-                switchToRegisterMode();
-                const form = document.getElementById('registerForm');
-                if(form) form.reset();
-                document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
-                document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
-            }
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
           
@@ -917,7 +813,13 @@ Pasar el código full completo:
         /* --- STORE RENDER --- */
         const products = Array.from({length: 14}, (_, i) => {
             const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
-            return { id: i + 1, name: `ANKOR PRO GEAR v${i+1}`, price: `$${(40 + (i * 5)).toFixed(2)} USD`, numPrice: (40 + (i * 5)), imgs: imgs }
+            return { 
+                id: i + 1, 
+                name: `ANKOR PRO GEAR v${i+1}`, 
+                price: `$${(40 + (i * 5)).toFixed(2)} USD`, 
+                numPrice: (40 + (i * 5)), 
+                imgs: imgs 
+            };
         });
         const grid = document.getElementById('productGrid');
         function renderProducts() {
@@ -1172,8 +1074,6 @@ Pasar el código full completo:
             });
         }
       
-        setupRestrictedNameLimits('reg_nombre', 'hint_nombre');
-        setupRestrictedNameLimits('reg_apellido', 'hint_apellido');
         setupRestrictedNameLimits('c_nombre', 'c_hint_nombre');
         setupRestrictedNameLimits('c_apellido', 'c_hint_apellido');
         function checkNameValidity(val) {
@@ -1255,43 +1155,8 @@ Pasar el código full completo:
             btn.style.background = "var(--black)";
             btn.innerText = "ENVIAR MENSAJE";
             btn.disabled = false;
-            let history = JSON.parse(localStorage.getItem('ankorMsgHistory')) || [];
-            let now = Date.now();
-          
-            history = history.filter(time => now - time < 24 * 60 * 60 * 1000);
-            history.push(now);
-            localStorage.setItem('ankorMsgHistory', JSON.stringify(history));
-            if (history.length >= 2) {
-                const blockUntil = now + (24 * 60 * 60 * 1000);
-                localStorage.setItem('ankorContactBlock', blockUntil);
-                applyContactBlockUI();
-            }
         }
-        function checkContactBlock() {
-            const blockTime = localStorage.getItem('ankorContactBlock');
-            if(blockTime && Date.now() < parseInt(blockTime)) {
-                applyContactBlockUI();
-            } else if (blockTime) {
-                localStorage.removeItem('ankorContactBlock');
-                localStorage.removeItem('ankorMsgHistory');
-            }
-        }
-        function applyContactBlockUI() {
-            const btn = document.getElementById('c_submit_btn');
-            btn.disabled = true;
-            btn.classList.add('blocked');
-            btn.innerText = "MÁXIMO DE MENSAJES POR DÍA USADOS. VUELVA DENTRO DE 24 HORAS.";
-          
-            document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(el => {
-                el.disabled = true;
-                el.style.pointerEvents = 'none';
-                el.style.background = 'transparent';
-                el.parentElement.style.opacity = '0.6';
-            });
-            document.querySelector('.phone-prefix-btn').style.pointerEvents = 'none';
-        }
-        /* ======================== LÓGICA DE SESIÓN PERSISTENTE Y CARRITO ======================== */
-        let loggedUser = null;
+        /* ======================== LÓGICA DE CARRITO ======================== */
         let shoppingCart = [];
         function saveCart() {
             localStorage.setItem('ankorCart', JSON.stringify(shoppingCart));
@@ -1302,223 +1167,12 @@ Pasar el código full completo:
             saveCart();
         }
         function loadPersistentData() {
-            const savedUserStr = localStorage.getItem('ankorUser');
-            if (savedUserStr) {
-                const saved = JSON.parse(savedUserStr);
-                loggedUser = {
-                    nombre: saved.nombre,
-                    avatar: saved.avatar,
-                    email: saved.email || ''
-                };
-            }
-          
             const savedCartStr = localStorage.getItem('ankorCart');
             if (savedCartStr) {
                 shoppingCart = JSON.parse(savedCartStr);
             }
-          
             syncCartWithStore();
             updateCartBadge();
-            updateHeaderUserUI();
-        }
-        /* --- FOTO DE PERFIL --- */
-        function triggerProfilePicUpload() {
-            if (!loggedUser) return;
-            document.getElementById('profile-upload').click();
-        }
-        function handleProfilePicUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !loggedUser) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const dataUrl = ev.target.result;
-                loggedUser.avatar = dataUrl;
-                const fullUser = JSON.parse(localStorage.getItem('ankorUser'));
-                fullUser.avatar = dataUrl;
-                localStorage.setItem('ankorUser', JSON.stringify(fullUser));
-                document.getElementById('ud-avatar-img').src = dataUrl;
-                const headerAvatar = document.querySelector('.header-avatar');
-                if (headerAvatar) headerAvatar.src = dataUrl;
-                showToast("Foto de perfil actualizada correctamente.");
-                e.target.value = '';
-            };
-            reader.readAsDataURL(file);
-        }
-        /* --- CAMBIO DE MODO REGISTRO / LOGIN --- */
-        function switchToLoginMode() {
-            document.getElementById('registerContainer').style.display = 'none';
-            document.getElementById('loginContainer').style.display = 'block';
-        }
-        function switchToRegisterMode() {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('registerContainer').style.display = 'block';
-        }
-        /* --- LOGIN --- */
-        function toggleLoginPasswordVisibility(btn) {
-            const input = btn.previousElementSibling;
-            const icon = btn.querySelector('i');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        }
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login_email').value.trim();
-            const pass = document.getElementById('login_password').value;
-            if (!email || !pass) {
-                showToast("Por favor completa correo y contraseña.");
-                return;
-            }
-            const savedUserStr = localStorage.getItem('ankorUser');
-            if (!savedUserStr) {
-                showToast("No existe ninguna cuenta. Crea una primero.");
-                return;
-            }
-            const savedUser = JSON.parse(savedUserStr);
-            if (savedUser.email === email && savedUser.password === pass) {
-                loggedUser = {
-                    nombre: savedUser.nombre,
-                    avatar: savedUser.avatar,
-                    email: savedUser.email
-                };
-                localStorage.setItem('ankorUser', JSON.stringify(savedUser));
-                updateHeaderUserUI();
-                navigate('home');
-                document.getElementById('fs-text').innerText = `¡Bienvenido de nuevo, ${loggedUser.nombre.split(' ')[0]}!`;
-                const fs = document.getElementById('floatingSuccess');
-                fs.classList.add('active');
-                setTimeout(() => { fs.classList.remove('active'); }, 4000);
-            } else {
-                showToast("Correo o contraseña incorrectos.");
-            }
-        }
-        /* --- FUNCIÓN OLVIDÓ CONTRASEÑA --- */
-        function forgotPassword() {
-            const emailInput = document.getElementById('login_email').value.trim();
-            if (!emailInput) {
-                showToast("Por favor, ingrese su correo electrónico para recuperar la contraseña.");
-                return;
-            }
-            document.getElementById('fs-text').innerText = `Se acaba de enviar la contraseña a ${emailInput}. Por favor, revise su correo e ingrese su contraseña.`;
-            const fs = document.getElementById('floatingSuccess');
-            fs.classList.add('active');
-            setTimeout(() => {
-                fs.classList.remove('active');
-            }, 6000);
-        }
-        /* --- REGISTRO CON VERIFICACIÓN DE CORREO EXISTENTE --- */
-        async function handleAccountCreation(e) {
-            e.preventDefault();
-            document.querySelectorAll('.ap-input').forEach(el => el.classList.remove('input-error'));
-            document.querySelectorAll('.error-hint').forEach(el => el.style.display = 'none');
-            const nombre = document.getElementById('reg_nombre').value.trim();
-            const apellido = document.getElementById('reg_apellido').value.trim();
-            const email = document.getElementById('reg_email').value.trim();
-            const pass = document.getElementById('reg_password').value;
-            if (!checkNameValidity(nombre)) {
-                applyFieldError('reg_nombre', 'hint_nombre', "Ingrese un nombre válido."); return;
-            }
-            if (apellido.length > 0 && !checkNameValidity(apellido)) {
-                applyFieldError('reg_apellido', 'hint_apellido', "Ingrese un apellido válido."); return;
-            }
-            if (!checkEmailValidity(email)) {
-                applyFieldError('reg_email', 'hint_email', "Ingrese un correo electrónico válido."); return;
-            }
-            if (pass.length < 8) {
-                applyFieldError('reg_password', 'hint_password', "La contraseña debe tener al menos 8 caracteres."); return;
-            }
-            // === VERIFICACIÓN DE CORREO YA EXISTENTE ===
-            const savedUserStr = localStorage.getItem('ankorUser');
-            if (savedUserStr) {
-                const savedUser = JSON.parse(savedUserStr);
-                if (savedUser.email === email) {
-                    showToast("Ese correo electrónico ya tiene cuenta ANKOR creada.");
-                    switchToLoginMode();
-                    return;
-                }
-            }
-            let fullName = nombre + (apellido ? ' ' + apellido : '');
-            const userData = {
-                nombre: fullName,
-                email: email,
-                password: pass,
-                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(nombre)}&background=000&color=fff`
-            };
-            localStorage.setItem('ankorUser', JSON.stringify(userData));
-            loggedUser = { nombre: fullName, avatar: userData.avatar, email: email };
-            updateHeaderUserUI();
-            e.target.reset();
-            goHomeTop();
-            // === ENVÍO AUTOMÁTICO A GOOGLE SHEETS (URL ACTUALIZADA) ===
-            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPoU55GJNimktK7p-fS9RKnaKMIk_vba4uLwRkPud_WQnqr9mgHCk1gfOzXNiYLSAO/exec";
-          
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        nombre: nombre,
-                        apellido: apellido,
-                        email: email,
-                        password: pass
-                    })
-                });
-                console.log("✅ Datos guardados correctamente en Google Sheets (con fecha y hora exacta)");
-            } catch (err) {
-                console.error("⚠️ No se pudo guardar en Google Sheets:", err);
-            }
-            // Mensaje en pantalla (4 segundos)
-            document.getElementById('fs-text').innerText = "Cuenta ANKOR creada con éxito.";
-            const fs = document.getElementById('floatingSuccess');
-            fs.classList.add('active');
-            setTimeout(() => {
-                fs.classList.remove('active');
-            }, 4000);
-        }
-        /* --- USER UI --- */
-        function updateHeaderUserUI() {
-            const container = document.getElementById('userBtnContainer');
-            if (loggedUser) {
-                container.innerHTML = `<img src="${loggedUser.avatar}" class="header-avatar" onclick="toggleUserDropdown()">`;
-                document.getElementById('ud-avatar-img').src = loggedUser.avatar;
-                document.getElementById('ud-greeting-text').innerText = `¡Hola, ${loggedUser.nombre.split(' ')[0]}!`;
-            } else {
-                container.innerHTML = `<button class="header-icon-btn" onclick="navigate('account')"><i class="fa-regular fa-user"></i></button>`;
-                closeUserDropdown();
-            }
-        }
-        function toggleUserDropdown() {
-            const dd = document.getElementById('userDropdown');
-            dd.classList.toggle('active');
-        }
-        function closeUserDropdown() {
-            document.getElementById('userDropdown').classList.remove('active');
-        }
-        /* --- LOGOUT --- */
-        function showLogoutModal() {
-            if (!loggedUser) return;
-            document.getElementById('logout-name-display').innerText = loggedUser.nombre.split(' ')[0] || loggedUser.nombre;
-            document.getElementById('logoutModalOverlay').classList.add('active');
-        }
-        function cancelLogout() {
-            document.getElementById('logoutModalOverlay').classList.remove('active');
-        }
-        function confirmLogout() {
-            document.getElementById('logoutModalOverlay').classList.remove('active');
-          
-            loggedUser = null;
-            localStorage.removeItem('ankorUser');
-            shoppingCart = [];
-            localStorage.removeItem('ankorCart');
-          
-            updateHeaderUserUI();
-            updateCartBadge();
-            showToast("Sesión cerrada correctamente.");
-            closeUserDropdown();
         }
         /* --- CART --- */
         function toggleCartMenu() {
@@ -1770,24 +1424,68 @@ Pasar el código full completo:
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
-        /* ======================== BOTONES DE VISIBILIDAD DE CONTRASEÑA ======================== */
-        function togglePasswordVisibility() {
-            const input = document.getElementById('reg_password');
-            const icon = document.getElementById('eyeIcon');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
+
+        /* ======================== BÚSQUEDA CON LUPA ======================== */
+        function toggleSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const input = document.getElementById('searchInput');
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+                input.value = '';
+                document.getElementById('searchResults').innerHTML = '';
             } else {
-                input.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
+                overlay.style.display = 'flex';
+                // En móvil el teclado aparece inmediatamente
+                setTimeout(() => {
+                    input.focus();
+                }, 10);
             }
         }
+
+        function liveSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (query === '') {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            // Solo buscar en productos de ANKOR STORE
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = `<div class="no-results">NO SE ENCUENTRAN RESULTADOS</div>`;
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(p => {
+                html += `
+                <div class="search-result-item" onclick="selectSearchResult(${p.id})">
+                    <img src="${p.imgs[0]}" alt="${p.name}">
+                    <div class="search-result-info">
+                        <div class="search-result-name">${p.name}</div>
+                        <div class="search-result-price">${p.price}</div>
+                    </div>
+                </div>`;
+            });
+            resultsContainer.innerHTML = html;
+        }
+
+        function selectSearchResult(id) {
+            toggleSearch(); // cerrar búsqueda
+            setTimeout(() => {
+                openProductDetail(id);
+            }, 300);
+        }
+
         /* ======================== INICIO ======================== */
         window.onload = () => {
             renderProducts();
             populateCountryList();
-            checkContactBlock();
-            checkNewsletterLock();
             loadPersistentData();
         };
     </script>
