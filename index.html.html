@@ -1,4 +1,38 @@
-<!DOCTYPE html> <html lang="es"> <head> &nbsp;&nbsp;&nbsp;&nbsp;<meta charset="UTF-8"> &nbsp;&nbsp;&nbsp;&nbsp;<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> &nbsp;&nbsp;&nbsp;&nbsp;<title>ANKOR | Official Site</title> &nbsp;&nbsp;&nbsp;&nbsp;<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet"> &nbsp;&nbsp;&nbsp;&nbsp;<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<style> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:root { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--bg: #ffffff; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--text: #000000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--text-muted: #666666; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--black: #000000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--white: #ffffff; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--light-gray: #f5f5f5; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--border: #e0e0e0; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--error: #ff0000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--transition-smooth: 0.3s ease; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* { box-sizing: border-box; margin: 0; padding: 0; } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-family: 'Inter', sans-serif; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color: var(--bg); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color: var(--text); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overflow-x: hidden; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-webkit-font-smoothing: antialiased; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 100vw; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ANKOR | Official Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --text-muted: #666666;
+            --black: #000000;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --border: #e0e0e0;
+            --error: #ff0000;
+            --transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+            --transition-smooth: 0.3s ease;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            width: 100vw;
+        }
+
         /* --- EUROSTILE-EXTENDED BLACK PARA TODOS LOS TÍTULOS Y TEXTOS GRANDES --- */
         h1, h2, h3,
         .logo,
@@ -27,6 +61,7 @@
         .ann-prev { left: 10px; }
         .ann-controls-right { position: absolute; right: 10px; display: flex; align-items: center; gap: 5px; z-index: 10; }
         .ann-controls-right .ann-arrow { position: relative; right: auto; padding: 0 5px; }
+
         /* --- HEADER & NAVIGATION --- */
         header { position: sticky; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 999; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 30px; height: 70px; }
         .header-left { display: flex; align-items: center; }
@@ -170,28 +205,131 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes doubleJump { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-12px) scale(1.1); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.1); } }
         .cart-double-jump { animation: doubleJump 0.6s ease; }
+
         /* --- HERO SLIDER --- */
-        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
-        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .hero-slide.active { transform: translateX(0); z-index: 2; }
-        .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
-        .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 500; margin-bottom: 40px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-        .btn-mas-info { display: inline-flex; align-items: center; justify-content: center; background: var(--black); color: var(--white); padding: 18px 40px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border-radius: 4px; transition: all var(--transition-smooth); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .hero-section { 
+            position: relative; 
+            width: 100%; 
+            height: calc(100vh - 110px); 
+            overflow: hidden; 
+            background: #111; 
+        }
+        .hero-slide { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-size: cover; 
+            background-position: center; 
+            transform: translateX(100%); 
+            transition: transform var(--transition-strong); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+        }
+        .hero-slide.active { 
+            transform: translateX(0); 
+            z-index: 2; 
+        }
+        .hero-slide::before { 
+            content: ''; 
+            position: absolute; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            height:100%; 
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); 
+            z-index: 0; 
+        }
+        .hero-content { 
+            position: relative; 
+            z-index: 10; 
+            padding: 20px; 
+            color: var(--white); 
+        }
+        .hero-title { 
+            font-size: clamp(3rem, 8vw, 6rem); 
+            font-weight: 900; 
+            letter-spacing: -2px; 
+            text-transform: uppercase; 
+            margin-bottom: 10px; 
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+        }
+        .hero-subtitle { 
+            font-size: clamp(1rem, 2vw, 1.5rem); 
+            font-weight: 500; 
+            margin-bottom: 40px; 
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8); 
+        }
+        .btn-mas-info { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: var(--black); 
+            color: var(--white); 
+            padding: 18px 40px; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: all var(--transition-smooth); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            cursor: pointer; 
+        }
         .btn-mas-info span.text { position: relative; }
         .btn-mas-info span.arrow { display: inline-block; opacity: 0; width: 0; overflow: hidden; transform: translateX(-10px); transition: all 0.3s ease; }
         .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
         .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .slider-controls { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
-        .slider-arrow { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
-        .slider-arrow:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
-        @media (max-width: 768px) { .slider-controls { padding: 0 5px; } .slider-arrow { width: 38px; height: 38px; font-size: 1rem; } }
+
+        /* NUEVOS DOTS PARA EL BANNER HERO (se eliminaron los botones de flechas) */
+        .hero-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            z-index: 30;
+            pointer-events: auto;
+        }
+        .hero-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .hero-dot.active {
+            background: #000000;
+            transform: scale(1.4);
+            box-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
+
+        @media (max-width: 768px) {
+            .hero-dots {
+                bottom: 30px;
+                gap: 12px;
+            }
+            .hero-dot {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
         .section-subtitle { text-align: center; font-size: 1.1rem; font-weight: 500; color: var(--text-muted); margin-bottom: 50px; }
+
         /* --- SOCIAL CONTENT --- */
         .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .social-card { background: var(--light-gray); border-radius: 16px; padding: 40px 30px; text-align: center; transition: transform 0.4s ease, background 0.4s ease; position: relative; overflow: hidden; border: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px; }
@@ -204,6 +342,7 @@
         .social-card.active .social-accounts { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
         .account-btn { background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); width: 100%; max-width: 200px; }
         .account-btn:hover { background: var(--white); color: var(--black); }
+
         /* --- STORE GRID --- */
         .store-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 15px; width: 100%; box-sizing: border-box; }
         .product-item { cursor: pointer; position: relative; display: flex; flex-direction: column; width: 100%; }
@@ -224,6 +363,7 @@
         .product-price { font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 6px; }
         .product-reviews { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
         .product-reviews .stars { color: var(--black); display: flex; gap: 2px; font-size: 0.75rem; }
+
         /* --- PRODUCT DETAIL PAGE --- */
         #view-product { padding-top: 15px; padding-bottom: 40px; }
         .back-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; border: none; background: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; padding-left: 5px; color: var(--black); }
@@ -255,6 +395,7 @@
         .btn-add-cart { width: 100%; background: var(--white); color: var(--black); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
         .btn-buy-now { width: 100%; background: var(--black); color: var(--white); border: 1px solid var(--black); border-radius: 0; padding: 18px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
         @media (min-width: 900px) { .product-detail-layout { flex-direction: row; gap: 40px; } .prod-images-panel { width: 55%; } .prod-info-panel { width: 45%; } }
+
         /* --- ANKOR x NEIR & NEWSLETTER --- */
         .ankor-neir-section { text-align: center; margin-top: 20px; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; }
         .ankor-neir-title { font-size: 2.2rem; font-weight: 900; color: var(--black); text-transform: uppercase; margin-bottom: 5px; }
@@ -286,6 +427,7 @@
         .nl-btn:disabled { opacity: 0.7; cursor: not-allowed; }
         .nl-btn.joined { background: gray; cursor: default; }
         .nl-another-email { position: absolute; bottom: 15px; right: 20px; font-size: 0.75rem; font-weight: 700; color: var(--black); text-decoration: underline; cursor: pointer; display: none; }
+
         /* --- VERIFICATION MODAL --- */
         .verify-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .verify-modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
@@ -307,12 +449,14 @@
             cursor: pointer;
             display: block;
         }
+
         /* --- SUCCESS FLOATING TOAST --- */
         .floating-success { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: var(--white); border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.15); border-radius: 12px; padding: 30px 40px; z-index: 3500; display: none; flex-direction: column; align-items: center; opacity: 0; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
         .floating-success.active { display: flex; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .fs-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
         .fs-icon { width: 50px; height: 50px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin-bottom: 15px; }
         .fs-text { font-weight: 900; font-size: 1.1rem; color: var(--black); }
+
         /* --- WC 2027 --- */
         .wc-banner { width: 100%; height: 50vh; background: url('https://images.unsplash.com/photo-1518091043644-c1d44570a2c1?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center; }
         .wc-banner::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -323,6 +467,7 @@
         .download-box { background: var(--light-gray); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
         .download-link { display: flex; align-items: center; gap: 15px; color: var(--black); text-decoration: none; font-weight: 700; padding: 15px; background: var(--white); border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border); }
         .download-link i { font-size: 1.5rem; }
+
         /* --- CONTACT --- */
         .contact-wrapper { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         .form-group { margin-bottom: 30px; position: relative; }
@@ -355,6 +500,7 @@
         .submit-btn { background: var(--black); color: var(--white); border: none; width: 100%; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.3s, color 0.3s; }
         .submit-btn:disabled { cursor: not-allowed; }
         .submit-btn.blocked { background: #888888; color: #ffffff; font-size: 0.8rem; pointer-events: none; }
+
         .success-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .success-modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
         .success-modal { background: var(--white); width: 90%; max-width: 450px; border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -385,8 +531,47 @@
             margin: 0 auto;
         }
     </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="announcement-track" id="ticketTrack">
+            <div class="ticket active">BE UNSTOPPABLE.</div>
+            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
+            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
+            <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
+        </div>
+        <div class="ann-controls-right">
+            <button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button>
+        </div>
+    </div>
 
-</head> <body> &nbsp;&nbsp;&nbsp;&nbsp;<div class="announcement-bar"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="announcement-track" id="ticketTrack"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket active">BE UNSTOPPABLE.</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ann-controls-right"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;<header> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488929414484983878/25028-removebg-preview.png?ex=69ce9113&is=69cd3f93&hm=2dc43271ee01e62f4b373f5a4970e867213bb68ee4f5dc84c99741d58abfc4d5&" alt="ANKOR" class="logo" onclick="goHomeTop()" style="max-height: 52px; width: auto; display: block;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-right"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<nav class="desktop-nav"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link active" onclick="navigate('home')">Home</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</nav> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-icons-container"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- ÍCONO DE LUPA REEMPLAZANDO A LA PERSONITA --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-cart-shopping"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="cartCountBadge" class="cart-badge" style="display:none;">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;</header>
+    <header>
+        <div class="header-left">
+            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div class="header-center">
+            <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488929414484983878/25028-removebg-preview.png?ex=69ce9113&is=69cd3f93&hm=2dc43271ee01e62f4b373f5a4970e867213bb68ee4f5dc84c99741d58abfc4d5&" alt="ANKOR" class="logo" onclick="goHomeTop()" style="max-height: 52px; width: auto; display: block;">
+        </div>
+        <div class="header-right">
+            <nav class="desktop-nav">
+                <a class="nav-link active" onclick="navigate('home')">Home</a>
+                <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
+                <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
+            </nav>
+            <div class="header-icons-container">
+                <button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
     <!-- === BARRA DE BÚSQUEDA NUEVA (RECTÁNGULO HORIZONTAL BLANCO) === -->
     <div id="searchOverlay" class="search-overlay">
         <div class="search-bar">
@@ -404,9 +589,11 @@
         <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
         <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
     </div>
+
     <main>
         <section id="view-home" class="view active">
             <div class="hero-section" id="heroSlider">
+                <!-- SLIDE 1 -->
                 <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR WC 2027</h1>
@@ -417,6 +604,7 @@
                         </a>
                     </div>
                 </div>
+                <!-- SLIDE 2 -->
                 <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=2000&auto=format&fit=crop');">
                     <div class="hero-content">
                         <h1 class="hero-title">ANKOR STORE</h1>
@@ -427,11 +615,11 @@
                         </a>
                     </div>
                 </div>
-                <div class="slider-controls">
-                    <button class="slider-arrow" onclick="moveHero(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-arrow" onclick="moveHero(1)"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
+
+                <!-- DOTS CENTRADOS EN LA PARTE INFERIOR (reemplazo de los botones de flechas) -->
+                <div class="hero-dots" id="heroDotsContainer"></div>
             </div>
+
             <div class="section-container">
                 <h2 class="section-title">CONTENIDO ANKOR</h2>
                 <p class="section-subtitle">Contenido diario de valor. Resetea tu Mentalidad.</p>
@@ -462,20 +650,21 @@
                     </div>
                 </div>
             </div>
+
             <div class="section-container" id="store-anchor">
                 <h2 class="section-title">ANKOR STORE</h2>
                 <p class="section-subtitle">Tienda Oficial de ANKOR Mentality.</p>
                 <div class="store-grid" id="productGrid"></div>
             </div>
+
             <div class="section-container ankor-neir-section">
                 <h2 class="ankor-neir-title">ANKOR x NEIR</h2>
                 <p class="ankor-neir-subtitle">La colaboración más completa de mentalidad núnca antes vista.</p>
-              
                 <p class="ankor-neir-text"><strong>ANKOR=</strong> Mentalidad imparable.</p>
                 <p class="ankor-neir-text"><strong>NEIR=</strong> Equipamiento para la acción.</p>
-              
                 <button class="btn-neir">ESTO ES NEIR</button>
             </div>
+
             <div class="section-container">
                 <div class="newsletter-container">
                     <h3 class="nl-title">ÚNETE A LA ÉLITE</h3>
@@ -501,47 +690,44 @@
                 </div>
             </div>
         </section>
+
+        <!-- resto de secciones sin cambios -->
         <div class="verify-modal-overlay" id="verifyModalOverlay">
             <div class="verify-modal">
                 <h3 class="vm-title">CONFIRMAR CORREO ELECTRÓNICO</h3>
                 <p class="vm-subtitle">Por favor, ingrese el código enviado a <span class="vm-email-highlight" id="vm_email_display"></span>.</p>
-              
                 <div class="vm-code-container">
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 1)" id="code_1">
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 2)" id="code_2">
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 3)" id="code_3">
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 4)" id="code_4">
                 </div>
-              
                 <span class="error-hint" id="vm_error_hint" style="display:none; margin-bottom: 10px;">Código incorrecto. Intente de nuevo.</span>
-              
                 <button class="vm-btn" onclick="verifyNewsletterCode()">VERIFICAR</button>
-              
                 <p class="vm-wrong-email" onclick="wrongEmailNewsletter()">
                     ¿No eres tú <span id="vm_wrong_email_display" style="color: var(--black);"></span>?
                 </p>
             </div>
         </div>
+
         <div class="floating-success" id="floatingSuccess">
             <button class="fs-close" onclick="closeFloatingSuccess()">×</button>
             <div class="fs-icon"><i class="fa-solid fa-check"></i></div>
             <p id="fs-text" class="fs-text">Operación exitosa.</p>
         </div>
+
         <section id="view-product" class="view section-container">
             <button class="back-btn" onclick="navigate('home')"><i class="fa-solid fa-arrow-left"></i> VOLVER A LA TIENDA</button>
             <div class="product-detail-layout">
-              
                 <div class="prod-images-panel">
                     <div class="main-carousel-container">
                         <div class="main-carousel" id="detailMainCarousel"></div>
                     </div>
                     <div class="thumb-carousel" id="detailThumbCarousel"></div>
                 </div>
-              
                 <div class="prod-info-panel">
                     <h1 class="pdp-title" id="detailTitle">PRODUCT NAME</h1>
                     <div class="pdp-price" id="detailPrice">$00.00 USD</div>
-                  
                     <div class="pdp-qty-wrapper">
                         <div class="pdp-qty-label">CANTIDAD</div>
                         <div class="pdp-qty-control">
@@ -565,6 +751,7 @@
                 </div>
             </div>
         </section>
+
         <section id="view-wc2027" class="view">
             <div class="wc-banner"><h1>ANKOR World Cup</h1></div>
             <div class="section-container">
@@ -582,24 +769,22 @@
                 </div>
             </div>
         </section>
+
         <section id="view-contact" class="view">
             <div class="section-container">
                 <h2 class="section-title">CONTACTO ANKOR</h2>
                 <div class="contact-wrapper">
                     <form id="contactForm" onsubmit="handleContact(event)" novalidate>
-                      
                         <div class="form-group" id="c_group_nombre">
                             <input type="text" id="c_nombre" class="form-control" placeholder=" " required>
                             <label class="form-label">Nombre</label>
                             <span class="error-hint" id="c_hint_nombre">Ingrese un nombre válido.</span>
                         </div>
-                      
                         <div class="form-group" id="c_group_apellido">
                             <input type="text" id="c_apellido" class="form-control" placeholder=" " required>
                             <label class="form-label">Apellido</label>
                             <span class="error-hint" id="c_hint_apellido">Ingrese un apellido válido.</span>
                         </div>
-                      
                         <div class="form-group" id="c_group_tel">
                             <div class="phone-input-wrapper" id="phoneWrapper">
                                 <button type="button" class="phone-prefix-btn" onclick="toggleCountryDropdown()">
@@ -611,7 +796,6 @@
                                 <label class="form-label phone-active-label" style="top: -10px; font-size: 0.75rem; font-weight: 700;">Número de teléfono</label>
                             </div>
                             <span class="error-hint" id="c_hint_tel">El número está incompleto para este país.</span>
-                          
                             <div class="country-dropdown" id="countryDropdown">
                                 <div class="country-search">
                                     <input type="tel" id="c_search" placeholder="Buscar prefijo (ej. 57)" inputmode="numeric" oninput="filterCountries(event)">
@@ -624,19 +808,18 @@
                             <label class="form-label">Correo electrónico</label>
                             <span class="error-hint" id="c_hint_email">Ingrese un correo electrónico válido.</span>
                         </div>
-                      
                         <div class="form-group">
                             <textarea id="c_motivo" class="form-control" placeholder=" " maxlength="900" oninput="updateCharCounter()" required></textarea>
                             <label class="form-label">Motivo del mensaje</label>
                             <span class="char-counter" id="c_char_count">0/900 CARACTERES</span>
                         </div>
-                      
                         <button type="submit" class="submit-btn" id="c_submit_btn">ENVIAR MENSAJE</button>
                     </form>
                 </div>
             </div>
         </section>
     </main>
+
     <div class="success-modal-overlay" id="successModalOverlay">
         <div class="success-modal">
             <div class="sm-icon"><i class="fa-solid fa-check"></i></div>
@@ -645,6 +828,7 @@
             <button class="sm-btn" onclick="acceptContactSuccess()">ACEPTAR</button>
         </div>
     </div>
+
     <div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color: #4CAF50;"></i><span id="toast-msg">Mensaje enviado correctamente.</span></div>
 
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartMenu()"></div>
@@ -664,6 +848,7 @@
             <button class="cs-checkout-btn">PROCEDER AL PAGO</button>
         </div>
     </div>
+
     <footer>ANKOR© ALL RIGHTS RESERVED. BE UNSTOPPABLE.</footer>
 
     <script>
@@ -680,7 +865,7 @@
             document.getElementById('view-' + viewId).classList.add('active');
           
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(.nav-link[onclick="navigate('${viewId}')"]).forEach(el => el.classList.add('active'));
+            document.querySelectorAll('.nav-link[onclick="navigate(\'' + viewId + '\')"]').forEach(el => el.classList.add('active'));
             if(document.getElementById('mobileMenu').classList.contains('open')) { toggleMenu(); }
           
             if (viewId === 'home') {
@@ -700,6 +885,7 @@
                 card.classList.add('active');
             }
         }
+
         /* --- ANNOUNCEMENT --- */
         let tIndex = 0;
         const tickets = document.querySelectorAll('.ticket');
@@ -716,11 +902,12 @@
             if(annPaused) { clearInterval(annInterval); btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
             else { annInterval = setInterval(() => moveTicket(1), 4000); btn.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
         }
+
         /* --- HERO SLIDER --- */
         let hIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
         let heroTimer;
-      
+
         function moveHero(step) {
             if(!slides.length) return;
             const currentSlide = slides[hIndex];
@@ -734,18 +921,94 @@
             nextSlide.style.transition = 'transform var(--transition-strong)';
             nextSlide.style.transform = 'translateX(0)';
             nextSlide.classList.add('active');
+            updateHeroDots();           // ← actualiza dots al mover
             resetHeroTimer();
         }
+
         function autoHero() { moveHero(1); }
-        function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
-        resetHeroTimer();
+        function resetHeroTimer() { 
+            clearInterval(heroTimer); 
+            heroTimer = setInterval(autoHero, 5000); 
+        }
+
+        /* --- NUEVAS FUNCIONES PARA DOTS Y SWIPE CON DEDO --- */
+        function createHeroDots() {
+            const container = document.getElementById('heroDotsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'hero-dot';
+                if (i === hIndex) dot.classList.add('active');
+                dot.onclick = () => goToHeroSlide(i);
+                container.appendChild(dot);
+            });
+        }
+
+        function updateHeroDots() {
+            const container = document.getElementById('heroDotsContainer');
+            if (!container) return;
+            const dots = container.querySelectorAll('.hero-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === hIndex);
+            });
+        }
+
+        function goToHeroSlide(index) {
+            if (index === hIndex || index < 0 || index >= slides.length) return;
+            const currentSlide = slides[hIndex];
+            const nextSlide = slides[index];
+            const isNext = index > hIndex;
+
+            currentSlide.classList.remove('active');
+            currentSlide.style.transform = isNext ? 'translateX(-100%)' : 'translateX(100%)';
+
+            hIndex = index;
+
+            nextSlide.style.transition = 'none';
+            nextSlide.style.transform = isNext ? 'translateX(100%)' : 'translateX(-100%)';
+            void nextSlide.offsetWidth;
+            nextSlide.style.transition = 'transform var(--transition-strong)';
+            nextSlide.style.transform = 'translateX(0)';
+            nextSlide.classList.add('active');
+
+            updateHeroDots();
+            resetHeroTimer();
+        }
+
+        function initHeroTouch() {
+            const hero = document.getElementById('heroSlider');
+            if (!hero) return;
+
+            let touchStartX = 0;
+
+            hero.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                clearInterval(heroTimer); // pausa auto-slide mientras se desliza
+            }, { passive: true });
+
+            hero.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diff = touchStartX - touchEndX;
+
+                if (Math.abs(diff) > 50) { // umbral de swipe
+                    if (diff > 0) {
+                        moveHero(1); // swipe izquierda → siguiente banner
+                    } else {
+                        moveHero(-1); // swipe derecha → banner anterior
+                    }
+                }
+                resetHeroTimer(); // reanuda auto-slide
+            }, { passive: true });
+        }
+
         /* --- STORE RENDER --- */
-        const products = Array.from({length: 14}, (*, i) => {
-            const imgs = Array.from({length: 10}, (*, j) => https://picsum.photos/seed/${i*10 + j}/600/600);
+        const products = Array.from({length: 14}, (_, i) => {
+            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
             return {
                 id: i + 1,
-                name: ANKOR PRO GEAR v${i+1},
-                price: $${(40 + (i * 5)).toFixed(2)} USD,
+                name: `ANKOR PRO GEAR v${i+1}`,
+                price: `$${(40 + (i * 5)).toFixed(2)} USD`,
                 numPrice: (40 + (i * 5)),
                 imgs: imgs
             };
@@ -756,12 +1019,32 @@
             grid.innerHTML = products.map(p => {
                 const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
                 const reviews = Math.floor(Math.random() * 1000) + 50;
-                return <div class="product-item" onclick="openProductDetail(${p.id})"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-img-wrapper" id="pw-${p.id}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="prod-mini-carousel" id="mc-$$   {p.id}" onscroll="updateDots(   $${p.id})">${p.imgs.map(img => <img src="${img}" loading="lazy">).join('')}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-$$   {p.id}">   $${p.imgs.map((_, i) => <span class="dot ${i===0?'active':''}"></span>).join('')}</div></div></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-meta"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-title">${p.name}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-price">${p.price}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-reviews"><span class="rating-score">$$   {rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(   $${reviews})</span></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                return `<div class="product-item" onclick="openProductDetail(${p.id})">
+                    <div class="product-img-wrapper" id="pw-${p.id}">
+                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">
+                            ${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}
+                        </div>
+                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                        <div class="dots-container">
+                            <div class="dots-viewport">
+                                <div class="dots-track" id="track-${p.id}">
+                                    ${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">${p.price}</div>
+                        <div class="product-reviews"><span class="rating-score">${rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(${reviews})</span></div>
+                    </div>
+                </div>`;
             }).join('');
         }
         function scrollMini(e, id, step) {
             e.stopPropagation();
-            const carousel = document.getElementById(mc-${id});
+            const carousel = document.getElementById(`mc-${id}`);
             const scrollAmt = carousel.clientWidth;
             const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
             const currentScroll = Math.round(carousel.scrollLeft);
@@ -770,8 +1053,8 @@
             else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
         }
         function updateDots(id) {
-            const carousel = document.getElementById(mc-${id});
-            const track = document.getElementById(track-${id});
+            const carousel = document.getElementById(`mc-${id}`);
+            const track = document.getElementById(`track-${id}`);
             if(!carousel || !track) return;
             const scrollLeft = carousel.scrollLeft;
             const width = carousel.clientWidth;
@@ -784,8 +1067,9 @@
             let transX = -(index * 11) + 22;
             if(transX > 0) transX = 0;
             if(transX < -59) transX = -59;
-            track.style.transform = translateX(${transX}px);
+            track.style.transform = `translateX(${transX}px)`;
         }
+
         /* --- DETAIL VIEWER --- */
         let currentProductQty = 1;
         let currentOpenProductId = null;
@@ -799,7 +1083,7 @@
             if(!currentOpenProductId) return;
             const p = products.find(prod => prod.id === currentOpenProductId);
             const total = (p.numPrice * currentProductQty).toFixed(2);
-            document.getElementById('detailPrice').innerText = $${total} USD;
+            document.getElementById('detailPrice').innerText = `$${total} USD`;
         }
         function toggleAccordion(btn) {
             btn.classList.toggle("active");
@@ -815,8 +1099,8 @@
             updateDetailPrice();
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
-            mainC.innerHTML = p.imgs.map((src, idx) => <img src="${src}" id="main-img-${idx}">).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => <img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">).join('');
+            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
+            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
             mainC.onscroll = () => {
                 const centerPoint = mainC.scrollLeft + (mainC.clientWidth / 2);
                 let activeIndex = 0;
@@ -842,9 +1126,10 @@
         }
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
-            const imgTarget = document.getElementById(main-img-${index});
+            const imgTarget = document.getElementById(`main-img-${index}`);
             if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2), behavior: 'smooth' });
         }
+
         /* --- CONTACT SECTIONS & VALIDATIONS --- */
         const countryDB = [
             { name: "Estados Unidos / Canadá", code: "1", flag: "🇺🇸", max: 10 }, { name: "Rusia / Kazajistán", code: "7", flag: "🇷🇺", max: 10 },
@@ -876,7 +1161,7 @@
                 if(c.code.includes(filter)) {
                     const div = document.createElement('div');
                     div.className = 'country-item';
-                    div.innerHTML = <div class="country-item-left"><span>${c.flag}</span><span class="country-name">${c.name}</span></div><span class="country-code">+${c.code}</span>;
+                    div.innerHTML = `<div class="country-item-left"><span>${c.flag}</span><span class="country-name">${c.name}</span></div><span class="country-code">+${c.code}</span>`;
                     div.onclick = () => selectCountry(c);
                     list.appendChild(div);
                 }
@@ -900,7 +1185,6 @@
             document.getElementById('c_flag').innerText = country.flag;
             document.getElementById('c_prefix').innerText = "+" + country.code;
             document.getElementById('countryDropdown').classList.remove('active');
-          
             const telInput = document.getElementById('c_tel');
             telInput.value = "";
             validateContactPhone();
@@ -930,8 +1214,7 @@
             const ta = document.getElementById('c_motivo');
             const counter = document.getElementById('c_char_count');
             const len = ta.value.length;
-            counter.innerText = ${len}/900 CARACTERES;
-          
+            counter.innerText = `${len}/900 CARACTERES`;
             if(len >= 700) counter.classList.add('warning');
             else counter.classList.remove('warning');
         }
@@ -947,7 +1230,6 @@
                 if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
                     const val = this.value;
                     const char = e.key.toLowerCase();
-                  
                     if (val.length >= 2) {
                         const lastChar = val.slice(-1).toLowerCase();
                         const prevChar = val.slice(-2, -1).toLowerCase();
@@ -990,7 +1272,6 @@
                 }
             });
         }
-      
         setupRestrictedNameLimits('c_nombre', 'c_hint_nombre');
         setupRestrictedNameLimits('c_apellido', 'c_hint_apellido');
         function checkNameValidity(val) {
@@ -1061,18 +1342,17 @@
         function acceptContactSuccess() {
             document.getElementById('successModalOverlay').classList.remove('active');
             document.body.style.overflow = '';
-          
             document.getElementById('contactForm').reset();
             currentCountry = countryDB[0];
             document.getElementById('c_flag').innerText = currentCountry.flag;
             document.getElementById('c_prefix').innerText = "+" + currentCountry.code;
             updateCharCounter();
-          
             const btn = document.getElementById('c_submit_btn');
             btn.style.background = "var(--black)";
             btn.innerText = "ENVIAR MENSAJE";
             btn.disabled = false;
         }
+
         /* ======================== LÓGICA DE CARRITO ======================== */
         let shoppingCart = [];
         function saveCart() {
@@ -1091,13 +1371,11 @@
             syncCartWithStore();
             updateCartBadge();
         }
-        /* --- CART --- */
         function toggleCartMenu() {
             const sidebar = document.getElementById('cartSidebar');
             const overlay = document.getElementById('cartOverlay');
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
-          
             if (sidebar.classList.contains('open')) {
                 syncCartWithStore();
                 renderCartUI();
@@ -1106,16 +1384,13 @@
         function addProductToCart() {
             if (!currentOpenProductId) return;
             const p = products.find(prod => prod.id === currentOpenProductId);
-          
             const existing = shoppingCart.find(item => item.id === p.id);
             if (existing) {
                 existing.qty += currentProductQty;
             } else {
                 shoppingCart.push({ id: p.id, qty: currentProductQty });
             }
-          
             saveCart();
-          
             const cartBtn = document.getElementById('headerCartBtn');
             const cartIcon = cartBtn.querySelector('i');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
@@ -1172,211 +1447,200 @@
         function renderCartUI() {
             const list = document.getElementById('cartItemsList');
             const totalDisplay = document.getElementById('cartTotalValue');
-          
             if (shoppingCart.length === 0) {
-                list.innerHTML = <div class="cs-empty">Tu carrito está vacío.</div>;
-                totalDisplay.innerText = $0.00 USD;
+                list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`;
+                totalDisplay.innerText = '$0.00 USD';
                 return;
             }
-          
             let totalValue = 0;
             list.innerHTML = shoppingCart.map(item => {
                 const prod = products.find(pr => pr.id === item.id);
                 if (!prod) return '';
-              
                 const itemPrice = prod.numPrice * item.qty;
                 totalValue += itemPrice;
-              
                 return `<div class="cs-item">
                     <img src="${prod.imgs[0]}" class="cs-item-img">
                     <div class="cs-item-info">
                         <div class="cs-item-name">${prod.name}</div>
-                        <div class="cs-item-price">$$  {(itemPrice).toFixed(2)} USD</div>
+                        <div class="cs-item-price">$${(itemPrice).toFixed(2)} USD</div>
+                        <div class="cs-qty-control">
+                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
+                            <span class="cs-qty-val">${item.qty}</span>
+                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
+                </div>`;
+            }).join('');
+            totalDisplay.innerText = `$${(totalValue).toFixed(2)} USD`;
+        }
 
-<div class="cs-qty-control"> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button> <span class="cs-qty-val">${item.qty}</span> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button> </div> </div> <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button> </div>`; }).join('');
-totalDisplay.innerText = $${totalValue.toFixed(2)} USD;
-}
-/* --- NEWSLETTER LOGIC --- */
-let isNlChecked = false;
-let generatedNlCode = "";
-let pendingNlEmail = "";
-let nlTimer = null;
-function toggleNlCheckbox() {
-const btn = document.getElementById('nl_submit_btn');
-if(btn.classList.contains('joined')) return;
+        /* --- NEWSLETTER LOGIC --- */
+        let isNlChecked = false;
+        let generatedNlCode = "";
+        let pendingNlEmail = "";
+        let nlTimer = null;
+        function toggleNlCheckbox() {
+            const btn = document.getElementById('nl_submit_btn');
+            if(btn.classList.contains('joined')) return;
+            isNlChecked = !isNlChecked;
+            const cb = document.getElementById('nl_checkbox');
+            if(isNlChecked) { cb.classList.add('checked'); }
+            else { cb.classList.remove('checked'); }
+        }
+        function initNewsletter() {
+            const btn = document.getElementById('nl_submit_btn');
+            if(btn.classList.contains('joined')) return;
+            const emailInput = document.getElementById('nl_email');
+            const email = emailInput.value.trim();
+            if (!checkEmailValidity(email)) {
+                applyFieldError('nl_email', 'nl_hint_email', "Ingrese un correo electrónico válido.");
+                return;
+            }
+            if(!isNlChecked) {
+                document.getElementById('nl_checkbox').style.borderColor = "red";
+                setTimeout(() => document.getElementById('nl_checkbox').style.borderColor = "var(--black)", 1000);
+                return;
+            }
+            pendingNlEmail = email;
+            generatedNlCode = Math.floor(1000 + Math.random() * 9000).toString();
+            console.log("Código de prueba generado:", generatedNlCode);
+            document.getElementById('vm_email_display').innerText = pendingNlEmail;
+            document.getElementById('vm_wrong_email_display').innerText = pendingNlEmail;
+            for(let i=1; i<=4; i++) {
+                document.getElementById(`code_${i}`).value = '';
+                document.getElementById(`code_${i}`).style.borderColor = "var(--black)";
+            }
+            document.getElementById('vm_error_hint').style.display = 'none';
+            document.getElementById('verifyModalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            clearTimeout(nlTimer);
+            nlTimer = setTimeout(() => cancelNewsletter(), 900000);
+        }
+        function moveCodeFocus(input, index) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+            if(input.value.length === 1 && index < 4) {
+                document.getElementById(`code_${index + 1}`).focus();
+            }
+            document.getElementById('vm_error_hint').style.display = 'none';
+            for(let i=1; i<=4; i++) document.getElementById(`code_${i}`).style.borderColor = "var(--black)";
+        }
+        function verifyNewsletterCode() {
+            const code1 = document.getElementById('code_1').value;
+            const code2 = document.getElementById('code_2').value;
+            const code3 = document.getElementById('code_3').value;
+            const code4 = document.getElementById('code_4').value;
+            const userCode = `${code1}${code2}${code3}${code4}`;
+            if(userCode === generatedNlCode) {
+                clearTimeout(nlTimer);
+                document.getElementById('verifyModalOverlay').classList.remove('active');
+                document.body.style.overflow = '';
+                const toast = document.getElementById('floatingSuccess');
+                toast.classList.add('active');
+                lockNewsletterUI(pendingNlEmail);
+                localStorage.setItem('ankor_elite_email', pendingNlEmail);
+            } else {
+                document.getElementById('vm_error_hint').style.display = 'block';
+                for(let i=1; i<=4; i++) {
+                    document.getElementById(`code_${i}`).style.borderColor = "var(--error)";
+                    document.getElementById(`code_${i}`).value = '';
+                }
+                document.getElementById('code_1').focus();
+            }
+        }
+        function cancelNewsletter() {
+            document.getElementById('verifyModalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('nl_email').value = '';
+            pendingNlEmail = "";
+            generatedNlCode = "";
+        }
+        function lockNewsletterUI(email) {
+            const input = document.getElementById('nl_email');
+            const btn = document.getElementById('nl_submit_btn');
+            const anotherLink = document.getElementById('nl_another_email');
+            input.value = "";
+            input.placeholder = email;
+            input.disabled = true;
+            input.style.backgroundColor = "var(--light-gray)";
+            btn.classList.add('joined');
+            btn.innerText = "YA ERES PARTE DE LA ÉLITE.";
+            isNlChecked = false;
+            document.getElementById('nl_checkbox').classList.remove('checked');
+            anotherLink.style.display = "block";
+        }
+        function unlockNewsletter() {
+            const input = document.getElementById('nl_email');
+            const btn = document.getElementById('nl_submit_btn');
+            const anotherLink = document.getElementById('nl_another_email');
+            input.disabled = false;
+            input.style.backgroundColor = "var(--white)";
+            input.placeholder = "Escriba su correo electrónico";
+            input.value = "";
+            btn.classList.remove('joined');
+            btn.innerText = "UNIRME A LA ÉLITE";
+            anotherLink.style.display = "none";
+        }
+        function wrongEmailNewsletter() {
+            document.getElementById('verifyModalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            unlockNewsletter();
+        }
+        function checkNewsletterLock() {
+            const savedEmail = localStorage.getItem('ankor_elite_email');
+            if(savedEmail) {
+                lockNewsletterUI(savedEmail);
+            }
+        }
+        function closeFloatingSuccess() {
+            document.getElementById('floatingSuccess').classList.remove('active');
+        }
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
-isNlChecked = !isNlChecked;
-const cb = document.getElementById('nl_checkbox');
-if(isNlChecked) { cb.classList.add('checked'); }
-else { cb.classList.remove('checked'); }
-}
-function initNewsletter() {
-const btn = document.getElementById('nl_submit_btn');
-if(btn.classList.contains('joined')) return;
-const emailInput = document.getElementById('nl_email');
-const email = emailInput.value.trim();
-if (!checkEmailValidity(email)) {
-applyFieldError('nl_email', 'nl_hint_email', "Ingrese un correo electrónico válido.");
-return;
-}
-if(!isNlChecked) {
-document.getElementById('nl_checkbox').style.borderColor = "red";
-setTimeout(() => document.getElementById('nl_checkbox').style.borderColor = "var(--black)", 1000);
-return;
-}
-pendingNlEmail = email;
-generatedNlCode = Math.floor(1000 + Math.random() * 9000).toString();
-
-console.log("Código de prueba generado:", generatedNlCode);
-document.getElementById('vm_email_display').innerText = pendingNlEmail;
-document.getElementById('vm_wrong_email_display').innerText = pendingNlEmail;
-
-for(let i=1; i<=4; i++) {
-document.getElementById(code_${i}).value = '';
-document.getElementById(code_${i}).style.borderColor = "var(--black)";
-}
-document.getElementById('vm_error_hint').style.display = 'none';
-document.getElementById('verifyModalOverlay').classList.add('active');
-document.body.style.overflow = 'hidden';
-clearTimeout(nlTimer);
-nlTimer = setTimeout(() => cancelNewsletter(), 900000);
-}
-function moveCodeFocus(input, index) {
-input.value = input.value.replace(/[^0-9]/g, '');
-if(input.value.length === 1 && index < 4) {
-document.getElementById(code_${index + 1}).focus();
-}
-document.getElementById('vm_error_hint').style.display = 'none';
-for(let i=1; i<=4; i++) document.getElementById(code_${i}).style.borderColor = "var(--black)";
-}
-function verifyNewsletterCode() {
-const code1 = document.getElementById('code_1').value;
-const code2 = document.getElementById('code_2').value;
-const code3 = document.getElementById('code_3').value;
-const code4 = document.getElementById('code_4').value;
-
-const userCode = ${code1}${code2}${code3}${code4};
-if(userCode === generatedNlCode) {
-clearTimeout(nlTimer);
-document.getElementById('verifyModalOverlay').classList.remove('active');
-document.body.style.overflow = '';
-
-const toast = document.getElementById('floatingSuccess');
-toast.classList.add('active');
-
-lockNewsletterUI(pendingNlEmail);
-localStorage.setItem('ankor_elite_email', pendingNlEmail);
-} else {
-document.getElementById('vm_error_hint').style.display = 'block';
-for(let i=1; i<=4; i++) {
-document.getElementById(code_${i}).style.borderColor = "var(--error)";
-document.getElementById(code_${i}).value = '';
-}
-document.getElementById('code_1').focus();
-}
-}
-function cancelNewsletter() {
-document.getElementById('verifyModalOverlay').classList.remove('active');
-document.body.style.overflow = '';
-document.getElementById('nl_email').value = '';
-pendingNlEmail = "";
-generatedNlCode = "";
-}
-function lockNewsletterUI(email) {
-const input = document.getElementById('nl_email');
-const btn = document.getElementById('nl_submit_btn');
-const anotherLink = document.getElementById('nl_another_email');
-
-input.value = "";
-input.placeholder = email;
-input.disabled = true;
-input.style.backgroundColor = "var(--light-gray)";
-
-btn.classList.add('joined');
-btn.innerText = "YA ERES PARTE DE LA ÉLITE.";
-
-isNlChecked = false;
-document.getElementById('nl_checkbox').classList.remove('checked');
-anotherLink.style.display = "block";
-}
-function unlockNewsletter() {
-const input = document.getElementById('nl_email');
-const btn = document.getElementById('nl_submit_btn');
-const anotherLink = document.getElementById('nl_another_email');
-input.disabled = false;
-input.style.backgroundColor = "var(--white)";
-input.placeholder = "Escriba su correo electrónico";
-input.value = "";
-
-btn.classList.remove('joined');
-btn.innerText = "UNIRME A LA ÉLITE";
-
-anotherLink.style.display = "none";
-}
-function wrongEmailNewsletter() {
-document.getElementById('verifyModalOverlay').classList.remove('active');
-document.body.style.overflow = '';
-unlockNewsletter();
-}
-function checkNewsletterLock() {
-const savedEmail = localStorage.getItem('ankor_elite_email');
-if(savedEmail) {
-lockNewsletterUI(savedEmail);
-}
-}
-function closeFloatingSuccess() {
-document.getElementById('floatingSuccess').classList.remove('active');
-}
-function showToast(msg) {
-const toast = document.getElementById('toast');
-document.getElementById('toast-msg').innerText = msg;
-toast.classList.add('show');
-setTimeout(() => toast.classList.remove('show'), 3000);
-}
-
-/* ======================== BÚSQUEDA CON LUPA ======================== */
-function toggleSearch() {
-const overlay = document.getElementById('searchOverlay');
-const input = document.getElementById('searchInput');
-if (overlay.style.display === 'flex') {
-overlay.style.display = 'none';
-input.value = '';
-document.getElementById('searchResults').innerHTML = '';
-} else {
-overlay.style.display = 'flex';
-// En móvil el teclado aparece inmediatamente
-setTimeout(() => {
-input.focus();
-}, 10);
-}
-}
-
-function liveSearch() {
-const query = document.getElementById('searchInput').value.toLowerCase().trim();
-const resultsContainer = document.getElementById('searchResults');
-
-if (query === '') {
-resultsContainer.innerHTML = '';
-return;
-}
-
-// Solo buscar en productos de ANKOR STORE
-const filtered = products.filter(p =>
-p.name.toLowerCase().includes(query)
-);
-
-if (filtered.length === 0) {
-resultsContainer.innerHTML = <div class="no-results">NO SE ENCUENTRAN RESULTADOS</div>;
-return;
-}
-
-let html = '';
-filtered.forEach(p => {
-html += `
-
-<div class="search-result-item" onclick="selectSearchResult(${p.id})"> <img src=" $$ {p.imgs[0]}" alt=" $${p.name}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-info"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-name">${p.name}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-price">${p.price}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>`; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultsContainer.innerHTML = html; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+        /* ======================== BÚSQUEDA CON LUPA ======================== */
+        function toggleSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const input = document.getElementById('searchInput');
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+                input.value = '';
+                document.getElementById('searchResults').innerHTML = '';
+            } else {
+                overlay.style.display = 'flex';
+                setTimeout(() => { input.focus(); }, 10);
+            }
+        }
+        function liveSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            if (query === '') {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = `<div class="no-results">NO SE ENCUENTRAN RESULTADOS</div>`;
+                return;
+            }
+            let html = '';
+            filtered.forEach(p => {
+                html += `<div class="search-result-item" onclick="selectSearchResult(${p.id})">
+                    <img src="${p.imgs[0]}" alt="${p.name}">
+                    <div class="search-result-info">
+                        <div class="search-result-name">${p.name}</div>
+                        <div class="search-result-price">${p.price}</div>
+                    </div>
+                </div>`;
+            });
+            resultsContainer.innerHTML = html;
+        }
         function selectSearchResult(id) {
-            toggleSearch(); // cerrar búsqueda
+            toggleSearch();
             setTimeout(() => {
                 openProductDetail(id);
             }, 300);
@@ -1387,7 +1651,10 @@ html += `
             renderProducts();
             populateCountryList();
             loadPersistentData();
+            createHeroDots();      // ← crea los dos círculos
+            initHeroTouch();       // ← activa deslizar con dedo
+            resetHeroTimer();      // ← inicia auto-slide
         };
     </script>
-
-</body> </html>
+</body>
+</html>
