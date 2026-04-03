@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ANKOR | Official Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --text-muted: #666666;
-            --black: #000000;
-            --white: #ffffff;
-            --light-gray: #f5f5f5;
-            --border: #e0e0e0;
-            --error: #ff0000;
-            --transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-            --transition-smooth: 0.3s ease;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-      
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            width: 100vw;
-        }
-
+<!DOCTYPE html> <html lang="es"> <head> &nbsp;&nbsp;&nbsp;&nbsp;<meta charset="UTF-8"> &nbsp;&nbsp;&nbsp;&nbsp;<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> &nbsp;&nbsp;&nbsp;&nbsp;<title>ANKOR | Official Site</title> &nbsp;&nbsp;&nbsp;&nbsp;<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet"> &nbsp;&nbsp;&nbsp;&nbsp;<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<style> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:root { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--bg: #ffffff; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--text: #000000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--text-muted: #666666; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--black: #000000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--white: #ffffff; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--light-gray: #f5f5f5; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--border: #e0e0e0; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--error: #ff0000; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--transition-smooth: 0.3s ease; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* { box-sizing: border-box; margin: 0; padding: 0; } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-family: 'Inter', sans-serif; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background-color: var(--bg); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color: var(--text); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overflow-x: hidden; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-webkit-font-smoothing: antialiased; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 100vw; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
         /* --- EUROSTILE-EXTENDED BLACK PARA TODOS LOS TÍTULOS Y TEXTOS GRANDES --- */
         h1, h2, h3,
         .logo,
@@ -203,29 +171,8 @@
         @keyframes doubleJump { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-12px) scale(1.1); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.1); } }
         .cart-double-jump { animation: doubleJump 0.6s ease; }
         /* --- HERO SLIDER --- */
-        .hero-section { 
-            position: relative; 
-            width: 100%; 
-            aspect-ratio: 1 / 1; 
-            overflow: hidden; 
-            background: #111; 
-        }
-        .hero-slide { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-size: cover; 
-            background-position: center; 
-            transform: translateX(100%); 
-            transition: transform var(--transition-strong); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            text-align: center; 
-        }
+        .hero-section { position: relative; width: 100%; height: calc(100vh - 110px); overflow: hidden; background: #111; }
+        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transform: translateX(100%); transition: transform var(--transition-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .hero-slide.active { transform: translateX(0); z-index: 2; }
         .hero-slide::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 0; }
         .hero-content { position: relative; z-index: 10; padding: 20px; color: var(--white); }
@@ -237,6 +184,38 @@
         .btn-mas-info:hover span.text { text-decoration: underline; text-underline-offset: 4px; }
         .btn-mas-info:hover span.arrow { opacity: 1; width: 20px; transform: translateX(8px); }
         .btn-mas-info:hover { background: #111; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        @media (max-width: 768px) {  }
+        /* --- HERO DOTS --- */
+        .hero-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 30;
+            pointer-events: auto;
+        }
+        .hero-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            border: 2px solid rgba(255,255,255,0.9);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.2, 1);
+        }
+        .hero-dot.active {
+            background: var(--black);
+            border-color: var(--black);
+            transform: scale(1.3);
+        }
+        @media (max-width: 768px) {
+            .hero-dots { bottom: 25px; gap: 8px; }
+            .hero-dot { width: 10px; height: 10px; }
+        }
         /* --- SECTIONS LAYOUT --- */
         .section-container { max-width: 1400px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -1.5px; margin-bottom: 5px; }
@@ -434,47 +413,8 @@
             margin: 0 auto;
         }
     </style>
-</head>
-<body>
-    <div class="announcement-bar">
-        <button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="announcement-track" id="ticketTrack">
-            <div class="ticket active">BE UNSTOPPABLE.</div>
-            <div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div>
-            <div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div>
-            <div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div>
-        </div>
-        <div class="ann-controls-right">
-            <button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button>
-            <button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button>
-        </div>
-    </div>
-    <header>
-        <div class="header-left">
-            <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-        </div>
-        <div class="header-center">
-            <img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488929414484983878/25028-removebg-preview.png?ex=69ce9113&is=69cd3f93&hm=2dc43271ee01e62f4b373f5a4970e867213bb68ee4f5dc84c99741d58abfc4d5&" alt="ANKOR" class="logo" onclick="goHomeTop()" style="max-height: 52px; width: auto; display: block;">
-        </div>
-        <div class="header-right">
-            <nav class="desktop-nav">
-                <a class="nav-link active" onclick="navigate('home')">Home</a>
-                <a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a>
-                <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
-            </nav>
-            <div class="header-icons-container">
-                <!-- ÍCONO DE LUPA REEMPLAZANDO A LA PERSONITA -->
-                <button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
 
+</head> <body> &nbsp;&nbsp;&nbsp;&nbsp;<div class="announcement-bar"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow ann-prev" onclick="moveTicket(-1)"><i class="fa-solid fa-chevron-left"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="announcement-track" id="ticketTrack"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket active">BE UNSTOPPABLE.</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">NUEVA COLECCIÓN DISPONIBLE AHORA</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">ENVÍO GRATIS EN PEDIDOS SUPERIORES A $150</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ticket">BIENVENIDO A LA ÉLITE DE ANKOR</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="ann-controls-right"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow" onclick="moveTicket(1)"><i class="fa-solid fa-chevron-right"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="ann-arrow" id="pauseAnnBtn" onclick="togglePauseAnn()"><i class="fa-solid fa-pause"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;<header> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.discordapp.com/attachments/1485499221883748495/1488929414484983878/25028-removebg-preview.png?ex=69ce9113&is=69cd3f93&hm=2dc43271ee01e62f4b373f5a4970e867213bb68ee4f5dc84c99741d58abfc4d5&" alt="ANKOR" class="logo" onclick="goHomeTop()" style="max-height: 52px; width: auto; display: block;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-right"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<nav class="desktop-nav"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link active" onclick="navigate('home')">Home</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link" onclick="navigate('wc2027')">ANKOR WC 2027</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</nav> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="header-icons-container"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- ÍCONO DE LUPA REEMPLAZANDO A LA PERSONITA --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-cart-shopping"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="cartCountBadge" class="cart-badge" style="display:none;">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;</header>
     <!-- === BARRA DE BÚSQUEDA NUEVA (RECTÁNGULO HORIZONTAL BLANCO) === -->
     <div id="searchOverlay" class="search-overlay">
         <div class="search-bar">
@@ -487,7 +427,7 @@
 
     <div class="overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
-        <button class="close-menu" onclick="toggleMenu()">&times;</button>
+        <button class="close-menu" onclick="toggleMenu()">×</button>
         <a class="nav-link active" onclick="navigate('home')">Home</a>
         <a class="nav-link" onclick="navigate('wc2027')">ANKOR World Cup 2027</a>
         <a class="nav-link" onclick="navigate('contact')">Contacto ANKOR</a>
@@ -607,7 +547,7 @@
             </div>
         </div>
         <div class="floating-success" id="floatingSuccess">
-            <button class="fs-close" onclick="closeFloatingSuccess()">&times;</button>
+            <button class="fs-close" onclick="closeFloatingSuccess()">×</button>
             <div class="fs-icon"><i class="fa-solid fa-check"></i></div>
             <p id="fs-text" class="fs-text">Operación exitosa.</p>
         </div>
@@ -735,7 +675,7 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cs-header">
             <h3 class="cs-title">MI CARRITO</h3>
-            <button class="cs-close" onclick="toggleCartMenu()">&times;</button>
+            <button class="cs-close" onclick="toggleCartMenu()">×</button>
         </div>
         <div class="cs-body" id="cartItemsList">
             <div class="cs-empty">Tu carrito está vacío.</div>
@@ -764,7 +704,7 @@
             document.getElementById('view-' + viewId).classList.add('active');
           
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll(`.nav-link[onclick="navigate('${viewId}')"]`).forEach(el => el.classList.add('active'));
+            document.querySelectorAll(.nav-link[onclick="navigate('${viewId}')"]).forEach(el => el.classList.add('active'));
             if(document.getElementById('mobileMenu').classList.contains('open')) { toggleMenu(); }
           
             if (viewId === 'home') {
@@ -818,42 +758,47 @@
             nextSlide.style.transition = 'transform var(--transition-strong)';
             nextSlide.style.transform = 'translateX(0)';
             nextSlide.classList.add('active');
+            updateHeroDots();
             resetHeroTimer();
         }
         function autoHero() { moveHero(1); }
         function resetHeroTimer() { clearInterval(heroTimer); heroTimer = setInterval(autoHero, 5000); }
+        
+        /* --- HERO DOTS --- */
+        function createHeroDots() {
+            const heroSection = document.getElementById('heroSlider');
+            if (!heroSection || document.querySelector('.hero-dots')) return;
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'hero-dots';
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'hero-dot' + (index === hIndex ? ' active' : '');
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const targetIndex = index;
+                    const step = targetIndex - hIndex;
+                    moveHero(step);
+                });
+                dotsContainer.appendChild(dot);
+            });
+            heroSection.appendChild(dotsContainer);
+        }
+        function updateHeroDots() {
+            const dots = document.querySelectorAll('.hero-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === hIndex);
+            });
+        }
         resetHeroTimer();
-
-        /* --- HERO SWIPE SUPPORT (deslizar dedo izquierda/derecha) --- */
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const heroSlider = document.getElementById('heroSlider');
-
-        function handleTouchStart(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        }
-
-        function handleTouchEnd(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            const delta = touchStartX - touchEndX;
-            if (Math.abs(delta) > 50) { 
-                if (delta > 0) {
-                    moveHero(1); // swipe izquierda → siguiente banner
-                } else {
-                    moveHero(-1); // swipe derecha → banner anterior
-                }
-            }
-        }
-
         /* --- STORE RENDER --- */
-        const products = Array.from({length: 14}, (_, i) => {
-            const imgs = Array.from({length: 10}, (_, j) => `https://picsum.photos/seed/${i*10 + j}/600/600`);
-            return { 
-                id: i + 1, 
-                name: `ANKOR PRO GEAR v${i+1}`, 
-                price: `$${(40 + (i * 5)).toFixed(2)} USD`, 
-                numPrice: (40 + (i * 5)), 
-                imgs: imgs 
+        const products = Array.from({length: 14}, (*, i) => {
+            const imgs = Array.from({length: 10}, (*, j) => https://picsum.photos/seed/${i*10 + j}/600/600);
+            return {
+                id: i + 1,
+                name: ANKOR PRO GEAR v${i+1},
+                price: $${(40 + (i * 5)).toFixed(2)} USD,
+                numPrice: (40 + (i * 5)),
+                imgs: imgs
             };
         });
         const grid = document.getElementById('productGrid');
@@ -862,24 +807,12 @@
             grid.innerHTML = products.map(p => {
                 const rating = (Math.random() * (5 - 4) + 4).toFixed(1);
                 const reviews = Math.floor(Math.random() * 1000) + 50;
-                return `<div class="product-item" onclick="openProductDetail(${p.id})">
-                    <div class="product-img-wrapper" id="pw-${p.id}">
-                        <div class="prod-mini-carousel" id="mc-${p.id}" onscroll="updateDots(${p.id})">${p.imgs.map(img => `<img src="${img}" loading="lazy">`).join('')}</div>
-                        <button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-${p.id}">${p.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}"></span>`).join('')}</div></div></div>
-                    </div>
-                    <div class="product-meta">
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-price">${p.price}</div>
-                        <div class="product-reviews"><span class="rating-score">${rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(${reviews})</span></div>
-                    </div>
-                </div>`
+                return <div class="product-item" onclick="openProductDetail(${p.id})"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-img-wrapper" id="pw-${p.id}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="prod-mini-carousel" id="mc-$$   {p.id}" onscroll="updateDots(   $${p.id})">${p.imgs.map(img => <img src="${img}" loading="lazy">).join('')}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="p-arrow p-prev" onclick="scrollMini(event, ${p.id}, -1)"><i class="fa-solid fa-chevron-left"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="p-arrow p-next" onclick="scrollMini(event, ${p.id}, 1)"><i class="fa-solid fa-chevron-right"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="dots-container"><div class="dots-viewport"><div class="dots-track" id="track-$$   {p.id}">   $${p.imgs.map((_, i) => <span class="dot ${i===0?'active':''}"></span>).join('')}</div></div></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-meta"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-title">${p.name}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-price">${p.price}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="product-reviews"><span class="rating-score">$$   {rating}</span><span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span><span class="rating-count">(   $${reviews})</span></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             }).join('');
         }
         function scrollMini(e, id, step) {
             e.stopPropagation();
-            const carousel = document.getElementById(`mc-${id}`);
+            const carousel = document.getElementById(mc-${id});
             const scrollAmt = carousel.clientWidth;
             const maxScroll = Math.round(carousel.scrollWidth - carousel.clientWidth);
             const currentScroll = Math.round(carousel.scrollLeft);
@@ -888,8 +821,8 @@
             else { carousel.scrollBy({ left: scrollAmt * step, behavior: 'smooth' }); }
         }
         function updateDots(id) {
-            const carousel = document.getElementById(`mc-${id}`);
-            const track = document.getElementById(`track-${id}`);
+            const carousel = document.getElementById(mc-${id});
+            const track = document.getElementById(track-${id});
             if(!carousel || !track) return;
             const scrollLeft = carousel.scrollLeft;
             const width = carousel.clientWidth;
@@ -902,7 +835,7 @@
             let transX = -(index * 11) + 22;
             if(transX > 0) transX = 0;
             if(transX < -59) transX = -59;
-            track.style.transform = `translateX(${transX}px)`;
+            track.style.transform = translateX(${transX}px);
         }
         /* --- DETAIL VIEWER --- */
         let currentProductQty = 1;
@@ -917,7 +850,7 @@
             if(!currentOpenProductId) return;
             const p = products.find(prod => prod.id === currentOpenProductId);
             const total = (p.numPrice * currentProductQty).toFixed(2);
-            document.getElementById('detailPrice').innerText = `$${total} USD`;
+            document.getElementById('detailPrice').innerText = $${total} USD;
         }
         function toggleAccordion(btn) {
             btn.classList.toggle("active");
@@ -933,8 +866,8 @@
             updateDetailPrice();
             const mainC = document.getElementById('detailMainCarousel');
             const thumbC = document.getElementById('detailThumbCarousel');
-            mainC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" id="main-img-${idx}">`).join('');
-            thumbC.innerHTML = p.imgs.map((src, idx) => `<img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">`).join('');
+            mainC.innerHTML = p.imgs.map((src, idx) => <img src="${src}" id="main-img-${idx}">).join('');
+            thumbC.innerHTML = p.imgs.map((src, idx) => <img src="${src}" class="${idx===0 ? 'active':''}" onclick="syncCarousel(${idx})">).join('');
             mainC.onscroll = () => {
                 const centerPoint = mainC.scrollLeft + (mainC.clientWidth / 2);
                 let activeIndex = 0;
@@ -960,7 +893,7 @@
         }
         function syncCarousel(index) {
             const mainC = document.getElementById('detailMainCarousel');
-            const imgTarget = document.getElementById(`main-img-${index}`);
+            const imgTarget = document.getElementById(main-img-${index});
             if(imgTarget) mainC.scrollTo({ left: imgTarget.offsetLeft - (mainC.clientWidth / 2) + (imgTarget.offsetWidth / 2), behavior: 'smooth' });
         }
         /* --- CONTACT SECTIONS & VALIDATIONS --- */
@@ -994,7 +927,7 @@
                 if(c.code.includes(filter)) {
                     const div = document.createElement('div');
                     div.className = 'country-item';
-                    div.innerHTML = `<div class="country-item-left"><span>${c.flag}</span><span class="country-name">${c.name}</span></div><span class="country-code">+${c.code}</span>`;
+                    div.innerHTML = <div class="country-item-left"><span>${c.flag}</span><span class="country-name">${c.name}</span></div><span class="country-code">+${c.code}</span>;
                     div.onclick = () => selectCountry(c);
                     list.appendChild(div);
                 }
@@ -1048,7 +981,7 @@
             const ta = document.getElementById('c_motivo');
             const counter = document.getElementById('c_char_count');
             const len = ta.value.length;
-            counter.innerText = `${len}/900 CARACTERES`;
+            counter.innerText = ${len}/900 CARACTERES;
           
             if(len >= 700) counter.classList.add('warning');
             else counter.classList.remove('warning');
@@ -1292,8 +1225,8 @@
             const totalDisplay = document.getElementById('cartTotalValue');
           
             if (shoppingCart.length === 0) {
-                list.innerHTML = `<div class="cs-empty">Tu carrito está vacío.</div>`;
-                totalDisplay.innerText = `$0.00 USD`;
+                list.innerHTML = <div class="cs-empty">Tu carrito está vacío.</div>;
+                totalDisplay.innerText = $0.00 USD;
                 return;
             }
           
@@ -1309,207 +1242,192 @@
                     <img src="${prod.imgs[0]}" class="cs-item-img">
                     <div class="cs-item-info">
                         <div class="cs-item-name">${prod.name}</div>
-                        <div class="cs-item-price">$${(itemPrice).toFixed(2)} USD</div>
-                        <div class="cs-qty-control">
-                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
-                            <span class="cs-qty-val">${item.qty}</span>
-                            <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button>
-                </div>`;
-            }).join('');
-          
-            totalDisplay.innerText = `$${totalValue.toFixed(2)} USD`;
-        }
-        /* --- NEWSLETTER LOGIC --- */
-        let isNlChecked = false;
-        let generatedNlCode = "";
-        let pendingNlEmail = "";
-        let nlTimer = null;
-        function toggleNlCheckbox() {
-            const btn = document.getElementById('nl_submit_btn');
-            if(btn.classList.contains('joined')) return;
-          
-            isNlChecked = !isNlChecked;
-            const cb = document.getElementById('nl_checkbox');
-            if(isNlChecked) { cb.classList.add('checked'); }
-            else { cb.classList.remove('checked'); }
-        }
-        function initNewsletter() {
-            const btn = document.getElementById('nl_submit_btn');
-            if(btn.classList.contains('joined')) return;
-            const emailInput = document.getElementById('nl_email');
-            const email = emailInput.value.trim();
-            if (!checkEmailValidity(email)) {
-                applyFieldError('nl_email', 'nl_hint_email', "Ingrese un correo electrónico válido.");
-                return;
-            }
-            if(!isNlChecked) {
-                document.getElementById('nl_checkbox').style.borderColor = "red";
-                setTimeout(() => document.getElementById('nl_checkbox').style.borderColor = "var(--black)", 1000);
-                return;
-            }
-            pendingNlEmail = email;
-            generatedNlCode = Math.floor(1000 + Math.random() * 9000).toString();
-          
-            console.log("Código de prueba generado:", generatedNlCode);
-            document.getElementById('vm_email_display').innerText = pendingNlEmail;
-            document.getElementById('vm_wrong_email_display').innerText = pendingNlEmail;
-          
-            for(let i=1; i<=4; i++) {
-                document.getElementById(`code_${i}`).value = '';
-                document.getElementById(`code_${i}`).style.borderColor = "var(--black)";
-            }
-            document.getElementById('vm_error_hint').style.display = 'none';
-            document.getElementById('verifyModalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            clearTimeout(nlTimer);
-            nlTimer = setTimeout(() => cancelNewsletter(), 900000);
-        }
-        function moveCodeFocus(input, index) {
-            input.value = input.value.replace(/[^0-9]/g, '');
-            if(input.value.length === 1 && index < 4) {
-                document.getElementById(`code_${index + 1}`).focus();
-            }
-            document.getElementById('vm_error_hint').style.display = 'none';
-            for(let i=1; i<=4; i++) document.getElementById(`code_${i}`).style.borderColor = "var(--black)";
-        }
-        function verifyNewsletterCode() {
-            const code1 = document.getElementById('code_1').value;
-            const code2 = document.getElementById('code_2').value;
-            const code3 = document.getElementById('code_3').value;
-            const code4 = document.getElementById('code_4').value;
-          
-            const userCode = `${code1}${code2}${code3}${code4}`;
-            if(userCode === generatedNlCode) {
-                clearTimeout(nlTimer);
-                document.getElementById('verifyModalOverlay').classList.remove('active');
-                document.body.style.overflow = '';
-              
-                const toast = document.getElementById('floatingSuccess');
-                toast.classList.add('active');
-              
-                lockNewsletterUI(pendingNlEmail);
-                localStorage.setItem('ankor_elite_email', pendingNlEmail);
-            } else {
-                document.getElementById('vm_error_hint').style.display = 'block';
-                for(let i=1; i<=4; i++) {
-                    document.getElementById(`code_${i}`).style.borderColor = "var(--error)";
-                    document.getElementById(`code_${i}`).value = '';
-                }
-                document.getElementById('code_1').focus();
-            }
-        }
-        function cancelNewsletter() {
-            document.getElementById('verifyModalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-            document.getElementById('nl_email').value = '';
-            pendingNlEmail = "";
-            generatedNlCode = "";
-        }
-        function lockNewsletterUI(email) {
-            const input = document.getElementById('nl_email');
-            const btn = document.getElementById('nl_submit_btn');
-            const anotherLink = document.getElementById('nl_another_email');
-          
-            input.value = "";
-            input.placeholder = email;
-            input.disabled = true;
-            input.style.backgroundColor = "var(--light-gray)";
-          
-            btn.classList.add('joined');
-            btn.innerText = "YA ERES PARTE DE LA ÉLITE.";
-          
-            isNlChecked = false;
-            document.getElementById('nl_checkbox').classList.remove('checked');
-            anotherLink.style.display = "block";
-        }
-        function unlockNewsletter() {
-            const input = document.getElementById('nl_email');
-            const btn = document.getElementById('nl_submit_btn');
-            const anotherLink = document.getElementById('nl_another_email');
-            input.disabled = false;
-            input.style.backgroundColor = "var(--white)";
-            input.placeholder = "Escriba su correo electrónico";
-            input.value = "";
-          
-            btn.classList.remove('joined');
-            btn.innerText = "UNIRME A LA ÉLITE";
-          
-            anotherLink.style.display = "none";
-        }
-        function wrongEmailNewsletter() {
-            document.getElementById('verifyModalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-            unlockNewsletter();
-        }
-        function checkNewsletterLock() {
-            const savedEmail = localStorage.getItem('ankor_elite_email');
-            if(savedEmail) {
-                lockNewsletterUI(savedEmail);
-            }
-        }
-        function closeFloatingSuccess() {
-            document.getElementById('floatingSuccess').classList.remove('active');
-        }
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
+                        <div class="cs-item-price">$$  ${(itemPrice).toFixed(2)} USD</div>
 
-        /* ======================== BÚSQUEDA CON LUPA ======================== */
-        function toggleSearch() {
-            const overlay = document.getElementById('searchOverlay');
-            const input = document.getElementById('searchInput');
-            if (overlay.style.display === 'flex') {
-                overlay.style.display = 'none';
-                input.value = '';
-                document.getElementById('searchResults').innerHTML = '';
-            } else {
-                overlay.style.display = 'flex';
-                setTimeout(() => {
-                    input.focus();
-                }, 10);
-            }
-        }
+<div class="cs-qty-control"> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button> <span class="cs-qty-val">${item.qty}</span> <button class="cs-qty-btn" onclick="modifyCartQty(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button> </div> </div> <button class="cs-remove" onclick="removeCartItem(${item.id})"><i class="fa-solid fa-trash-can"></i></button> </div>`; }).join('');
+totalDisplay.innerText = $${totalValue.toFixed(2)} USD;
+}
+/* --- NEWSLETTER LOGIC --- */
+let isNlChecked = false;
+let generatedNlCode = "";
+let pendingNlEmail = "";
+let nlTimer = null;
+function toggleNlCheckbox() {
+const btn = document.getElementById('nl_submit_btn');
+if(btn.classList.contains('joined')) return;
 
-        function liveSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const resultsContainer = document.getElementById('searchResults');
-            
-            if (query === '') {
-                resultsContainer.innerHTML = '';
-                return;
-            }
+isNlChecked = !isNlChecked;
+const cb = document.getElementById('nl_checkbox');
+if(isNlChecked) { cb.classList.add('checked'); }
+else { cb.classList.remove('checked'); }
+}
+function initNewsletter() {
+const btn = document.getElementById('nl_submit_btn');
+if(btn.classList.contains('joined')) return;
+const emailInput = document.getElementById('nl_email');
+const email = emailInput.value.trim();
+if (!checkEmailValidity(email)) {
+applyFieldError('nl_email', 'nl_hint_email', "Ingrese un correo electrónico válido.");
+return;
+}
+if(!isNlChecked) {
+document.getElementById('nl_checkbox').style.borderColor = "red";
+setTimeout(() => document.getElementById('nl_checkbox').style.borderColor = "var(--black)", 1000);
+return;
+}
+pendingNlEmail = email;
+generatedNlCode = Math.floor(1000 + Math.random() * 9000).toString();
 
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(query)
-            );
+console.log("Código de prueba generado:", generatedNlCode);
+document.getElementById('vm_email_display').innerText = pendingNlEmail;
+document.getElementById('vm_wrong_email_display').innerText = pendingNlEmail;
 
-            if (filtered.length === 0) {
-                resultsContainer.innerHTML = `<div class="no-results">NO SE ENCUENTRAN RESULTADOS</div>`;
-                return;
-            }
+for(let i=1; i<=4; i++) {
+document.getElementById(code_${i}).value = '';
+document.getElementById(code_${i}).style.borderColor = "var(--black)";
+}
+document.getElementById('vm_error_hint').style.display = 'none';
+document.getElementById('verifyModalOverlay').classList.add('active');
+document.body.style.overflow = 'hidden';
+clearTimeout(nlTimer);
+nlTimer = setTimeout(() => cancelNewsletter(), 900000);
+}
+function moveCodeFocus(input, index) {
+input.value = input.value.replace(/[^0-9]/g, '');
+if(input.value.length === 1 && index < 4) {
+document.getElementById(code_${index + 1}).focus();
+}
+document.getElementById('vm_error_hint').style.display = 'none';
+for(let i=1; i<=4; i++) document.getElementById(code_${i}).style.borderColor = "var(--black)";
+}
+function verifyNewsletterCode() {
+const code1 = document.getElementById('code_1').value;
+const code2 = document.getElementById('code_2').value;
+const code3 = document.getElementById('code_3').value;
+const code4 = document.getElementById('code_4').value;
 
-            let html = '';
-            filtered.forEach(p => {
-                html += `
-                <div class="search-result-item" onclick="selectSearchResult(${p.id})">
-                    <img src="${p.imgs[0]}" alt="${p.name}">
-                    <div class="search-result-info">
-                        <div class="search-result-name">${p.name}</div>
-                        <div class="search-result-price">${p.price}</div>
-                    </div>
-                </div>`;
-            });
-            resultsContainer.innerHTML = html;
-        }
+const userCode = ${code1}${code2}${code3}${code4};
+if(userCode === generatedNlCode) {
+clearTimeout(nlTimer);
+document.getElementById('verifyModalOverlay').classList.remove('active');
+document.body.style.overflow = '';
 
+const toast = document.getElementById('floatingSuccess');
+toast.classList.add('active');
+
+lockNewsletterUI(pendingNlEmail);
+localStorage.setItem('ankor_elite_email', pendingNlEmail);
+} else {
+document.getElementById('vm_error_hint').style.display = 'block';
+for(let i=1; i<=4; i++) {
+document.getElementById(code_${i}).style.borderColor = "var(--error)";
+document.getElementById(code_${i}).value = '';
+}
+document.getElementById('code_1').focus();
+}
+}
+function cancelNewsletter() {
+document.getElementById('verifyModalOverlay').classList.remove('active');
+document.body.style.overflow = '';
+document.getElementById('nl_email').value = '';
+pendingNlEmail = "";
+generatedNlCode = "";
+}
+function lockNewsletterUI(email) {
+const input = document.getElementById('nl_email');
+const btn = document.getElementById('nl_submit_btn');
+const anotherLink = document.getElementById('nl_another_email');
+
+input.value = "";
+input.placeholder = email;
+input.disabled = true;
+input.style.backgroundColor = "var(--light-gray)";
+
+btn.classList.add('joined');
+btn.innerText = "YA ERES PARTE DE LA ÉLITE.";
+
+isNlChecked = false;
+document.getElementById('nl_checkbox').classList.remove('checked');
+anotherLink.style.display = "block";
+}
+function unlockNewsletter() {
+const input = document.getElementById('nl_email');
+const btn = document.getElementById('nl_submit_btn');
+const anotherLink = document.getElementById('nl_another_email');
+input.disabled = false;
+input.style.backgroundColor = "var(--white)";
+input.placeholder = "Escriba su correo electrónico";
+input.value = "";
+
+btn.classList.remove('joined');
+btn.innerText = "UNIRME A LA ÉLITE";
+
+anotherLink.style.display = "none";
+}
+function wrongEmailNewsletter() {
+document.getElementById('verifyModalOverlay').classList.remove('active');
+document.body.style.overflow = '';
+unlockNewsletter();
+}
+function checkNewsletterLock() {
+const savedEmail = localStorage.getItem('ankor_elite_email');
+if(savedEmail) {
+lockNewsletterUI(savedEmail);
+}
+}
+function closeFloatingSuccess() {
+document.getElementById('floatingSuccess').classList.remove('active');
+}
+function showToast(msg) {
+const toast = document.getElementById('toast');
+document.getElementById('toast-msg').innerText = msg;
+toast.classList.add('show');
+setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ======================== BÚSQUEDA CON LUPA ======================== */
+function toggleSearch() {
+const overlay = document.getElementById('searchOverlay');
+const input = document.getElementById('searchInput');
+if (overlay.style.display === 'flex') {
+overlay.style.display = 'none';
+input.value = '';
+document.getElementById('searchResults').innerHTML = '';
+} else {
+overlay.style.display = 'flex';
+// En móvil el teclado aparece inmediatamente
+setTimeout(() => {
+input.focus();
+}, 10);
+}
+}
+
+function liveSearch() {
+const query = document.getElementById('searchInput').value.toLowerCase().trim();
+const resultsContainer = document.getElementById('searchResults');
+
+if (query === '') {
+resultsContainer.innerHTML = '';
+return;
+}
+
+// Solo buscar en productos de ANKOR STORE
+const filtered = products.filter(p =>
+p.name.toLowerCase().includes(query)
+);
+
+if (filtered.length === 0) {
+resultsContainer.innerHTML = <div class="no-results">NO SE ENCUENTRAN RESULTADOS</div>;
+return;
+}
+
+let html = '';
+filtered.forEach(p => {
+html += `
+
+<div class="search-result-item" onclick="selectSearchResult(${p.id})"> <img src=" $$ {p.imgs[0]}" alt=" $${p.name}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-info"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-name">${p.name}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="search-result-price">${p.price}</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>`; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultsContainer.innerHTML = html; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
         function selectSearchResult(id) {
-            toggleSearch();
+            toggleSearch(); // cerrar búsqueda
             setTimeout(() => {
                 openProductDetail(id);
             }, 300);
@@ -1520,11 +1438,8 @@
             renderProducts();
             populateCountryList();
             loadPersistentData();
-
-            /* Activar swipe en el hero slider */
-            heroSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
-            heroSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
+            createHeroDots();
         };
     </script>
-</body>
-</html>
+
+</body> </html>
