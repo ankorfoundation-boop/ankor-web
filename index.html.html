@@ -564,8 +564,16 @@
                 <button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
+                <!-- NUEVO ICONO: BOLSA DE COMPRAS CON "U" (reemplaza al carrito) -->
                 <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--black);">
+                        <!-- Asa de la bolsa -->
+                        <path d="M8.5 7 Q8.5 4 12 4 Q15.5 4 15.5 7" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+                        <!-- Cuerpo de la bolsa con vértices redondeados -->
+                        <rect x="4" y="7" width="16" height="15" rx="2.8" ry="2.8" stroke="currentColor" stroke-width="1.9"/>
+                        <!-- Letra "U" dentro de la bolsa (parte superior) -->
+                        <text x="12" y="15.5" font-family="'Inter', sans-serif" font-size="6.8" font-weight="900" text-anchor="middle" dominant-baseline="middle" fill="currentColor">U</text>
+                    </svg>
                     <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
                 </button>
             </div>
@@ -1392,7 +1400,7 @@
             }
             saveCart();
             const cartBtn = document.getElementById('headerCartBtn');
-            const cartIcon = cartBtn.querySelector('i');
+            const cartIcon = cartBtn.querySelector('svg');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
             if (cartBtn && activeImg) {
                 const imgRect = activeImg.getBoundingClientRect();
