@@ -564,19 +564,15 @@
                 <button class="header-icon-btn" id="searchBtn" onclick="toggleSearch()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <!-- ICONO DEL CARRITO: EXACTAMENTE EL ICONO ADJUNTADO (bolsa de compras con asa y bordes redondeados) -->
+                
+                <!-- === PEGA AQUÍ TU URL DE IMAGEN DEL CARRITO === -->
+                <!-- Reemplaza la URL de abajo por la que tú quieras usar -->
                 <button class="header-icon-btn" id="headerCartBtn" onclick="toggleCartMenu()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--black);">
-                        <!-- Cuerpo de la bolsa con bordes redondeados en la parte inferior -->
-                        <path d="M6 8H18V19C18 20.1046 17.1046 21 16 21H8C6.89543 21 6 20.1046 6 19V8Z" stroke="currentColor" stroke-width="1.85" stroke-linejoin="round"/>
-                        <!-- Borde superior de la bolsa (barra horizontal) -->
-                        <rect x="6" y="7" width="12" height="1.6" rx="0.2" ry="0.2" stroke="currentColor" stroke-width="1.85"/>
-                        <!-- Asa superior grande (arco) -->
-                        <path d="M9.5 7 Q12 3.5 14.5 7" stroke="currentColor" stroke-width="1.85" fill="transparent"/>
-                        <!-- Dos pequeños bucles de fijación en la parte superior -->
-                        <path d="M9 8 L9.3 5.8 Q9.5 5 10 5" stroke="currentColor" stroke-width="1.5" fill="transparent"/>
-                        <path d="M15 8 L14.7 5.8 Q14.5 5 14 5" stroke="currentColor" stroke-width="1.5" fill="transparent"/>
-                    </svg>
+                    <img id="customCartIcon" src="https://TU-URL-DE-IMAGEN-DEL-CARRITO-AQUÍ.com/imagen.png" 
+                         alt="Carrito" 
+                         width="24" 
+                         height="24" 
+                         style="display:block; filter: brightness(0);">
                     <span id="cartCountBadge" class="cart-badge" style="display:none;">0</span>
                 </button>
             </div>
@@ -1403,7 +1399,7 @@
             }
             saveCart();
             const cartBtn = document.getElementById('headerCartBtn');
-            const cartIcon = cartBtn.querySelector('svg');
+            const cartIcon = cartBtn.querySelector('img');   // ← actualizado para la imagen personalizada
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
             if (cartBtn && activeImg) {
                 const imgRect = activeImg.getBoundingClientRect();
