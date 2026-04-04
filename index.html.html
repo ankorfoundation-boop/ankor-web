@@ -16,7 +16,8 @@
             --light-gray: #f5f5f5;
             --border: #e0e0e0;
             --error: #ff0000;
-            --transition-strong: 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+            /* Transición MUY FLUIDA para el banner hero */
+            --transition-strong: 0.75s cubic-bezier(0.25, 0.1, 0.25, 1);
             --transition-smooth: 0.3s ease;
         }
         * {
@@ -418,6 +419,15 @@
         .nl-input::placeholder { color: gray; }
         .nl-input.input-error { border-color: var(--error) !important; background: #fffcfc; }
       
+        /* MENSAJES DE ERROR OBLIGATORIOS - ROJOS Y PEQUEÑOS */
+        .error-hint {
+            display: none;
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
         .nl-checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 25px; text-align: left; cursor: pointer; }
         .nl-checkbox-custom { width: 20px; height: 20px; min-width: 20px; border: 1px solid var(--black); background: var(--white); transition: all 0.2s; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
         .nl-checkbox-custom.checked { background: gray; border-color: gray; }
@@ -682,7 +692,7 @@
                   
                     <div class="nl-input-wrapper">
                         <input type="email" id="nl_email" class="nl-input" placeholder="Escriba su correo electrónico">
-                        <span class="error-hint" id="nl_hint_email" style="display:none; margin-top:5px;">Ingrese un correo electrónico válido.</span>
+                        <span class="error-hint" id="nl_hint_email">Ingrese un correo electrónico válido.</span>
                     </div>
                     <div class="nl-checkbox-wrapper" onclick="toggleNlCheckbox()">
                         <div class="nl-checkbox-custom" id="nl_checkbox"></div>
@@ -709,7 +719,7 @@
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 3)" id="code_3">
                     <input type="text" class="vm-code-input" maxlength="1" oninput="moveCodeFocus(this, 4)" id="code_4">
                 </div>
-                <span class="error-hint" id="vm_error_hint" style="display:none; margin-bottom: 10px;">Código incorrecto. Intente de nuevo.</span>
+                <span class="error-hint" id="vm_error_hint">Código incorrecto. Intente de nuevo.</span>
                 <button class="vm-btn" onclick="verifyNewsletterCode()">VERIFICAR</button>
                 <p class="vm-wrong-email" onclick="wrongEmailNewsletter()">
                     ¿No eres tú <span id="vm_wrong_email_display" style="color: var(--black);"></span>?
@@ -1299,12 +1309,13 @@
             const input = document.getElementById(inputId);
             const hint = document.getElementById(hintId);
             input.classList.add('input-error');
-            hint.innerText = msg;
+            hint.textContent = msg;
             hint.style.display = 'block';
         }
         function clearFieldError(inputId, hintId) {
             document.getElementById(inputId).classList.remove('input-error');
-            document.getElementById(hintId).style.display = 'none';
+            const hint = document.getElementById(hintId);
+            hint.style.display = 'none';
         }
         ['c_nombre', 'c_apellido', 'c_email', 'nl_email'].forEach(id => {
             const el = document.getElementById(id);
@@ -1399,7 +1410,7 @@
             }
             saveCart();
             const cartBtn = document.getElementById('headerCartBtn');
-            const cartIcon = cartBtn.querySelector('img');   // ← actualizado para la imagen personalizada
+            const cartIcon = cartBtn.querySelector('img');
             const activeImg = document.querySelector('.main-carousel img.active') || document.querySelector('.main-carousel img');
             if (cartBtn && activeImg) {
                 const imgRect = activeImg.getBoundingClientRect();
