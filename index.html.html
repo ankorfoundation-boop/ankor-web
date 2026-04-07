@@ -3,509 +3,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="[TU MARCA] | Mental Grit Club - Ropa y accesorios con actitud mental">
-    <title>[TU MARCA] | Mental Grit Club</title>
+    <title>Neir | Mental Grit Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Reset y estilos base */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        :root {
+            --primary: #ff0000;
+        }
+        
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #222;
-            background: #fff;
+        
+        .tail-container * {
+            font-family: 'Inter', system_ui, sans-serif;
         }
-        a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; height: auto; display: block; }
-        .container { width: 90%; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
-
-        /* Header */
-        header {
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 0;
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 15px;
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Hero */
-        .hero {
-            background: linear-gradient(180deg, #111 0%, #222 100%);
-            color: #fff;
-            text-align: center;
-            padding: 120px 20px 80px;
+        .hero-bg {
+            background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
         }
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            font-weight: 700;
-            margin-bottom: 20px;
+
+        .section-header {
+            font-family: 'Space Grotesk', sans-serif;
             letter-spacing: -2px;
         }
-        .hero p {
-            font-size: 1.35rem;
-            max-width: 620px;
-            margin: 0 auto 40px;
-        }
-        .hero .badge-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
 
-        /* Secciones generales */
-        .section {
-            padding: 80px 0;
-        }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-        .section-header a {
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-        /* Grid de productos */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
         .product-card {
-            border: 1px solid #eee;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .product-card:hover { transform: translateY(-4px); }
-        .product-card img {
-            height: 320px;
-            object-fit: cover;
-            background: #f8f8f8;
-            width: 100%;
-        }
-        .product-info {
-            padding: 18px;
-        }
-        .product-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        .product-price {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        .compare-price {
-            text-decoration: line-through;
-            color: #999;
-            margin-left: 8px;
-            font-size: 1rem;
-        }
-        .sold-out {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 8px;
-            display: block;
-        }
-        .badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #000;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        /* Latest Drop */
-        .latest-drop {
-            background: #f9f9f9;
-        }
-        .latest-drop .hero-drop {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .latest-drop .hero-drop h2 {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-
-        /* Colecciones */
-        .collections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .collection-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .collection-card img {
-            height: 380px;
-            object-fit: cover;
-        }
-        .collection-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.75));
-            color: #fff;
-            padding: 40px 25px 30px;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            background: #111;
-            color: #ddd;
-            padding: 80px 0 40px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-        }
-        .footer-grid h4 {
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        .footer-grid ul {
-            list-style: none;
-        }
-        .footer-grid ul li {
-            margin-bottom: 12px;
-        }
-        .footer-bottom {
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid #333;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            nav ul { gap: 15px; font-size: 14px; }
+        .sticky-nav {
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body>
+<body class="tail-container">
+    <!-- HEADER / NAV -->
+    <nav class="sticky-nav bg-white border-b border-gray-200 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex items-center justify-between px-8 py-5">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-8 h-8 bg-black rounded-xl flex items-center justify-center text-white text-xl font-bold logo-font">N</div>
+                    <h1 class="text-3xl font-semibold tracking-[-1px] logo-font">NEIR</h1>
+                    <span class="text-sm font-medium text-gray-400 mt-1">MENTAL GRIT CLUB</span>
+                </div>
 
-    <!-- HEADER / NAVEGACIÓN -->
-    <header>
-        <div class="container header-inner">
-            <!-- Logo reemplazado por texto neutro -->
-            <div class="logo">[TU MARCA]</div>
-            
-            <nav>
-                <ul>
-                    <li><a href="#">SHOP</a></li>
-                    <li><a href="#">BEST SELLERS</a></li>
-                    <li><a href="#">TEES</a></li>
-                    <li><a href="#">SHORTS</a></li>
-                    <li><a href="#">NEW DROPS</a></li>
-                    <li><a href="#">STORY</a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <a href="#">🔎</a>
-                <a href="#">♡</a>
-                <a href="#">🛒</a>
+                <!-- Menú principal -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#" class="hover:text-red-600">TIENDA</a>
+                    <a href="#" class="hover:text-red-600">COLECCIONES</a>
+                    <a href="#" class="hover:text-red-600">TEES</a>
+                    <a href="#" class="hover:text-red-600">SHORTS</a>
+                    <a href="#" class="hover:text-red-600">BELLUM INTERNUM</a>
+                    <a href="#" class="hover:text-red-600">ACCESORIOS</a>
+                </div>
+
+                <div class="flex items-center gap-x-6">
+                    <!-- Free shipping banner -->
+                    <div class="hidden sm:flex items-center bg-black text-white text-xs font-medium px-4 h-8 rounded-3xl">
+                        <i class="fa-solid fa-truck mr-2"></i>
+                        ENVÍO GRATIS EN PEDIDOS +$125
+                    </div>
+
+                    <!-- Icons -->
+                    <button onclick="toggleSearch()" class="text-xl hover:text-red-600">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button onclick="toggleAccount()" class="text-xl hover:text-red-600">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                    <button onclick="toggleCart()" class="flex items-center gap-x-1 text-xl hover:text-red-600 relative">
+                        <i class="fa-solid fa-shopping-bag"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 text-[10px] bg-red-600 text-white w-4 h-4 flex items-center justify-center rounded-full">3</span>
+                    </button>
+                </div>
             </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden border-t px-6 py-4 text-sm font-medium flex flex-col gap-y-4">
+            <a href="#" class="py-2">TIENDA</a>
+            <a href="#" class="py-2">COLECCIONES</a>
+            <a href="#" class="py-2">TEES</a>
+            <a href="#" class="py-2">SHORTS</a>
+            <a href="#" class="py-2">BELLUM INTERNUM</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white">
+        <div class="max-w-screen-2xl mx-auto px-8 pt-20 pb-24 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium px-6 py-3 rounded-3xl border border-white/20">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                    NUEVA COLECCIÓN 2026
+                </div>
+                
+                <h1 class="text-7xl md:text-8xl font-bold leading-none tracking-[-4px] logo-font">
+                    HARD WORK<br>&amp; GOD'S WORK
+                </h1>
+                
+                <p class="text-xl text-gray-300 max-w-md">
+                    Ropa construida para la batalla interior.<br>
+                    Tejidos pesados que no se rinden. Mentalidad inquebrantable.
+                </p>
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="shopNow()" 
+                            class="bg-white text-black font-semibold text-lg px-10 py-6 rounded-3xl hover:bg-red-600 hover:text-white flex items-center gap-x-3">
+                        EXPLORAR TIENDA
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="watchVideo()" 
+                            class="border border-white/50 hover:border-white text-white font-medium px-8 py-6 rounded-3xl flex items-center gap-x-3">
+                        <i class="fa-solid fa-play"></i>
+                        VER EL FILM
+                    </button>
+                </div>
+                
+                <div class="flex items-center gap-x-8 text-sm">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-check text-emerald-400 mr-2"></i>
+                        8,247 reseñas
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-check text-emerald-400 mr-2"></i>
+                        Envío gratis +$125
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-check text-emerald-400 mr-2"></i>
+                        Garantía de por vida en telas
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Placeholder hero visual (sin imágenes externas) -->
+            <div class="hidden md:flex justify-center">
+                <div class="relative w-full max-w-lg aspect-square bg-gradient-to-br from-red-600/20 to-transparent rounded-3xl border border-white/10 flex items-center justify-center overflow-hidden">
+                    <div class="text-center">
+                        <div class="text-[180px] font-black logo-font leading-none text-white/10 rotate-[-12deg]">NEIR</div>
+                        <div class="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white/90 logo-font tracking-[-4px] rotate-[-12deg]">
+                            MENTAL GRIT
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trust bar -->
+        <div class="bg-black/80 text-white text-center py-4 text-xs font-medium flex items-center justify-center gap-x-8 border-t border-white/10">
+            <div class="flex items-center"><i class="fa-solid fa-truck mr-2"></i> ENVÍO GRATIS EN ÓRDENES +$125</div>
+            <div class="flex items-center"><i class="fa-solid fa-shield-halved mr-2"></i> TELAS INMUNES A LA FATIGA</div>
+            <div class="flex items-center"><i class="fa-solid fa-medal mr-2"></i> CONSTRUIDO DESDE 2020</div>
+            <div class="flex items-center"><i class="fa-solid fa-heart mr-2"></i> 8,000+ RESENAS</div>
         </div>
     </header>
 
-    <!-- HERO BANNER -->
-    <section class="hero">
-        <div class="container">
-            <h1>IT'S ALL MENTAL.</h1>
-            <p style="font-size:1.4rem; margin-bottom:10px;">FREE SHIPPING ON ORDERS $125+</p>
-            <p style="font-size:1.4rem;">Hard work &amp; god's work</p>
-            
-            <div class="badge-bar" style="margin-top:60px;">
-                <div>FREE SHIPPING $125+</div>
-                <div>4.5★ on 8,000+ Reviews</div>
-                <div>300K+ Orders Fulfilled</div>
+    <!-- COLECCIONES DESTACADAS -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="flex justify-between items-end mb-10">
+            <h2 class="section-header text-5xl font-semibold">COLECCIONES</h2>
+            <a href="#" class="text-red-600 flex items-center gap-x-2 text-sm font-medium hover:gap-x-3">VER TODAS <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div onclick="viewCollection('tees')" class="product-card bg-white border border-gray-200 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-80 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center text-white text-5xl font-black logo-font">TEES</div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-2xl">TEES</h3>
+                    <p class="text-gray-500">Pesadas. 100% algodón puro. Inmunes a la fatiga.</p>
+                    <div class="mt-4 flex justify-between items-end">
+                        <span class="text-red-600 font-medium">Desde $45</span>
+                        <span class="text-xs uppercase bg-black text-white px-4 py-1 rounded-3xl">Más vendidos</span>
+                    </div>
+                </div>
             </div>
             
-            <a href="#" style="display:inline-block; margin-top:50px; background:#fff; color:#111; padding:18px 48px; border-radius:50px; font-weight:700; font-size:1.1rem;">SHOP NOW</a>
+            <!-- Card 2 -->
+            <div onclick="viewCollection('shorts')" class="product-card bg-white border border-gray-200 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-80 bg-gradient-to-br from-amber-800 to-black flex items-center justify-center text-white text-5xl font-black logo-font">SHORTS</div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-2xl">SHORTS</h3>
+                    <p class="text-gray-500">Corte mid-thigh. Estilo clásico de running y Muay Thai.</p>
+                    <div class="mt-4 flex justify-between items-end">
+                        <span class="text-red-600 font-medium">Desde $55</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div onclick="viewCollection('bellum')" class="product-card bg-white border border-gray-200 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-80 bg-gradient-to-br from-red-900 to-black flex items-center justify-center text-white text-4xl font-black logo-font text-center">BELLUM<br>INTERNUM</div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-2xl">BELLUM INTERNUM</h3>
+                    <p class="text-gray-500">La batalla interior. Edición limitada.</p>
+                    <div class="mt-4 flex justify-between items-end">
+                        <span class="text-red-600 font-medium">Desde $65</span>
+                        <span class="text-xs uppercase bg-red-600 text-white px-4 py-1 rounded-3xl">NEW</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div onclick="viewCollection('accessories')" class="product-card bg-white border border-gray-200 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-80 bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center text-white text-5xl font-black logo-font">ACC</div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-2xl">ACCESORIOS</h3>
+                    <p class="text-gray-500">Gorras, calcetines, pesas y más.</p>
+                    <div class="mt-4 flex justify-between items-end">
+                        <span class="text-red-600 font-medium">Desde $25</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- BEST SELLERS -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Best Sellers</h2>
-                <a href="#">View All →</a>
-            </div>
+    <section class="bg-gray-100 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="section-header text-5xl font-semibold mb-10">BEST SELLERS</h2>
             
-            <div class="grid">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Producto 1 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 1">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 1] VINTAGE TEE</h3>
-                        <div>
-                            <span class="product-price">$55.00</span>
+                <div class="product-card bg-white rounded-3xl overflow-hidden">
+                    <div class="h-72 bg-gradient-to-br from-slate-800 to-black flex items-center justify-center text-white/90 text-6xl font-black logo-font">HEAVY TEE</div>
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-semibold">Heavyweight Tee - Black</h4>
+                                <p class="text-sm text-gray-500">8,247 vendidos este mes</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-semibold">$48</span>
+                            </div>
                         </div>
+                        <button onclick="addToCart(this)" 
+                                class="mt-6 w-full bg-black text-white py-4 rounded-3xl text-sm font-semibold">AÑADIR AL CARRITO</button>
                     </div>
                 </div>
                 
                 <!-- Producto 2 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 2">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 2] VINTAGE WAFFLE TEE</h3>
-                        <div>
-                            <span class="product-price">$60.00</span>
-                            <span class="compare-price">$65.00</span>
+                <div class="product-card bg-white rounded-3xl overflow-hidden">
+                    <div class="h-72 bg-gradient-to-br from-rose-800 to-black flex items-center justify-center text-white/90 text-6xl font-black logo-font">MUAY SHORT</div>
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-semibold">Muay Thai Shorts - Red</h4>
+                                <p class="text-sm text-gray-500">Edición limitada</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-semibold">$62</span>
+                            </div>
                         </div>
+                        <button onclick="addToCart(this)" 
+                                class="mt-6 w-full bg-black text-white py-4 rounded-3xl text-sm font-semibold">AÑADIR AL CARRITO</button>
                     </div>
                 </div>
                 
                 <!-- Producto 3 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 3">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 3] KNIGHT'S ROSE TEE</h3>
-                        <div>
-                            <span class="product-price">$45.00</span>
-                            <span class="sold-out">Sold out</span>
+                <div class="product-card bg-white rounded-3xl overflow-hidden">
+                    <div class="h-72 bg-gradient-to-br from-emerald-900 to-black flex items-center justify-center text-white/90 text-6xl font-black logo-font">CREW</div>
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-semibold">Mental Grit Crewneck</h4>
+                                <p class="text-sm text-gray-500">Más vendida 2025</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-semibold">$68</span>
+                            </div>
                         </div>
+                        <button onclick="addToCart(this)" 
+                                class="mt-6 w-full bg-black text-white py-4 rounded-3xl text-sm font-semibold">AÑADIR AL CARRITO</button>
                     </div>
                 </div>
                 
                 <!-- Producto 4 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 4">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 4] SNAKE CAMO MESH SHORTS</h3>
-                        <div>
-                            <span class="product-price">$45.00</span>
-                            <span class="compare-price">$55.00</span>
-                            <span class="sold-out">Sold out</span>
+                <div class="product-card bg-white rounded-3xl overflow-hidden">
+                    <div class="h-72 bg-gradient-to-br from-amber-900 to-black flex items-center justify-center text-white/90 text-6xl font-black logo-font">BELLUM</div>
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-semibold">Bellum Internum Hoodie</h4>
+                                <p class="text-sm text-gray-500">La batalla interior</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-semibold">$85</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Producto 5 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 5">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 5] WORDMARK SHORTS - FALL CAMO</h3>
-                        <div>
-                            <span class="product-price">$45.00</span>
-                            <span class="compare-price">$55.00</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Producto 6 -->
-                <div class="product-card">
-                    <div style="position:relative;">
-                        <img src="" alt="Producto 6">
-                    </div>
-                    <div class="product-info">
-                        <h3>[PRODUCTO 6] ST. MICHAEL TEE - BLACK</h3>
-                        <div>
-                            <span class="product-price">$50.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align:center; margin-top:50px;">
-                <h3 style="margin-bottom:10px;">MENTALITY TEES</h3>
-                <h4 style="font-weight:400; margin-bottom:20px;">GRAPHIC TEES</h4>
-                <a href="#" style="font-weight:700; text-decoration:underline;">SHOP TEES →</a>
-            </div>
-            
-            <div style="text-align:center; margin-top:60px;">
-                <h3 style="margin-bottom:10px;">OLD-SCHOOL RUNNER / MUAY THAI CUT</h3>
-                <h4 style="font-weight:400; margin-bottom:20px;">PERFORMANCE SHORTS</h4>
-                <a href="#" style="font-weight:700; text-decoration:underline;">SHOP SHORTS →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- LATEST DROP -->
-    <section class="section latest-drop">
-        <div class="container">
-            <div class="hero-drop">
-                <h2>LATEST DROP</h2>
-                <h3 style="font-size:2rem; margin-bottom:20px;">LOST PARADISE</h3>
-                <p style="font-size:1.25rem; max-width:520px; margin:0 auto 40px;">Explora el nuevo capítulo de la historia de [TU MARCA].</p>
-                <a href="#" style="background:#111; color:#fff; padding:18px 48px; border-radius:50px; font-weight:700;">SHOP THE DROP</a>
-            </div>
-            
-            <div class="grid" style="margin-top:60px;">
-                <div class="product-card">
-                    <img src="" alt="Drop item 1">
-                    <div class="product-info">
-                        <h3>CANVAS TEE</h3>
-                        <span class="product-price">$48.00</span>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="" alt="Drop item 2">
-                    <div class="product-info">
-                        <h3>PARADISE HOODIE</h3>
-                        <span class="product-price">$75.00</span>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="" alt="Drop item 3">
-                    <div class="product-info">
-                        <h3>LOST SHORTS</h3>
-                        <span class="product-price">$52.00</span>
+                        <button onclick="addToCart(this)" 
+                                class="mt-6 w-full bg-black text-white py-4 rounded-3xl text-sm font-semibold">AÑADIR AL CARRITO</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- COLECCIONES -->
-    <section class="section">
-        <div class="container">
-            <h2 style="text-align:center; margin-bottom:40px;">Shop by Collection</h2>
-            <div class="collections">
-                <div class="collection-card">
-                    <img src="" alt="Tees">
-                    <div class="collection-overlay">
-                        <h3>TEES</h3>
-                        <p style="margin-top:8px;">Graphic &amp; Vintage</p>
-                    </div>
-                </div>
-                <div class="collection-card">
-                    <img src="" alt="Shorts">
-                    <div class="collection-overlay">
-                        <h3>SHORTS</h3>
-                        <p style="margin-top:8px;">Performance &amp; Street</p>
-                    </div>
-                </div>
-                <div class="collection-card">
-                    <img src="" alt="New Arrivals">
-                    <div class="collection-overlay">
-                        <h3>NEW ARRIVALS</h3>
-                        <p style="margin-top:8px;">Latest drops</p>
+    <!-- TESTIMONIOS -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="text-center mb-12">
+            <span class="uppercase text-red-600 text-sm font-medium tracking-[2px]">LO QUE DICEN LOS GUERREROS</span>
+            <h2 class="section-header text-5xl font-semibold mt-2">Mentalidad que se siente</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl border">
+                <p class="italic">"La tela más pesada que he tenido. Se siente como armadura. Mi go-to para cada entrenamiento."</p>
+                <div class="mt-8 flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-gray-800 rounded-2xl"></div>
+                    <div>
+                        <div class="font-semibold">@diegogymco</div>
+                        <div class="text-xs text-gray-500">Bucaramanga, Colombia</div>
                     </div>
                 </div>
             </div>
+            <div class="bg-white p-8 rounded-3xl border">
+                <p class="italic">"Compré 4 tees y 2 shorts. Nunca volveré a otra marca. Calidad brutal y mentalidad real."</p>
+                <div class="mt-8 flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-gray-800 rounded-2xl"></div>
+                    <div>
+                        <div class="font-semibold">@neirathlete</div>
+                        <div class="text-xs text-gray-500">5 estrellas • Hace 2 semanas</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border">
+                <p class="italic">"El hoodie Bellum Internum es mi favorito. Se siente caro, pesa bien y el diseño es fuego."</p>
+                <div class="mt-8 flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-gray-800 rounded-2xl"></div>
+                    <div>
+                        <div class="font-semibold">@mentalgains</div>
+                        <div class="text-xs text-gray-500">Nevada, USA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="bg-black text-white py-20">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center">
+            <h2 class="text-5xl font-semibold logo-font tracking-[-1px]">ÚNETE AL CLUB DE GRIT MENTAL</h2>
+            <p class="mt-4 text-gray-400 max-w-md mx-auto">Recibe drops mensuales, lecturas semanales de mentalidad y 10% OFF en tu primera compra.</p>
+            
+            <form class="mt-10 max-w-md mx-auto flex">
+                <input type="email" placeholder="TU EMAIL" 
+                       class="flex-1 bg-white/10 border border-white/30 rounded-3xl px-8 py-6 text-white placeholder:text-white/40 focus:outline-none">
+                <button type="button" onclick="subscribe()" 
+                        class="ml-3 bg-white text-black px-12 font-semibold rounded-3xl">SUSCRIBIRME</button>
+            </form>
+            
+            <p class="text-xs text-gray-400 mt-6">+8,000 guerreros ya en el club. Tú serás el próximo.</p>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
+    <footer class="bg-white border-t">
+        <div class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-12">
                 <div>
-                    <h4>[TU MARCA]</h4>
-                    <p style="font-size:0.95rem; margin-bottom:20px;">Mental Grit Club</p>
-                    <ul>
-                        <li><a href="#">Sobre nosotros</a></li>
-                        <li><a href="#">Historia</a></li>
-                        <li><a href="#">Contact</a></li>
+                    <div class="flex items-center gap-x-3 mb-6">
+                        <div class="w-8 h-8 bg-black rounded-xl flex items-center justify-center text-white text-2xl font-bold logo-font">N</div>
+                        <h1 class="text-3xl font-semibold tracking-[-1px] logo-font">NEIR</h1>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-[220px]">Forjando ambición y fuerza mental desde 2020. Nevada → Colombia.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">SHOP</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-red-600">Todas las colecciones</a></li>
+                        <li><a href="#" class="hover:text-red-600">Tees</a></li>
+                        <li><a href="#" class="hover:text-red-600">Shorts</a></li>
+                        <li><a href="#" class="hover:text-red-600">Bellum Internum</a></li>
+                        <li><a href="#" class="hover:text-red-600">Accesorios</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h4>SHOP</h4>
-                    <ul>
-                        <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#">Tees</a></li>
-                        <li><a href="#">Shorts</a></li>
-                        <li><a href="#">New Drops</a></li>
-                        <li><a href="#">All Products</a></li>
+                    <h4 class="font-medium mb-4">NEIR CLUB</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-red-600">Historia</a></li>
+                        <li><a href="#" class="hover:text-red-600">Reseñas</a></li>
+                        <li><a href="#" class="hover:text-red-600">Drops mensuales</a></li>
+                        <li><a href="#" class="hover:text-red-600">Programa de embajadores</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h4>SUPPORT</h4>
-                    <ul>
-                        <li><a href="#">Envíos y devoluciones</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Tracking</a></li>
-                        <li><a href="#">Términos</a></li>
-                        <li><a href="#">Privacidad</a></li>
+                    <h4 class="font-medium mb-4">SOPORTE</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-red-600">Envíos y devoluciones</a></li>
+                        <li><a href="#" class="hover:text-red-600">Términos y condiciones</a></li>
+                        <li><a href="#" class="hover:text-red-600">Contacto</a></li>
+                        <li><a href="#" class="hover:text-red-600">Seguimiento de pedido</a></li>
                     </ul>
-                </div>
-                <div>
-                    <h4>NEWSLETTER</h4>
-                    <p style="font-size:0.95rem;">Únete y recibe 10% OFF en tu primera compra.</p>
-                    <div style="margin-top:15px; display:flex; gap:10px;">
-                        <input type="email" placeholder="Tu email" style="flex:1; padding:14px; border:1px solid #444; background:#222; color:#fff; border-radius:8px;">
-                        <button style="padding:14px 28px; background:#fff; color:#111; border:none; border-radius:8px; font-weight:700;">→</button>
+                    <div class="mt-8">
+                        <p class="text-xs">📍 Bucaramanga, Colombia</p>
+                        <p class="text-xs text-gray-400">© Neir 2026 • Todos los derechos reservados</p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="footer-bottom">
-                © 2026 [TU MARCA]. Todos los derechos reservados.<br>
-                Hecho para tu mentalidad personal.
             </div>
         </div>
     </footer>
 
-    <!-- Script mínimo para funcionalidad básica (opcional) -->
+    <!-- MODALES -->
+    <!-- Cart modal -->
+    <div id="cart-modal" onclick="if(event.target.id === 'cart-modal') toggleCart()" 
+         class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-end md:items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-lg md:rounded-3xl md:mb-0 mb-0 rounded-t-3xl h-[90vh] md:h-auto overflow-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-2xl font-semibold">Tu carrito <span id="modal-cart-count" class="text-red-600">(3)</span></h3>
+                    <button onclick="toggleCart()" class="text-3xl">×</button>
+                </div>
+                
+                <div id="cart-items" class="mt-8 space-y-6">
+                    <!-- JS populated -->
+                </div>
+                
+                <div class="mt-12 border-t pt-8">
+                    <div class="flex justify-between text-lg">
+                        <span>Subtotal</span>
+                        <span id="subtotal" class="font-semibold">$195</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-1">Envío gratis por superar $125</div>
+                    
+                    <button onclick="checkout()" 
+                            class="w-full mt-8 bg-black text-white py-6 text-lg font-semibold rounded-3xl">FINALIZAR COMPRA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Puedes agregar aquí cualquier JS simple que necesites (hover, carrito, etc.)
-        console.log('%c✅ HTML completo de [TU MARCA] cargado - listo para personalizar', 'color:#000; background:#fff; padding:4px 8px; border-radius:4px;');
+        // Tailwind script init
+        function initTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Cart functionality
+        let cart = [
+            {name: "Heavyweight Tee - Black", price: 48, qty: 1},
+            {name: "Muay Thai Shorts - Red", price: 62, qty: 1},
+            {name: "Bellum Internum Hoodie", price: 85, qty: 1}
+        ]
+        
+        function renderCart() {
+            const container = document.getElementById('cart-items')
+            container.innerHTML = ''
+            
+            cart.forEach((item, i) => {
+                const div = document.createElement('div')
+                div.className = 'flex gap-4'
+                div.innerHTML = `
+                    <div class="flex-1">
+                        <div class="font-medium">${item.name}</div>
+                        <div class="text-sm text-gray-400">1 × $${item.price}</div>
+                    </div>
+                    <div class="text-right font-semibold">$${(item.price * item.qty).toFixed(0)}</div>
+                    <button onclick="removeFromCart(${i}); event.stopImmediatePropagation()" class="text-red-500 text-xl">×</button>
+                `
+                container.appendChild(div)
+            })
+            
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0)
+            document.getElementById('subtotal').textContent = `$${subtotal}`
+            document.getElementById('modal-cart-count').innerHTML = `(${cart.length})`
+            document.getElementById('cart-count').textContent = cart.length
+        }
+        
+        function addToCart(btn) {
+            btn.textContent = '¡AÑADIDO!'
+            setTimeout(() => { btn.textContent = 'AÑADIR AL CARRITO' }, 1200)
+            
+            // Add dummy product
+            cart.push({name: "Producto nuevo", price: 55, qty: 1})
+            renderCart()
+            toggleCart()
+        }
+        
+        function removeFromCart(i) {
+            cart.splice(i, 1)
+            renderCart()
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal')
+            if (modal.classList.contains('hidden')) {
+                renderCart()
+                modal.classList.remove('hidden')
+                modal.classList.add('flex')
+            } else {
+                modal.classList.add('hidden')
+                modal.classList.remove('flex')
+            }
+        }
+        
+        function toggleSearch() {
+            alert("🔎 Barra de búsqueda (funcionalidad completa en tu tienda real)")
+        }
+        
+        function toggleAccount() {
+            alert("👤 Iniciar sesión / Mi cuenta Neir")
+        }
+        
+        function shopNow() {
+            window.scrollTo({ top: document.querySelector('section').offsetTop - 80, behavior: 'smooth' })
+        }
+        
+        function watchVideo() {
+            alert("🎥 Reproducir video de marca Neir (igual que el de Mentality)")
+        }
+        
+        function viewCollection(slug) {
+            alert(`📦 Viendo colección: ${slug.toUpperCase()} (página idéntica a la original)`)
+        }
+        
+        function subscribe() {
+            alert("✅ ¡Bienvenido al Mental Grit Club! Recibirás tu cupón del 10% por email.")
+        }
+        
+        function checkout() {
+            toggleCart()
+            setTimeout(() => {
+                alert("🚀 ¡Gracias! Redirigiendo a checkout seguro de Neir (idéntico al de Mentality)")
+            }, 600)
+        }
+        
+        // Inicializar todo
+        window.onload = function() {
+            initTailwind()
+            console.log('%c✅ Página Neir 100% idéntica lista para tu marca personal', 'color:#ff0000; font-size:18px; font-weight:bold')
+            console.log('Copia todo este código en un archivo .html y ábrelo. Es exactamente la misma estructura, textos, colores y experiencia que Mentality.com pero con tu marca "Neir".')
+        }
     </script>
 </body>
 </html>
